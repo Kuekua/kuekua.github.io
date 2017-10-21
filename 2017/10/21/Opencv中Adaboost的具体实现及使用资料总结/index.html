@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>Opencv中Adaboost的具体实现及使用资料总结 | Kuekua���˼��񲩿�</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="John Doe">
+  
+  
+    <meta name="description" content="1.opencv级联分类器训练
+
+opencv官方指南
+
+opencv级联分类器训练
+Tips：1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3.weightTrimRate：Specif">
+  
+  <meta name="description" content="1.opencv级联分类器训练  opencv官方指南  opencv级联分类器训练 Tips：1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3.weightTrimRate：Specif">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Opencv中Adaboost的具体实现及使用资料总结">
+<meta property="og:url" content="http://yoursite.com/2017/10/21/Opencv中Adaboost的具体实现及使用资料总结/index.html">
+<meta property="og:site_name" content="Kuekua���˼��񲩿�">
+<meta property="og:description" content="1.opencv级联分类器训练  opencv官方指南  opencv级联分类器训练 Tips：1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3.weightTrimRate：Specif">
+<meta property="og:updated_time" content="2017-10-21T10:28:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Opencv中Adaboost的具体实现及使用资料总结">
+<meta name="twitter:description" content="1.opencv级联分类器训练  opencv官方指南  opencv级联分类器训练 Tips：1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3.weightTrimRate：Specif">
+  
+    <link rel="alternate" href="/atom.xml" title="Kuekua���˼��񲩿�" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Kuekua���˼��񲩿�</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2017/10/21/Opencv中Adaboost的具体实现及使用资料总结/">
+  <time datetime="2017-10-21T10:26:42.000Z">
+    2017-10-21
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">Opencv中Adaboost的具体实现及使用资料总结</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <hr>
+<p><strong>1.opencv级联分类器训练</strong></p>
+<blockquote>
+<p><a href="http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/user_guide/ug_traincascade.html?highlight=opencv_traincascade" target="_blank" rel="external">opencv官方指南</a></p>
+</blockquote>
+<p><a href="http://blog.csdn.net/zdyueguanyun/article/details/8572385" target="_blank" rel="external">opencv级联分类器训练</a></p>
+<p>Tips：<br>1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。<br>2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。<br>3.weightTrimRate：Specifies whether trimming should be used and its weight. 一个还不错的数值是0.95。影响参与训练的样本，不管是正样本还是负样本，当更新完样本权重之后，将样本权重按照从小到大的顺序排列，当从后累加样本权重不小于weightTrimWeight时前面的样本就不参与后面的训练了，这里有一个优化是等于该阈值的样本还是参与训练的，这样可以在保证训练精度的基础上缩短检测时间，因为我们认为是样本权重很小的时候表示该样本被正确分类了，而忽略了样本很多的时候，尽管样本没有被正确分类，也可能被排除在外了。还有一种情况就是正样本比例悬殊的时候，例如1:20，当正样本完全分类正确了，那么正样本比例总和仅占4.8%，后续参与训练的正样本可能就没有了</p>
+<p><strong>2.1 Haar特征详细介绍</strong><br><a href="http://blog.csdn.net/zy1034092330/article/details/48850437" target="_blank" rel="external">Haar特征详细介绍</a><br>Tips：<br>  1..在保存分类器的OpenCV XML文件中，每一个Haar特征都被保存在2~3个形如<x y="" width="" height="" weight="">的标签中。<br>  2.计算完相应的特征值后，还会检测窗口的灰度值及灰度值平方进行压缩特征值范围。</x></p>
+<p>  <strong>2.2 积分图和45°旋转积分图</strong><br>  <a href="http://blog.csdn.net/zy1034092330/article/details/50383097" target="_blank" rel="external">积分图和45°旋转积分图</a><br>  Tips：<br>      Opencv对原积分图进行了“扩边”，积分图中第0行和第0列的值都为0。</p>
+<p><strong>2.3 级联分类器结构与XML文件含义</strong><br><a href="http://blog.csdn.net/zy1034092330/article/details/53231759" target="_blank" rel="external">级联分类器结构与XML文件含义</a><br>Tips:<br>1.一个完整的弱分类器包括：<br>a.若干个Haar特征 + 和Haar特征数量相等的弱分类器阈值<br>b. 若干个leftValue<br>c. 若干个rightValue<br>2.弱分类器中的idx用法很精妙，注意体会！<br>3.一般来说，如果用用硬件实现则缩小图像更快，用软件实现算法则放大检测窗口更快?</p>
+<p><strong>2.4 利用并查集合并检测窗口(NMS)</strong><br><a href="http://blog.csdn.net/zy1034092330/article/details/53231773" target="_blank" rel="external">利用并查集合并检测窗口(NMS)</a><br>Tips:<br>1.在partition函数中，体会nodes[root2][RANK] += rank == rank2（Line57）以及nodes[root][RANK] = ~nclasses++;（Line93）<br>思考：<br>    使用并查集可以明显看出其算法复杂程度为o(n2)，在实际应用中可以发现，其实有大量的检测框是重复的，即实际人脸数K《 检测框N！我们是否考虑在第二次循环时仅与每个集合的平均检测框进行匹配，匹配成功则更新这个集合的平均检测框数值，否则增加为新的集合，这样算法复杂度就为0(k*n).</p>
+<p><strong>2.5 AdaBoost之DAB与GAB</strong><br><a href="http://blog.csdn.net/zy1034092330/article/details/50445726" target="_blank" rel="external">AdaBoost之DAB与GAB</a><br>Tips:<br>GAB和DAB有2处不同，解释如下：</p>
+<ol>
+<li>DAB和GAB使用的分类器权重误差不一样，GAB是“weighted least-squares”，也就是上面的WSE。应该比较好理解。</li>
+<li>DAB和GAB的弱分类器对样本xi的f(xi)不一样。DAB的f(xi)不是+1就是-1；而GAB的f(xi)输出的是一种类似于概率的值。</li>
+</ol>
+<p><strong>2.6 minHitRate与maxFalseAlarm</strong><br><a href="http://blog.csdn.net/zy1034092330/article/details/54428704" target="_blank" rel="external">minHitRate与maxFalseAlarm</a><br>Tips:</p>
+<ol>
+<li>由于串联的stage数量很多，minHitRate必须非常接近1，才能保证最终检测器有较好的recall；</li>
+<li>falseAlarmRate相当于对检测器的precision作了约束；</li>
+<li>相对于maxFalseAlarmRate，minHitRate更加敏感。</li>
+</ol>
+<p><strong>2.7  分类器训练过程</strong><br><a href="http://blog.csdn.net/zy1034092330/article/details/54600014" target="_blank" rel="external">分类器训练过程</a><br>Tips:<br>整个分类器的训练过程可以分为以下几个步骤：</p>
+<ol>
+<li>寻找TP和FP作为训练样本</li>
+<li>计算每个Haar特征在当前权重下的Best split threshold+leftvalue+rightvalue，组成了一个个弱分类器</li>
+<li>通过WSE寻找最优的弱分类器</li>
+<li>更新权重</li>
+<li>按照minHitRate估计stageThreshold</li>
+<li>重复上述1-5步骤，直到falseAlarmRate到达要求，或弱分类器数量足够。停止循环，输出stage。</li>
+<li>进入下一个stage训练</li>
+</ol>
+<p>2.8 代码分析<br><a href="http://blog.csdn.net/zhaocj/article/details/54291762" target="_blank" rel="external">Opencv2.4.9源码分析——Cascade Classification（二）</a></p>
+
+    
+  </div>
+  <footer>
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2017 <a href="/">John Doe</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>
