@@ -91,18 +91,22 @@
 
         <div id="main" >
             <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Opencv中Adaboost的具体实现及使用资料总结</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 ></h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
                 <hr>
+<p>title: Opencv中Adaboost的具体实现及使用资料总结<br>date: 2017-10-21 18:26:42</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><h2 id="categories"><a href="#categories" class="headerlink" title="categories:"></a>categories:</h2><p>机器学习</p>
+<p>thumbnail:<br><a href="images/adaboost.jpg">images/adaboost.jpg</a>    略缩图 </p>
+<hr>
 <p><strong>1.opencv级联分类器训练</strong></p>
 <blockquote>
 <p><a href="http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/user_guide/ug_traincascade.html?highlight=opencv_traincascade" target="_blank" rel="external">opencv官方指南</a></p>
 </blockquote>
 <p><a href="http://blog.csdn.net/zdyueguanyun/article/details/8572385" target="_blank" rel="external">opencv级联分类器训练</a></p>
 <p>Tips：<br>1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。<br>2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。<br>3.weightTrimRate：Specifies whether trimming should be used and its weight. 一个还不错的数值是0.95。影响参与训练的样本，不管是正样本还是负样本，当更新完样本权重之后，将样本权重按照从小到大的顺序排列，当从后累加样本权重不小于weightTrimWeight时前面的样本就不参与后面的训练了，这里有一个优化是等于该阈值的样本还是参与训练的，这样可以在保证训练精度的基础上缩短检测时间，因为我们认为是样本权重很小的时候表示该样本被正确分类了，而忽略了样本很多的时候，尽管样本没有被正确分类，也可能被排除在外了。还有一种情况就是正样本比例悬殊的时候，例如1:20，当正样本完全分类正确了，那么正样本比例总和仅占4.8%，后续参与训练的正样本可能就没有了</p>
-<p><strong>2.1 Haar特征详细介绍</strong><br><a href="http://blog.csdn.net/zy1034092330/article/details/48850437" target="_blank" rel="external">Haar特征详细介绍</a><br>Tips：<br>  1..在保存分类器的OpenCV XML文件中，每一个Haar特征都被保存在2~3个形如<x y="" width="" height="" weight="">的标签中。<br>  2.计算完相应的特征值后，还会检测窗口的灰度值及灰度值平方进行压缩特征值范围。</x></p>
+<p><strong>2.1 Haar特征详细介绍</strong><br><a href="http://blog.csdn.net/zy1034092330/article/details/48850437" target="_blank" rel="external">Haar特征详细介绍</a><br>Tips：<br>  1..在保存分类器的OpenCV XML文件中，每一个Haar特征都被保存在2~3个形如&lt;x y width height weight&gt;的标签中。<br>  2.计算完相应的特征值后，还会检测窗口的灰度值及灰度值平方进行压缩特征值范围。</p>
 <p>  <strong>2.2 积分图和45°旋转积分图</strong><br>  <a href="http://blog.csdn.net/zy1034092330/article/details/50383097" target="_blank" rel="external">积分图和45°旋转积分图</a><br>  Tips：<br>      Opencv对原积分图进行了“扩边”，积分图中第0行和第0列的值都为0。</p>
 <p><strong>2.3 级联分类器结构与XML文件含义</strong><br><a href="http://blog.csdn.net/zy1034092330/article/details/53231759" target="_blank" rel="external">级联分类器结构与XML文件含义</a><br>Tips:<br>1.一个完整的弱分类器包括：<br>a.若干个Haar特征 + 和Haar特征数量相等的弱分类器阈值<br>b. 若干个leftValue<br>c. 若干个rightValue<br>2.弱分类器中的idx用法很精妙，注意体会！<br>3.一般来说，如果用用硬件实现则缩小图像更快，用软件实现算法则放大检测窗口更快?</p>
 <p><strong>2.4 利用并查集合并检测窗口(NMS)</strong><br><a href="http://blog.csdn.net/zy1034092330/article/details/53231773" target="_blank" rel="external">利用并查集合并检测窗口(NMS)</a><br>Tips:<br>1.在partition函数中，体会nodes[root2][RANK] += rank == rank2（Line57）以及nodes[root][RANK] = ~nclasses++;（Line93）<br>思考：<br>    使用并查集可以明显看出其算法复杂程度为o(n2)，在实际应用中可以发现，其实有大量的检测框是重复的，即实际人脸数K《 检测框N！我们是否考虑在第二次循环时仅与每个集合的平均检测框进行匹配，匹配成功则更新这个集合的平均检测框数值，否则增加为新的集合，这样算法复杂度就为0(k*n).</p>
