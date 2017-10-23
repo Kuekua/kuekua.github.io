@@ -16,17 +16,18 @@
     
     
 
-    <meta name="description" content="date: 2017-10-21 18:26:42tags: Machine Learningcategories: Machine Learning 1.opencv级联分类器训练 opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高">
+    <meta name="description" content="1.opencv级联分类器训练 opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3.weightTrimRate：Specifi">
+<meta name="keywords" content="Machine Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Opencv中Adaboost的具体实现及使用资料总结 | Kuekua&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/2017/10/23/Opencv中Adaboost的具体实现及使用资料总结/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/10/21/Opencv中Adaboost的具体实现及使用资料总结/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="date: 2017-10-21 18:26:42tags: Machine Learningcategories: Machine Learning 1.opencv级联分类器训练 opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高">
+<meta property="og:description" content="1.opencv级联分类器训练 opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3.weightTrimRate：Specifi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-23T13:40:28.000Z">
+<meta property="og:updated_time" content="2017-10-23T14:16:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Opencv中Adaboost的具体实现及使用资料总结 | Kuekua&#39;s blog">
-<meta name="twitter:description" content="date: 2017-10-21 18:26:42tags: Machine Learningcategories: Machine Learning 1.opencv级联分类器训练 opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高">
+<meta name="twitter:description" content="1.opencv级联分类器训练 opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3.weightTrimRate：Specifi">
     
     
     
@@ -160,12 +161,22 @@ classes that you can use:
     
 
     <div class="post-meta">
-      <time datetime="2017-10-23" class="post-meta__date date">2017-10-23</time> 
+      <time datetime="2017-10-21" class="post-meta__date date">2017-10-21</time> 
 
       <span class="post-meta__tags tags">
 
           
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Machine-Learning/">Machine Learning</a>
+            </font>
+          
 
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
           
 
       </span>
@@ -176,8 +187,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>date: 2017-10-21 18:26:42<br>tags: Machine Learning<br>categories: Machine Learning</p>
-<h1 id="1-opencv级联分类器训练"><a href="#1-opencv级联分类器训练" class="headerlink" title="1.opencv级联分类器训练"></a>1.opencv级联分类器训练</h1><blockquote>
+    <h1 id="1-opencv级联分类器训练"><a href="#1-opencv级联分类器训练" class="headerlink" title="1.opencv级联分类器训练"></a>1.opencv级联分类器训练</h1><blockquote>
 <p><a href="http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/user_guide/ug_traincascade.html?highlight=opencv_traincascade" target="_blank" rel="external">opencv官方指南</a></p>
 </blockquote>
 <p><a href="http://blog.csdn.net/zdyueguanyun/article/details/8572385" target="_blank" rel="external">opencv级联分类器训练</a></p>
@@ -279,7 +289,7 @@ classes that you can use:
 				displayNow: true,
 				title: "文章目录",
 				css: {
-					fontSize: "22px",
+					fontSize: "16px",
 					largeFontSize: "20px",
 					},
             });
