@@ -17,14 +17,14 @@
     
 
     <meta name="description" content="1.opencv级联分类器训练 opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3.weightTrimRate：Specifi">
-<meta name="keywords" content="Machine Learning">
+<meta name="keywords" content="Machine Learning,Image Processing,algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Opencv中Adaboost的具体实现及使用资料总结 | Kuekua&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/2017/10/21/Opencv中Adaboost的具体实现及使用资料总结/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
 <meta property="og:description" content="1.opencv级联分类器训练 opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3.weightTrimRate：Specifi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-23T14:16:20.000Z">
+<meta property="og:updated_time" content="2017-10-23T14:29:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Opencv中Adaboost的具体实现及使用资料总结 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1.opencv级联分类器训练 opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3.weightTrimRate：Specifi">
@@ -175,7 +175,7 @@ classes that you can use:
           
              &#8226; 标签:
             <font class="tags">
-              <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+              <a class="tags-link" href="/tags/Image-Processing/">Image Processing</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>, <a class="tags-link" href="/tags/algorithm/">algorithm</a>
             </font>
           
 
@@ -198,8 +198,8 @@ classes that you can use:
 <p>  1..在保存分类器的OpenCV XML文件中，每一个Haar特征都被保存在2~3个形如&lt;x y width height weight&gt;的标签中。<br>  2.计算完相应的特征值后，还会检测窗口的灰度值及灰度值平方进行压缩特征值范围。</p>
 <h2 id="2-2-积分图和45°旋转积分图"><a href="#2-2-积分图和45°旋转积分图" class="headerlink" title="2.2 积分图和45°旋转积分图"></a>2.2 积分图和45°旋转积分图</h2><p>  <a href="http://blog.csdn.net/zy1034092330/article/details/50383097" target="_blank" rel="external">积分图和45°旋转积分图</a></p>
 <p><strong>Tips：</strong></p>
-<pre><code>Opencv对原积分图进行了“扩边”，积分图中第0行和第0列的值都为0。
-</code></pre><h2 id="2-3-级联分类器结构与XML文件含义"><a href="#2-3-级联分类器结构与XML文件含义" class="headerlink" title="2.3 级联分类器结构与XML文件含义"></a>2.3 级联分类器结构与XML文件含义</h2><p><a href="http://blog.csdn.net/zy1034092330/article/details/53231759" target="_blank" rel="external">级联分类器结构与XML文件含义</a></p>
+<p>Opencv对原积分图进行了“扩边”，积分图中第0行和第0列的值都为0。</p>
+<h2 id="2-3-级联分类器结构与XML文件含义"><a href="#2-3-级联分类器结构与XML文件含义" class="headerlink" title="2.3 级联分类器结构与XML文件含义"></a>2.3 级联分类器结构与XML文件含义</h2><p><a href="http://blog.csdn.net/zy1034092330/article/details/53231759" target="_blank" rel="external">级联分类器结构与XML文件含义</a></p>
 <p><strong>Tips:</strong></p>
 <p>1.一个完整的弱分类器包括： </p>
 <p>a.若干个Haar特征 + 和Haar特征数量相等的弱分类器阈值</p>
