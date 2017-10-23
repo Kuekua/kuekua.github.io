@@ -7,7 +7,7 @@
     
 
     <title>
-      Opencv中Adaboost的具体实现及使用资料总结 | Kuekua&#39;s blog 
+      白平衡算法总结 | Kuekua&#39;s blog 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,18 +16,18 @@
     
     
 
-    <meta name="description" content="1.基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果 TIPS:  灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。  完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此">
+    <meta name="description" content="1.图像自动白平衡算法的原理、实现及效果基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果 TIPS:  灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。  完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最">
 <meta name="keywords" content="Machine Learning,Image Processing,algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Opencv中Adaboost的具体实现及使用资料总结 | Kuekua&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/2017/10/21/白平衡算法总结/index.html">
+<meta property="og:title" content="白平衡算法总结 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/06/21/白平衡算法总结/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="1.基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果 TIPS:  灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。  完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此">
+<meta property="og:description" content="1.图像自动白平衡算法的原理、实现及效果基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果 TIPS:  灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。  完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-23T14:29:24.000Z">
+<meta property="og:updated_time" content="2017-10-23T14:32:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Opencv中Adaboost的具体实现及使用资料总结 | Kuekua&#39;s blog">
-<meta name="twitter:description" content="1.基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果 TIPS:  灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。  完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此">
+<meta name="twitter:title" content="白平衡算法总结 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="1.图像自动白平衡算法的原理、实现及效果基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果 TIPS:  灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。  完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最">
     
     
     
@@ -156,12 +156,12 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">Opencv中Adaboost的具体实现及使用资料总结</h1>
+    <h1 class="post-title">白平衡算法总结</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2017-10-21" class="post-meta__date date">2017-10-21</time> 
+      <time datetime="2017-06-21" class="post-meta__date date">2017-06-21</time> 
 
       <span class="post-meta__tags tags">
 
@@ -187,7 +187,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h1 id="1-基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果"><a href="#1-基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果"></a>1.基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
+    <h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
 <p><strong>TIPS:</strong></p>
 <ol>
 <li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
