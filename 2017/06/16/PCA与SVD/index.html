@@ -17,7 +17,7 @@
     
 
     <meta name="description" content="1. PCA算法1.1 PCA的数学原理转载：  PCA的数学原理  PCA的算法步骤： 设有m条n维数据。 1）将原始数据按列组成n行m列矩阵X 2）将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3）求出协方差矩阵  $$C=1_mXX^T$$ 4）求出协方差矩阵的特征值及对应的特征向量 5）将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6）  Y=P">
-<meta name="keywords" content="Math,Algorithm">
+<meta name="keywords" content="Algorithm,Math">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PCA与SVD | Kuekua&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/2017/06/16/PCA与SVD/index.html">
@@ -38,6 +38,8 @@
 /cnblogs_com/LeftNotEasy/201101/201101192226348223.png">
     
     
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
     
     <link rel="stylesheet" href="/css/uno.css">
     <link rel="stylesheet" href="/css/highlight.css">
@@ -80,6 +82,15 @@
           <nav class="cover-navigation cover-navigation--primary">
             <ul class="navigation">
 
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
               
 
             </ul>
@@ -246,9 +257,44 @@ applications.html" target="_blank" rel="external"> 机器学习中的数学(5)-�
     
 
     
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
     
     
-    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
     <!--kill ie6 -->
 <!--[if IE 6]>
   <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
