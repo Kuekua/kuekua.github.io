@@ -16,18 +16,18 @@
     
     
 
-    <meta name="description" content="1.opencv级联分类器训练$$ A = \sum_t L^{(t)} $$ $$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$ \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)  opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv">
+    <meta name="description" content="1.opencv级联分类器训练$ A = \sum_t L^{(t)} $  opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3">
 <meta name="keywords" content="Machine Learning,Image Processing,Algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Opencv中Adaboost的具体实现及使用资料总结 | Kuekua&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/2017/06/06/Opencv中Adaboost的具体实现及使用资料总结/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="1.opencv级联分类器训练$$ A = \sum_t L^{(t)} $$ $$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$ \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)  opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv">
+<meta property="og:description" content="1.opencv级联分类器训练$ A = \sum_t L^{(t)} $  opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-24T12:59:34.000Z">
+<meta property="og:updated_time" content="2017-10-24T13:02:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Opencv中Adaboost的具体实现及使用资料总结 | Kuekua&#39;s blog">
-<meta name="twitter:description" content="1.opencv级联分类器训练$$ A = \sum_t L^{(t)} $$ $$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$ \(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)  opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv">
+<meta name="twitter:description" content="1.opencv级联分类器训练$ A = \sum_t L^{(t)} $  opencv官方指南  opencv级联分类器训练 Tips： 1.opencv_createsamples可以根据需要通过图像处理生成更多正样本。2.在利用opencv_traincascade进行训练时可适当提高precalcIdxBufSize和precalcValBufSize缓存大小，缓存越大，训练时间越短。3">
     
     
     
@@ -187,9 +187,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h1 id="1-opencv级联分类器训练"><a href="#1-opencv级联分类器训练" class="headerlink" title="1.opencv级联分类器训练"></a>1.opencv级联分类器训练</h1><p>$$ A = \sum_t L^{(t)} $$</p>
-<p>$$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$</p>
-<p>\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</p>
+    <h1 id="1-opencv级联分类器训练"><a href="#1-opencv级联分类器训练" class="headerlink" title="1.opencv级联分类器训练"></a>1.opencv级联分类器训练</h1><p>$ A = \sum_t L^{(t)} $</p>
 <blockquote>
 <p><a href="http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/user_guide/ug_traincascade.html?highlight=opencv_traincascade" target="_blank" rel="external">opencv官方指南</a></p>
 </blockquote>
