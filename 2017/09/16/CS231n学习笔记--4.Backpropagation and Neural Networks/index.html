@@ -16,38 +16,37 @@
     
     
 
-    <meta name="description" content="1.损失函数 其中SVM损失函数计算的是不正确分类的得分惩罚，即Syi是正确分类结果的得分，Sj是错误分类结果的得分，超参数（1）度量正确分类得分的优越性。 2.简单损失函数流程图： 3.求解损失函数的梯度矩阵 其中，绿色数值代表前向网络中的实际值，红色数值代表反向神经网络得到的梯度值。 4.常见的激活函数  sigmoid  有点落伍了（fallen out of favor and it">
+    <meta name="description" content="1.损失函数   其中SVM损失函数计算的是不正确分类的得分惩罚，即Syi是正确分类结果的得分，Sj是错误分类结果的得分，超参数（1）度量正确分类得分的优越性。 2.简单损失函数流程图：   3.求解损失函数的梯度矩阵   其中，绿色数值代表前向网络中的实际值，红色数值代表反向神经网络得到的梯度值。 4.常见的激活函数    sigmoid  有点落伍了（fallen out of favo">
 <meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS231n学习笔记--4.Backpropagation and Neural Networks | Kuekua&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/2017/09/16/CS231n学习笔记--4.Backpropagation and Neural Networks/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="1.损失函数 其中SVM损失函数计算的是不正确分类的得分惩罚，即Syi是正确分类结果的得分，Sj是错误分类结果的得分，超参数（1）度量正确分类得分的优越性。 2.简单损失函数流程图： 3.求解损失函数的梯度矩阵 其中，绿色数值代表前向网络中的实际值，红色数值代表反向神经网络得到的梯度值。 4.常见的激活函数  sigmoid  有点落伍了（fallen out of favor and it">
+<meta property="og:description" content="1.损失函数   其中SVM损失函数计算的是不正确分类的得分惩罚，即Syi是正确分类结果的得分，Sj是错误分类结果的得分，超参数（1）度量正确分类得分的优越性。 2.简单损失函数流程图：   3.求解损失函数的梯度矩阵   其中，绿色数值代表前向网络中的实际值，红色数值代表反向神经网络得到的梯度值。 4.常见的激活函数    sigmoid  有点落伍了（fallen out of favo">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img.blog.csdn.net/20170910110827816?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170910113644822?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170910113927597?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170910113457935?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+<meta property="og:image" content="http://img.blog.csdn.net/20170910113457935?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170910164448168?watermark/2/text/aHR0
 cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQ
 kFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170910165843621?watermark/2/text/a
-HR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0
+HR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0
 JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-27T09:11:37.000Z">
+<meta property="og:updated_time" content="2017-10-27T09:37:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n学习笔记--4.Backpropagation and Neural Networks | Kuekua&#39;s blog">
-<meta name="twitter:description" content="1.损失函数 其中SVM损失函数计算的是不正确分类的得分惩罚，即Syi是正确分类结果的得分，Sj是错误分类结果的得分，超参数（1）度量正确分类得分的优越性。 2.简单损失函数流程图： 3.求解损失函数的梯度矩阵 其中，绿色数值代表前向网络中的实际值，红色数值代表反向神经网络得到的梯度值。 4.常见的激活函数  sigmoid  有点落伍了（fallen out of favor and it">
+<meta name="twitter:description" content="1.损失函数   其中SVM损失函数计算的是不正确分类的得分惩罚，即Syi是正确分类结果的得分，Sj是错误分类结果的得分，超参数（1）度量正确分类得分的优越性。 2.简单损失函数流程图：   3.求解损失函数的梯度矩阵   其中，绿色数值代表前向网络中的实际值，红色数值代表反向神经网络得到的梯度值。 4.常见的激活函数    sigmoid  有点落伍了（fallen out of favo">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20170910110827816?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
     
     
@@ -210,20 +209,27 @@ classes that you can use:
   <section id="post-content" class="article-content post">
     <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
 
-<h1 id="1-损失函数"><a href="#1-损失函数" class="headerlink" title="1.损失函数"></a>1.损失函数</h1><p><img src="http://img.blog.csdn.net/20170910110827816?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" alt=""></p>
+<h1 id="1-损失函数"><a href="#1-损失函数" class="headerlink" title="1.损失函数"></a>1.损失函数</h1><p><div align="center"><br><img src="http://img.blog.csdn.net/20170910110827816?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
 <p>其中SVM损失函数计算的是不正确分类的得分惩罚，即Syi是正确分类结果的得分，Sj是错误分类结果的得分，超参数（1）度量正确分类得分的优越性。</p>
-<h2 id="2-简单损失函数流程图："><a href="#2-简单损失函数流程图：" class="headerlink" title="2.简单损失函数流程图："></a>2.简单损失函数流程图：</h2><p><img src="http://img.blog.csdn.net/20170910113644822?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" alt=""></p>
-<h2 id="3-求解损失函数的梯度矩阵"><a href="#3-求解损失函数的梯度矩阵" class="headerlink" title="3.求解损失函数的梯度矩阵"></a>3.求解损失函数的梯度矩阵</h2><p><img src="http://img.blog.csdn.net/20170910113927597?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" alt=""></p>
+<h2 id="2-简单损失函数流程图："><a href="#2-简单损失函数流程图：" class="headerlink" title="2.简单损失函数流程图："></a>2.简单损失函数流程图：</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170910113644822?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<h2 id="3-求解损失函数的梯度矩阵"><a href="#3-求解损失函数的梯度矩阵" class="headerlink" title="3.求解损失函数的梯度矩阵"></a>3.求解损失函数的梯度矩阵</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170910113927597?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" width="80%"></div></p>
+<div align="left">
+
 <p>其中，绿色数值代表前向网络中的实际值，红色数值代表反向神经网络得到的梯度值。</p>
-<h2 id="4-常见的激活函数"><a href="#4-常见的激活函数" class="headerlink" title="4.常见的激活函数"></a>4.常见的激活函数</h2><p><img src="http://img.blog.csdn.net/20170910113457935?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" alt=""></p>
+<h2 id="4-常见的激活函数"><a href="#4-常见的激活函数" class="headerlink" title="4.常见的激活函数"></a>4.常见的激活函数</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170910113457935?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
 <p><strong> sigmoid </strong></p>
 <p>有点落伍了（fallen out of favor and it is rarely ever used）<br>原因 1：梯度饱和问题（sigmoid saturate and kill gradients），即如果神经元的激活值很大，返回的梯度几乎为零，因此反向传播的时候，也会阻断（or kill）从此处流动的梯度。此外初始化的时候，也要注意，如果梯度很大的话，也很容易造成梯度饱和。<br>原因 2：sigmoid outputs are not zero-centered，因为输出结果在 [0,1]之间，都是整数，所以造成了某些维度一直更新正的梯度，某些则相反。就会造成 zig-zagging形状的参数更新。不过利用批随机梯度下降法就会缓解这个问题，没有第一个问题严重。</p>
 <p><strong> tanh </strong></p>
@@ -409,9 +415,11 @@ class KNearestNeighbor(object):
     return y_pred
 </code></pre><p><strong> 前向/后向神经网络 </strong></p>
 <p><strong> a.损失函数为SVM： </strong></p>
-<p><img src="http://img.blog.csdn.net/20170910164448168?watermark/2/text/aHR0
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170910164448168?watermark/2/text/aHR0
 cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQ
-kFCMA==/dissolve/70/gravity/SouthEast" alt="SVM梯度计算公式："></p>
+kFCMA==/dissolve/70/gravity/SouthEast" width="80%"></div></p>
+<div align="left">
+
 <p><strong> Python代码： </strong></p>
 <pre><code>import numpy as np
 #from random import shuffle
@@ -520,9 +528,12 @@ def svm_loss_vectorized(W, X, y, reg):
   #############################################################################
 
   return loss, dW
-</code></pre><p><strong> b.损失函数为Softmax： </strong><br>（不同之处仅在损失函数及其梯度计算部分）：<br><img src="http://img.blog.csdn.net/20170910165843621?watermark/2/text/a
-HR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0
-JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="Softmax梯度计算公式"></p>
+</code></pre><p><strong> b.损失函数为Softmax： </strong><br>（不同之处仅在损失函数及其梯度计算部分）：  </p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170910165843621?watermark/2/text/a
+HR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0
+JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"></div></p>
+<div align="left">
+
 <p><strong> python代码： </strong></p>
 <pre><code>import numpy as np
 #from random import shuffle
@@ -844,7 +855,7 @@ class TwoLayerNet(object):
     ###########################################################################
 
     return y_pred
-</code></pre>
+</code></pre></div></div></div></div></div></div>
   </section>
 
   <section class="post-comments">
