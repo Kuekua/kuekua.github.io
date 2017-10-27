@@ -16,13 +16,13 @@
     
     
 
-    <meta name="description" content="1. 卷积公式：    2.卷积运算特点：稀疏交互：     参数共享： 参数共享是指在一个模型的多个函数中使用相同的参数。 在卷积神经网络中，核的每一个元素都作用在输入的每一位置上（是否考虑边界像素取决于对边界决策的设计）。 卷积运算中的参数共享保证了我们只需要学习一个参数集合，而不是对于每一位置都需要学习一个单独的参数集合。 平移等变： 如果一个函数满足输入改变，输出也以同样的方式改变这一性质">
+    <meta name="description" content="1. 卷积公式：    2.卷积运算特点：稀疏交互：     参数共享： 参数共享是指在一个模型的多个函数中使用相同的参数。 在卷积神经网络中，核的每一个元素都作用在输入的每一位置上（是否考虑边界像素取决于对边界决策的设计）。 卷积运算中的参数共享保证了我们只需要学习一个参数集合，而不是对于每一位置都需要学习一个单独的参数集合。 平移等变： 如果一个函数满足输入改变，输出也以同样的方式改变这">
 <meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Deep Learning读书笔记5---卷积网络 | Kuekua&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/2017/08/24/Deep Learning读书笔记5---卷积网络/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="1. 卷积公式：    2.卷积运算特点：稀疏交互：     参数共享： 参数共享是指在一个模型的多个函数中使用相同的参数。 在卷积神经网络中，核的每一个元素都作用在输入的每一位置上（是否考虑边界像素取决于对边界决策的设计）。 卷积运算中的参数共享保证了我们只需要学习一个参数集合，而不是对于每一位置都需要学习一个单独的参数集合。 平移等变： 如果一个函数满足输入改变，输出也以同样的方式改变这一性质">
+<meta property="og:description" content="1. 卷积公式：    2.卷积运算特点：稀疏交互：     参数共享： 参数共享是指在一个模型的多个函数中使用相同的参数。 在卷积神经网络中，核的每一个元素都作用在输入的每一位置上（是否考虑边界像素取决于对边界决策的设计）。 卷积运算中的参数共享保证了我们只需要学习一个参数集合，而不是对于每一位置都需要学习一个单独的参数集合。 平移等变： 如果一个函数满足输入改变，输出也以同样的方式改变这">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927104818444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927105858854?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast">
@@ -31,12 +31,12 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20170927112647161?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927114217706?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927141521499?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170927142822259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170927143010384?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-27T14:29:53.000Z">
+<meta property="og:image" content="http://img.blog.csdn.net/20170927142822259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170927143010384?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-27T14:35:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning读书笔记5---卷积网络 | Kuekua&#39;s blog">
-<meta name="twitter:description" content="1. 卷积公式：    2.卷积运算特点：稀疏交互：     参数共享： 参数共享是指在一个模型的多个函数中使用相同的参数。 在卷积神经网络中，核的每一个元素都作用在输入的每一位置上（是否考虑边界像素取决于对边界决策的设计）。 卷积运算中的参数共享保证了我们只需要学习一个参数集合，而不是对于每一位置都需要学习一个单独的参数集合。 平移等变： 如果一个函数满足输入改变，输出也以同样的方式改变这一性质">
+<meta name="twitter:description" content="1. 卷积公式：    2.卷积运算特点：稀疏交互：     参数共享： 参数共享是指在一个模型的多个函数中使用相同的参数。 在卷积神经网络中，核的每一个元素都作用在输入的每一位置上（是否考虑边界像素取决于对边界决策的设计）。 卷积运算中的参数共享保证了我们只需要学习一个参数集合，而不是对于每一位置都需要学习一个单独的参数集合。 平移等变： 如果一个函数满足输入改变，输出也以同样的方式改变这">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20170927104818444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast">
     
     
@@ -197,7 +197,9 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h2 id="1-卷积公式："><a href="#1-卷积公式：" class="headerlink" title="1. 卷积公式："></a>1. 卷积公式：</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170927104818444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast" width="40%" align="center"></div></p>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+
+<h2 id="1-卷积公式："><a href="#1-卷积公式：" class="headerlink" title="1. 卷积公式："></a>1. 卷积公式：</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170927104818444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast" width="40%" align="center"></div></p>
 <div align="left"> 
 
 <h2 id="2-卷积运算特点："><a href="#2-卷积运算特点：" class="headerlink" title="2.卷积运算特点："></a>2.卷积运算特点：</h2><p><strong>稀疏交互：</strong></p>
@@ -244,9 +246,9 @@ classes that you can use:
 <li>使用无监督的标准来学习核。 例如，将$k$均值聚类算法应用于小图像块，然后使用每个学得的中心作为卷积核。  使用无监督的标准来学习特征，允许这些特征的确定与位于网络结构顶层的分类层相分离。 然后只需提取一次全部训练集的特征，构造用于最后一层的新训练集。 假设最后一层类似逻辑回归或者SVM，那么学习最后一层通常是凸优化问题。</li>
 </ol>
 <h2 id="9-卷积网络的神经科学基础"><a href="#9-卷积网络的神经科学基础" class="headerlink" title="9. 卷积网络的神经科学基础"></a>9. 卷积网络的神经科学基础</h2><p>初级视觉皮层细胞具有由Gabor函数所描述的权重。 Gabor函数描述在图像中的2维点处的权重。我们可以认为图像是2维坐标$I(x,y)$的函数。 类似地，我们可以认为简单细胞是在图像中的一组位置采样，这组位置由一组$x$坐标$X$和一组$y$坐标$Y$来定义，并且使用的权重$w(x,y)$也是位置的函数。 从这个观点来看，简单细胞对于图像的响应由下式给出:</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927142822259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927142822259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
 <p><div align="left"><br>这里$\alpha, \beta_x, \beta_y, f, \phi, x_0, y_0, \tau$都是控制Gabor函数性质的参数。 下图给出了Gabor函数在不同参数集上的一些例子：</div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927143010384?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927143010384?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
 </div></div></div></div>
   </section>
 
