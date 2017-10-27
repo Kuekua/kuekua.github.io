@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Canny边缘检测算法 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="1.Canny边缘检测原理引用文章：  图像处理之Canny边缘检测  Tips： Canny边缘检测算法  ： step1:用高斯滤波器平滑图象； step2:用一阶偏导的有限差分来计算梯度的幅值和方向（可选用Sobel算子等）； step3:对梯度幅值进行非极大值抑制（  比较当前点的梯度强度和正负梯度方向点的梯度强度  ）； step4:用双阈值算法检测和连接边缘(比较的也是像素梯度值)。">
+<meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Canny边缘检测算法 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/07/01/Canny边缘检测算法/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="1.Canny边缘检测原理引用文章：  图像处理之Canny边缘检测  Tips： Canny边缘检测算法  ： step1:用高斯滤波器平滑图象； step2:用一阶偏导的有限差分来计算梯度的幅值和方向（可选用Sobel算子等）； step3:对梯度幅值进行非极大值抑制（  比较当前点的梯度强度和正负梯度方向点的梯度强度  ）； step4:用双阈值算法检测和连接边缘(比较的也是像素梯度值)。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-27T08:42:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Canny边缘检测算法 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="1.Canny边缘检测原理引用文章：  图像处理之Canny边缘检测  Tips： Canny边缘检测算法  ： step1:用高斯滤波器平滑图象； step2:用一阶偏导的有限差分来计算梯度的幅值和方向（可选用Sobel算子等）； step3:对梯度幅值进行非极大值抑制（  比较当前点的梯度强度和正负梯度方向点的梯度强度  ）； step4:用双阈值算法检测和连接边缘(比较的也是像素梯度值)。">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Canny边缘检测算法</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-07-01" class="post-meta__date date">2017-07-01</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Deep-Learning-Book/">Deep Learning Book</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Deep-Learning/">Deep Learning</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h1 id="1-Canny边缘检测原理"><a href="#1-Canny边缘检测原理" class="headerlink" title="1.Canny边缘检测原理"></a>1.Canny边缘检测原理</h1><p>引用文章：</p>
+<p><a href="http://blog.csdn.net/jia20003/article/details/41173767" target="_blank" rel="external"> 图像处理之Canny边缘检测 </a></p>
+<p><strong>Tips：</strong></p>
+<p>Canny边缘检测算法  ：</p>
+<p>step1:用高斯滤波器平滑图象；</p>
+<p>step2:用一阶偏导的有限差分来计算梯度的幅值和方向（可选用Sobel算子等）；</p>
+<p>step3:对梯度幅值进行非极大值抑制（  比较当前点的梯度强度和正负梯度方向点的梯度强度  ）；</p>
+<p>step4:用双阈值算法检测和连接边缘(比较的也是像素梯度值)。</p>
+<p>优点：</p>
+<p>相比普通的梯度算法大大抑制了噪声引起的伪边缘，而且是边缘细化，易于后续处理。对于对比度较低的图像，通过调节参数，Canny算法也能有很好的效果。  </p>
+<h1 id="2-Canny边缘检测算法的改进"><a href="#2-Canny边缘检测算法的改进" class="headerlink" title="2. Canny边缘检测算法的改进"></a>2. Canny边缘检测算法的改进</h1><p><a href="http://www.cnblogs.com/mightycode/p/6560784.html" target="_blank" rel="external"> 一些关于Canny边缘检测算法的改进 </a>  </p>
+<p><strong>Tips:</strong></p>
+<p>1.高斯模糊可能吧图像中的边缘模糊掉，因此可以设置一个模糊阀值，仅仅让和中心像素灰度的差值小于这个阀值的像素参与计算。这样和中心像素相差过大的像素被认为是带有有效的信息，而不是噪声，不会参与平滑计算，从而保留了这些有用的高频信号，那么边缘信号自然也在保留的范围。</p>
+<p>2. 在最初的Canny算法中是使用的最小的2x2领域来计算梯度幅值的。这种方法对噪声很敏感，比较容易检测到伪边缘或漏掉真是边缘。实际上3x3的Sobel梯度算子是一种比较好的选择。</p>
+<p>3. 传统Canny算法的双阀值是全局固定的，因此双阀值大小的选取对最终的结果影响很大，也有一些经验，比如选择低阀值是高阀值的0.4或0.5。然而这毕竟是一种经验选择，阀值的确定仍然很难决定一个最优值。而且一个图像的不同局部区域可能需要各不相同的阀值来精确地找到真实边缘，因此全局阀值就不太合适了。</p>
+<p>4. 传统算法仍然可能产生一条宽度大于1的边缘，达不到满意的高精度单点响应。也就是需要继续细化边缘。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
