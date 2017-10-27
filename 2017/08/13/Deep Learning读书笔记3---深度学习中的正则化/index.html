@@ -45,7 +45,7 @@ ssolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170915142953389?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-27T10:07:31.000Z">
+<meta property="og:updated_time" content="2017-10-27T13:50:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning读书笔记3---深度学习中的正则化 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1.概念正则化定义为“  对学习算法的修改——旨在减少泛化误差而不是训练误差  ”。目前有许多正则化策略。 有些策略向机器学习模型添加限制参数值的额外约束。 有些策略向目标函数增加额外项来对参数值进行软约束。有时侯，这些约束和惩罚被设计为编码特定类型的先验知识； 其他时候，这些约束和惩罚被设计为偏好简单模型，以便提高泛化能力。有时，惩罚和约束对于确定欠定的问题是必要的。 其他形式的正则化，如被称为">
@@ -213,7 +213,7 @@ classes that you can use:
   <section id="post-content" class="article-content post">
     <h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><p>正则化定义为“ <strong> 对学习算法的修改——旨在减少泛化误差而不是训练误差 </strong> ”。<br>目前有许多正则化策略。 有些策略向机器学习模型添加限制参数值的额外约束。 有些策略向目标函数增加额外项来对参数值进行软约束。<br>有时侯，这些约束和惩罚被设计为编码特定类型的先验知识； 其他时候，这些约束和惩罚被设计为偏好简单模型，以便提高泛化能力。<br>有时，惩罚和约束对于确定欠定的问题是必要的。 其他形式的正则化，如被称为集成的方法，则结合多个假说来解释训练数据。</p>
 <h2 id="2-参数范数惩罚"><a href="#2-参数范数惩罚" class="headerlink" title="2.参数范数惩罚"></a>2.参数范数惩罚</h2><p>在神经网络中，参数包括每一层仿射变换的权重和偏置，我们通常 <strong> 只对权重 </strong> 做惩罚而不对偏置做正则惩罚。 精确拟合偏置所需的数据通常比拟合权重少得多。<br>每个权重会指定两个变量如何相互作用。 我们需要在各种条件下观察这两个变量才能良好地拟合权重。 而每个偏置仅控制一个单变量。<br>这意味着，我们不对其进行正则化也不会导致太大的方差。 另外，正则化偏置参数可能会导致明显的欠拟合。</p>
-<h2 id="2-1-L-2-参数正则化"><a href="#2-1-L-2-参数正则化" class="headerlink" title="2.1  L  2  参数正则化"></a>2.1  L  2  参数正则化</h2><p>目标函数：</p>
+<h3 id="2-1-L-2-参数正则化"><a href="#2-1-L-2-参数正则化" class="headerlink" title="2.1  L  2  参数正则化"></a>2.1  L  2  参数正则化</h3><p>目标函数：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915094204772?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast" width="60%"></div></p>
@@ -226,7 +226,7 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
 <div align="left">
 
 <p><strong> 说明： </strong> 只有在显著减小目标函数方向上的参数会保留得相对完好。 在无助于目标函数减小的方向上改变参数不会显著增加梯度。 这种不重要方向对应的分量会在训练过程中因正则化而衰减掉。 </p>
-<h2 id="2-2-L-1-参数正则化"><a href="#2-2-L-1-参数正则化" class="headerlink" title="2.2  L  1  参数正则化"></a>2.2  L  1  参数正则化</h2><p>形式地，对模型参数  w  的  L  1  正则化被定义为：</p>
+<h3 id="2-2-L-1-参数正则化"><a href="#2-2-L-1-参数正则化" class="headerlink" title="2.2  L  1  参数正则化"></a>2.2  L  1  参数正则化</h3><p>形式地，对模型参数  w  的  L  1  正则化被定义为：</p>
 <p>$$Ω(θ)  =  ||w||^1  =  ∑_i|w_i|$$</p>
 <p>即各个参数的绝对值之和正则化。</p>
 <p>相比  L  2  正则化，  L  1  正则化会产生更稀疏的解。 此处稀疏性指的是最优值中的一些参数为  0  。  L  2<br>正则化不会使参数变得稀疏，而  L  1  正则化有可能通过足够大的  α  实现稀疏。</p>
