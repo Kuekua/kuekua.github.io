@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      CS231n学习笔记--5.CNN&amp;&amp;6-7. Training Neural Networks | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="1.CNN1.1 原理   Tips：1.每个卷积层由K个卷积模板生成，例如：第一层一般为边缘检测的卷积模板。2.为了使卷积前后的数据维度一致，可以将原始数据进行边拓展，拓展的数量为P。 1.2.CNN流程   Tips：   1.每个卷积层后会有Relu操作，起将矩阵稀疏化的作用。2.若干个卷积层后会有POOL操作，其实就是降采样，一般取采样区域中的最大值为采样结果。3.最后是FC（full">
+<meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231n学习笔记--5.CNN&amp;&amp;6-7. Training Neural Networks | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/09/23/CS231n学习笔记--5.CNN&&6-7. Training Neural Networks/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="1.CNN1.1 原理   Tips：1.每个卷积层由K个卷积模板生成，例如：第一层一般为边缘检测的卷积模板。2.为了使卷积前后的数据维度一致，可以将原始数据进行边拓展，拓展的数量为P。 1.2.CNN流程   Tips：   1.每个卷积层后会有Relu操作，起将矩阵稀疏化的作用。2.若干个卷积层后会有POOL操作，其实就是降采样，一般取采样区域中的最大值为采样结果。3.最后是FC（full">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170913183725651?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170913184322933?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918094222944?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918094408664?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918095000584?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918095153335?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918095530367?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918095731733?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918095825876?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918095932140?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918100757243?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918100838972?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918102059563?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918102237937?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918102340856?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918104055176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923172046057?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/Center">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918104544346?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918105137548?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918105734430?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918105812903?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918111603360?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918111927295?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918112759495?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918113209290?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918113403911?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918113618643?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918113653005?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918113725864?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918113911185?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170918113843634?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923174503443?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923174412703?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923174114024?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923173608231?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923174733842?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923175143280?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923175229949?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923175551930?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923175806546?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923175856203?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923180226407?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923180303038?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923180857360?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923181032094?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923181048654?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923181605015?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923181741067?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923181821253?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923182844208?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923182749197?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923182815309?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923183019050?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923183244839?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923183606723?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923183619617?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923183631954?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923183721697?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923184008961?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923184024855?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923183854008?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923184654076?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923184750098?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170923185109436?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-27T09:17:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS231n学习笔记--5.CNN&amp;&amp;6-7. Training Neural Networks | Kuekua&#39;s blog">
+<meta name="twitter:description" content="1.CNN1.1 原理   Tips：1.每个卷积层由K个卷积模板生成，例如：第一层一般为边缘检测的卷积模板。2.为了使卷积前后的数据维度一致，可以将原始数据进行边拓展，拓展的数量为P。 1.2.CNN流程   Tips：   1.每个卷积层后会有Relu操作，起将矩阵稀疏化的作用。2.若干个卷积层后会有POOL操作，其实就是降采样，一般取采样区域中的最大值为采样结果。3.最后是FC（full">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170913183725651?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">CS231n学习笔记--5.CNN&amp;&amp;6-7. Training Neural Networks</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-09-23" class="post-meta__date date">2017-09-23</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/CS231n/">CS231n</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Deep-Learning/">Deep Learning</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p><script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script></p>
+<h1 id="1-CNN"><a href="#1-CNN" class="headerlink" title="1.CNN"></a>1.CNN</h1><h2 id="1-1-原理"><a href="#1-1-原理" class="headerlink" title="1.1 原理"></a>1.1 原理</h2><p><img src="http://img.blog.csdn.net/20170913183725651?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><strong>Tips：</strong><br>1.每个卷积层由K个卷积模板生成，例如：第一层一般为边缘检测的卷积模板。<br>2.为了使卷积前后的数据维度一致，可以将原始数据进行边拓展，拓展的数量为P。</p>
+<h2 id="1-2-CNN流程"><a href="#1-2-CNN流程" class="headerlink" title="1.2.CNN流程"></a>1.2.CNN流程</h2><p><img src="http://img.blog.csdn.net/20170913184322933?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><strong>Tips：</strong>  </p>
+<p>1.每个卷积层后会有Relu操作，起将矩阵稀疏化的作用。<br>2.若干个卷积层后会有POOL操作，其实就是降采样，一般取采样区域中的最大值为采样结果。<br>3.最后是FC（full connected）layers(第三章所讲的神经网络)，对数据进行分类识别，计算样本在各分类下的分值，最后使用softmax激活函数。</p>
+<h1 id="2-Training-Neural-Networks-1"><a href="#2-Training-Neural-Networks-1" class="headerlink" title="2. Training Neural Networks 1"></a>2. Training Neural Networks 1</h1><h2 id="2-1-Activation-Functions"><a href="#2-1-Activation-Functions" class="headerlink" title="2.1 Activation Functions"></a>2.1 Activation Functions</h2><p><img src="http://img.blog.csdn.net/20170918094222944?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918094408664?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><strong> Tips:  </strong></p>
+<p>Sigmoid激活函数的导数大于0，如果输入数据全是正或全是负，那么dL/dw符号始终不变，这意味着w的更新方向均相同，这必然对寻找合适的w参数不利，这也是为什么一般要求数据关于0对称的原因，也解释了问题2。</p>
+<p><img src="http://img.blog.csdn.net/20170918095000584?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918095153335?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><strong> Tips：  </strong></p>
+<p>当输入x小于0时，Relu的输出为0，导数也为0，这使得所在的神经元权重w始终得不到更新，因此称此神经元为dead ReLU。</p>
+<p><strong>ReLU的改进：</strong></p>
+<p><img src="http://img.blog.csdn.net/20170918095530367?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918095731733?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918095825876?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><strong>总结与建议：</strong></p>
+<p><img src="http://img.blog.csdn.net/20170918095932140?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<h2 id="2-2-Date-Preprocessing"><a href="#2-2-Date-Preprocessing" class="headerlink" title="2.2 Date Preprocessing"></a>2.2 Date Preprocessing</h2><p><img src="http://img.blog.csdn.net/20170918100757243?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918100838972?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><strong> Tips:  </strong></p>
+<p>Whitening的目的是去掉数据之间的相关联度，是很多算法进行预处理的步骤。比如说当训练图片数据时，由于图片中相邻像素值有一定的关联，所以很多信息是冗余的。这时候去相关的操作就可以采用白化操作。数据的whitening必须满足两个条件：一是不同特征间相关性最小，接近0；二是所有特征的方差相等（不一定为1）。常见的白化操作有PCA whitening和ZCA whitening。</p>
+<p>PCA whitening是指将数据x经过PCA降维为z后，可以看出z中每一维是独立的，满足whitening白化的第一个条件，这是只需要将z中的每一维都除以标准差就得到了每一维的方差为1，也就是说方差相等。公式为：</p>
+<p><img src="http://img.blog.csdn.net/20170918102059563?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p>ZCA whitening是指数据x先经过PCA变换为z，但是并不降维，因为这里是把所有的成分都选进去了。这是也同样满足whtienning的第一个条件，特征间相互独立。然后同样进行方差为1的操作，最后将得到的矩阵左乘一个特征向量矩阵U即可。</p>
+<p>ZCA whitening公式为：</p>
+<p><img src="http://img.blog.csdn.net/20170918102237937?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<h1 id="http-img-blog-csdn-net-20170923173136443-watermark-2-text-aHR0cDovL2J"><a href="#http-img-blog-csdn-net-20170923173136443-watermark-2-text-aHR0cDovL2J" class="headerlink" title="![](http://img.blog.csdn.net/20170923173136443?watermark/2/text/aHR0cDovL2J"></a>![](<a href="http://img.blog.csdn.net/20170923173136443?watermark/2/text/aHR0cDovL2J" target="_blank" rel="external">http://img.blog.csdn.net/20170923173136443?watermark/2/text/aHR0cDovL2J</a></h1><p>sb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==<br>/dissolve/70/gravity/SouthEast)  </p>
+<p><img src="http://img.blog.csdn.net/20170918102340856?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<h2 id="2-3-Weight-Initialiation"><a href="#2-3-Weight-Initialiation" class="headerlink" title="2.3 Weight Initialiation"></a>2.3 Weight Initialiation</h2><p><strong> 当参数w初始化为0时：  </strong></p>
+<p>很多神经元的输出可能趋于一致，梯度值也一致，因此w的更新也一致，这并不是我们希望看到的！</p>
+<p><strong> 当参数初始化为一个小数：  </strong></p>
+<p><strong>   
+</strong></p>
+<p><strong> <img src="http://img.blog.csdn.net/20170918104055176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">   
+</strong></p>
+<p><strong>   
+</strong></p>
+<p><strong> 图片依次为：  </strong></p>
+<p>每层网络的输出均值，输出方差，输出数据直方图</p>
+<p><strong>   
+</strong></p>
+<p><strong> 当初始化为1附近的值时：  </strong></p>
+<p><strong>   
+</strong></p>
+<p><img src="http://img.blog.csdn.net/20170923172046057?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/Center" alt="">  </p>
+<p>目前比较理想的初始化算法：</p>
+<p><img src="http://img.blog.csdn.net/20170918104544346?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><strong> Tips:  </strong></p>
+<p>1. fan_in与fan_out指的是输入与输出的数据的数量。</p>
+<p>2.以上神经网络采用的激活函数为tanh，当采用ReLU时，初始化公式应变为：</p>
+<p><img src="http://img.blog.csdn.net/20170918105137548?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p>因为一般数据是关于0中心化，而ReLU对小于0的数据设为0，所以要除以2！</p>
+<h2 id="2-4-Bath-Normalization"><a href="#2-4-Bath-Normalization" class="headerlink" title="2.4 Bath Normalization"></a>2.4 Bath Normalization</h2><p><img src="http://img.blog.csdn.net/20170918105734430?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918105812903?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><strong> Tips:  </strong></p>
+<p>在训练阶段，β与γ是需要进行训练的参数，而μ与σ是根据训练数据计算得到，两者值不一样！  </p>
+<h2 id="2-5-Baby-Setting-the-Learning-Process"><a href="#2-5-Baby-Setting-the-Learning-Process" class="headerlink" title="2.5 Baby Setting the Learning Process"></a>2.5 Baby Setting the Learning Process</h2><p><img src="http://img.blog.csdn.net/20170918111603360?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<h2 id="2-6-Hyperparameter-Optimzation"><a href="#2-6-Hyperparameter-Optimzation" class="headerlink" title=" 2.6 Hyperparameter Optimzation  "></a><strong> 2.6 Hyperparameter Optimzation  </strong></h2><p><strong>   
+</strong></p>
+<p><strong> <img src="http://img.blog.csdn.net/20170918111927295?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">   
+</strong></p>
+<p><strong>   
+</strong></p>
+<p><strong>   
+</strong></p>
+<p><strong>   
+</strong></p>
+<p><strong> <img src="http://img.blog.csdn.net/20170918112759495?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">   
+</strong></p>
+<p><strong>   
+</strong></p>
+<p><strong>   
+</strong></p>
+<p><strong> Tips:  </strong></p>
+<p>learning rate与regularization系数以log形式搜索，而不是直接按值搜索，这是因为它们更新权重时时乘数！</p>
+<p><img src="http://img.blog.csdn.net/20170918113209290?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><strong> Tips：  </strong></p>
+<p>这是因为所选的参数搜索范围太小！</p>
+<p><img src="http://img.blog.csdn.net/20170918113403911?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918113618643?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918113653005?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918113725864?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918113911185?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170918113843634?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<h1 id="3-Training-Neural-Networks-2"><a href="#3-Training-Neural-Networks-2" class="headerlink" title="3. Training Neural Networks 2"></a>3. Training Neural Networks 2</h1><h2 id="3-1-Fancier-optimization"><a href="#3-1-Fancier-optimization" class="headerlink" title=" 3.1 Fancier optimization "></a><strong> 3.1 Fancier optimization </strong></h2><p><img src="http://img.blog.csdn.net/20170923174503443?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20170923174412703?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20170923174114024?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""></p>
+<p>初始的SGD算法容易出现锯齿状反复计算的情况，收敛太慢，容易收敛到局部极小值和鞍点（高维出现几率比局部极小值更加频繁），抗噪声能力差！</p>
+<p><img src="http://img.blog.csdn.net/20170923173608231?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""> <img src="http://img.blog.csdn.net/20170923174733842?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>Momentum,即动量，可以理解为保留之前的梯度方向和强度作为此次迭代更新的依据！因此，可以有效的避免锯齿状反复计算的情况！</p>
+<p><img src="http://img.blog.csdn.net/20170923175143280?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""> <img src="http://img.blog.csdn.net/20170923175229949?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">  </p>
+<p>Nesterov动量法，相比于动量法，可以矫正  之前的梯度对当前参数更新的影响！</p>
+<p><img src="http://img.blog.csdn.net/20170923175551930?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170923175806546?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""> <img src="http://img.blog.csdn.net/20170923175856203?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">  </p>
+<p>RMSprop相对于AdaGrad而言，减少了之前梯度对当前参数更新的影响！</p>
+<p><img src="http://img.blog.csdn.net/20170923180226407?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""> <img src="http://img.blog.csdn.net/20170923180303038?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">  </p>
+<p>Adam,融合了  RMSprop和动量法！</p>
+<p><img src="http://img.blog.csdn.net/20170923180857360?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p>在神经网络的超参数中，学习率最为重要，其次为学习衰减率，因为训练阶段越到后面搜索步长理应越小！右图中的拐点及学习率衰减时出现的情况。</p>
+<p><img src="http://img.blog.csdn.net/20170923181032094?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""> <img src="http://img.blog.csdn.net/20170923181048654?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="">  </p>
+<p>注：一阶优化和二阶优化的区别示意图</p>
+<p><img src="http://img.blog.csdn.net/20170923181605015?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""> <img src="http://img.blog.csdn.net/20170923181741067?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20170923181821253?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p>二阶牛顿优化法具有没有学习率等超参数等优点，但是要求Hession矩阵的逆矩阵，应用于大型网络计算量太大，一般使用其改进版本：L-BFGS！</p>
+<p>总结：</p>
+<p>1. Adam是不错的默认参数优化算法！</p>
+<p>2. If you can afford to do full batch updates then try out L-BFGS(do not<br>forget to disable all sources of noise).</p>
+<h2 id="3-2-Regularization"><a href="#3-2-Regularization" class="headerlink" title="3.2 Regularization"></a>3.2 Regularization</h2><h3 id="3-2-1-Dropout"><a href="#3-2-1-Dropout" class="headerlink" title="3.2.1 Dropout"></a>3.2.1 Dropout</h3><p><strong>   
+</strong></p>
+<p><strong> <img src="http://img.blog.csdn.net/20170923182844208?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""> </strong></p>
+<p><strong>   
+</strong></p>
+<p><strong> <img src="http://img.blog.csdn.net/20170923182749197?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""> <img src="http://img.blog.csdn.net/20170923182815309?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""> </strong></p>
+<p><img src="http://img.blog.csdn.net/20170923183019050?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20170923183244839?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p>多模型融合的通用框架</p>
+<h3 id="3-2-2-训练数据增强"><a href="#3-2-2-训练数据增强" class="headerlink" title="3.2.2 训练数据增强"></a>3.2.2 训练数据增强</h3><p><img src="http://img.blog.csdn.net/20170923183606723?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""> <img src="http://img.blog.csdn.net/20170923183619617?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20170923183631954?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170923183721697?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p><img src="http://img.blog.csdn.net/20170923184008961?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""> <img src="http://img.blog.csdn.net/20170923184024855?wa
+termark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/font
+size/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20170923183854008?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p>DropConnect: 随机的让某些神经元的参数w为0</p>
+<p>Fractional Max Pooling: 在CNN中的Pooling阶段，随机的对图像中的某些小块进行下采样</p>
+<p>Stochastic Depth:<br>对神经网络中的某些神经元添加直接跳转到几级之后的神经元的路径，训练时中间的神经元可能不进行训练，但测试时全部神经元均参加！</p>
+<h2 id="3-3-Transfer-Learning"><a href="#3-3-Transfer-Learning" class="headerlink" title="3.3 Transfer Learning"></a>3.3 Transfer Learning</h2><p><img src="http://img.blog.csdn.net/20170923184654076?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20170923184750098?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+<p>通常情况，我们可以利用已经经过大量样本（如ImageNet）训练过的部分网络（如CNN层）作为我们的训练网络一部分，在此基础上根据需求进行特化，这就是所谓的迁移学习！</p>
+<p><img src="http://img.blog.csdn.net/20170923185109436?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" alt="">  </p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
