@@ -7,7 +7,7 @@
     
 
     <title>
-       | Kuekua&#39;s blog 
+      分水岭算法的原理及实现 | Kuekua&#39;s blog 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,20 +16,21 @@
     
     
 
-    <meta name="description" content="title: 分水岭算法的原理及实现 date: 2017-7-8 tags: [ Image Processing,Algorithm ] categories: “Image Processing”   算法步骤： 1.构建图像梯度图像。2.通过一定规则生成n个最初的注水区域（先验知识或局部梯度最小值）。3.往注水区域内加水，当两注水区域即将合并时，记录下此时的边界。4.当图像边缘彻底被分割">
+    <meta name="description" content="算法步骤： 1.构建图像梯度图像。2.通过一定规则生成n个最初的注水区域（先验知识或局部梯度最小值）。3.往注水区域内加水，当两注水区域即将合并时，记录下此时的边界。4.当图像边缘彻底被分割成n个独立区域是算法结束。 算法过程示意图：  参考博客： OpenCV学习(7) 分水岭算法   OpenCV—图像分割中的分水岭算法原理与应用 OpenCV—图像分割中的分水岭算法原理与应用">
+<meta name="keywords" content="Algorithm,Image Processing">
 <meta property="og:type" content="article">
-<meta property="og:title" content=" | Kuekua&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/2017/10/27/分水岭算法的原理及实现/index.html">
+<meta property="og:title" content="分水岭算法的原理及实现 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/07/08/分水岭算法的原理及实现/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="title: 分水岭算法的原理及实现 date: 2017-7-8 tags: [ Image Processing,Algorithm ] categories: “Image Processing”   算法步骤： 1.构建图像梯度图像。2.通过一定规则生成n个最初的注水区域（先验知识或局部梯度最小值）。3.往注水区域内加水，当两注水区域即将合并时，记录下此时的边界。4.当图像边缘彻底被分割">
+<meta property="og:description" content="算法步骤： 1.构建图像梯度图像。2.通过一定规则生成n个最初的注水区域（先验知识或局部梯度最小值）。3.往注水区域内加水，当两注水区域即将合并时，记录下此时的边界。4.当图像边缘彻底被分割成n个独立区域是算法结束。 算法过程示意图：  参考博客： OpenCV学习(7) 分水岭算法   OpenCV—图像分割中的分水岭算法原理与应用 OpenCV—图像分割中的分水岭算法原理与应用">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img.blog.csdn.net/20170904222403387?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-27T08:50:26.000Z">
+<meta property="og:updated_time" content="2017-10-27T10:11:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=" | Kuekua&#39;s blog">
-<meta name="twitter:description" content="title: 分水岭算法的原理及实现 date: 2017-7-8 tags: [ Image Processing,Algorithm ] categories: “Image Processing”   算法步骤： 1.构建图像梯度图像。2.通过一定规则生成n个最初的注水区域（先验知识或局部梯度最小值）。3.往注水区域内加水，当两注水区域即将合并时，记录下此时的边界。4.当图像边缘彻底被分割">
+<meta name="twitter:title" content="分水岭算法的原理及实现 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="算法步骤： 1.构建图像梯度图像。2.通过一定规则生成n个最初的注水区域（先验知识或局部梯度最小值）。3.往注水区域内加水，当两注水区域即将合并时，记录下此时的边界。4.当图像边缘彻底被分割成n个独立区域是算法结束。 算法过程示意图：  参考博客： OpenCV学习(7) 分水岭算法   OpenCV—图像分割中的分水岭算法原理与应用 OpenCV—图像分割中的分水岭算法原理与应用">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20170904222403387?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast">
@@ -161,17 +162,27 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title"></h1>
+    <h1 class="post-title">分水岭算法的原理及实现</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2017-10-27" class="post-meta__date date">2017-10-27</time> 
+      <time datetime="2017-07-08" class="post-meta__date date">2017-07-08</time> 
 
       <span class="post-meta__tags tags">
 
           
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Image-Processing/">Image Processing</a>
+            </font>
+          
 
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Image-Processing/">Image Processing</a>
+            </font>
           
 
       </span>
@@ -182,13 +193,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <hr>
-<p>title: 分水岭算法的原理及实现</p>
-<p>date: 2017-7-8</p>
-<p>tags: [ Image Processing,Algorithm ]</p>
-<p>categories: “Image Processing”</p>
-<hr>
-<p><strong> 算法步骤： </strong><br>1.构建图像梯度图像。<br>2.通过一定规则生成n个最初的注水区域（先验知识或局部梯度最小值）。<br>3.往注水区域内加水，当两注水区域即将合并时，记录下此时的边界。<br>4.当图像边缘彻底被分割成n个独立区域是算法结束。</p>
+    <p><strong> 算法步骤： </strong><br>1.构建图像梯度图像。<br>2.通过一定规则生成n个最初的注水区域（先验知识或局部梯度最小值）。<br>3.往注水区域内加水，当两注水区域即将合并时，记录下此时的边界。<br>4.当图像边缘彻底被分割成n个独立区域是算法结束。</p>
 <p><strong>算法过程示意图：</strong></p>
 <p><img src="http://img.blog.csdn.net/20170904222403387?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFC
