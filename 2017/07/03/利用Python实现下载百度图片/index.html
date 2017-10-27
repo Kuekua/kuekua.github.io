@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      利用Python实现下载百度图片 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="原文地址：  Python 3 多线程下载百度图片搜索结果  #!/usr/bin/env python # -*- coding: utf-8 -*- # @Author: loveNight  import json import itertools import urllib import requests import os import re import sys   str_table">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Python实现下载百度图片 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/07/03/利用Python实现下载百度图片/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="原文地址：  Python 3 多线程下载百度图片搜索结果  #!/usr/bin/env python # -*- coding: utf-8 -*- # @Author: loveNight  import json import itertools import urllib import requests import os import re import sys   str_table">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-27T08:48:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用Python实现下载百度图片 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="原文地址：  Python 3 多线程下载百度图片搜索结果  #!/usr/bin/env python # -*- coding: utf-8 -*- # @Author: loveNight  import json import itertools import urllib import requests import os import re import sys   str_table">
+    
+    
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">利用Python实现下载百度图片</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-07-03" class="post-meta__date date">2017-07-03</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Code/">Code</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Python/">Python</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>原文地址： <a href="http://blog.sina.com.cn/s/blog_13927ddb50102w2m1.html" target="_blank" rel="external"> Python 3 多线程下载百度图片搜索结果
+</a></p>
+<pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Author: loveNight
+
+import json
+import itertools
+import urllib
+import requests
+import os
+import re
+import sys
+
+
+str_table = {
+&apos;_z2C$q&apos;: &apos;:&apos;,
+&apos;_z&amp;e3B&apos;: &apos;.&apos;,
+&apos;AzdH3F&apos;: &apos;/&apos;
+}
+
+char_table = {
+&apos;w&apos;: &apos;a&apos;,
+&apos;k&apos;: &apos;b&apos;,
+&apos;v&apos;: &apos;c&apos;,
+&apos;1&apos;: &apos;d&apos;,
+&apos;j&apos;: &apos;e&apos;,
+&apos;u&apos;: &apos;f&apos;,
+&apos;2&apos;: &apos;g&apos;,
+&apos;i&apos;: &apos;h&apos;,
+&apos;t&apos;: &apos;i&apos;,
+&apos;3&apos;: &apos;j&apos;,
+&apos;h&apos;: &apos;k&apos;,
+&apos;s&apos;: &apos;l&apos;,
+&apos;4&apos;: &apos;m&apos;,
+&apos;g&apos;: &apos;n&apos;,
+&apos;5&apos;: &apos;o&apos;,
+&apos;r&apos;: &apos;p&apos;,
+&apos;q&apos;: &apos;q&apos;,
+&apos;6&apos;: &apos;r&apos;,
+&apos;f&apos;: &apos;s&apos;,
+&apos;p&apos;: &apos;t&apos;,
+&apos;7&apos;: &apos;u&apos;,
+&apos;e&apos;: &apos;v&apos;,
+&apos;o&apos;: &apos;w&apos;,
+&apos;8&apos;: &apos;1&apos;,
+&apos;d&apos;: &apos;2&apos;,
+&apos;n&apos;: &apos;3&apos;,
+&apos;9&apos;: &apos;4&apos;,
+&apos;c&apos;: &apos;5&apos;,
+&apos;m&apos;: &apos;6&apos;,
+&apos;0&apos;: &apos;7&apos;,
+&apos;b&apos;: &apos;8&apos;,
+&apos;l&apos;: &apos;9&apos;,
+&apos;a&apos;: &apos;0&apos;
+}
+
+# str 的translate方法需要用单个字符的十进制unicode编码作为key
+# value 中的数字会被当成十进制unicode编码转换成字符
+# 也可以直接用字符串作为value
+char_table = {ord(key): ord(value) for key, value in char_table.items()}
+
+# 解码图片URL
+def decode(url):
+    # 先替换字符串
+    for key, value in str_table.items():
+        url = url.replace(key, value)
+    # 再替换剩下的字符
+    return url.translate(char_table)
+
+# 生成网址列表
+def buildUrls(word):
+    word = urllib.parse.quote(word)
+    url = r&quot;http://image.baidu.com/search/acjson?tn=resultjson_com&amp;ipn=rj&amp;ct=201326592&amp;fp=result&amp;queryWord={word}&amp;cl=2&amp;lm=-1&amp;ie=utf-8&amp;oe=utf-8&amp;st=-1&amp;ic=0&amp;word={word}&amp;face=0&amp;istype=2nc=1&amp;pn={pn}&amp;rn=60&quot;
+    urls = (url.format(word=word, pn=x) for x in itertools.count(start=0, step=60))
+    return urls
+
+# 解析JSON获取图片URL
+re_url = re.compile(r&apos;&quot;objURL&quot;:&quot;(.*?)&quot;&apos;)
+
+def resolveImgUrl(html):
+    imgUrls = [decode(x) for x in re_url.findall(html)]
+    return imgUrls
+
+def downImg(imgUrl, dirpath, imgName):
+    filename = os.path.join(dirpath, imgName)
+    try:
+        res = requests.get(imgUrl, timeout=15)
+        if str(res.status_code)[0] == &quot;4&quot;:
+           print(str(res.status_code), &quot;:&quot; , imgUrl)
+           return False
+    except Exception as e:
+           print(&quot;抛出异常：&quot;, imgUrl)
+           print(e)
+           return False
+    with open(filename, &quot;wb&quot;) as f:
+         f.write(res.content)
+    return True
+
+
+def mkDir(dirName):
+    dirpath = os.path.join(sys.path[0], dirName)
+    if not os.path.exists(dirpath):
+           os.mkdir(dirpath)
+    return dirpath
+
+if __name__ == &apos;__main__&apos;:
+   print(&quot;欢迎使用百度图片下载脚本！\n目前仅支持单个关键词。&quot;)
+   print(&quot;下载结果保存在脚本目录下的results文件夹中。&quot;)
+   print(&quot;=&quot; * 50)
+   word = input(&quot;请输入你要下载的图片关键词：\n&quot;)
+
+   dirpath = mkDir(&quot;results&quot;)
+
+   urls = buildUrls(word)
+   index = 0
+   for url in urls:
+       print(&quot;正在请求：&quot;, url)
+       html = requests.get(url, timeout=10).content.decode(&apos;utf-8&apos;)
+       imgUrls = resolveImgUrl(html)
+       if len(imgUrls) == 0: # 没有图片则结束
+          break
+       for url in imgUrls:
+           if downImg(url, dirpath, str(index) + &quot;.jpg&quot;):
+              index += 1
+              print(&quot;已下载 %s 张&quot; % index)
+</code></pre>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
