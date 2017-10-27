@@ -16,13 +16,13 @@
     
     
 
-    <meta name="description" content="1.基本概念1.1隐藏层：神经网络中输入与输出层之间的中间层，训练数据并没有给出这些层中的每一层所需的输出，所以叫隐藏层。 1.2模型的宽度：网络中的每个隐藏层通常都是向量值的。这些隐藏层的维数决定了模型的宽度。 向量的每个元素都可以被视为起到类似一个神经元的作用。除了将层想象成向量到向量的单个函数，我们也可以把层想象成由许多并行操作的单元组成，每个单元表示一个向量到标量的函数。每个单元在某种意义">
+    <meta name="description" content="1.基本概念1.1隐藏层：神经网络中输入与输出层之间的中间层，训练数据并没有给出这些层中的每一层所需的输出，所以叫隐藏层。 1.2模型的宽度：网络中的每个隐藏层通常都是向量值的。这些隐藏层的维数决定了模型的宽度。 向量的每个元素都可以被视为起到类似一个神经元的作用。除了将层想象成向量到向量的单个函数，我们也可以把层想象成由许多并行操作的单元组成，每个单元表示一个向量到标量的函数。每个单元在某">
 <meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Deep Learning读书笔记2---深度前馈网络 | Kuekua&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/2017/08/01/Deep Learning读书笔记2---深度前馈网络/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="1.基本概念1.1隐藏层：神经网络中输入与输出层之间的中间层，训练数据并没有给出这些层中的每一层所需的输出，所以叫隐藏层。 1.2模型的宽度：网络中的每个隐藏层通常都是向量值的。这些隐藏层的维数决定了模型的宽度。 向量的每个元素都可以被视为起到类似一个神经元的作用。除了将层想象成向量到向量的单个函数，我们也可以把层想象成由许多并行操作的单元组成，每个单元表示一个向量到标量的函数。每个单元在某种意义">
+<meta property="og:description" content="1.基本概念1.1隐藏层：神经网络中输入与输出层之间的中间层，训练数据并没有给出这些层中的每一层所需的输出，所以叫隐藏层。 1.2模型的宽度：网络中的每个隐藏层通常都是向量值的。这些隐藏层的维数决定了模型的宽度。 向量的每个元素都可以被视为起到类似一个神经元的作用。除了将层想象成向量到向量的单个函数，我们也可以把层想象成由许多并行操作的单元组成，每个单元表示一个向量到标量的函数。每个单元在某">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img.blog.csdn.net/20170907102812491?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
@@ -42,10 +42,10 @@ ssolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170911165232295?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-27T08:58:24.000Z">
+<meta property="og:updated_time" content="2017-10-27T09:00:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning读书笔记2---深度前馈网络 | Kuekua&#39;s blog">
-<meta name="twitter:description" content="1.基本概念1.1隐藏层：神经网络中输入与输出层之间的中间层，训练数据并没有给出这些层中的每一层所需的输出，所以叫隐藏层。 1.2模型的宽度：网络中的每个隐藏层通常都是向量值的。这些隐藏层的维数决定了模型的宽度。 向量的每个元素都可以被视为起到类似一个神经元的作用。除了将层想象成向量到向量的单个函数，我们也可以把层想象成由许多并行操作的单元组成，每个单元表示一个向量到标量的函数。每个单元在某种意义">
+<meta name="twitter:description" content="1.基本概念1.1隐藏层：神经网络中输入与输出层之间的中间层，训练数据并没有给出这些层中的每一层所需的输出，所以叫隐藏层。 1.2模型的宽度：网络中的每个隐藏层通常都是向量值的。这些隐藏层的维数决定了模型的宽度。 向量的每个元素都可以被视为起到类似一个神经元的作用。除了将层想象成向量到向量的单个函数，我们也可以把层想象成由许多并行操作的单元组成，每个单元表示一个向量到标量的函数。每个单元在某">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20170907102812491?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
 solve/70/gravity/SouthEast">
@@ -197,7 +197,9 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h1 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h1><h2 id="1-1隐藏层："><a href="#1-1隐藏层：" class="headerlink" title="1.1隐藏层："></a>1.1隐藏层：</h2><p>神经网络中输入与输出层之间的中间层，训练数据并没有给出这些层中的每一层所需的输出，所以叫隐藏层。</p>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+
+<h1 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h1><h2 id="1-1隐藏层："><a href="#1-1隐藏层：" class="headerlink" title="1.1隐藏层："></a>1.1隐藏层：</h2><p>神经网络中输入与输出层之间的中间层，训练数据并没有给出这些层中的每一层所需的输出，所以叫隐藏层。</p>
 <h2 id="1-2模型的宽度："><a href="#1-2模型的宽度：" class="headerlink" title="1.2模型的宽度："></a>1.2模型的宽度：</h2><p>网络中的每个隐藏层通常都是向量值的。这些隐藏层的维数决定了模型的宽度。 向量的每个元素都可以被视为起到类似一个神经元的作用。<br>除了将层想象成向量到向量的单个函数，我们也可以把层想象成由许多并行操作的单元组成，每个单元表示一个向量到标量的函数。<br>每个单元在某种意义上类似一个神经元，它接收的输入来源于许多其他的单元，并计算它自己的激活值。  </p>
 <h2 id="1-3激活函数："><a href="#1-3激活函数：" class="headerlink" title="1.3激活函数："></a>1.3激活函数：</h2><p>用于计算隐藏层值的函数，常见的有整流线性单元（分段函数max{0,f()}）。</p>
 <h2 id="1-4常见的代价函数："><a href="#1-4常见的代价函数：" class="headerlink" title="1.4常见的代价函数："></a>1.4常见的代价函数：</h2><p>交叉熵（负的最大似然函数）</p>
