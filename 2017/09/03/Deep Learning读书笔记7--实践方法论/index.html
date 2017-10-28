@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Deep Learning读书笔记7--实践方法论 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="1. 性能度量精度是模型报告的检测是正确的比率，而召回率则是真实事件被检测到的比率。 检测器永远报告没有患者，会得到一个完美的精度，但召回率为零。 而报告每个人都是患者的检测器会得到一个完美的召回率，但是精度会等于人群中患有该病的比例（在我们的例子是$$0.0001\%$$，每一百万人只有一人患病）。 当使用精度和召回率时，我们通常会画PR曲线，$$y$$轴表示精度，$$x$$轴表示召回率。">
+<meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Learning读书笔记7--实践方法论 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/09/03/Deep Learning读书笔记7--实践方法论/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="1. 性能度量精度是模型报告的检测是正确的比率，而召回率则是真实事件被检测到的比率。 检测器永远报告没有患者，会得到一个完美的精度，但召回率为零。 而报告每个人都是患者的检测器会得到一个完美的召回率，但是精度会等于人群中患有该病的比例（在我们的例子是$$0.0001\%$$，每一百万人只有一人患病）。 当使用精度和召回率时，我们通常会画PR曲线，$$y$$轴表示精度，$$x$$轴表示召回率。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20171013105553500?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171013105648545?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-28T08:11:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deep Learning读书笔记7--实践方法论 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="1. 性能度量精度是模型报告的检测是正确的比率，而召回率则是真实事件被检测到的比率。 检测器永远报告没有患者，会得到一个完美的精度，但召回率为零。 而报告每个人都是患者的检测器会得到一个完美的召回率，但是精度会等于人群中患有该病的比例（在我们的例子是$$0.0001\%$$，每一百万人只有一人患病）。 当使用精度和召回率时，我们通常会画PR曲线，$$y$$轴表示精度，$$x$$轴表示召回率。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171013105553500?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Deep Learning读书笔记7--实践方法论</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-09-03" class="post-meta__date date">2017-09-03</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Deep-Learning-Book/">Deep Learning Book</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Deep-Learning/">Deep Learning</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+
+<h2 id="1-性能度量"><a href="#1-性能度量" class="headerlink" title="1. 性能度量"></a>1. 性能度量</h2><p>精度是模型报告的检测是正确的比率，而召回率则是真实事件被检测到的比率。 检测器永远报告没有患者，会得到一个完美的精度，但召回率为零。 而报告每个人都是患者的检测器会得到一个完美的召回率，但是精度会等于人群中患有该病的比例（在我们的例子是$$0.0001\%$$，每一百万人只有一人患病）。 当使用精度和召回率时，我们通常会画PR曲线，$$y$$轴表示精度，$$x$$轴表示召回率。 如果检测到的事件发生了，那么分类器会返回一个较高的得分。 例如，我们将前馈网络设计为检测一种疾病，估计一个医疗结果由特征$$x$$表示的人患病的概率为$$\hat{y} = P(y=1\mid x)$$。 每当这个得分超过某个阈值时，我们报告检测结果。 通过调整阈值，我们能权衡精度和召回率。 在很多情况下，我们希望用一个数而不是曲线来概括分类器的性能。 要做到这一点，我们可以将精度 $$p$$和召回率 $$r$$转换为F分数$$F=2pr/(p+r)$$，另一种方法是报告\,PR曲线下方的总面积。</p>
+<h2 id="2-默认的基准模型"><a href="#2-默认的基准模型" class="headerlink" title="2. 默认的基准模型"></a>2. 默认的基准模型</h2><p>首先，根据数据的结构选择一类合适的模型。 如果项目是以固定大小的向量作为输入的监督学习，那么可以使用全连接的前馈网络。 如果输入有已知的拓扑结构（例如，输入是图像），那么可以使用卷积网络。 在这些情况下，刚开始可以使用某些分段线性单元（ReLU\,或者其扩展，如\,Leaky ReLU、PReLU\,和\,maxout）。 如果输入或输出是一个序列，可以使用门控循环网络（LSTM\,或\,GRU）。<br>具有衰减学习率以及动量的SGD是优化算法一个合理的选择 （流行的衰减方法有，衰减到固定最低学习率的线性衰减、指数衰减，或每次发生验证错误停滞时将学习率降低$$2-10$$倍，这些衰减方法在不同问题上好坏不一）。 另一个非常合理的选择是Adam算法。 批标准化对优化性能有着显著的影响，特别是对卷积网络和具有sigmoid非线性函数的网络而言。 虽然在最初的基准中忽略批标准化是合理的，然而当优化似乎出现问题时，应该立刻使用批标准化。<br>除非训练集包含数千万以及更多的样本，否则项目应该在一开始就包含一些温和的正则化。 提前终止也被普遍采用。 Dropout也是一个很容易实现，且兼容很多模型和训练算法的出色正则化项。 批标准化有时也能降低泛化误差，此时可以省略Dropout步骤，因为用于标准化变量的统计量估计本身就存在噪声。 </p>
+<h2 id="3-决定是否收集更多数据"><a href="#3-决定是否收集更多数据" class="headerlink" title="3. 决定是否收集更多数据"></a>3. 决定是否收集更多数据</h2><p>首先，确定训练集上的性能是否可接受。 如果模型在训练集上的性能就很差，学习算法都不能在训练集上学习出良好的模型，那么就没必要收集更多的数据。 反之，可以尝试增加更多的网络层或每层增加更多的隐藏单元，以增加模型的规模。 此外，也可以尝试调整学习率等超参数的措施来改进学习算法。 如果更大的模型和仔细调试的优化算法效果不佳，那么问题可能源自训练数据的质量。 数据可能含太多噪声，或是可能不包含预测输出所需的正确输入。 这意味着我们需要重新开始，收集更干净的数据或是收集特征更丰富的数据集。</p>
+<p>通常，加入总数目一小部分的样本不会对泛化误差产生显著的影响。 因此，建议在<strong>对数尺度上</strong>考虑训练集的大小，例如在后续的实验中倍增样本数目。</p>
+<h2 id="4-选择超参数"><a href="#4-选择超参数" class="headerlink" title="4. 选择超参数"></a>4. 选择超参数</h2><p><strong>手动调整超参数</strong></p>
+<p>手动搜索超参数的主要目标是调整模型的有效容量以匹配任务的复杂性。 有效容量受限于三个因素：模型的表示容量、学习算法成功最小化训练模型代价函数的能力以及代价函数和训练过程正则化模型的程度。 具有更多网络层，每层有更多隐藏单元的模型具有较高的表示能力——能够表示更复杂的函数。 然而，如果训练算法不能找到某个合适的函数来最小化训练代价，或是正则化项（如权重衰减）排除了这些合适的函数，那么即使模型的表达能力较高，也不能学习出合适的函数。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171013105553500?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><strong>自动超参数优化算法</strong></p>
+<p> 通常，网格搜索大约会在<strong>对数尺度</strong>下挑选合适的值。<br> 网格搜索带来的一个明显问题是，计算代价会随着超参数数量呈指数级增长。 如果有$$m$$个超参数，每个最多取$$n$$个值，那么训练和估计所需的试验数将是$$O(n^m)$$。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171013105648545?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><strong>基于模型的超参数优化</strong></p>
+<p>我们可以对验证集误差建模，然后通过优化该模型来提出新的超参数猜想。 大部分基于模型的超参数搜索算法，都是使用贝叶斯回归模型来估计每个超参数的验证集误差期望和该期望的不确定性。 因此，优化涉及到探索（探索高度不确定的超参数，可能带来显著的效果提升，也可能效果很差）和使用（使用已经确信效果不错的超参数——通常是先前见过的非常熟悉的超参数）之间的权衡。</p>
+<p>大部分超参数优化算法比随机搜索更复杂，并且具有一个共同的缺点，在它们能够从实验中提取任何信息之前，它们需要运行完整的训练实验。 相比于人类实践者手动搜索，考虑实验早期可以收集的信息量，这种方法是相当低效的，因为手动搜索通常可以很早判断出某组超参数是否是完全病态的。</p>
+<h2 id="5-调试策略"><a href="#5-调试策略" class="headerlink" title="5. 调试策略"></a>5. 调试策略</h2><p><strong>可视化计算中模型的行为：</strong></p>
+<p>当训练模型检测图像中的对象时，查看一些模型检测到部分重叠的图像。 在训练语音生成模型时，试听一些生成的语音样本。 这似乎是显而易见的，但在实际中很容易只注意量化性能度量，如准确率或对数似然。 直接观察机器学习模型运行其任务，有助于确定其达到的量化性能数据是否看上去合理。 错误评估模型性能可能是最具破坏性的错误之一，因为它们会使你在系统出问题时误以为系统运行良好。</p>
+<p><strong>可视化最严重的错误：</strong> </p>
+<p>大多数模型能够输出运行任务时的某种置信度量。 例如，基于softmax函数输出层的分类器给每个类分配一个概率。 因此，分配给最有可能的类的概率给出了模型在其分类决定上的置信估计值。 通常，相比于正确预测的概率最大似然训练会略有高估。 但是由于实际上模型的较小概率不太可能对应着正确的标签，因此它们在一定意义上还是有些用的。 通过查看训练集中很难正确建模的样本，通常可以发现该数据预处理或者标记方式的问题。</p>
+<p><strong>根据训练和测试误差检测软件：</strong></p>
+<p> 我们往往很难确定底层软件是否是正确实现。 训练和测试误差能够提供一些线索。 如果训练误差较低，但是测试误差较高，那么很有可能训练过程是在正常运行，但模型由于算法原因过拟合了。 另一种可能是，测试误差没有被正确地度量，可能是由于训练后保存模型再重载去度量测试集时出现问题，或者是因为测试数据和训练数据预处理的方式不同。 如果训练和测试误差都很高，那么很难确定是软件错误，还是由于算法原因模型欠拟合。 这种情况需要进一步的测试，如下面所述。</p>
+<p><strong>拟合极小的数据集：</strong></p>
+<p> 当训练集上有很大的误差时，我们需要确定问题是真正的欠拟合，还是软件错误。 通常，即使是小模型也可以保证很好地拟合一个足够小的数据集。 例如，只有一个样本的分类数据可以通过正确设置输出层的偏置来拟合。 通常，如果不能训练一个分类器来正确标注一个单独的样本，或不能训练一个自编码器来成功地精准再现一个单独的样本，或不能训练一个生成模型来一致地生成一个单独的样本，那么很有可能是由于软件错误阻止训练集上的成功优化。 此测试可以扩展到只有少量样本的小数据集上。</p>
+<p><strong>比较反向传播导数和数值导数：</strong></p>
+<p> 如果读者正在使用一个需要实现梯度计算的软件框架，或者在添加一个新操作到求导库中，必须定义它的bprop方法，那么常见的错误原因是没能正确地实现梯度表达。 验证这些求导正确性的一种方法是比较实现的自动求导和通过有限差分计算的导数。 因为</p>
+<p><strong>监控激活函数值和梯度的直方图：</strong></p>
+<p> 可视化神经网络在大量训练迭代后（也许是一个轮）收集到的激活函数值和梯度的统计量往往是有用的。 隐藏单元的预激活值可以告诉我们该单元是否饱和，或者它们饱和的频率如何。 例如，对于整流器，它们多久关一次？是否有单元一直关闭？ 对于双曲正切单元而言，预激活绝对值的平均值可以告诉我们该单元的饱和程度。 在深度网络中，传播梯度的快速增长或快速消失，可能会阻碍优化过程。 最后，比较参数梯度和参数的量级也是有帮助的。 我们希望参数在一个小批量更新中变化的幅度是参数量值$$1\%$$这样的级别，而不是$$50\%$$或者$$0.001\%$$（这会导致参数移动得太慢）。 也有可能是某些参数以良好的步长移动，而另一些停滞。 如果数据是稀疏的（比如自然语言），有些参数可能很少更新，检测它们变化时应该记住这一点。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      displayMath: [ ['$','$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+			    extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {inlineMath: [['[latex]','[/latex]'],['\\(','\\)']],
+				          displayMath: [ ['$','$'], ["\\[","\\]"] ],
+						  processEscapes: true
+						  },
+                "HTML-CSS": { availableFonts: ["TeX"] }						  
+            });
+        });
+    </script>
+	
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

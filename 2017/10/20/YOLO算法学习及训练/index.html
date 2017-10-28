@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      YOLO算法学习及训练 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="1. YOLO2代码在window下的训练代码：https://github.com/AlexeyAB/darknet 原始代码：https://pjreddie.com/darknet/ Tips:  虽然要求OPENCV版本为2.4.13或2.4.3以上，VS2015，但实际上改一下代码中opencv和VS的配置信息，低版本也可以，本人版本opencv2.4.10 + VS2013。 VS运行">
+<meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YOLO算法学习及训练 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/10/20/YOLO算法学习及训练/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="1. YOLO2代码在window下的训练代码：https://github.com/AlexeyAB/darknet 原始代码：https://pjreddie.com/darknet/ Tips:  虽然要求OPENCV版本为2.4.13或2.4.3以上，VS2015，但实际上改一下代码中opencv和VS的配置信息，低版本也可以，本人版本opencv2.4.10 + VS2013。 VS运行">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-28T08:23:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="YOLO算法学习及训练 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="1. YOLO2代码在window下的训练代码：https://github.com/AlexeyAB/darknet 原始代码：https://pjreddie.com/darknet/ Tips:  虽然要求OPENCV版本为2.4.13或2.4.3以上，VS2015，但实际上改一下代码中opencv和VS的配置信息，低版本也可以，本人版本opencv2.4.10 + VS2013。 VS运行">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">YOLO算法学习及训练</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-10-20" class="post-meta__date date">2017-10-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Deep-Learning/">Deep Learning</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Deep-Learning/">Deep Learning</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="1-YOLO2代码"><a href="#1-YOLO2代码" class="headerlink" title="1. YOLO2代码"></a>1. YOLO2代码</h2><p>在window下的训练代码：<br><a href="https://github.com/AlexeyAB/darknet" target="_blank" rel="external">https://github.com/AlexeyAB/darknet</a></p>
+<p>原始代码：<br><a href="https://pjreddie.com/darknet/" target="_blank" rel="external">https://pjreddie.com/darknet/</a></p>
+<p><strong>Tips:</strong></p>
+<ol>
+<li>虽然要求OPENCV版本为2.4.13或2.4.3以上，VS2015，但实际上改一下代码中opencv和VS的配置信息，低版本也可以，本人版本opencv2.4.10 + VS2013。</li>
+<li>VS运行代码时会出现大量的找不到定义错误，这是因为C和C++代码风格差距导致的，本代码为C风格，而在C风格下需要把变量的声明反正其生命周期开始的地方！</li>
+</ol>
+<h2 id="2-YOLO网络参数"><a href="#2-YOLO网络参数" class="headerlink" title="2. YOLO网络参数"></a>2. YOLO网络参数</h2><p><strong>batch:</strong> </p>
+<p>每一次迭代送到网络的图片数量，也叫批数量。增大这个可以让网络在较少的迭代次数内完成一个epoch。在固定最大迭代次数的前提下，增加batch会延长训练时间，但会更好的寻找到梯度下降的方向。如果你显存够大，可以适当增大这个值来提高内存利用率。这个值是需要大家不断尝试选取的，过小的话会让训练不够收敛，过大会陷入局部最优。</p>
+<p><strong>subdivision：</strong></p>
+<p>这个参数很有意思的，它会让你的每一个batch不是一下子都丢到网络里。而是分成subdivision对应数字的份数，一份一份的跑完后，在一起打包算作完成一次iteration。这样会降低对显存的占用情况。如果设置这个参数为1的话就是一次性把所有batch的图片都丢到网络里，如果为2的话就是一次丢一半。</p>
+<p><strong>angle：</strong></p>
+<p>图片旋转角度，这个用来增强训练效果的。从本质上来说，就是通过旋转图片来变相的增加训练样本集。</p>
+<p><strong>saturation，exposure，hue：</strong></p>
+<p>饱和度，曝光度，色调，这些都是为了增强训练效果用的。</p>
+<p><strong>learning_rate：</strong></p>
+<p>学习率，训练发散的话可以降低学习率。学习遇到瓶颈，loss不变的话也减低学习率。</p>
+<p><strong>max_batches：</strong></p>
+<p> 最大迭代次数。</p>
+<p>  <strong>policy：</strong></p>
+<p>学习策略，可以设置成以下方式：</p>
+<ul>
+<li>fixed:　　 保持base_lr不变.</li>
+<li>step: 　　 如果设置为step,则还需要设置一个stepsize,  返回 base_lr * gamma ^ (floor(iter / stepsize)),其中iter表示当前的迭代次数</li>
+<li>exp:   　　返回base_lr * gamma ^ iter， iter为当前迭代次数</li>
+<li>inv:　　    如果设置为inv,还需要设置一个power, 返回base_lr <em> (1 + gamma </em> iter) ^ (- power)</li>
+<li>multistep: 如果设置为multistep,则还需要设置一个stepvalue。这个参数和step很相似，step是均匀等间隔变化，而multistep则是根据                                 stepvalue值变化</li>
+<li>poly: 　　  学习率进行多项式误差, 返回 base_lr (1 - iter/max_iter) ^ (power)</li>
+<li>sigmoid:　学习率进行sigmod衰减，返回 base_lr ( 1/(1 + exp(-gamma * (iter - stepsize))))</li>
+</ul>
+<p><strong>step，scales：</strong></p>
+<p>这两个是组合一起的，举个例子：learn_rate: 0.001, step:100,25000,35000   scales: 10, .1, .1 这组数据的意思就是在0-100次iteration期间learning rate为原始0.001，在100-25000次iteration期间learning rate为原始的10倍0.01，在25000-35000次iteration期间learning rate为当前值的0.1倍，就是0.001， 在35000到最大iteration期间使用learning rate为当前值的0.1倍，就是0.0001。随着iteration增加，降低学习率可以是模型更有效的学习，也就是更好的降低train loss。</p>
+<p>最后一层卷积层中filters数值是 5×（类别数 + 1*5）。具体原因就不多说了，知道就好哈。<br>region里需要把classes改成你的类别数。</p>
+<p><strong>random</strong></p>
+<p>如果设置为1的话，就是在训练的时候每一batch图片会随便改成320-640（32整倍数）大小的图片。目的和上面的色度，曝光度等一样。如果设置为0的话，所有图片就只修改成默认的大小 416*416。</p>
+<p>参考博客：</p>
+<p><a href="http://blog.csdn.net/renhanchi/article/details/71077830?locationNum=11&amp;fps=1" target="_blank" rel="external">【Darknet】【yolo v2】训练自己数据集的一些心得—-VOC格式</a></p>
+<p><strong>网络参数文件cfg解析：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div></pre></td><td class="code"><pre><div class="line">[net]</div><div class="line">batch=64                           每batch个样本更新一次参数。</div><div class="line">subdivisions=8                     如果内存不够大，将batch分割为subdivisions个子batch，每个子batch的大小为batch/subdivisions。</div><div class="line">                                   在darknet代码中，会将batch/subdivisions命名为batch。</div><div class="line">height=416                         input图像的高</div><div class="line">width=416                          Input图像的宽</div><div class="line">channels=3                         Input图像的通道数</div><div class="line">momentum=0.9                       动量</div><div class="line">decay=0.0005                       权重衰减正则项，防止过拟合</div><div class="line">angle=0                            通过旋转角度来生成更多训练样本</div><div class="line">saturation = 1.5                   通过调整饱和度来生成更多训练样本</div><div class="line">exposure = 1.5                     通过调整曝光量来生成更多训练样本</div><div class="line">hue=.1                             通过调整色调来生成更多训练样本</div><div class="line"></div><div class="line">learning_rate=0.0001               初始学习率</div><div class="line">max_batches = 45000                训练达到max_batches后停止学习</div><div class="line">policy=steps                       调整学习率的policy，有如下policy：CONSTANT, STEP, EXP, POLY, STEPS, SIG, RANDOM</div><div class="line">steps=100,25000,35000              根据batch_num调整学习率</div><div class="line">scales=10,.1,.1                    学习率变化的比例，累计相乘</div><div class="line"></div><div class="line">[convolutional]</div><div class="line">batch_normalize=1                  是否做BN</div><div class="line">filters=32                         输出多少个特征图</div><div class="line">size=3                             卷积核的尺寸</div><div class="line">stride=1                           做卷积运算的步长</div><div class="line">pad=1                              如果pad为0,padding由 padding参数指定。如果pad为1，padding大小为size/2</div><div class="line">activation=leaky                   激活函数：</div><div class="line">                                   logistic，loggy，relu，elu，relie，plse，hardtan，lhtan，linear，ramp，leaky，tanh，stair</div><div class="line"></div><div class="line">[maxpool]</div><div class="line">size=2                             池化层尺寸</div><div class="line">stride=2                           池化步进</div><div class="line"></div><div class="line">[convolutional]</div><div class="line">batch_normalize=1</div><div class="line">filters=64</div><div class="line">size=3</div><div class="line">stride=1</div><div class="line">pad=1</div><div class="line">activation=leaky</div><div class="line"></div><div class="line">[maxpool]</div><div class="line">size=2</div><div class="line">stride=2</div><div class="line"></div><div class="line">......</div><div class="line">......</div><div class="line"></div><div class="line"></div><div class="line">#######</div><div class="line"></div><div class="line">[convolutional]</div><div class="line">batch_normalize=1</div><div class="line">size=3</div><div class="line">stride=1</div><div class="line">pad=1</div><div class="line">filters=1024</div><div class="line">activation=leaky</div><div class="line"></div><div class="line">[convolutional]</div><div class="line">batch_normalize=1</div><div class="line">size=3</div><div class="line">stride=1</div><div class="line">pad=1</div><div class="line">filters=1024</div><div class="line">activation=leaky</div><div class="line"></div><div class="line">[route]                            the route layer is to bring finer grained features in from earlier in the network</div><div class="line">layers=-9</div><div class="line"></div><div class="line">[reorg]                            the reorg layer is to make these features match the feature map size at the later layer. </div><div class="line">                                   The end feature map is 13x13, the feature map from earlier is 26x26x512. </div><div class="line">                                   The reorg layer maps the 26x26x512 feature map onto a 13x13x2048 feature map </div><div class="line">                                   so that it can be concatenated with the feature maps at 13x13 resolution.</div><div class="line">stride=2</div><div class="line"></div><div class="line">[route]</div><div class="line">layers=-1,-3</div><div class="line"></div><div class="line">[convolutional]</div><div class="line">batch_normalize=1</div><div class="line">size=3</div><div class="line">stride=1</div><div class="line">pad=1</div><div class="line">filters=1024</div><div class="line">activation=leaky</div><div class="line"></div><div class="line">[convolutional]</div><div class="line">size=1</div><div class="line">stride=1</div><div class="line">pad=1</div><div class="line">filters=125                        region前最后一个卷积层的filters数是特定的，计算公式为filter=num*(classes+5) </div><div class="line">                                   5的意义是5个坐标，论文中的tx,ty,tw,th,to</div><div class="line">activation=linear</div><div class="line"></div><div class="line">[region]</div><div class="line">anchors = 1.08,1.19,  3.42,4.41,  6.63,11.38,  9.42,5.11,  16.62,10.52          预选框，可以手工挑选，</div><div class="line">                                                                     也可以通过k means 从训练样本中学出</div><div class="line">bias_match=1</div><div class="line">classes=20                         网络需要识别的物体种类数</div><div class="line">coords=4                           每个box的4个坐标tx,ty,tw,th</div><div class="line">num=5                              每个grid cell预测几个box</div><div class="line">softmax=1                          使用softmax做激活函数</div><div class="line">jitter=.2                          通过抖动增加噪声来抑制过拟合</div><div class="line">rescore=1                          暂理解为一个开关，非0时通过重打分来调整l.delta（预测值与真实值的差）</div><div class="line"></div><div class="line">object_scale=5                     暂理解为计算损失时预测框中有物体时的权重</div><div class="line">noobject_scale=1                   暂理解为计算损失时预测框中无物体时的权重</div><div class="line">class_scale=1                      暂理解为计算类别损失时的权重                      </div><div class="line">coord_scale=1                      暂理解为计算损失时坐标偏差的权重</div><div class="line"></div><div class="line">absolute=1</div><div class="line">thresh = .6</div><div class="line">random=0</div></pre></td></tr></table></figure>
+<p>具体的参数代码解析，可以参考：</p>
+<p><a href="https://xmfbit.github.io/2017/03/06/yolo-cfg-parser/" target="_blank" rel="external">YOLO网络参数的解析与存储</a></p>
+<h2 id="3-YOLO的算法原理"><a href="#3-YOLO的算法原理" class="headerlink" title="3. YOLO的算法原理"></a>3. YOLO的算法原理</h2><p><strong>参考博客：</strong></p>
+<p><a href="https://xmfbit.github.io/2017/02/04/yolo-paper/" target="_blank" rel="external">YOLO 论文阅读</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/25167153" target="_blank" rel="external">YOLO2</a></p>
+<p><a href="http://blog.csdn.net/hrsstudy/article/details/71173305" target="_blank" rel="external">K-means 计算 anchor boxes</a></p>
+<p><a href="http://blog.csdn.net/mounty_fsc/article/details/51746111" target="_blank" rel="external">（Paper）Network in Network网络分析</a></p>
+<p><a href="http://blog.csdn.net/malefactor/article/details/51476961#0-tsina-1-62851-397232819ff9a47a7b7e80a40613cfe1" target="_blank" rel="external">Batch Normalization导读</a></p>
+<p><strong>global average pooling :</strong></p>
+<p>主要是用来解决全连接的问题，其主要是是将最后一层的特征图进行整张图的一个均值池化，形成一个特征点，将这些特征点组成最后的特征向量进行softmax中进行计算。</p>
+<p><a href="http://blog.csdn.net/chaojichaoachao/article/details/50994237" target="_blank" rel="external">论文心得：BatchNorm及其变体</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      displayMath: [ ['$','$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+			    extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {inlineMath: [['[latex]','[/latex]'],['\\(','\\)']],
+				          displayMath: [ ['$','$'], ["\\[","\\]"] ],
+						  processEscapes: true
+						  },
+                "HTML-CSS": { availableFonts: ["TeX"] }						  
+            });
+        });
+    </script>
+	
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
