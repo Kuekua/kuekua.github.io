@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      定点数与浮点数 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="转载自：定点数与浮点数   简介：本文主要介绍了定点数和浮点数的概念，定点数和浮点数的加减运算（比如34.6f-34.0f），最后介绍了浮点数的特殊值。 I.定点数所谓定点格式，即约定机器中所有数据的小数点位置是固定不变的。通常将定点数据表示成纯小数或纯整数，为了将数表示成纯小数，通常把小数点固定在数值部分的最高位之前；而为了将数表示成纯整数，则把小数点固定在数值部分的最后面，如下图所示：   图">
+<meta name="keywords" content="Algorithm,Algorithm Optimization">
+<meta property="og:type" content="article">
+<meta property="og:title" content="定点数与浮点数 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/07/22/定点数与浮点数/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="转载自：定点数与浮点数   简介：本文主要介绍了定点数和浮点数的概念，定点数和浮点数的加减运算（比如34.6f-34.0f），最后介绍了浮点数的特殊值。 I.定点数所谓定点格式，即约定机器中所有数据的小数点位置是固定不变的。通常将定点数据表示成纯小数或纯整数，为了将数表示成纯小数，通常把小数点固定在数值部分的最高位之前；而为了将数表示成纯整数，则把小数点固定在数值部分的最后面，如下图所示：   图">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170930183705140?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170930184239105?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170930184512641?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170930185100351?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170930185523939?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170930185554184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170930190606088?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170930190812597?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-28T08:32:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="定点数与浮点数 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="转载自：定点数与浮点数   简介：本文主要介绍了定点数和浮点数的概念，定点数和浮点数的加减运算（比如34.6f-34.0f），最后介绍了浮点数的特殊值。 I.定点数所谓定点格式，即约定机器中所有数据的小数点位置是固定不变的。通常将定点数据表示成纯小数或纯整数，为了将数表示成纯小数，通常把小数点固定在数值部分的最高位之前；而为了将数表示成纯整数，则把小数点固定在数值部分的最后面，如下图所示：   图">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170930183705140?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">定点数与浮点数</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-07-22" class="post-meta__date date">2017-07-22</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Algorithm-Optimization/">Algorithm Optimization</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Algorithm-Optimization/">Algorithm Optimization</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>转载自：<a href="http://www.cnblogs.com/kevinq/p/4480563.html" target="_blank" rel="external">定点数与浮点数</a></p>
+<p><script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script></p>
+<h2 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h2><p>本文主要介绍了定点数和浮点数的概念，定点数和浮点数的加减运算（比如34.6f-34.0f），最后介绍了浮点数的特殊值。</p>
+<h2 id="I-定点数"><a href="#I-定点数" class="headerlink" title="I.定点数"></a>I.定点数</h2><p>所谓定点格式，即约定机器中所有数据的小数点位置是固定不变的。通常将定点数据表示成纯小数或纯整数，为了将数表示成纯小数，通常把小数点固定在数值部分的最高位之前；而为了将数表示成纯整数，则把小数点固定在数值部分的最后面，如下图所示：</p>
+<p> <img src="http://img.blog.csdn.net/20170930183705140?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>图中所标示的小数点在机器中是不表示出来的，而是事先约定在固定的位置。对于一台计算机，一旦确定了小数点的位置，就不再改变。</p>
+<p>假设用n位来表示一个定点数$$x=x_0x_1x<em>2…x</em>(n-1)$$，其中x0用来表示数的符号位，通常放在最左位置，并用数值0和1分别表示正号和负号，其余位数表示它的量值。如果定点数x表示纯整数，则小数点位于最低位x(n-1)的右边，数值范围是$$0&lt;=|x|&lt;=2^{(n-1)}-1$$，且，例如1111表示-7；如果定点数x表示纯小数，则小数点位于x0和x1之间，数值范围是$$0&lt;=|x|&lt;=1-2^{(-(n-1))}$$，且，例如1111表示-0.875.</p>
+<h2 id="II-定点数加减运算"><a href="#II-定点数加减运算" class="headerlink" title="II.定点数加减运算"></a>II.定点数加减运算</h2><p>不论操作数是正还是负，在做补码加减法时，只需将符号位和数值部分一起参与运算，并且将符号位产生的进位丢掉即可。如：</p>
+<p>short A=-9, B=-5;</p>
+<p>A+B = -14</p>
+<p>推导过程如下：</p>
+<p>A的原码为：1000 0000 0000 1001，因此补码为：1111 1111 1111 0111</p>
+<p>B的原码为：1000 0000 0000 0101，因此补码位：1111 1111 1111 1011</p>
+<p>A+B的补码为：1 1111 1111 1111 0010，将符号位产生的进位丢掉，因此最终结果为：</p>
+<p>1111 1111 1111 0010，结果的原码为：1000 0000 0000 1110，即-14。</p>
+<h2 id="III-定点数加减运算的溢出判断"><a href="#III-定点数加减运算的溢出判断" class="headerlink" title="III.定点数加减运算的溢出判断"></a>III.定点数加减运算的溢出判断</h2><h3 id="1）用一位符号位判断溢出"><a href="#1）用一位符号位判断溢出" class="headerlink" title="1）用一位符号位判断溢出"></a>1）用一位符号位判断溢出</h3><p>对于加法，只有在正数加正数和负数加负数两种情况下才可能出现溢出，符号不同的两个数相加是不会溢出的。</p>
+<p>对于减法，只有在正数减负数和负数减正数两种情况下才可能出现溢出，符号相同的两个数相减是不会溢出的。</p>
+<p>由于减法运算在机器中是用加法器实现的，因此：<strong>不论是作加法还是减法，只要实际操作数（减法时即为被减数和“求补”之后的减数）的补码符号位相同，而结果的符号位又与操作数补码符号位不同，即为溢出。</strong>如：</p>
+<p>在4位机中，A=5，B=-4，则A-B溢出，推导过程如下：</p>
+<p>A的原码为0101，补码为0101；-B的原码为0100，补码为0100； A-B的补码为1001，结果的符号位为1，实际操作数的符号位为0，因此溢出。</p>
+<h3 id="2）用两位符号位判断溢出"><a href="#2）用两位符号位判断溢出" class="headerlink" title="2）用两位符号位判断溢出"></a>2）用两位符号位判断溢出</h3><p>此时判断溢出的原则是：当2位符号位不同时，表示溢出；否则无溢出。不论是否发生溢出，高位符号位永远代表真正的符号。如：</p>
+<p>x=-0.1011，y=-0.0111，则x+y溢出，推导过程如下：</p>
+<p>x的原码为11.1011，补码为11.0101；y的原码为11.0111，补码为11.1001，因此x+y的补码为1 10.1110，将符号位产生的进位丢掉，则结果为10.1110，因此溢出。</p>
+<p>注：约定整数的符号位与数值位之间用逗号隔开，小数的符号位与数值位之间用小数点隔开。</p>
+<h2 id="IV-浮点数"><a href="#IV-浮点数" class="headerlink" title="IV.浮点数"></a>IV.浮点数</h2><p>定点数表示法的缺点在于其形式过于僵硬，固定的小数点位置决定了固定位数的整数部分和小数部分，不利于同时表达特别大或特别小的数，最终，绝大多数现代的计算机系统采纳了浮点数表达方式，这种表达方式利用科学计数法来表达实数，即用一个尾数(Mantissa，尾数有时也称为有效数字，它实际上是有效数字的非正式说法)，一个基数(Base)，一个指数(Exponent)以及一个表示正负的符号来表达实数，比如123.45用十进制科学计数法可以表示为$$1.2345x10^2$$，其中1.2345为尾数，10为基数，2为指数。浮点数利用指数达到了浮动小数点的效果，从而可以灵活地表达更大范围的实数。</p>
+<h3 id="1-IEEE浮点数"><a href="#1-IEEE浮点数" class="headerlink" title="1) IEEE浮点数"></a>1) IEEE浮点数</h3><p>在IEEE标准中，浮点数是将特定长度的连续字节的所有二进制位分割为特定宽度的符号域、指数域和尾数域这三个域，域中的值分别用于表示给定二进制浮点数中的符号、指数和尾数，这样，通过尾数和可以调节的指数就可以表达给定的数值了。</p>
+<p>IEEE754指定了两种基本的浮点格式：单精度和双精度。其中单精度格式具有24位有效数字(即尾数)精度，总共占用32位；双精度格式具有53位有效数字(即尾数)精度，总共占有64位       。</p>
+<p>两种扩展浮点格式：单精度扩展和双精度扩展。此标准并未规定这些格式的精确精度和大小，但指定了最小精度和大小，例如IEEE双精度扩展格式必须至少具有64位有效数字精度，并总共占用至少79位。</p>
+<p>具体的格式参见下面的图例：</p>
+<p><img src="http://img.blog.csdn.net/20170930184239105?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="2-单精度格式"><a href="#2-单精度格式" class="headerlink" title="2) 单精度格式"></a>2) 单精度格式</h3><p>IEEE单精度格式由三个字段组成：23位小数f、8位偏置指数e以及1位符号s，这些字段连续存储在一个32位字中，如下图所示：</p>
+<p><img src="http://img.blog.csdn.net/20170930184512641?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>0:22位包含23位小数f，其中第0位是小数的最低有效位，第22位是最高有效位。IEEE标准要求浮点数必须是规范的(浮点数的规范化见后文)，这意味着<strong>尾数的小数点左侧必须为1</strong>，因此我们在保存尾数时，可以省略小数点前面的1，从而腾出一个二进制位来保存更多的尾数，这样我们实际上用23位长的尾数域表达了24位的尾数。</p>
+<p>23:30位包含8位偏置指数3，第23位是偏置指数的最低有效位，第30位是最高有效位。8位的指数可以表达0到255之间的256个指数值，但指数可以位正数，也可以为负数，因此为了处理负指数的情况，实际的指数值按要求需要加上一个偏置(Bias)值作为保存在指数域中的值，单精度的偏置值为127(2^7-1)，比如单精度的实际指数值0在指数域中保存为127(0+127)，实际指数值-63在指数域中保存为64(-63+127)。偏置的引入使得对于单精度数，实际可以表达的指数值的范围变为-127到128之间(包含两端)，其中指数值<strong>-127(保存为全0)以及+128(保存为全1)</strong>保留用作特殊值的处理，稍后介绍。如果我们分别用emin和emax来表达其它常规指数值范围的边界，即最小指数和最大指数分别用emin和emax来表示，即-126和127，则保留的特殊指数值可以分别表达为emin-1和emax+1;</p>
+<p>最高的第31位包含符号位s，s为0表示数值为正数，s位1表示数值为负数。</p>
+<p>值得注意的是，对于单精度数，由于我们只有24位的尾数(小数点左侧的1被隐藏)，所以可以表达的最大尾数为2^24-1=16,777,215，因此单精度的浮点数可以表达的十进制数值中，真正有效的数字不高于8位。</p>
+<h3 id="3-双精度格式"><a href="#3-双精度格式" class="headerlink" title="3) 双精度格式"></a>3) 双精度格式</h3><p>IEEE双精度格式由三个字段组成：52位小数f、11位偏置指数e以及1位符号s，这些字段连续存储在两个32位字中，如下图所示：</p>
+<p><img src="http://img.blog.csdn.net/20170930185100351?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>在SPARC体系结构中，较高地址的32位字包含小数的32位最低有效位，而在x86体系结构中，则是较低地址的32位字包含小数的32位最低有效位。</p>
+<p>以x86体系结构为例，则f[31:0]表示小数的32位最低有效位，其中第0位是整个小数的最低有效位。在另一个32位字中，0:19位表示小数的20位最高有效位f[51:32]，其中第19位是整个小数的最高有效位；20:30位包含11位偏置指数e，其中第20位是偏置指数的最低有效位，第30位是偏置指数的最高有效位；第31位则是符号位s。上图将这两个连续的32位字按一个64位字那样进行了编号，其中：</p>
+<p>0:51位包含52位小数f，其中第0位是小数的最低有效位，第51位是小数的最高有效位。IEEE标准要求浮点数必须是规范的，这意味着尾数的小数点左侧必须为1，因此我们在保存尾数时，可以省略小数点前面的1，从而腾出一个二进制位来保存更多的尾数，这样我们实际上用52位长的尾数域表达了53位的尾数。</p>
+<p>52:62位包含11位偏置指数e，第52位是偏置指数的最低有效位，第 62 位是最高有效位。11 位的指数为可以表达 0 到 2047 之间的2048个指数值，但指数可以为正数，也可以为负数，因此为了处理负指数的情况，实际的指数值按要求需要加上一个偏差（Bias）值作为保存在指数域中的值，单精度数的偏差值为1023(2^10-1)，偏差的引入使得对于单精度数，实际可以表达的指数值的范围就变成 -1023到1024之间（包含两端）。最小指数和最大指数分别用emin 和 emax来表达，稍后将介绍实际的指数值 -1023(保存为全0)以及 +1024(保存为全 1)保留用作特殊值的处理。</p>
+<p>最高的第 63 位包含符号位s，s为0表示数值为正数， s为1则表示负数。</p>
+<h3 id="4-双精度扩展格式-SPARC"><a href="#4-双精度扩展格式-SPARC" class="headerlink" title="4) 双精度扩展格式(SPARC)"></a>4) 双精度扩展格式(SPARC)</h3><p>SPARC浮点环境的双精度格式符合IEEE关于双精度扩展格式的定义。</p>
+<p>SPARC浮点环境的双精度格式包含三个字段：112位小数f、15位偏置指数e以及1位符号s，这三个字段连续存储，如下图所示：</p>
+<p><img src="http://img.blog.csdn.net/20170930185523939?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>地址最高的32位字包含小数的32位最低有效位，用f[31:0]表示；紧邻的两个32位字分别包含f[63:32]和f[95:64]；接下来的32位字中， 0:15 位包含小数的16位最高有效位f[111:96]，其中第15位是整个小数的最高有效位；16:30位包含15位偏置指数e，其中第16位是该偏置指数的最低有效位，第30位是偏置指数的最高有效位；第 31位包含符号位s。</p>
+<p>上图将这四个连续的32位字按一个128位字那样进行了编号，其中0:111位存储小数f；112:126位存储15位偏置指数e而第 127 位存储符号位 s。</p>
+<h3 id="5-双精度扩展格式-x86"><a href="#5-双精度扩展格式-x86" class="headerlink" title="5) 双精度扩展格式(x86)"></a>5) 双精度扩展格式(x86)</h3><p>x86浮点环境的双精度格式符合IEEE关于双精度扩展格式的定义。</p>
+<p>x86浮点环境的双精度格式包含四个字段：63位小数f、1位显式前导有效数位j、15位偏置指数e以及1位符号s。在 x86 体系结构系列中，这些字段连续存储在十个相连地址的8位字节中，由于UNIX System V Application Binary Interface Intel 386 Processor Supplement (Intel ABI) 要求双精度扩展参数，从而占用堆栈中三个相连地址的32位字，其中地址最高字的16位最高有效位未用，如下图所示：</p>
+<p><img src="http://img.blog.csdn.net/20170930185554184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>地址最低的32位字包含小数的32位最低有效位 f[31:0]，其中第0位是整个小数的最低有效位；地址居中的 32 位字中，0:30位包含小数的31位最高有效位 f[62:32]，其中第30位是整个小数的最高有效位，第31位包含显式前导有效数位 j。</p>
+<p>地址最高的32位字中，0:14位包含15位偏置指数e，其中第0位是该偏置指数的最低有效位，而第14位是最高有效位；第15位包含符号位s。</p>
+<h2 id="VI-浮点数的规范化"><a href="#VI-浮点数的规范化" class="headerlink" title="VI.浮点数的规范化"></a>VI.浮点数的规范化</h2><p>同样的数值可以有多种浮点数表达方式，比如上面例子中的123.45可以表达为12.345x10^1，0.12345x10^3或者1.2345x10^2，因为这种多样性，有必要对其加以规范化以达到统一表达的目标。规范的(Normalized)浮点数表达方式具有如下形式：</p>
+<p>$$±d.dd…d ×β^e , (0≤d i&lt;β)$$</p>
+<p>其中<strong>d.dd…d为尾数，β为基数，e为指数。</strong>尾数中数字的个数称为精度，用 p 来表示，每个数字d介于0和基数之间，包括0，小数点左侧的数字不为0。</p>
+<p>基于规范表达的浮点数对应的具体值可由下面的表达式计算得到：</p>
+<p>$$±(d_0 + d<em>1β^{-1} + … + d</em>(p-1)β^{-(p-1)})β^e , (0≤d i&lt;β)$$</p>
+<p>对于十进制的浮点数，即基数β等于10的浮点数而言，上面的表达式非常容易理解，也很直白。而计算机内部的数值表达是基于二进制的，从上面的表达式，我们可以知道二进制数同样可以有小数点，也同样具有类似于十进制的表达方式，只是此时β等于2，而每个数字d只能在0和1之间取值，比如二进制数 1001.101相当于1x2^3+0x2^2+0x2^1+1x2^0+1x2^-1+0x2^-2+1x2^-3，对应于十进制的 9.625，其规范浮点数表达为1.001101x2^3。</p>
+<h3 id="1-实数和浮点数之间的转换"><a href="#1-实数和浮点数之间的转换" class="headerlink" title="1) 实数和浮点数之间的转换"></a>1) 实数和浮点数之间的转换</h3><p>假定我们有一个32位的数据，它是一个单精度浮点数，十六进制表示为0xC0B40000，为了得到该浮点数实际表达的实数，我们首先将其转换为二进制形式：</p>
+<p>1100 0000 1011 0100 0000 0000 0000 0000</p>
+<p>接着按照浮点数的格式切分为相应的域：</p>
+<p>1 1000_0001 0110_1000_0000_0000_0000_000</p>
+<p>符号位1表示这是一个负数，指数域为129，意味着实际值为2，尾数域为01101意味着实际的二进制尾数为1.01101，所以实际的实数为：</p>
+<p>-1.01101x2^2=-101.101=-5.625</p>
+<p>从实数向浮点数变换稍微麻烦一点，假定我们需要将实数-9.625表达为单精度的浮点数格式，方式是首先将它用二进制浮点数表示，然后变换为相应的浮点数格式。</p>
+<p>首先，整数部分，即9的二进制形式为1001，小数部分的算法则是将小数部分连续乘以基数2，并记录结果的整数部分：</p>
+<p>0.625x2=1.25     1</p>
+<p>0.25x2=0.5         0</p>
+<p>0.5x2=1              1</p>
+<p>当最后的小数部分为0时，结束该过程，因此小数部分的二进制表达为0.101，这样我们就得到了完整的二进制形式1001.101，用规范浮点数表示为：</p>
+<p>1.001101x2^3</p>
+<p>因为是负数，因此符号位为1，指数为3，因此指数域为3+127=130，即二进制的1000 0010，尾数域省掉小数点左侧的1，右侧用零补齐，得到最终结果为：<br>1 1000_00100011_0100_0000_0000_0000_000，最后可以将浮点数表示为十六进制的数据如下：1100 0001 0001 1010 0000 0000 0000 0000，最终结果为0xC11A0000  </p>
+<p>这里需要注意一个问题，在上面我们有意选择的示例中，不断地将产生的小数部分乘以2的过程掩盖了一个事实，该过程结束的标志是小数部分乘以2的结果为1，但实际上，很多小数根本不能经过有限次这样的过程而得到结果(比如0.1)，但浮点数尾数域的位数是有限的，为此，浮点数的处理方法是持续该过程直到由此得到的尾数足以填满尾数域，之后对多余的位进行舍入。换句话说，除了我们之前讲到的精度问题之外，十进制到二进制的变换也并不能保证总是精确的，而只能是近似值。事实上，只有很少一部分十进制小数具有精确的二进制浮点数表达，再加上浮点数运算过程中的误差累积，结果是很多我们看来非常简单的十进制运算在计算机上却往往出人意料，这就是最常见的浮点运算的”不准确”问题，比如：34.6f-34.0f=0.599998，产生这个误差的原因是34.6f无法精确的表达为相应的浮点数，而只能保存为经过舍入的近似值，这个近似值与34.0f之间的运算自然无法产生精确的结果(具体过程后面会讲)。</p>
+<h3 id="2-舍入"><a href="#2-舍入" class="headerlink" title="2) 舍入"></a>2) 舍入</h3><p>根据标准要求，无法精确保存的值必须向最接近可保存的值进行舍入，这有点像我们熟悉的十进制的四舍五入，即不足一半则舍，一半以上(包括一半)则进，不过对于二进制浮点数而言，则是0就舍，但1不一定进，而是在前后两个等距接近的可保存的值中，取其中最后一位有效数字为零的值进行保存，即采取向偶数舍入，比如0.5要舍到0，1.5要入到2(即先试着进1，会得到最后结果，如果这个结果的尾数的最后位为0，则进位成功；否则进位失败，直接舍去)，看下面几个例子：</p>
+<p><img src="http://img.blog.csdn.net/20170930190606088?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>结果推导分析：</p>
+<p>16777215f的分析过程：</p>
+<p>1111 1111 1111 1111 1111 1111                         16777215f(其中第一个1会隐藏)</p>
+<p>1.1111_1111 1111_1111_1111_111             　　  刚好是23位小数，不会丢失精度，能精确表示</p>
+<p>0 23+127 1111_1111_1111_1111_1111_111 　　(0表示是正数，23+127表示偏移指数值，尾数位为23个1)</p>
+<p>0 10010110 1111_1111_1111_1111_1111_111</p>
+<p>16777216f的分析过程：</p>
+<p>1000 0000 0000 0000 0000 0000 0                    16777216f(最后一个0会被舍去)</p>
+<p>1.0000_0000_0000_0000_0000_000 0              (因为尾数域为23位，因此最后一个0被舍去，但是还是能准确显示)</p>
+<p>0 24+127 0000_0000_0000_0000_0000_000</p>
+<p>0 10010111 0000_0000_0000_0000_0000_000</p>
+<p>16777217f的分析过程：</p>
+<p>1000 0000 0000 0000 0000 0000 1                    16777217f(最后一个1会被舍去)</p>
+<p>1.0000_0000_0000_0000_0000_000 1              (最后一个1被舍去，试着进位)</p>
+<ol>
+<li><p>0000_0000_0000_0000_0000_001                (由于进位后，尾数域末尾不为0，因此进位失败，直接将1舍去)</p>
+</li>
+<li><p>0000_0000_0000_0000_0000_000                (这里其实已经说明结果为16777216f)</p>
+</li>
+</ol>
+<p>16777218f的分析过程：</p>
+<p>1000 0000 0000 0000 0000 0001 0                    16777218f(最后一个0会被舍去)</p>
+<ol>
+<li>0000_0000_0000_0000_0000_001 0             (最后一个0被舍去，所以还是能准确显示)</li>
+</ol>
+<p>0 24+127 0000_0000_0000_0000_0000_001</p>
+<p>0 10010111 0000_0000_0000_0000_0000_001</p>
+<p>16777219f的分析过程：</p>
+<p>1000 0000 0000 0000 0000 0001 1                    16777219f(最后一个1会被舍去)</p>
+<ol>
+<li><p>0000_0000_0000_0000_0000_001 1             (最后一个1被舍去，尝试进位)</p>
+</li>
+<li><p>0000_0000_0000_0000_0000_010                (尾数域末位为0，进位成功)</p>
+</li>
+</ol>
+<p>0 24+127 0000_0000_0000_0000_0000_010</p>
+<p>010010111 0000_0000_0000_0000_0000_010</p>
+<p>… …</p>
+<h3 id="3-浮点数的加减运算"><a href="#3-浮点数的加减运算" class="headerlink" title="3) 浮点数的加减运算"></a>3) 浮点数的加减运算</h3><p>浮点数的加减运算一般由以下五个步骤完成：对阶、尾数运算、结果规格化、舍入处理、溢出判断。</p>
+<p>tip1.对阶</p>
+<p>对阶的目的是使两操作数的小数点位置对齐，即使两数的阶码相等。为此，首先要求出阶差，再按小阶向大阶看齐的原则，使阶小的尾数向右移位，每右移一位，阶码加1，直到两数的阶码相等为止。</p>
+<p>tip2.尾数运算</p>
+<p>尾数运算就是将对阶后的尾数按定点加减运算规则进行运算。</p>
+<p>tip3.结果规格化</p>
+<p>在机器中，为保证浮点数表示的唯一性，浮点数在机器中都是以规格化形式存储的。对于IEEE754标准的浮点数来说，就是尾数必须是1.xxxx的形式。由于在进行上述两个定点小数的尾数相加减运算后，尾数有可能是非规格化形式，为此必须进行规格化操作，规格化操作包括左规和右规两种情况。</p>
+<p>左规：将尾数左移一位，同时阶码减1，直至尾数成为1.xxxx的形式；</p>
+<p>右规：将尾数右移一位，同时阶码增1，便成为规格化的形式了。</p>
+<p>注：右规操作只需将尾数右移一位即可，这种情况出现在尾数的最高位（即小数点前一位）运算时出现了进位，使尾数成为10.xxxx或11.xxxx的形式。</p>
+<p>tip4.舍入处理</p>
+<p>在对阶和右规过程中，可能会将尾数的低位丢失，引起误差，影响精度，为此可用舍入法来提高尾数的精度。IEEE754标准列出了四种可选的舍入处理方法：  </p>
+<p>就近舍入（round to neareset）：这是标准列出的默认舍入方式，前面有讲。</p>
+<p>朝+∞舍入（round toward +∞）：对正数来说，只要多余位不为全0，则向尾数最低有效位进1；对负数来说，则是简单地舍去。  </p>
+<p>朝-∞舍入（round toward -∞）：与朝+∞舍入方法正好相反，对正数来说，只是简单地舍去；对负数来说，只要多余位不为全0，则向尾数最低有效位进1。  </p>
+<p>朝0舍入（round toward 0）： 即简单地截断舍去，而不管多余位是什么值。这种方法实现简单，但容易形成累积误差，且舍入处理后的值总是向下偏差。</p>
+<p>tip5.溢出判断</p>
+<p>与定点数运算不同的是，浮点数的溢出是以其运算结果的阶码的值是否产生溢出来判断的。若阶码的值超过了阶码所能表示的最大正数，则为上溢，进一步，若此时浮点数为正数，则为正上溢，记为+∞，若浮点数为负数，则为负上溢，记为-∞；若阶码的值超过了阶码所能表示的最小负数，则为下溢，进一步，若此时浮点数为正数，则为正下溢，若浮点数为负数，则为负下溢。正下溢和负下溢都作为机器零处理，即将尾数各位强置为零。  </p>
+<p>/<em>浮点数加减运算-例1</em>/</p>
+<p>设两浮点数的IEEE754标准存储格式分别为  </p>
+<p>x＝0 10000010 01101100000000000000000，y＝0 10000100 01011101100000000000000，求x+y，并给出结果的IEEE754标准存储格式。</p>
+<p>解：</p>
+<p>对于浮点数x,</p>
+<p>符号位s=0</p>
+<p>指数e=E-127= 10000010-01111111＝00000011＝(3)10  </p>
+<p>尾数m＝1.01101100000000000000000</p>
+<p>于是有 ｘ＝+1.01101100000000000000000×2^3   </p>
+<p>对于浮点数y：  </p>
+<p>符号位s＝0  </p>
+<p>指数e＝E-127＝10000100-01111111＝00000011＝(5)10 </p>
+<p>尾数m＝1.01011101100000000000000</p>
+<p>于是有  </p>
+<p>y＝+1.01011101100000000000000×2^5 </p>
+<p>(1)对阶</p>
+<p>⊿E＝Ex-Ey＝3-5＝-2 ，因此x＝1.01101100000000000000000×2^3＝</p>
+<p>0.01011011000000000000000×2^5 </p>
+<p> (2)尾数相加  </p>
+<p>x+y＝00.01011011000000000000000×25 +01.01011101100000000000000×2^5  </p>
+<pre><code>＝01.10111000100000000000000×25（其中最高位是符号位）
+</code></pre><p> 结果的IEEE754标准存储格式为：0 10000100 10111000100000000000000 </p>
+<p>/<em>浮点数加减运算-例2</em>/</p>
+<p>求34.6f-34.0f</p>
+<p>解：</p>
+<p>对于浮点数34.6f：</p>
+<p>符号位s=0</p>
+<p>指数e=(5)10 </p>
+<p>尾数m=1. 000101001100110011001100…，根据就近舍入，得到：</p>
+<p>m’=1. 00010100110011001100110</p>
+<p>对于浮点数34.0f：</p>
+<p>符号位s=0</p>
+<p>指数e=(5)10 </p>
+<p>尾数m=1.00010000000000000000000</p>
+<p>(1)对阶</p>
+<p>阶码相同</p>
+<p>(2)尾数相加  </p>
+<p>34.6f-34.0f = 01. 00010100110011001100110×25 -11.00010000000000000000000×25</p>
+<p> = 01. 00010100110011001100110×25 + 10.11110000000000000000000×25</p>
+<p>= 100.00000100110011001100110×25</p>
+<p>= 00.00000100110011001100110×25（符号位的进位1被舍去）</p>
+<p>(3)左规  </p>
+<p>34.6f-34.0f = 1.00110011001100110000000×2-1 = (0.59999847)10</p>
+<p>结果的IEEE754标准存储格式为：0 01111110 00110011001100110000000</p>
+<p>/<em>浮点数加减运算-例3</em>/</p>
+<p>求1.5f-2.4f</p>
+<p>解：</p>
+<p>对于浮点数1.5f：</p>
+<p>符号位s=0</p>
+<p>指数e=(0)10 </p>
+<p>尾数m=1.10000000000000000000000</p>
+<p>对于浮点数2.4f：</p>
+<p>符号位s=0</p>
+<p>指数e=(1)10 </p>
+<p>尾数m=1.00110011001100110011010</p>
+<p>(1)对阶</p>
+<p>⊿E＝0-1＝-1 ，因此1.5f＝0.110000000000000000000000×21</p>
+<p>(2)尾数相加  </p>
+<p>1.5f-2.4f = 00.110000000000000000000000×21 - 11.00110011001100110011010×21       </p>
+<p>= 00.110000000000000000000000×21 + 10.11001100110011001100110×21  </p>
+<p>= 11.10001100110011001100110×21（其中最高位是符号位）</p>
+<p>= 10.01110011001100110011010×21（将补码转换成原码）</p>
+<p>(3)左规  </p>
+<p>1.5f-2.4f = -1.11001100110011001101000×2-1 = (-0.90000010)10</p>
+<p>结果的IEEE754标准存储格式为：1 01111110 11001100110011001101000</p>
+<h3 id="4-特殊值-NaN"><a href="#4-特殊值-NaN" class="headerlink" title="4) 特殊值-NaN"></a>4) 特殊值-NaN</h3><p>当指数为128(指数域全1)，且尾数域不等于0时，该浮点数即为NaN。</p>
+<p>IEEE标准没有要求具体的尾数域，所以NaN实际上不是一个，而是一族。</p>
+<p>比较操作符&lt;、&lt;=、&gt;、&gt;=在任一操作数为NaN时均返回false，等于操作符==在任一操作数为NaN时均返回false，即使是两个具有相同位模式的NaN也一样，而操作符！=则当任一操作数为NaN时均返回true，这个规则的一个有趣的结果是x!=x，当x为NaN时竟然为真。</p>
+<p>用特殊的NaN来表达上述运算错误的意义在于避免了因这些错误而导致运算的不必要的终止。比如，如果一个被循环调用的浮点运算方法，可能由于输入的参数问题而导致发生这些错误，NaN使得即使某次循环发生了这样的错误，也可以简单地继续执行循环以进行那些没有错误的运算。你可能想到，既然Java有异常处理机制，也许可以通过捕获并忽略异常达到相同的效果。但是，要知道，IEEE标准不是仅仅为Java而制定的，各种语言处理异常的机制不尽相同，这将使得代码的迁移变得更加困难。何况，不是所有语言都有类似的异常或者信号（Signal）处理机制。</p>
+<h3 id="5-特殊值-无穷"><a href="#5-特殊值-无穷" class="headerlink" title="5) 特殊值-无穷"></a>5) 特殊值-无穷</h3><p>当指数为128(指数域全1)，且尾数域等于0时，该浮点数即为无穷大，用符号位来确定是正无穷大还是负无穷大。</p>
+<p>无穷用于表达计算中产生的上溢（Overflow）问题。比如两个极大的数相乘时，尽管两个操作数本身可以用保存为浮点数，但其结果可能大到无法保存为浮点数，而必须进行舍入。根据IEEE标准，此时不是将结果舍入为可以保存的最大的浮点数（因为这个数可能离实际的结果相差太远而毫无意义），而是将其舍入为无穷。对于负数结果也是如此，只不过此时舍入为负无穷，也就是说符号域为1的无穷。有了NaN的经验我们不难理解，特殊值无穷使得计算中发生的上溢错误不必以终止运算为结果。</p>
+<p>无穷和除NaN以外的其它浮点数一样是有序的，从小到大依次为负无穷，负的有穷非零值，正负零（随后介绍），正的有穷非零值以及正无穷。除NaN以外的任何非零值除以零，结果都将是无穷，而符号则由作为除数的零的符号决定。</p>
+<p>回顾我们对NaN的介绍，当零除以零时得到的结果不是无穷而是NaN。原因不难理解，当除数和被除数都逼近于零时，其商可能为任何值，所以IEEE标准决定此时用NaN作为商比较合适。</p>
+<h3 id="6-特殊值-有符号的零"><a href="#6-特殊值-有符号的零" class="headerlink" title="6) 特殊值-有符号的零"></a>6) 特殊值-有符号的零</h3><p>因为IEEE标准的浮点数格式中，小数点左侧的1是隐藏的，而零显然需要尾数必须是零。所以，零也就无法直接用这种格式表达而只能特殊处理。</p>
+<p>当指数为-127(指数域全0)，且尾数域等与0时，该浮点数即为零，考虑到符号域的作用，所以存在着两个零，即+0和-0。不同于正负无穷之间是有序的，IEEE标准规定正负零是相等的。</p>
+<p>零有正负之分，的确非常容易让人困惑，这一点是基于数值分析的多种考虑，经利弊权衡后形成的结果。有符号的零可以避免运算中，特别是涉及无穷的运算中，符号信息的丢失。举例而言，如果零无符号，则等式1/(1/x)=x当x=±∞时不再成立。原因是如果零无符号，1和正负无穷的比值为同一个零，然后1与0的比值为正无穷，符号没有了。解决这个问题，除非无穷也没有符号，但是无穷的符号表达了上溢发生在数轴的哪一侧，这个信息显然是不能不要的，因此零有符号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">public class test</div><div class="line"></div><div class="line">&#123;</div><div class="line"></div><div class="line">      public static void main(String[] args)</div><div class="line"></div><div class="line">      &#123;</div><div class="line"></div><div class="line">             //指数域全0，尾数域为0时，浮点数为有符号的零</div><div class="line"></div><div class="line">             System.out.println(Float.intBitsToFloat(0x0));</div><div class="line"></div><div class="line">             //指数域全1，尾数域为0时，浮点数为无穷，符号位决定是正无穷还是负无穷</div><div class="line"></div><div class="line">             System.out.println(Float.intBitsToFloat(0x7F800000));</div><div class="line"></div><div class="line">             System.out.println(Float.intBitsToFloat(0xFF800000));</div><div class="line"></div><div class="line">             //指数域全1，尾数域不为0时，浮点数为NaN</div><div class="line"></div><div class="line">             System.out.println(Float.intBitsToFloat(0x7FC00000));</div><div class="line"></div><div class="line">             System.out.println(Float.intBitsToFloat(0x7F800001));</div><div class="line"></div><div class="line">             System.out.println(Float.intBitsToFloat(0xFF800001));</div><div class="line"></div><div class="line">      &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20170930190812597?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>解释一下几个方法：</p>
+<p>Float.floatToIntBits(float f)：按照IEEE754标准，返回指定浮点数的表达形式。举个例子：Float.floatToIntBits(20.5f)按照如下方式计算：20.5D=10100.1B=1.01001x2^4，因此可将浮点数20.5f表示为十六进制数据：0100 0001 1010 0100 0000 0000 0000 0000，转换成10进制即1101266944</p>
+<p>Float.intBitsToFloat(int i)：按照IEEE754标准，返回指定整数的表达形式。举个例子：Float.intBitsToFloat(1101266944)即为20.5f</p>
+<p>Integer.toBinaryString(int i)：将指定整数表示成相应的二进制数，举个例子：</p>
+<p>Ineger.toBinaryString(128)即为10000000</p>
+<p>注：javac编译编码GBK的不可映射字符时，可以通过-encoding来指定编码方式，如：</p>
+<p>javac -encoding utf-8 test.java</p>
+<h3 id="7-非规范化数"><a href="#7-非规范化数" class="headerlink" title="7) 非规范化数"></a>7) 非规范化数</h3><p>这个数的定义和有符号0一样，不过尾数不能为0，用于小出范围的数。</p>
+<p>我们来考察浮点数的一个特殊情况。选择两个绝对值极小的浮点数，以单精度的二进制浮点数为例，比如1.001×2^-125和1.0001×2^-125这两个数（分别对应于十进制的2.6448623×10^-38和2.4979255×10^-38）。显然，他们都是普通的浮点数（指数为-125，大于允许的最小值-126；尾数更没问题），按照IEEE754可以分别保存为0 00000010 00100000000000000000000（0x1100000）和0 00000010 00010000000000000000000（0x1080000）。</p>
+<p>现在我们看看这两个浮点数的差值。</p>
+<p>不难得出，该差值为0.0001×2^-125，表达为规范浮点数则为1.0×2^-129。问题在于其指数小于允许的最小指数值，所以无法保存为规范浮点数，最终只能近似为零（FlushtoZero）。这种特殊情况意味着下面本来十分可靠的代码也可能出现问题：</p>
+<p>if(x!=y)</p>
+<p>{</p>
+<p>　　z=1/(x-y);</p>
+<p>}</p>
+<p>正如我们精心选择的两个浮点数展现的问题一样，即使x不等于y，x和y的差值仍然可能绝对值过小，而近似为零，导致除以0的情况发生。</p>
+<p>为了解决此类问题，IEEE标准中引入了非规范（Denormalized）浮点数。规定当浮点数的指数为允许的最小指数值，即emin时，尾数不必是规范化的。比如上面例子中的差值可以表达为非规范的浮点数0.001×2^-126，其中指数-126等于emin。为了保存非规范浮点数，IEEE标准采用了类似处理特殊值零时所采用的办法，即用特殊的指数域值emin-1加以标记，当然，此时的尾数域不能为零。这样，例子中的差值可以保存为00000000000100000000000000000000（0x100000），没有隐含的尾数位。</p>
+<p>有了非规范浮点数，去掉了隐含的尾数位的制约，可以保存绝对值更小的浮点数。而且，也由于不再受到隐含尾数域的制约，上述关于极小差值的问题也不存在了，因为所有可以保存的浮点数之间的差值同样可以保存。</p>
+<p>注意，规定的是”不必”，这也就意味着”可以”，因此当浮点数实际的指数为emin，该浮点数仍是规范的，也就是说，保存时隐含着一个隐藏的尾数位。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      displayMath: [ ['$','$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+			    extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {inlineMath: [['[latex]','[/latex]'],['\\(','\\)']],
+				          displayMath: [ ['$','$'], ["\\[","\\]"] ],
+						  processEscapes: true
+						  },
+                "HTML-CSS": { availableFonts: ["TeX"] }						  
+            });
+        });
+    </script>
+	
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      SVM--支持向量机简述 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="此文是根据July大神所写的  支持向量机通俗导论（理解SVM的三层境界）  一文的读后感，记录下自己的一点感悟与体会。  SVM  它本质上即是一个二分类方法，用  w  T  +  b  定义分类函数，于是求w、b，为寻最大间隔，引出  1  /  2  ∥  w  ∥  2  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，">
+<meta name="keywords" content="Machine Learning,Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVM--支持向量机简述 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/07/15/SVM--支持向量机简述/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="此文是根据July大神所写的  支持向量机通俗导论（理解SVM的三层境界）  一文的读后感，记录下自己的一点感悟与体会。  SVM  它本质上即是一个二分类方法，用  w  T  +  b  定义分类函数，于是求w、b，为寻最大间隔，引出  1  /  2  ∥  w  ∥  2  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170914221119079?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170914220000498?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170914223601086?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170914223659799?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170914223803442?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170914223905254?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170914224828260?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/60/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-28T08:32:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SVM--支持向量机简述 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="此文是根据July大神所写的  支持向量机通俗导论（理解SVM的三层境界）  一文的读后感，记录下自己的一点感悟与体会。  SVM  它本质上即是一个二分类方法，用  w  T  +  b  定义分类函数，于是求w、b，为寻最大间隔，引出  1  /  2  ∥  w  ∥  2  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170914221119079?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">SVM--支持向量机简述</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-07-15" class="post-meta__date date">2017-07-15</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+
+<p>此文是根据July大神所写的 <a href="http://download.csdn.net/download/u012554092/9979469" target="_blank" rel="external"> 支持向量机通俗导论（理解SVM的三层境界）
+</a> 一文的读后感，记录下自己的一点感悟与体会。</p>
+<p><strong> SVM </strong> 它本质上即是一个二分类方法，用  w  T  +  b  定义分类函数，于是求w、b，为寻最大间隔，引出  1  /  2  ∥  w  ∥  2  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，求w、b 与求α 等价，而α的求解可以用一种快速学习算法SMO，至于核函数，是为处理非线性情况，若直接映射到高维计算恐维度爆炸，故在低维计算，等效高维表现。 </p>
+<h1 id="1-算法步骤："><a href="#1-算法步骤：" class="headerlink" title="1.算法步骤："></a>1.算法步骤：</h1><p>1.1 选取合适的核函数  K （x  i  ,  x  j  ）  。<br>1.2 将训练数据  x i  带入分类函数中，利用SMO求解系数  α i  。  </p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170914221119079?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
+<p><div align="left"><br>这里，大部分  α  i  为0，因为其对应的训练数据  x  i  ,有  y  i  ∗  (  w  ∗  x  i  +  b  )  &gt; 1<br>,只有  w  ∗  x  i  +  b  =  1  的训练数据才真正对分类有效，即其对应的  α  i  不为0，这些数据即为支持向量。<br>1.3 根据上一步求得得分类函数对待分类数据x进行二分类。即判断  f  (  x  )  的正负。</div></p>
+<h2 id="2-核函数"><a href="#2-核函数" class="headerlink" title="2.核函数"></a>2.核函数</h2><p>核函数：  K  (  x  i  ,  x  j  )  ,一般选高斯核函数即可。而核函数的选择往往不是最关键的，分类器性能更依赖于训练数据。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170914220000498?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
+<div align="left">      
+
+<p><strong> 核函数原理： </strong><br>将低维线性不可分数据通过核函数映射到高维，达到线性可分的目的，并利用内积函数使运算量并未明显增加。</p>
+<h2 id="3-多分类器的应用"><a href="#3-多分类器的应用" class="headerlink" title="3.多分类器的应用"></a>3.多分类器的应用</h2><p>SVM是二分类器，对于N类问题的分类有两种办法：<br>1. 训练N个SVM分类器，每个分类器对应分类一种类别与其他N-1种类别，最终分类结果是具有最大正距离的类别，即正向离超平面距离最远。实际应用上应该是取f(x)的最大值。<br>2. 训练  N  ∗  (  N  −  1  )  /  2  个SVM分类器，每个分类器对应两两类别的分类，结果通过投票决定，投票依据仍为f(x)。</p>
+<h2 id="4-拉格朗日对偶性"><a href="#4-拉格朗日对偶性" class="headerlink" title="4.拉格朗日对偶性"></a>4.拉格朗日对偶性</h2><p>凸函数寻找最大值问题的求解方法，其局部最大值即全局最大值！</p>
+<p>目标函数：  </p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170914223601086?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">      
+
+
+
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170914223659799?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
+<div align="left">      
+
+
+
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170914223803442?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
+<div align="left">      
+
+
+<p>这里的某些条件即KKT条件：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170914223905254?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
+<div align="left">      
+
+
+<h2 id="5-使用松弛变量处理outliers-方法"><a href="#5-使用松弛变量处理outliers-方法" class="headerlink" title="5.使用松弛变量处理outliers 方法"></a>5.使用松弛变量处理outliers 方法</h2><p>数据本身是非线性结构的，而只是因为数据有噪声。对于这种偏离正常位置很远的数据点，我们称之为outlier ，在我们原来的SVM<br>模型里，outlier的存在有可能造成很大的影响，因为超平面本身就是只有少数几个support vector 组成的，如果这些support vector<br>里又存在outlier 的话，其影响就很大了。为了处理这种情况，SVM 允许数据点在一定程度上偏离一下超平面。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170914224828260?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/60/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
+<div align="left">      
+
+
+</div></div></div></div></div></div>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      displayMath: [ ['$','$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+			    extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {inlineMath: [['[latex]','[/latex]'],['\\(','\\)']],
+				          displayMath: [ ['$','$'], ["\\[","\\]"] ],
+						  processEscapes: true
+						  },
+                "HTML-CSS": { availableFonts: ["TeX"] }						  
+            });
+        });
+    </script>
+	
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

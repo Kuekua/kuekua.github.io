@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Lucas–Kanade光流算法 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="1. 光流法光流是一种运动模式，这种运动模式指的是一个物体、表面、边缘在一个视角下由一个观察者（比如眼睛、摄像头等）和背景之间形成的明显移动。光流技术，如运动检测和图像分割，时间碰撞，运动补偿编码，三维立体视差，都是利用了这种边缘或表面运动的技术。二维图像的移动相对于观察者而言是三维物体移动的在图像平面的投影。有序的图像可以估计出二维图像的瞬时图像速率或离散图像转移。光流算法评估了两幅图像的">
+<meta name="keywords" content="Algorithm,Image Processing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lucas–Kanade光流算法 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/07/25/Lucas–Kanade光流算法/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="1. 光流法光流是一种运动模式，这种运动模式指的是一个物体、表面、边缘在一个视角下由一个观察者（比如眼睛、摄像头等）和背景之间形成的明显移动。光流技术，如运动检测和图像分割，时间碰撞，运动补偿编码，三维立体视差，都是利用了这种边缘或表面运动的技术。二维图像的移动相对于观察者而言是三维物体移动的在图像平面的投影。有序的图像可以估计出二维图像的瞬时图像速率或离散图像转移。光流算法评估了两幅图像的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170928223931959?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/1/fill/I0JBQkFCMA==/dissolve/7/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170928223950228?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170928224946668?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/4/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-28T08:31:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lucas–Kanade光流算法 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="1. 光流法光流是一种运动模式，这种运动模式指的是一个物体、表面、边缘在一个视角下由一个观察者（比如眼睛、摄像头等）和背景之间形成的明显移动。光流技术，如运动检测和图像分割，时间碰撞，运动补偿编码，三维立体视差，都是利用了这种边缘或表面运动的技术。二维图像的移动相对于观察者而言是三维物体移动的在图像平面的投影。有序的图像可以估计出二维图像的瞬时图像速率或离散图像转移。光流算法评估了两幅图像的">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170928223931959?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/1/fill/I0JBQkFCMA==/dissolve/7/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Lucas–Kanade光流算法</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-07-25" class="post-meta__date date">2017-07-25</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Image-Processing/">Image Processing</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Image-Processing/">Image Processing</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+
+<h2 id="1-光流法"><a href="#1-光流法" class="headerlink" title="1. 光流法"></a>1. 光流法</h2><p>光流是一种运动模式，这种运动模式指的是一个物体、表面、边缘在一个视角下由一个观察者（比如眼睛、摄像头等）和背景之间形成的明显移动。光流技术，如运动检测和图像分割，时间碰撞，运动补偿编码，三维立体视差，都是利用了这种边缘或表面运动的技术。<br>二维图像的移动相对于观察者而言是三维物体移动的在图像平面的投影。有序的图像可以估计出二维图像的瞬时图像速率或离散图像转移。<br>光流算法评估了两幅图像的之间的变形，它的基本假设是体素和图像像素守恒。它假设一个物体的颜色在前后两帧没有巨大而明显的变化。基于这个思路，我们可以得到图像约束方程。不同的光流算法解决了假定了不同附加条件的光流问题。</p>
+<h2 id="2-Lucas–Kanade光流算法"><a href="#2-Lucas–Kanade光流算法" class="headerlink" title="2. Lucas–Kanade光流算法"></a>2. Lucas–Kanade光流算法</h2><p>在计算机视觉中，Lucas–Kanade光流算法是一种两帧差分的光流估计算法。它由Bruce D. Lucas 和 Takeo Kanade提出。</p>
+<h3 id="2-1-假设条件"><a href="#2-1-假设条件" class="headerlink" title="2.1 假设条件"></a>2.1 假设条件</h3><p>（1）亮度恒定，就是同一点随着时间的变化，其亮度不会发生改变。这是基本光流法的假定（所有光流法变种都必须满足），用于得到光流法基本方程；</p>
+<p>（2）小运动，这个也必须满足，就是时间的变化不会引起位置的剧烈变化，这样灰度才能对位置求偏导（换句话说，小运动情况下我们才能用前后帧之间单位位置变化引起的灰度变化去近似灰度对位置的偏导数），这也是光流法不可或缺的假定；</p>
+<p>（3）空间一致，一个场景上邻近的点投影到图像上也是邻近点，且邻近点速度一致。这是Lucas-Kanade光流法特有的假定，因为光流法基本方程约束只有一个，而要求x，y方向的速度，有两个未知变量。我们假定特征点邻域内做相似运动，就可以连立n多个方程求取x，y方向的速度（n为特征点邻域总点数，包括该特征点）。</p>
+<h3 id="2-2-Lucas–Kanade算法原理"><a href="#2-2-Lucas–Kanade算法原理" class="headerlink" title="2.2 Lucas–Kanade算法原理"></a>2.2 Lucas–Kanade算法原理</h3><p>这个算法是最常见，最流行的。它计算两帧在时间t 到t + δt之间每个每个像素点位置的移动。 由于它是基于图像信号的泰勒级数，这种方法称为差分，这就是对于空间和时间坐标使用偏导数。</p>
+<p>图像约束方程可以写为:<br>   $$I (x ,y ,z ,t ) = I (x + δx ,y + δy ,z + δz ,t + δt )$$<br>I(x, y,z, t) 为在（x,y,z）位置的体素。</p>
+<p>我们假设移动足够的小，那么对图像约束方程使用泰勒公式，我们可以得到：<br>$$I(x+\delta x,y+\delta y,z+\delta z,t+\delta t) = I(x,y,z,t) + \frac{\partial I}{\partial x}\delta x+\frac{\partial I}{\partial y}\delta y+\frac{\partial I}{\partial z}\delta z+\frac{\partial I}{\partial t}\delta t+H.O.T. $$<br>H.O.T. 指更高阶，在移动足够小的情况下可以忽略。<br>从这个方程中我们可以得到：</p>
+<p>$$\frac{\partial I}{\partial x}\delta x+\frac{\partial I}{\partial y}\delta y+\frac{\partial I}{\partial z}\delta z+\frac{\partial I}{\partial t}\delta t = 0$$</p>
+<p>或者</p>
+<p>$$\frac{\partial I}{\partial x}\frac{\delta x}{\delta t}+\frac{\partial I}{\partial y}\frac{\delta y}{\delta t}+\frac{\partial I}{\partial z}\frac{\delta z}{\delta t}+\frac{\partial I}{\partial t}\frac{\delta t}{\delta t} = 0$$</p>
+<p>进而得到</p>
+<p>$$\frac{\partial I}{\partial x}V_x+\frac{\partial I}{\partial y}V_y+\frac{\partial I}{\partial z}V_z+\frac{\partial I}{\partial t} = 0$$</p>
+<p>Vx,Vy,Vz分别是I(x,y,z,t)的光流向量中x，y，z的组成。 $$\frac{\partial I}{\partial x}$$, $$\frac{\partial I}{\partial y}$$, $$\frac{\partial I}{\partial z}$$和 $$\frac{\partial I}{\partial t}$$则是图像在(x,y,z,t)这一点向相应方向的差分。<br>所以：</p>
+<p>$$I_xV_x + I_yV_y + I_zV_z= ? I_t$$</p>
+<p>写做：</p>
+<p>$$\nabla I^T\cdot\vec{V} = -I_t$$</p>
+<p>这个方程有三个未知量，尚不能被解决，这也就是所谓光流算法的光圈问题。那么要找到光流向量则需要另一套解决的方案。而Lucas-Kanade算法是一个非迭代的算法：</p>
+<p>假设流(Vx,Vy,Vz)在一个大小为m<em>m</em>m(m&gt;1)的小窗中是一个常数，那么从像素1…n, $$n = m^3$$中可以得到下列一组方程</p>
+<p>$$I_{x_1} V<em>x + I</em>{y_1} V<em>y + I</em>{z_1} V<em>z = -I</em>{t<em>1}$$<br>$$I</em>{x_2} V<em>x + I</em>{y_2} V<em>y + I</em>{z_2} V<em>z = -I</em>{t<em>2}$$<br>$$\vdots$$<br>$$I</em>{x_n} V<em>x + I</em>{y_n} V<em>y + I</em>{z_n} V<em>z = -I</em>{t_n}$$</p>
+<p>三个未知数但是有多于三个的方程，这个方程组自然是个超定方程，也就是说方程组内有冗余，方程组可以表示为：</p>
+<p>$$\begin{bmatrix}I_{x<em>1} &amp; I</em>{y<em>1} &amp; I</em>{z<em>1}\I</em>{x<em>2} &amp; I</em>{y<em>2} &amp; I</em>{z<em>2}\\vdots  &amp; \vdots  &amp; \vdots\I</em>{x<em>n} &amp; I</em>{y<em>n} &amp; I</em>{z_n}\end{bmatrix} \begin{bmatrix}V_x\V_y\V<em>z \end{bmatrix}=  \begin{bmatrix}-I</em>{t<em>1}\ -I</em>{t<em>2}\ \vdots \-I</em>{t_n}\end{bmatrix} $$</p>
+<p>记作：$$A\vec{v}=-bI_{x_2} V<em>x + I</em>{y_2} V<em>y + I</em>{z_2} V<em>z = -I</em>{t_2}$$</p>
+<p>为了解决这个超定问题，我们采用最小二乘法：</p>
+<p>$$A^TA\vec{v}=A^T(-b)$$</p>
+<p>$$\vec{v}=(A^TA)^{-1}A^T(-b) $$</p>
+<p>得到：</p>
+<p>$$\begin{bmatrix}V_x\V_y\V<em>z \end{bmatrix} =\begin{bmatrix}\sum I</em>{x<em>i}^2  &amp;\sum I</em>{x<em>i}I</em>{y<em>i} &amp; \sum I</em>{x<em>i}I</em>{z<em>i} \\sum I</em>{x<em>i}I</em>{y<em>i} &amp; \sum I</em>{y<em>i}^2 &amp; \sum I</em>{y<em>i}I</em>{z<em>i} \\sum I</em>{x<em>i}I</em>{z<em>i} &amp; \sum I</em>{y<em>i}I</em>{z<em>i} &amp; \sum I</em>{z<em>i}^2  \\end{bmatrix}^{-1}\begin{bmatrix}-\sum I</em>{x<em>i}I</em>{t<em>i} \-\sum I</em>{y<em>i}I</em>{t<em>i} \-\sum I</em>{z<em>i}I</em>{t_i}\end{bmatrix}$$</p>
+<p>其中的求和是从1到n。</p>
+<p>这也就是说寻找光流可以通过在四维上图像导数的分别累加得出。我们还需要一个权重函数$$W(i, j,k)$$， $$i,j,k \in [1,m]$$来突出窗口中心点的坐标。</p>
+<p>这个算法的不足在于它不能产生一个密度很高的流向量，例如在运动的边缘和黑大的同质区域中的微小移动方面流信息会很快的褪去。它的优点在于有噪声存在的鲁棒性还是可以的。</p>
+<p>参考文献：Lucas B and Kanade T. An Iterative Image RegistrationTechnique with an Application to Stereo Vision. Proc. Of 7th InternationalJoint Conference on Artificial Intelligence (IJCAI), pp.674-679.是81年发表的。</p>
+<p>opencv中实现的是84年发表的算法，</p>
+<p>参考文献：Bruce D. Lucas,”Generalized Image Matching by the Method of Differences,” doctoraldissertation, tech. report , Robotics Institute, Carnegie Mellon University,July, 1984</p>
+<h3 id="2-3-算法改进"><a href="#2-3-算法改进" class="headerlink" title="2.3 算法改进"></a>2.3 算法改进</h3><h4 id="2-3-1-构建图像金字塔"><a href="#2-3-1-构建图像金字塔" class="headerlink" title="2.3.1 构建图像金字塔"></a>2.3.1 构建图像金字塔</h4><p>Jean-Yves Bouguet提出一种基于金字塔分层，针对仿射变换的改进Lucas-Kanade算法。</p>
+<p>为什么要用金字塔？因为LK算法的约束条件即：小速度，亮度不变以及区域一致性都是较强的假设，并不很容易得到满足。如当物体运动速度较快时，假设不成立，那么后续的假设就会有较大的偏差，使得最终求出的光流值有较大的误差。构建图像金字塔可以解决大运动目标跟踪，也可以一定程度上解决孔径问题（相同大小的窗口能覆盖大尺度图片上尽量多的角点，而这些角点无法在原始图片上被覆盖）。<br>考虑物体的运动速度较大时，算法会出现较大的误差。那么就希望能减少图像中物体的运动速度。一个直观的方法就是，缩小图像的尺寸。假设当图像为400×400时，物体速度为[16 16],那么图像缩小为200×200时，速度变为[8,8]。缩小为100*100时，速度减少到[4,4]。所以光流可以通过生成 原图像的金字塔图像，逐层求解，不断精确来求得。简单来说上层金字塔（低分辨率）中的一个像素可以代表下层的两个。</p>
+<p>假设I和J是两幅2D的灰度图像，对于图像上每个像素点的灰度值定义为：<br>$$I(x)=I(x,y)$$   和  $$J(x)=j(x,y)$$<br>其中$$x=(x,y)$$是图像上像素点的图像坐标。<br>在实际场景中图像I和图像J可以代表前后两帧图像。对于图像特征点金字塔跟踪来说的目的是：对于前一帧的图像I上一点$$u(u_x,u_y)$$，要在后一帧图像J上找到一点$$v(u_x+d_x,u_y+d_y)$$与之相匹配，即灰度值最接近。那么向量$$d=[d_x,d_y]$$就是图像在点u处的运动速度，也就是所说像素点u的光流。<br>对于Lucas-Kanade改进算法来说，主要的步骤有三步：建立金字塔，基于金字塔跟踪，迭代过程。</p>
+<p><strong>金字塔的建立</strong></p>
+<p>令I0 = I 是第 0 层的图像，它是金字塔图像中分辨率最高的图像，图像的宽度和高度分别定义为nx0 = nx 和 ny0 = ny 。以一种递归的方式建立金字塔：从I0中计算I1，从I1中计算I2 ，···。用一个[0.25 0.5 0.25]的低通滤波器对$$I_{L-1}$$进行卷积。</p>
+<p><strong>金字塔跟踪</strong></p>
+<p>总体来讲，金字塔特征跟踪算法描述如下：首先，光流和仿射变换矩阵在最高一层的图像上计算出；将上一层的计算结果作为初始值传递给下一层图像，这一层的图像在这个初始值的基础上，计算这一层的光流和仿射变化矩阵；再将这一层的光流和仿射矩阵作为初始值传递给下一层图像，直到传递给最后一层，即原始图像层，这一层计算出来的光流和仿射变换矩阵作为最后的光流和仿射变换矩阵的结果。</p>
+<p>用L+1层得到的最初估计gL对L层作预平移，L层在gL的基础上求该层的光流dL，这样求得的残余光流向量$$dL= [d<em>{Lx}, d</em>{Ly}]^T$$就足够小，因此能够通过标准的光流法来求出这个运动矢量。然后得到的dL结合gL又可以对L-1层的gL-1做估计。最终的光流和就是在所有层的分段光流d的叠加。使用金字塔图像计算光流的一个明显的好处是，对于一个有着较大的像素偏移的矢量d，可以通过计算几个比较小的残余光流来得到。这里就是金字塔跟踪算法的核心。</p>
+<p>这种算法最明显的优势在于对于每一层的光流都会保持很小，但是最终计算来的光流可以进行累积，便于有效地跟踪特征点。</p>
+<p><strong>迭代过程</strong></p>
+<p>在金字塔的每一层，通过迭代计算出光流dL和仿射变换矩阵AL从而使误差ξL最小。</p>
+<h4 id="2-3-2-引入权重"><a href="#2-3-2-引入权重" class="headerlink" title="2.3.2 引入权重"></a>2.3.2 引入权重</h4><p>在一个小的邻域内，我们通过对下式的加权平方和最小化来估计V：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170928223931959?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/1/fill/I0JBQkFCMA==/dissolve/7/gravity/SouthEast" width="30%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170928223950228?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170928224946668?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/4/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<div align="left"> 
+
+<h4 id="2-3-3-特征点选择"><a href="#2-3-3-特征点选择" class="headerlink" title="2.3.3 特征点选择"></a>2.3.3 特征点选择</h4><p>为了使得$$(A^TA)^{-1} $$稳定，需要该矩阵的两个特征值不能太小，所以在构建KL方程时可以只挑选合适的特征点（角点）进行计算：</p>
+<p>1、计算图像 I 中每一个像素的矩阵G和最小特征值λm。<br>2、寻找整副图像中最小特征值 λm 中的最大特征值λmax。<br>3、保留最小特征值 λm 大于给定阈值的像素点。阈值通常取$$0.05λ<em>{max}  - 0.01 λ</em>{max}$$。<br>4、保留 λm 局部最大值的像素：像素特征值 λm 大于其3<em>3 邻域中其他像素的特征值 λm 。<br>5、剔除像素密集区域中的一些像素，确保图像中相邻像素的距离都大于给定的阈值（常取5~10 pixels）。<br>上述操作完成后，图像 I 中剩下的像素即为选择的特征点，并作为跟踪特征点。特征点选择算法的步骤5 确保了特征点间的最小距离。<br>没有必要取一个大的综合窗口选择特征点（或计算矩阵G）。大量实验证明，wx = wy =1的 3</em>3 大小的综合窗口能够取得满意的效果。</p>
+<p><strong>参考博文：</strong></p>
+<p><a href="http://m.blog.csdn.net/qq_19764963/article/details/42583467" target="_blank" rel="external">Lucas-Kanade光流法</a></p>
+<p><a href="http://blog.csdn.net/u014568921/article/details/46638557" target="_blank" rel="external">目标跟踪之Lukas-Kanade光流法</a></p>
+</div>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      displayMath: [ ['$','$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+			    extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {inlineMath: [['[latex]','[/latex]'],['\\(','\\)']],
+				          displayMath: [ ['$','$'], ["\\[","\\]"] ],
+						  processEscapes: true
+						  },
+                "HTML-CSS": { availableFonts: ["TeX"] }						  
+            });
+        });
+    </script>
+	
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
