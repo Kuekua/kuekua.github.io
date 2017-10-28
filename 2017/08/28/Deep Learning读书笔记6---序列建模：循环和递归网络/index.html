@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Deep Learning读书笔记6---序列建模：循环和递归网络 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="MathJax.Hub.Config({   tex2jax: {inlineMath: ［&apos;$&apos;,&apos;$&apos;], [&apos;\\(&apos;,&apos;\\)&apos;］} });    1. 展开计算图循环神经网络使用下面的公式定义隐藏单元的值。 为了表明状态是网络的隐藏单元，我们使用变量$h$代表状态重写：    上式可以用两种不同的方式绘制。 一种方法是为可能在模型的物理实现中存在的部分赋予一个节点，如生物神经网络。 在">
+<meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Learning读书笔记6---序列建模：循环和递归网络 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/08/28/Deep Learning读书笔记6---序列建模：循环和递归网络/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="MathJax.Hub.Config({   tex2jax: {inlineMath: ［&apos;$&apos;,&apos;$&apos;], [&apos;\\(&apos;,&apos;\\)&apos;］} });    1. 展开计算图循环神经网络使用下面的公式定义隐藏单元的值。 为了表明状态是网络的隐藏单元，我们使用变量$h$代表状态重写：    上式可以用两种不同的方式绘制。 一种方法是为可能在模型的物理实现中存在的部分赋予一个节点，如生物神经网络。 在">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011140659996?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011140819315?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011141521149?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011141615985?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011141713371?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011141924222?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011143331622?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011144402450?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011144831980?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011153527060?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011225044448?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011225443859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011225834513?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011230245321?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011231628269?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011232003076?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011232108550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011232608777?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011232825223?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011233016573?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171011233334217?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-28T03:16:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Deep Learning读书笔记6---序列建模：循环和递归网络 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="MathJax.Hub.Config({   tex2jax: {inlineMath: ［&apos;$&apos;,&apos;$&apos;], [&apos;\\(&apos;,&apos;\\)&apos;］} });    1. 展开计算图循环神经网络使用下面的公式定义隐藏单元的值。 为了表明状态是网络的隐藏单元，我们使用变量$h$代表状态重写：    上式可以用两种不同的方式绘制。 一种方法是为可能在模型的物理实现中存在的部分赋予一个节点，如生物神经网络。 在">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171011140659996?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Deep Learning读书笔记6---序列建模：循环和递归网络</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-08-28" class="post-meta__date date">2017-08-28</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Deep-Learning-Book/">Deep Learning Book</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Deep-Learning/">Deep Learning</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: ［'$','$'], ['\\(','\\)'］}
+});
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+
+<h2 id="1-展开计算图"><a href="#1-展开计算图" class="headerlink" title="1. 展开计算图"></a>1. 展开计算图</h2><p>循环神经网络使用下面的公式定义隐藏单元的值。 为了表明状态是网络的隐藏单元，我们使用变量$h$代表状态重写：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011140659996?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="20%" align="center"> <div align="left"> </div></div></p>
+<p>上式可以用两种不同的方式绘制。 一种方法是为可能在模型的物理实现中存在的部分赋予一个节点，如生物神经网络。 在这个观点下，网络定义了实时操作的回路，如下图的左侧，其当前状态可以影响其未来的状态。 在本章中，我们使用回路图的黑色方块表明在时刻$t$的状态到时刻$t+1$的状态单个时刻延迟中的相互作用。 另一个绘制RNN的方法是展开的计算图，其中每一个组件由许多不同的变量表示，每个时间步一个变量，表示在该时间点组件的状态。 每个时间步的每个变量绘制为计算图的一个独立节点，如下图的右侧。 我们所说的展开是将左图中的回路映射为右图中包含重复组件的计算图的操作。 目前，展开图的大小取决于序列长度。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011140819315?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<h2 id="2-循环神经网络"><a href="#2-循环神经网络" class="headerlink" title="2. 循环神经网络"></a>2. 循环神经网络</h2><p>循环神经网络中一些重要的设计模式包括以下几种： </p>
+<p>a. 每个时间步都有输出，并且隐藏单元之间有循环连接的循环网络：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011141521149?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p>b. 每个时间步都产生一个输出，只有当前时刻的输出到下个时刻的隐藏单元之间有循环连接的循环网络：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011141615985?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p>c. 隐藏单元之间存在循环连接，但读取整个序列后产生单个输出的循环网络：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011141713371?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p>RNN从特定的初始状态$h^{(0)}$开始前向传播。 从$t= 1$到$t = \tau$的每个时间步，我们应用以下更新方程：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011141924222?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%" align="center"> <div align="left"> </div></div></p>
+<p>其中的参数的偏置向量$b$和$c$连同权重矩阵$U$、$V$和$W$，分别对应于输入到隐藏、隐藏到输出和隐藏到隐藏的连接。 这个循环网络将一个输入序列映射到相同长度的输出序列。 与$x$序列配对的$y$的总损失就是所有时间步的损失之和。 例如，$L^{(t)}$为给定的$x^{(1)}, \dots, x^{(t)}$后$y^{(t)}$的负对数似然，则</p>
+<p>$ L\big( { x^{(1)}, \dots, x^{(\tau)} }, { y^{(1)}, \dots, y^{(\tau)} } \big) $<br>$  = \sum_t L^{(t)} $<br>$  = - \sum<em>t \log p</em>{\text{model}} \big( y^{(t)} \mid { x^{(1)}, \dots, x^{(t)} } \big)  $</p>
+<p>其中$p_{\text{model}} \big( y^{(t)} \mid { x^{(1)}, \dots, x^{(t)} } \big) $需要读取模型输出向量$\hat y^{(t)}$中对应于$y^{(t)}$的项。 关于各个参数计算这个损失函数的梯度是计算成本很高的操作。 梯度计算涉及执行一次前向传播（如在10.3展开图中从左到右的传播），接着是由右到左的反向传播。 运行时间是$O(\tau)$，并且不能通过并行化来降低，因为前向传播图是固有循序的;每个时间步只能一前一后地计算。 前向传播中的各个状态必须保存，直到它们反向传播中被再次使用，因此内存代价也是$O(\tau)$。 应用于展开图且代价为$O(\tau)$的反向传播算法称为通过时间反向传播（BPTT）。 因此隐藏单元之间存在循环的网络非常强大但训练代价也很大。</p>
+<p><strong>导师驱动过程和输出循环网络:</strong></p>
+<p>我们使用导师驱动过程的最初动机是为了在缺乏隐藏到隐藏连接的模型中避免通过时间反向传播。只要模型一个时间步的输出与下一时间步计算的值存在连接，导师驱动过程仍然可以应用到这些存在隐藏到隐藏连接的模型。然而，只要隐藏单元成为较早时间步的函数，BPTT 算法是必要的。因此训练某些模型时要同时使用导师驱动过程和BPTT。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011143331622?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><strong>计算循环神经网络的梯度：</strong></p>
+<p>我们假设输出$o^{(t)}$作为softmax函数的参数，我们可以从softmax函数可以获得关于输出概率的向量$\hat{y}$。 我们也假设损失是迄今为止给定了输入后的真实目标$y^{(t)}$的负对数似然。 对于所有$i,t$，关于时间步$t$输出的梯度$\nabla<em>{o^{(t)}} L$如下：<br>$ (\nabla</em>{o^{(t)}} L)_i = \frac{\partial L}{\partial o_i^{(t)}} $$= \frac{\partial L}{\partial L^{(t)}} \frac{\partial L^{(t)}}{\partial o_i^{(t)}}$$= \hat y_i^{(t)} - \mathbf{1}{i,y^{(t)}}$</p>
+<p> <div align="center"><br><img src="http://img.blog.csdn.net/20171011144402450?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="20%" align="center"> <div align="left"> </div></div></p>
+<p>然后，我们可以从时刻$t=\tau-1$到$t=1$反向迭代， 通过时间反向传播梯度，注意$h^{(t)}(t &lt; \tau)$同时具有$o^{(t)}$和$h^{(t+1)}$两个后续节点。 因此，它的梯度由下式计算 :</p>
+<p>$ \nabla<em>{h^{(t)}} L = \Big( \frac{\partial h^{(t+1)}}{ \partial h^{(t)}} \Big)^\top(\nabla</em>{h^{(t+1)}} L) + \Big( \frac{\partial o^{(t)}}{ \partial h^{(t)}} \Big)^\top (\nabla<em>{o^{(t)}} L) $$= W^\top (\nabla</em>{h^{(t+1)}} L) \text{diag} \Big( 1 - (h^{(t+1)})^2 \Big)V^\top ( \nabla_{o^{(t)}} L )$<br>其中$\text{diag} \Big( 1 - (h^{(t+1)})^2 \Big) $ 表示包含元素$1 - (h_i^{(t+1)})^2$的对角矩阵。 这是关于时刻$t+1$与隐藏单元~$i$关联的双曲正切的Jacobian。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011144831980?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%" align="center"> <div align="left"> </div></div></p>
+<h2 id="3-双向RNN"><a href="#3-双向RNN" class="headerlink" title="3. 双向RNN"></a>3. 双向RNN</h2><p>顾名思义，双向RNN 结合时间上从序列起点开始移动的RNN 和另一个时间上从序列末尾开始移动的RNN。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011153527060?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p>这个想法可以自然地扩展到2维输入，如图像，由四个RNN组成，每一个沿着四个方向中的一个计算：上、下、左、右。 如果RNN能够学习到承载长期信息，那在2维网格每个点$(i, j)$的输出$O_{i,j}$就能计算一个能捕捉到大多局部信息但仍依赖于长期输入的表示。 相比卷积网络，应用于图像的RNN计算成本通常更高，但允许同一特征图的特征之间存在长期横向的相互作用。 实际上，对于这样的RNN，前向传播公式可以写成表示使用卷积的形式，计算自底向上到每一层的输入（在整合横向相互作用的特征图的循环传播之前）。</p>
+<h2 id="4-基于编码-解码的序列到序列架构"><a href="#4-基于编码-解码的序列到序列架构" class="headerlink" title="4. 基于编码-解码的序列到序列架构"></a>4. 基于编码-解码的序列到序列架构</h2><p>( 1 ) 编码器或读取器或输入RNN处理输入序列。 编码器输出上下文$C$（通常是最终隐藏状态的简单函数）。  </p>
+<p> ( 2 ) 解码器或写入器或输出RNN则以固定长度的向量为条件产生输出序列$Y=(y^{(1)}, \dots, y^{(n_y)})$。 </p>
+<p>这种架构对比本章前几节提出的架构的创新之处在于长度$n_x$和$n_y$可以彼此不同，而之前的架构约束$n_x = n_y = \tau$。 在序列到序列的架构中，两个RNN共同训练以最大化$\log P( y^{(1)}, \dots, y^{(n_y)} \mid x^{(1)},\dots,x^{(n<em>x)} )$(关于训练集中所有$x$和$y$对的平均)。 编码器RNN的最后一个状态$h</em>{n_x}$通常被当作输入的表示$C$并作为解码器RNN的输入。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011225044448?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<h2 id="5-深度循环网络"><a href="#5-深度循环网络" class="headerlink" title="5. 深度循环网络"></a>5. 深度循环网络</h2><p>Graves第一个展示了将RNN的状态分为多层的显著好处，如下图左。 我们可以认为，在下图(a)所示层次结构中较低的层起到了将原始输入转化为对更高层的隐藏状态更合适表示的作用。 Pascanu更进一步提出在上述三个块中各使用一个单独的MLP（可能是深度的），如下图(b)所示。 考虑表示容量，我们建议在这三个步中都分配足够的容量，但增加深度可能会因为优化困难而损害学习效果。 在一般情况下，更容易优化较浅的架构，加入下图(b)的额外深度导致从时间步$t$的变量到时间步$t+1$的最短路径变得更长。 例如，如果具有单个隐藏层的MLP被用于状态到状态的转换，那么与下图相比，我们就会加倍任何两个不同时间步变量之间最短路径的长度。 然而Pascanu认为，在隐藏到隐藏的路径中引入跳跃连接可以缓和这个问题，如下图(c)所示。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011225443859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<h2 id="6-递归神经网络"><a href="#6-递归神经网络" class="headerlink" title="6. 递归神经网络"></a>6. 递归神经网络</h2><p>递归网络的一个明显优势是，对于具有相同长度$\tau$的序列，深度（通过非线性操作的组合数量来衡量）可以急剧地从$\tau$减小为$O(\log \tau)$，这可能有助于解决长期依赖。 一个悬而未决的问题是如何以最佳的方式构造树。 一种选择是使用不依赖于数据的树结构，如平衡二叉树。 在某些应用领域，外部方法可以为选择适当的树结构提供借鉴。 例如，处理自然语言的句子时，用于递归网络的树结构可以被固定为句子语法分析树的结构（可以由自然语言语法分析程序提供）{cite?}。 理想的情况下，人们希望学习器自行发现和推断适合于任意给定输入的树结构。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011225834513?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<h2 id="7-长期依赖的挑战"><a href="#7-长期依赖的挑战" class="headerlink" title="7. 长期依赖的挑战"></a>7. 长期依赖的挑战</h2><p>经过许多阶段传播后的梯度倾向于消失（大部分情况）或爆炸（很少，但对优化过程影响很大）。 即使我们假设循环网络是参数稳定的（可存储记忆，且梯度不爆炸），但长期依赖的困难来自比短期相互作用指数小的权重（涉及许多Jacobian相乘）。</p>
+<p>特别地，循环神经网络所使用的函数组合有点像矩阵乘法。 我们可以认为，循环联系</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011230245321?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
+<h2 id="8-渗漏单元和其他多时间尺度的策略"><a href="#8-渗漏单元和其他多时间尺度的策略" class="headerlink" title="8. 渗漏单元和其他多时间尺度的策略"></a>8. 渗漏单元和其他多时间尺度的策略</h2><p>处理长期依赖的一种方法是设计工作在多个时间尺度的模型，使模型的某些部分在细粒度时间尺度上操作并能处理小细节，而其他部分在粗时间尺度上操作并能把遥远过去的信息更有效地传递过来。 存在多种同时构建粗细时间尺度的策略。 这些策略包括在时间轴增加跳跃连接，”渗漏单元”使用不同时间常数整合信号，并去除一些用于建模细粒度时间尺度的连接。</p>
+<p><strong>时间维度的跳跃连接</strong></p>
+<p>增加从遥远过去的变量到目前变量的直接连接是得到粗时间尺度的一种方法。梯度可能关于时间步数呈指数消失或爆炸。算法引入了$d$延时的循环连接以减轻这个问题。 现在导数指数减小的速度与$\frac{\tau}{d}$相关而不是$\tau$。 既然同时存在延迟和单步连接，梯度仍可能成$t$指数爆炸。 这允许学习算法捕获更长的依赖性，但不是所有的长期依赖都能在这种方式下良好地表示。</p>
+<p><strong>渗漏单元和一系列不同时间尺度</strong></p>
+<p>获得导数乘积接近1的另一方式是设置线性自连接单元，并且这些连接的权重接近1。我们对某些$v$值应用更新$\mu^{(t)} \gets \alpha \mu^{(t-1)} + (1-\alpha) v^{(t)}$累积一个滑动平均值$\mu^{(t)}$，其中$\alpha$是一个从$ \mu^{(t-1)}$到$ \mu^{(t)}$线性自连接的例子。 当$\alpha$接近1时，滑动平均值能记住过去很长一段时间的信息，而当$\alpha$接近0，关于过去的信息被迅速丢弃。 线性自连接的隐藏单元可以模拟滑动平均的行为。 这种隐藏单元称为渗漏单元。</p>
+<p><strong>删除连接</strong></p>
+<p>这个想法与之前讨论的时间维度上的跳跃连接不同，因为它涉及主动删除长度为一的连接并用更长的连接替换它们。 以这种方式修改的单元被迫在长时间尺度上运作。 而通过时间跳跃连接是添加边。 收到这种新连接的单元，可以学习在长时间尺度上运作，但也可以选择专注于自己其他的短期连接。</p>
+<h2 id="9-长短期记忆LSTM"><a href="#9-长短期记忆LSTM" class="headerlink" title="9. 长短期记忆LSTM"></a>9. 长短期记忆LSTM</h2><p>实际应用中最有效的序列模型称为门控RNN。 包括基于长短期记忆和基于门控循环单元的网络。</p>
+<p>像渗漏单元一样，门控RNN想法也是基于生成通过时间的路径，其中导数既不消失也不发生爆炸。 渗漏单元通过手动选择常量的连接权重或参数化的连接权重来达到这一目的。 门控RNN将其推广为在每个时间步都可能改变的连接权重。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011231628269?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p>LSTM不是简单地向输入和循环单元的仿射变换之后施加一个逐元素的非线性。 与普通的循环网络类似，每个单元有相同的输入和输出，但也有更多的参数和控制信息流动的门控单元系统。 最重要的组成部分是状态单元$s_i^{(t)}$，与前一节讨论的渗漏单元有类似的线性自环。 然而，此处自环的权重（或相关联的时间常数）由遗忘门$f_i^{(t)}$控制（时刻$t$和细胞$i$），由sigmoid单元将权重设置为0和1之间的值：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011232003076?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%" align="center"> <div align="left"> </div></div></p>
+<p>其中$x^{(t)}$是当前输入向量，$h^{t}$是当前隐藏层向量，$h^{t}$包含所有LSTM细胞的输出。 $b^f, U^f, W^f$分别是偏置、输入权重和遗忘门的循环权重。 因此LSTM细胞内部状态以如下方式更新，其中有一个条件的自环权重$f_i^{(t)}$：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011232108550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<h2 id="10-优化长期依赖"><a href="#10-优化长期依赖" class="headerlink" title="10. 优化长期依赖"></a>10. 优化长期依赖</h2><p><strong>截断梯度</strong><br>强非线性函数（如由许多时间步计算的循环网络）往往倾向于非常大或非常小幅度的梯度。 如下图所示，我们可以看到，目标函数（作为参数的函数）存在一个伴随”悬崖”的”地形”：宽且相当平坦区域被目标函数变化快的小区域隔开，形成了一种悬崖。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011232608777?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p>一个简单的解决方案已被从业者使用多年：截断梯度。一种选择是在参数更新之前，逐元素地截断小批量产生的参数梯度。 另一种是在参数更新之前截断梯度$g$的范数$|| g ||$：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011232825223?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="20%" align="center"> <div align="left"> </div></div></p>
+<p>其中$v$是范数上界，$g$用来更新参数。 因为所有参数（包括不同的参数组，如权重和偏置）的梯度被单个缩放因子联合重整化，所以后一方法具有的优点是保证了每个步骤仍然是在梯度方向上的，但实验表明两种形式类似。 </p>
+<p><strong>引导信息流的正则化</strong></p>
+<p>正则化或约束参数，以引导”信息流”。 特别是即使损失函数只对序列尾部的输出作惩罚，我们也希望梯度向量$\nabla_{h^{(t)}} L$在反向传播时能维持其幅度：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011233016573?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
+<h2 id="11-外显记忆"><a href="#11-外显记忆" class="headerlink" title="11. 外显记忆"></a>11. 外显记忆</h2><p>神经网络擅长存储隐性知识，但是他们很难记住事实。被存储在神经网络参数中之前，随机梯度下降需要多次提供相同的输入，即使如此，该输入也不会被特别精确地存储。 Graves推测这是因为神经网络缺乏工作存储(working memory)系统，即类似人类为实现一些目标而明确保存和操作相关信息片段的系统。 这种外显记忆组件将使我们的系统不仅能够快速”故意”地存储和检索具体的事实，也能利用他们循序推论。 神经网络处理序列信息的需要，改变了每个步骤向网络注入输入的方式，长期以来推理能力被认为是重要的，而不是对输入做出自动的、直观的反应 。</p>
+<p>为了解决这一难题，Weston引入了记忆网络，其中包括一组可以通过寻址机制来访问的记忆单元。 记忆网络原本需要监督信号指示他们如何使用自己的记忆单元。 Graves引入的神经网络图灵机，不需要明确的监督指示采取哪些行动而能学习从记忆单元读写任意内容，并通过使用基于内容的软注意机制，允许端到端的训练。 这种软寻址机制已成为其他允许基于梯度优化的模拟算法机制的相关架构的标准。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171011233334217?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
