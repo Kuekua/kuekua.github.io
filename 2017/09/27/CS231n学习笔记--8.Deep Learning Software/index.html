@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      CS231n学习笔记--8.Deep Learning Software | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="1.CPU &amp;amp; GPU    GPU更擅长做并行化简单任务处理，如矩阵运算等！ GPU开源库：  CPU vs GPU:  CPU/GPU通信：     2. Deep Learning Frameworks利用Numpy手动构建神经网络：  利用TensorFlow构建神经网络：  利用PyTorch构建神经网络：    3. TensorFlow利用TensorFlow构建神经网">
+<meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231n学习笔记--8.Deep Learning Software | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/09/27/CS231n学习笔记--8.Deep Learning Software/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="1.CPU &amp;amp; GPU    GPU更擅长做并行化简单任务处理，如矩阵运算等！ GPU开源库：  CPU vs GPU:  CPU/GPU通信：     2. Deep Learning Frameworks利用Numpy手动构建神经网络：  利用TensorFlow构建神经网络：  利用PyTorch构建神经网络：    3. TensorFlow利用TensorFlow构建神经网">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004210746371?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004211115965?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004211258839?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004211344408?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004211822673?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004211935224?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004212238217?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004213718594?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004214550191?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004215049370?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004215310918?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004215533230?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004215833091?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004215947719?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004220802421?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004220941552?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004221036399?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004221249749?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004221827008?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004222120729?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004222303436?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004222540597?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004223037786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004223202301?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004223337742?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004223640158?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004223837289?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004224413042?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004224424473?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004224435128?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004225034281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004225137723?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004225235393?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004225333216?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171004225626076?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-28T02:19:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS231n学习笔记--8.Deep Learning Software | Kuekua&#39;s blog">
+<meta name="twitter:description" content="1.CPU &amp;amp; GPU    GPU更擅长做并行化简单任务处理，如矩阵运算等！ GPU开源库：  CPU vs GPU:  CPU/GPU通信：     2. Deep Learning Frameworks利用Numpy手动构建神经网络：  利用TensorFlow构建神经网络：  利用PyTorch构建神经网络：    3. TensorFlow利用TensorFlow构建神经网">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171004210746371?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">CS231n学习笔记--8.Deep Learning Software</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-09-27" class="post-meta__date date">2017-09-27</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/CS231n/">CS231n</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Deep-Learning/">Deep Learning</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+
+<h2 id="1-CPU-amp-GPU"><a href="#1-CPU-amp-GPU" class="headerlink" title="1.CPU &amp; GPU"></a>1.CPU &amp; GPU</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171004210746371?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<div align="left"> 
+
+<p>GPU更擅长做并行化简单任务处理，如矩阵运算等！</p>
+<p>GPU开源库：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004211115965?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"></div></p>
+<p>CPU vs GPU:</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004211258839?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
+<p>CPU/GPU通信：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004211344408?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
+<div align="left"> 
+
+<h2 id="2-Deep-Learning-Frameworks"><a href="#2-Deep-Learning-Frameworks" class="headerlink" title="2. Deep Learning Frameworks"></a>2. Deep Learning Frameworks</h2><p>利用Numpy手动构建神经网络：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004211822673?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="left"><br>利用TensorFlow构建神经网络：</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004211935224?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="left"><br>利用PyTorch构建神经网络：</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004212238217?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="left"> </div></p>
+<h2 id="3-TensorFlow"><a href="#3-TensorFlow" class="headerlink" title="3. TensorFlow"></a>3. TensorFlow</h2><p>利用TensorFlow构建神经网络容易出现以下问题：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004213718594?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="left"><br><strong>解决方法：</strong></div></p>
+<ol>
+<li>Change w1 and w2 from placeholder (fed on each call) to Variable(persists in the graph between calls)</li>
+<li>Add assign operations to update w1 and w2 as part of the graph!</li>
+<li>Run graph once to initialize w1 and w2</li>
+<li>Add dummy graph node that depends on updates</li>
+<li>Tell graph to compute dummy node</li>
+</ol>
+<p><strong>Tips：</strong><br>实质上是通过构建假的权重网络结点，将权重值保留在内存中，而该网络结点实际上是没有输出，故不会运行！</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004214550191?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004215049370?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004215310918?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004215533230?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004215833091?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004215947719?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<div align="left"> 
+
+<h2 id="4-PyTorch"><a href="#4-PyTorch" class="headerlink" title="4. PyTorch"></a>4. PyTorch</h2><p>PyTorch与TensorFlow的区别：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004220802421?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"><br> <div align="left"><br> 利用PyTorch构建网络：</div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004220941552?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<p><div align="left"><br>如何在GPU上运行PyTorch代码：</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004221036399?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<p><div align="left"><br>PyTorch可自动计算梯度（x,y不需要）：</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004221249749?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<p><div align="left"><br>利用PyTorch可自定义梯度计算公式：</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004221827008?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<p>PyTorch的nn模型：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004222120729?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<p>利用PyTorch对训练数据进行minbath：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004222303436?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<p><div align="left"><br>PyTorch的预训练模型库：</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004222540597?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="left"><br>Static vs Dynamic Graphs：</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004223037786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<div align="left"> 
+
+<p>Static 比 Dynamic Graphs更有利用优化模型：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004223202301?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"></div></p>
+<div align="left"> 
+
+<p>因为Static Graphs在正式训练前模型架构已经确定，所以第一次训练后不需要用指定的代码，可以执行C代码，这样运行效率更高！</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004223337742?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"></div></p>
+<p><div align="left"><br>在条件分支选择中，dynamic模型更加简洁：</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004223640158?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<p><div align="left"><br>在循环网络中，dynamic模型更加简洁：<br>（TensorFlow Fold make dynamic graphs easier in TensorFlow through dynamic batching）</div></p>
+<p><div align="left"> </div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004223837289?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="left"><br>Dynamic Graph Applications：</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004224413042?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004224424473?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004224435128?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"></div></p>
+<p><div align="left"> </div></p>
+<h2 id="5-Caffe"><a href="#5-Caffe" class="headerlink" title="5. Caffe"></a>5. Caffe</h2><p><strong>特点：</strong></p>
+<p>●  Core written in C++<br>●  Has Python and MATLAB bindings<br>●  Good for training or finetuning feedforward classification models<br>●  Often <strong>no need to write code</strong>!<br>●  Not used as much in research anymore, still popular for deploying models</p>
+<p><strong>使用步骤：</strong></p>
+<p><strong>1.  Convert data (run a script)</strong></p>
+<pre><code>●  DataLayer reading from LMDB is the easiest
+●  Create LMDB using convert_imageset
+●  Need text file where each line is
+    ○ “[path/to/image.jpeg] [label]”
+●  Create HDF5 file yourself using h5py
+●  ImageDataLayer: Read from image files
+●  WindowDataLayer: For detection
+●  HDF5Layer: Read from HDF5 file
+●  From memory, using Python interface
+●  All of these are harder to use (except Python)
+</code></pre><p><strong>2.  Define net (edit prototxt)</strong><br>     <div align="center"><br><img src="http://img.blog.csdn.net/20171004225034281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<p><div align="left"><br><strong>3.  Define solver (edit prototxt)</strong></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004225137723?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<p><div align="left"><br><strong>4.  Train (with pretrained weights) (run a script)</strong></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004225235393?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"></div></p>
+<div align="left"> 
+
+<p>Caffe的相关资料：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004225333216?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"></div></p>
+<p><div align="left"><br><strong>Caffe的优缺点：</strong></div></p>
+<p>● Interfacing with numpy<br>● Extract features: Run net forward<br>● Compute gradients: Run net backward (DeepDream, etc)<br>● Define layers in Python with numpy (CPU only)<br>● (+) Good for feedforward networks<br>● (+) Good for finetuning existing networks<br>● (+) Train models without writing any code!<br>● (+) Python interface is pretty useful!<br>● (+) Can deploy without Python<br>● (-) Need to write C++ / CUDA for new GPU layers<br>● (-) Not good for recurrent networks<br>● (-) Cumbersome for big networks (GoogLeNet, ResNet)</p>
+<p><strong>Caffe2 Overview</strong><br>● Static graphs, somewhat similar to TensorFlow<br>● Core written in C++<br>● Nice Python interface<br>● Can train model in Python, then serialize and deploy<br>without Python<br>● Works on iOS / Android, etc</p>
+<p><strong>模型使用建议：</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171004225626076?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
+</div></div></div></div></div></div>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
