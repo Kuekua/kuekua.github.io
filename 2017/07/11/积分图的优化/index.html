@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      积分图的优化 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="原文：  13行代码实现最快速最高效的积分图像算法。    Tips：1.某个点的积分图反应的是原图中此位置左上角所有像素之和，这里是的累加和是不包括这个点像素本身的，那么，对于原图的第一行和第一列的所有像素，其对应位置的积分图就应该是0, 这样考虑到所有的像素，为了能容纳最后一列和最后一行的情况，最终的积分图就应该是 (W + 1) X (H + 1)大小。 2.优化方式：      原始算法">
+<meta name="keywords" content="Algorithm,Image Processing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="积分图的优化 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/07/11/积分图的优化/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="原文：  13行代码实现最快速最高效的积分图像算法。    Tips：1.某个点的积分图反应的是原图中此位置左上角所有像素之和，这里是的累加和是不包括这个点像素本身的，那么，对于原图的第一行和第一列的所有像素，其对应位置的积分图就应该是0, 这样考虑到所有的像素，为了能容纳最后一列和最后一行的情况，最终的积分图就应该是 (W + 1) X (H + 1)大小。 2.优化方式：      原始算法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170908182829328?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-28T03:21:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="积分图的优化 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="原文：  13行代码实现最快速最高效的积分图像算法。    Tips：1.某个点的积分图反应的是原图中此位置左上角所有像素之和，这里是的累加和是不包括这个点像素本身的，那么，对于原图的第一行和第一列的所有像素，其对应位置的积分图就应该是0, 这样考虑到所有的像素，为了能容纳最后一列和最后一行的情况，最终的积分图就应该是 (W + 1) X (H + 1)大小。 2.优化方式：      原始算法">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170908182829328?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">积分图的优化</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-07-11" class="post-meta__date date">2017-07-11</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Image-Processing/">Image Processing</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Image-Processing/">Image Processing</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>原文： <a href="http://www.cnblogs.com/Imageshop/p/6219990.html" target="_blank" rel="external"> 13行代码实现最快速最高效的积分图像算法。 </a>  </p>
+<p><strong>Tips：</strong><br>1.某个点的积分图反应的是原图中此位置左上角所有像素之和，这里是的累加和是不包括这个点像素本身的，那么，对于原图的第一行和第一列的所有像素，其对应位置的积分<br>图就应该是0, 这样考虑到所有的像素，为了能容纳最后一列和最后一行的情况，最终的积分图就应该是 (W + 1) X (H + 1)大小。</p>
+<p>2.优化方式：  </p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170908182829328?watermark/2/text/aHR0cDo
+vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
+MA==/dissolve/70/gravity/SouthEast" width="80%"></div></p>
+<div align="left">
+
+<pre><code>原始算法                      列优化                             行优化
+</code></pre><p><strong>分析： </strong><br>行优化最优，相比于列优化，更符合图像数据在计算机中的存储顺序，因此并且在计算过程中无需申请额外空间保存各列像素之和，只需一个变量保存行像素之和便可！详见开源<br>软件scantailor里的push函数。</p>
+<p>3. 在反汇编中，max和min充分利用了条件按传送指令比如cmovg,cmovl，而一般的if语句很大程度上会调用jmp指令的（当然和常数比较一般编译也会用条件传送替代的，比如和0比较），jmp指令是比较耗时的。</p>
+<p><strong>开源软件scantailor里的积分图算法的实现：</strong><br>（调用的时候先调用beginRow定位行指针，然后循环调用push推入该行的像素值，所有行循环完毕就计算完成，然后可以调用sum计算区域累加和。）</p>
+<pre><code>/**
+ * \brief Provides the sum of values in a sub-rectangle of a 2D array in constant time.
+ *
+ * Suppose you have a MxN array of some values.  Now if we are not going to
+ * alter it, but are going to calculate the sum of values in various
+ * rectangular sub-regions, it&apos;s best to use an integral image for this purpose.
+ * We construct it once, with complexity of O(M*N), and then obtain the sum
+ * of values in a rectangular sub-region in O(1).
+ *
+ * \note Template parameter T must be large enough to hold the sum of all
+ *       values in the array.
+ */
+template&lt;typename T&gt;
+class IntegralImage
+{
+    DECLARE_NON_COPYABLE(IntegralImage)
+public:
+    IntegralImage(int width, int height);
+
+    explicit IntegralImage(QSize const&amp; size);
+
+    ~IntegralImage();
+
+    /**
+     * \brief To be called before pushing new row data.
+     */
+    void beginRow();
+
+    /**
+     * \brief Push a single value to the integral image.
+     *
+     * Values must be pushed row by row, starting from row 0, and from
+     * column to column within each row, starting from column 0.
+     * At the beginning of a row, a call to beginRow() must be made.
+     *
+     * \note Pushing more than width * height values results in undefined
+     *       behavior.
+     */
+    void push(T val);
+
+    /**
+     * \brief Calculate the sum of values in the given rectangle.
+     *
+     * \note If the rectangle exceeds the image area, the behaviour is
+     *       undefined.
+     */
+    T sum(QRect const&amp; rect) const;
+private:
+    void init(int width, int height);
+
+    T* m_pData;
+    T* m_pCur;
+    T* m_pAbove;
+    T m_lineSum;
+    int m_width;
+    int m_height;
+
+};
+
+template&lt;typename T&gt;
+IntegralImage&lt;T&gt;::IntegralImage(int const width, int const height)
+:   m_lineSum() // init with 0 or with default constructor.
+{
+    // The first row and column are fake.
+    init(width + 1, height + 1);
+}
+
+template&lt;typename T&gt;
+IntegralImage&lt;T&gt;::IntegralImage(QSize const&amp; size)
+:   m_lineSum() // init with 0 or with default constructor.
+{
+    // The first row and column are fake.
+    init(size.width() + 1, size.height() + 1);
+}
+
+template&lt;typename T&gt;
+IntegralImage&lt;T&gt;::~IntegralImage()
+{
+    delete[] m_pData;
+}
+
+template&lt;typename T&gt;
+void
+IntegralImage&lt;T&gt;::init(int const width, int const height)
+{
+    m_width = width;
+    m_height = height;
+
+    m_pData = new T[width * height];
+
+    // Initialize the first (fake) row.
+    // As for the fake column, we initialize its elements in beginRow().
+    T* p = m_pData;
+    for (int i = 0; i &lt; width; ++i, ++p) {
+        *p = T();
+    }
+
+    m_pAbove = m_pData;
+    m_pCur = m_pAbove + width; // Skip the first row.
+}
+
+template&lt;typename T&gt;
+void
+IntegralImage&lt;T&gt;::push(T const val)
+{
+    m_lineSum += val;
+    *m_pCur = *m_pAbove + m_lineSum;
+    ++m_pCur;
+    ++m_pAbove;
+}
+
+template&lt;typename T&gt;
+void
+IntegralImage&lt;T&gt;::beginRow()
+{
+    m_lineSum = T();
+
+    // Initialize and skip the fake column.
+    *m_pCur = T();
+    ++m_pCur;
+    ++m_pAbove;
+}
+
+template&lt;typename T&gt;
+inline T
+IntegralImage&lt;T&gt;::sum(QRect const&amp; rect) const
+{
+    // Keep in mind that row 0 and column 0 are fake.
+    int const pre_left = rect.left();
+    int const pre_right = rect.right() + 1; // QRect::right() is inclusive.
+    int const pre_top = rect.top();
+    int const pre_bottom = rect.bottom() + 1; // QRect::bottom() is inclusive.
+    T sum(m_pData[pre_bottom * m_width + pre_right]);
+    sum -= m_pData[pre_top * m_width + pre_right];
+    sum += m_pData[pre_top * m_width + pre_left];
+    sum -= m_pData[pre_bottom * m_width + pre_left];
+    return sum;
+}
+</code></pre></div>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+    <script type="text/x-mathjax-config">
+       MathJax.Hub.Config({tex2jax: {inlineMath: ��'$','$'], ['\\(','\\)'��}});
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
