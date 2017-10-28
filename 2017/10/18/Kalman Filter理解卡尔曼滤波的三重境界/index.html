@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Kalman Filter--理解卡尔曼滤波的三重境界 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="第一重：初见Kalman假设我养了一只猪：    一周前，这只猪的体重是46±0.5kg。注意，在这里我用了±0.5，表示其实我对这只猪一周前的体重并不是那么确定的，也就是说，46kg这个体重有0.5kg的误差。现在，我又养了这只猪一个星期。那么我想要知道它一个星期之后多重，又大概有多少的误差？    为了得到一周后的体重，我有两种方法：一是根据我多年的养猪经验得到的猪体重公式推求出一个大概的值，">
+<meta name="keywords" content="Algorithm,Algorithm Optimization">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kalman Filter--理解卡尔曼滤波的三重境界 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/10/18/Kalman Filter理解卡尔曼滤波的三重境界/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="第一重：初见Kalman假设我养了一只猪：    一周前，这只猪的体重是46±0.5kg。注意，在这里我用了±0.5，表示其实我对这只猪一周前的体重并不是那么确定的，也就是说，46kg这个体重有0.5kg的误差。现在，我又养了这只猪一个星期。那么我想要知道它一个星期之后多重，又大概有多少的误差？    为了得到一周后的体重，我有两种方法：一是根据我多年的养猪经验得到的猪体重公式推求出一个大概的值，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20171020094252439?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171020094422975?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171020094542419?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171020094640594?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171020094858047?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171020095019777?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171019220829166?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171019221157628?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171019221256550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171019221351867?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171019221608954?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171019221654298?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171019221743267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-10-28T08:36:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kalman Filter--理解卡尔曼滤波的三重境界 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="第一重：初见Kalman假设我养了一只猪：    一周前，这只猪的体重是46±0.5kg。注意，在这里我用了±0.5，表示其实我对这只猪一周前的体重并不是那么确定的，也就是说，46kg这个体重有0.5kg的误差。现在，我又养了这只猪一个星期。那么我想要知道它一个星期之后多重，又大概有多少的误差？    为了得到一周后的体重，我有两种方法：一是根据我多年的养猪经验得到的猪体重公式推求出一个大概的值，">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171020094252439?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Kalman Filter--理解卡尔曼滤波的三重境界</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-10-18" class="post-meta__date date">2017-10-18</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Machine-Vision/">Machine Vision</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Algorithm-Optimization/">Algorithm Optimization</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="第一重：初见Kalman"><a href="#第一重：初见Kalman" class="headerlink" title="第一重：初见Kalman"></a>第一重：初见Kalman</h2><p>假设我养了一只猪：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171020094252439?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="15%" align="center"> <div align="left"> </div></div></p>
+<p>一周前，这只猪的体重是46±0.5kg。注意，在这里我用了±0.5，表示其实我对这只猪一周前的体重并不是那么确定的，也就是说，46kg这个体重有0.5kg的误差。现在，我又养了这只猪一个星期。那么我想要知道它一个星期之后多重，又大概有多少的误差？</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171020094422975?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%" align="center"> <div align="left"> </div></div></p>
+<p>为了得到一周后的体重，我有两种方法：一是根据我多年的养猪经验得到的猪体重公式推求出一个大概的值，另一个就是直接去称它的体重。当然，两种方法都有一定的误差。假设经验公式得到的体重是48kg，误差2kg；直接称体重得到的是49kg，误差1kg：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171020094542419?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%" align="center"> <div align="left"> </div></div></p>
+<p>可是，我是一个处女座的人，不管是经验公式得到的值，还是直接称量得到的值，我都觉得不够准。我希望有一种方法，可以同时结合这只猪一周前的体重、用经验公式估计的值以及直接称量得到的值，综合考虑，得出一个最接近猪真实体重的，误差最小的值。这就是卡尔曼滤波要完成的任务。现在我们来把养猪的模型抽象成数学公式：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171020094640594?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%" align="center"> <div align="left"> </div></div></p>
+<p>上图的左边，上一周的猪的体重，可以抽象为也k-1时刻的状态值，用k-1时刻的最优估计值加上一个误差项来表示，右边同理。其中,</p>
+<p>$$P_k=E[e_ke_k^T]$$</p>
+<p>这一项表示的是估计值的协方差。这里要说明两点：</p>
+<ol>
+<li>上图中所有的变量都是用粗体，表示这是一个向量或者一个矩阵；</li>
+<li>之所以用（列）向量而非一个数来表示状态值，是因为，虽然一只猪的体重可以用一个值来表示，但是在实际的应用中很多状态并不是一个数就能表示的（比如导弹在空间中的位置，同时有x、y、z三个坐标）。<br>图中右边表示k时刻的状态值，这个值可以通过预测模块（也就是根据经验公式估计猪的体重）和纠错模块（也就是直接去称量猪的体重值）来估计。同样，预测模块和纠错模块都有着对应的误差和误差协方差矩阵。卡尔曼滤波要做的，就是根据贝叶斯估计的相关理论，同时考虑预测模块和纠错模块的协方差，对误差小的项赋予较大的权重，对误差大的项赋予较小的权重，并使预测的误差最小。</li>
+</ol>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171020094858047?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%" align="center"> <div align="left"> </div></div></p>
+<p>具体的实现过程如下：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171020095019777?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><strong>参考：</strong><br><a href="https://www.zhihu.com/question/23971601/answer/137325095" target="_blank" rel="external">https://www.zhihu.com/question/23971601/answer/137325095</a></p>
+<h2 id="第二重：Kalman的数学原理"><a href="#第二重：Kalman的数学原理" class="headerlink" title="第二重：Kalman的数学原理"></a>第二重：Kalman的数学原理</h2><p>首先，我们先要引入一个离散控制过程的系统。该系统可用一个线性随机微分方程（Linear Stochastic Difference equation）来描述：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171019220829166?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
+<p>上两式子中，x(k)是k时刻的系统状态，u(k)是k时刻对系统的控制量。A和B是系统参数，对于多模型系统，他们为矩阵。y(k)是k时刻的测量值，H是测量系统的参数，对于多测量系统，H为矩阵。q(k)和r(k)分别表示过程和测量的噪声。他们被假设成高斯白噪声(White Gaussian Noise)，他们的covariance分别是Q，R（这里我们假设他们不随系统状态变化而变化）。</p>
+<p>对于满足上面的条件(线性随机微分系统，过程和测量都是高斯白噪声)，卡尔曼滤波器是最优的信息处理器。下图给出KF算法的流程和五个核心更新方程如下：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171019221157628?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
+<p>五个更新方程为：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171019221256550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
+<p><strong>举个栗子：</strong></p>
+<p>假设我们要研究的对象是一个房间的温度。根据你的经验判断，这个房间的温度是恒定的。（这里的假设相当于状态方程的系数A为1）假设你对你的经验不是100%的相信，可能会有上下偏差几度，我们把这些偏差看成是高斯白噪声（这里就是W(k)）。另外，我们在房间里放一个温度计，但是这个温度计也不准确的，测量值会比实际值偏差。我们也把这些偏差看成是高斯白噪声。（温度计的测量值就是Z(k),而由于温度测到的温度就是温度，不用再换算，所以系数H就是1，偏差就是V(k)）。好了，现在对于某一分钟我们有两个有关于该房间的温度值：你根据经验的预测值（系统的预测值X(k|k-1)）和温度计的值（测量值Z(k)）。下面我们要用这两个值结合他们各自的噪声来估算出房间的实际温度值。</p>
+<p>假如我们要估算k时刻的是实际温度值。首先你要根据k-1时刻的温度值，来预测k时刻的温度。因为你相信温度是恒定的，所以你会得到k时刻的温度预测值是跟k-1时刻一样的，假设是23度，同时该值的高斯噪声的偏差是5度（<strong>5是这样得到的：如果k-1时刻估算出的最优温度值的偏差（p(k-1|k-1)就是上一时刻的p(k|k)</strong>）是3，你对自己预测的不确定度是4度，他们平方相加再开方，就是5（<strong>算出来的就是P(k|k-1)</strong>））。然后，你从温度计那里得到了k时刻的温度值（<strong>测量值Z(k)</strong>），假设是25度，同时该值的偏差是4度。由于我们用于估算k时刻的实际温度有两个温度值，分别是23 度和25度。究竟实际温度是多少呢？相信自己还是相信温度计呢？究竟相信谁多一点，我们可以用他们的covariance（协方差）来判断。因为 Kg^2=5^2/(5^2+4^2)所以Kg=0.78，我们可以估算出k时刻的实际温度值是：23+0.78*(25-23)=24.56度。可以看出，因为温度计的covariance比较小（比较相信温度计），所以估算出的最优温度值偏向温度计的值。</p>
+<p>现在我们已经得到k时刻的最优温度值了，下一步就是要进入 k+1时刻，进行新的最优估算。到现在为止，好像还没看到什么自回归的东西出现。对了，在进入k+1时刻之前，我们还要算出k时刻那个最优值（24.56 度）的偏差。算法如下：((1-Kg)*5^2)^0.5=2.35。这里的5就是上面的k时刻你预测的那个23度温度值的偏差，得出的2.35就是进入 k+1时刻以后k时刻估算出的最优温度值的偏差。就是这样，卡尔曼滤波器就不断的把 covariance递归，从而估算出最优的温度值。他运行的很快，而且它只保留了上一时刻的covariance。上面的Kg，就是卡尔曼增益（Kalman Gain）。他可以随不同的时刻而改变他自己的值，是不是很神奇！</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171019221351867?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<h2 id="第三重：Kalman的数学推导"><a href="#第三重：Kalman的数学推导" class="headerlink" title="第三重：Kalman的数学推导"></a>第三重：Kalman的数学推导</h2><p>首先要计算预测值、预测值和真实值之间误差协方差矩阵：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171019221608954?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="15%" align="center"> <div align="left"> </div></div></p>
+<p>有了这两个就能计算卡尔曼增益K，再然后得到估计值：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171019221654298?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="20%" align="center"> <div align="left"> </div></div></p>
+<p>最后还要计算估计值和真实值之间的误差协方差矩阵，为下次递推做准备：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171019221743267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="15%" align="center"> <div align="left"> </div></div></p>
+<p>具体原理推导过程参考：</p>
+<p>《图像处理、分析与机器视觉》第四版16.6.1 卡尔曼滤波器</p>
+<p><a href="http://blog.csdn.net/heyijia0327/article/details/17487467" target="_blank" rel="external">卡尔曼滤波 – 从推导到应用(一)</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      displayMath: [ ['$','$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+			    extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {inlineMath: [['[latex]','[/latex]'],['\\(','\\)']],
+				          displayMath: [ ['$','$'], ["\\[","\\]"] ],
+						  processEscapes: true
+						  },
+                "HTML-CSS": { availableFonts: ["TeX"] }						  
+            });
+        });
+    </script>
+	
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
