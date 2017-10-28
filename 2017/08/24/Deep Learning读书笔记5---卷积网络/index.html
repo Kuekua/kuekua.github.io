@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20170927141521499?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927142822259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927143010384?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T07:40:35.000Z">
+<meta property="og:updated_time" content="2017-10-28T07:46:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning读书笔记5---卷积网络 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. 卷积公式：    2.卷积运算特点：稀疏交互：     参数共享： 参数共享是指在一个模型的多个函数中使用相同的参数。 在卷积神经网络中，核的每一个元素都作用在输入的每一位置上（是否考虑边界像素取决于对边界决策的设计）。 卷积运算中的参数共享保证了我们只需要学习一个参数集合，而不是对于每一位置都需要学习一个单独的参数集合。 平移等变： 如果一个函数满足输入改变，输出也以同样的方式改变这">
@@ -218,7 +218,7 @@ classes that you can use:
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170927111624901?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
 <div align="left"> 
 
-<h2 id="4-基本卷积函数的变体"><a href="#4-基本卷积函数的变体" class="headerlink" title="4. 基本卷积函数的变体"></a>4. 基本卷积函数的变体</h2><p>我们有时会希望跳过核中的一些位置来降低计算的开销（相应的代价是提取特征没有先前那么好了）。 我们可以把这一过程看作是对全卷积函数输出的下采样(downsampling)。 如果我们只想在输出的每个方向上每间隔s个像素进行采样，那么我们可以定义一个下采样卷积函数c使得$￥\begin{equation} Z<em>{i,j,k} = c(K, V, s)</em>{i,j,k} = \sum<em>{l,m,n} [V</em>{l,(j-1)\times s+m, (k-1)\times s +n,} K_{i,l,m,n}]. \end{equation}$$，我们把$$s$$称为下采样卷积的步幅。 当然也可以对每个移动方向定义不同的步幅。</p>
+<h2 id="4-基本卷积函数的变体"><a href="#4-基本卷积函数的变体" class="headerlink" title="4. 基本卷积函数的变体"></a>4. 基本卷积函数的变体</h2><p>我们有时会希望跳过核中的一些位置来降低计算的开销（相应的代价是提取特征没有先前那么好了）。 我们可以把这一过程看作是对全卷积函数输出的下采样(downsampling)。 如果我们只想在输出的每个方向上每间隔s个像素进行采样，那么我们可以定义一个下采样卷积函数c使得$￥\begin{equation} Z<em>{i,j,k} = c(K, V, s)</em>{i,j,k} = \sum<em>{l,m,n} [V</em>{l,(j-1)\timess+m, (k-1)\times s +n,} K_{i,l,m,n}].\end{equation}$$，我们把s称为下采样卷积的步幅。 当然也可以对每个移动方向定义不同的步幅。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170927113213889?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
 <div align="left"> 
 
@@ -295,8 +295,13 @@ classes that you can use:
     <script type="text/javascript"> 
         $(document).ready(function(){
             MathJax.Hub.Config({ 
+			    extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
                 tex2jax: {inlineMath: [['[latex]','[/latex]'],['\\(','\\)']],
-				          displayMath: [ ['$','$'], ["\\[","\\]"] ]} 
+				          displayMath: [ ['$','$'], ["\\[","\\]"] ],
+						  processEscapes: true
+						  },
+                "HTML-CSS": { availableFonts: ["TeX"] }						  
             });
         });
     </script>
