@@ -1200,9 +1200,14 @@ hr {
   background-size: cover; }
 
 .panel-cover--collapsed {
+  display: block;
+  position: fixed;
+  z-index: 900;
+  height: 100%;
   width: 32%;
   max-width: 430px; 
-  background: url(../images/background-cover1.jpg) top left no-repeat #666666;}
+  background: url(../images/background-cover1.jpg) top left no-repeat #666666;
+  background-size: cover;}
 
 .panel-cover--overlay {
   display: block;
