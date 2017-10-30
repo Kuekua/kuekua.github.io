@@ -1201,7 +1201,8 @@ hr {
 
 .panel-cover--collapsed {
   width: 32%;
-  max-width: 430px; }
+  max-width: 430px; 
+  background: url(../images/background-cover1.jpg) top left no-repeat #666666;}
 
 .panel-cover--overlay {
   display: block;
