@@ -1210,17 +1210,17 @@ hr {
   background-size: cover;}
 
 .panel-cover--overlay {
-  display: block;
+  display: inline-block;
   position: fixed;
   z-index: 900;
-  height: 100%;
-  width: 100%;
+  height: 20%;
+  width: 20%;
   max-width: 430px;
   #top: 0;
   #right: 0;
   #bottom: 0;
   #left: 0;
-  background: url(../images/head.jpg) top left no-repeat #666666;
+  background: url(../images/head.jpg) center center #666666;
   background-size: cover;}
   #background-color: rgba(68, 68, 68, 0.2);
   #background-image: -webkit-gradient(linear, left top, left bottom, color-stop(20%, rgba(68, 68, 68, 0.6)), color-stop(100%, rgba(0, 0, 0, 0.9)));
