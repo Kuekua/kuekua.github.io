@@ -1211,7 +1211,7 @@ hr {
 
 .panel-cover--overlay {
   display: table-cell;
-  position: fixed;
+  position: relative;
   z-index: 1000;
   height: 20%;
   width: 20%;
