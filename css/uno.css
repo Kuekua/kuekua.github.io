@@ -1210,7 +1210,7 @@ hr {
   background-size: cover;}
 
 .panel-cover--overlay {
-  display: inline-block;
+  display: table-cell;
   position: fixed;
   z-index: 900;
   height: 20%;
