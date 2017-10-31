@@ -1250,11 +1250,11 @@ hr {
   padding: 0 60px; }
 
 .panel-main__content {
-  max-width: 620px;
+  max-width: 1620px;
   margin: 0 auto; }
 
 .panel-main__content--fixed {
-  width: 480px;
+  width: 1480px;
   transition: width 1s;
   -webkit-transition: width 1s;
   /* Safari */ }
