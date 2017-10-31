@@ -1204,9 +1204,9 @@ hr {
   position: fixed;
   z-index: 900;
   height: 100%;
-  width: 32%;
+  width: 25%;
   max-width: 430px; 
-  background: url(../images/side.jpg) top left no-repeat #666666;
+  background: url(../images/side.jpg) top right no-repeat #666666;
   background-size: cover;}
 
 .panel-cover--overlay {
