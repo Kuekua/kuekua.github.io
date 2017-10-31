@@ -1061,7 +1061,7 @@ code {
 .block-heading {
   display: inline;
   float: left;
-  width: 940px;
+  width: 1940px;
   margin: 0 10px;
   position: relative;
   bottom: -15px;
@@ -1088,9 +1088,9 @@ code {
 
 .content-wrapper {
   z-index: 800;
-  width: 68%;
-  max-width: 960px;
-  margin-left: 32%; }
+  width: 75%;
+  max-width: 1960px;
+  margin-left: 25%; }
 
 .content-wrapper__inner {
   margin: 0 10%;
@@ -1204,7 +1204,7 @@ hr {
   position: fixed;
   z-index: 900;
   height: 100%;
-  width: 32%;
+  width: 25%;
   max-width: 430px; 
   background: url(../images/side.jpg) top right no-repeat #666666;
   background-size: cover;}
