@@ -1088,9 +1088,9 @@ code {
 
 .content-wrapper {
   z-index: 800;
-  width: 68%;
+  width: 75%;
   max-width: 960px;
-  margin-left: 32%; }
+  margin-left: 25%; }
 
 .content-wrapper__inner {
   margin: 0 10%;
