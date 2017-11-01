@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20170928223931959?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/1/fill/I0JBQkFCMA==/dissolve/7/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170928223950228?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170928224946668?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/4/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T08:31:49.000Z">
+<meta property="og:updated_time" content="2017-11-01T15:08:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lucas–Kanade光流算法 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. 光流法光流是一种运动模式，这种运动模式指的是一个物体、表面、边缘在一个视角下由一个观察者（比如眼睛、摄像头等）和背景之间形成的明显移动。光流技术，如运动检测和图像分割，时间碰撞，运动补偿编码，三维立体视差，都是利用了这种边缘或表面运动的技术。二维图像的移动相对于观察者而言是三维物体移动的在图像平面的投影。有序的图像可以估计出二维图像的瞬时图像速率或离散图像转移。光流算法评估了两幅图像的">
@@ -212,15 +212,18 @@ classes that you can use:
 <p>$$\nabla I^T\cdot\vec{V} = -I_t$$</p>
 <p>这个方程有三个未知量，尚不能被解决，这也就是所谓光流算法的光圈问题。那么要找到光流向量则需要另一套解决的方案。而Lucas-Kanade算法是一个非迭代的算法：</p>
 <p>假设流(Vx,Vy,Vz)在一个大小为m<em>m</em>m(m&gt;1)的小窗中是一个常数，那么从像素1…n, $$n = m^3$$中可以得到下列一组方程</p>
-<p>$$I_{x_1} V<em>x + I</em>{y_1} V<em>y + I</em>{z_1} V<em>z = -I</em>{t<em>1}$$<br>$$I</em>{x_2} V<em>x + I</em>{y_2} V<em>y + I</em>{z_2} V<em>z = -I</em>{t<em>2}$$<br>$$\vdots$$<br>$$I</em>{x_n} V<em>x + I</em>{y_n} V<em>y + I</em>{z_n} V<em>z = -I</em>{t_n}$$</p>
+<p>$$I_{x_1} V<em>x + I</em>{y_1} V<em>y + I</em>{z_1} V<em>z = -I</em>{t_1}$$</p>
+<p>$$I_{x_2} V<em>x + I</em>{y_2} V<em>y + I</em>{z_2} V<em>z = -I</em>{t_2}$$</p>
+<p>$$\vdots$$</p>
+<p>$$I_{x_n} V<em>x + I</em>{y_n} V<em>y + I</em>{z_n} V<em>z = -I</em>{t_n}$$</p>
 <p>三个未知数但是有多于三个的方程，这个方程组自然是个超定方程，也就是说方程组内有冗余，方程组可以表示为：</p>
-<p>$$\begin{bmatrix}I_{x<em>1} &amp; I</em>{y<em>1} &amp; I</em>{z<em>1}\I</em>{x<em>2} &amp; I</em>{y<em>2} &amp; I</em>{z<em>2}\\vdots  &amp; \vdots  &amp; \vdots\I</em>{x<em>n} &amp; I</em>{y<em>n} &amp; I</em>{z_n}\end{bmatrix} \begin{bmatrix}V_x\V_y\V<em>z \end{bmatrix}=  \begin{bmatrix}-I</em>{t<em>1}\ -I</em>{t<em>2}\ \vdots \-I</em>{t_n}\end{bmatrix} $$</p>
-<p>记作：$$A\vec{v}=-bI_{x_2} V<em>x + I</em>{y_2} V<em>y + I</em>{z_2} V<em>z = -I</em>{t_2}$$</p>
+<p>$$\begin{bmatrix}I_{x<em>1}&amp;I</em>{y<em>1}&amp;I</em>{z<em>1}\I</em>{x<em>2}&amp;I</em>{y<em>2}&amp;I</em>{z<em>2}\\vdots&amp;\vdots&amp;\vdots\I</em>{x<em>n}&amp;I</em>{y<em>n}&amp;I</em>{z_n}\end{bmatrix}\begin{bmatrix}V_x\V_y\V<em>z\end{bmatrix}=\begin{bmatrix}-I</em>{t<em>1}\-I</em>{t<em>2}\\vdots\-I</em>{t_n}\end{bmatrix}$$</p>
+<p>记作：$$A\vec{v}=-bI_{x_2}V<em>x+I</em>{y_2}V<em>y+I</em>{z_2}V<em>z=-I</em>{t_2}$$</p>
 <p>为了解决这个超定问题，我们采用最小二乘法：</p>
 <p>$$A^TA\vec{v}=A^T(-b)$$</p>
-<p>$$\vec{v}=(A^TA)^{-1}A^T(-b) $$</p>
+<p>$$\vec{v}=(A^TA)^{-1}A^T(-b)$$</p>
 <p>得到：</p>
-<p>$$\begin{bmatrix}V_x\V_y\V<em>z \end{bmatrix} =\begin{bmatrix}\sum I</em>{x<em>i}^2  &amp;\sum I</em>{x<em>i}I</em>{y<em>i} &amp; \sum I</em>{x<em>i}I</em>{z<em>i} \\sum I</em>{x<em>i}I</em>{y<em>i} &amp; \sum I</em>{y<em>i}^2 &amp; \sum I</em>{y<em>i}I</em>{z<em>i} \\sum I</em>{x<em>i}I</em>{z<em>i} &amp; \sum I</em>{y<em>i}I</em>{z<em>i} &amp; \sum I</em>{z<em>i}^2  \\end{bmatrix}^{-1}\begin{bmatrix}-\sum I</em>{x<em>i}I</em>{t<em>i} \-\sum I</em>{y<em>i}I</em>{t<em>i} \-\sum I</em>{z<em>i}I</em>{t_i}\end{bmatrix}$$</p>
+<p>$$\begin{bmatrix}V_x\V_y\V<em>z \end{bmatrix}=\begin{bmatrix}\sumI</em>{x<em>i}^2&amp;\sumI</em>{x<em>i}I</em>{y<em>i}&amp;\sum I</em>{x<em>i}I</em>{z<em>i}\\sumI</em>{x<em>i}I</em>{y<em>i}&amp;\sumI</em>{y<em>i}^2&amp; \sumI</em>{y<em>i}I</em>{z<em>i}\\sum I</em>{x<em>i}I</em>{z<em>i}&amp;\sum I</em>{y<em>i}I</em>{z<em>i}&amp;\sum I</em>{z<em>i}^2\\end{bmatrix}^{-1}\begin{bmatrix}-\sumI</em>{x<em>i}I</em>{t<em>i}\-\sumI</em>{y<em>i}I</em>{t<em>i}\-\sumI</em>{z<em>i}I</em>{t_i}\end{bmatrix}$$</p>
 <p>其中的求和是从1到n。</p>
 <p>这也就是说寻找光流可以通过在四维上图像导数的分别累加得出。我们还需要一个权重函数$$W(i, j,k)$$， $$i,j,k \in [1,m]$$来突出窗口中心点的坐标。</p>
 <p>这个算法的不足在于它不能产生一个密度很高的流向量，例如在运动的边缘和黑大的同质区域中的微小移动方面流信息会很快的褪去。它的优点在于有噪声存在的鲁棒性还是可以的。</p>

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/07/25/Lucas%E2%80%93Kanade%E5%85%89%E6%B5%81%E7%AE%97%E6%B3%95/</loc>
+    
+    <lastmod>2017-11-01T15:08:17.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2017-10-31T14:19:50.000Z</lastmod>
@@ -54,13 +61,6 @@
     <loc>http://yoursite.com/2017/07/15/SVM--%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E7%AE%80%E8%BF%B0/</loc>
     
     <lastmod>2017-10-28T08:32:01.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/07/25/Lucas%E2%80%93Kanade%E5%85%89%E6%B5%81%E7%AE%97%E6%B3%95/</loc>
-    
-    <lastmod>2017-10-28T08:31:49.000Z</lastmod>
     
   </url>
   

@@ -3,6 +3,28 @@
 
 
     
+  <url>
+    <loc>http://yoursite.com/2017/07/25/Lucas%E2%80%93Kanade%E5%85%89%E6%B5%81%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2017-11-01T15:08:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>Lucas–Kanade光流算法</title>
+        <pubTime>2017-07-24T16:00:00.000Z</pubTime>
+        
+        <tag>Algorithm</tag>
+         
+        <tag>Image Processing</tag>
+         
+         
+           
+             
+              <breadCrumb title="Image Processing" url="http://yoursite.com/categories/Image-Processing/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
     
   <url>
@@ -133,28 +155,6 @@
            
              
               <breadCrumb title="Machine Learning" url="http://yoursite.com/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/07/25/Lucas%E2%80%93Kanade%E5%85%89%E6%B5%81%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2017-10-28T08:31:49.000Z</lastmod>
-    <data>
-        <display>
-        <title>Lucas–Kanade光流算法</title>
-        <pubTime>2017-07-24T16:00:00.000Z</pubTime>
-        
-        <tag>Algorithm</tag>
-         
-        <tag>Image Processing</tag>
-         
-         
-           
-             
-              <breadCrumb title="Image Processing" url="http://yoursite.com/categories/Image-Processing/"/>
           
         </display>
     </data>
