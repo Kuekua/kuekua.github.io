@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20170928223931959?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/1/fill/I0JBQkFCMA==/dissolve/7/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170928223950228?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170928224946668?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/4/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-11-02T14:16:32.000Z">
+<meta property="og:updated_time" content="2017-11-02T14:31:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lucas–Kanade光流算法 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. 光流法光流是一种运动模式，这种运动模式指的是一个物体、表面、边缘在一个视角下由一个观察者（比如眼睛、摄像头等）和背景之间形成的明显移动。光流技术，如运动检测和图像分割，时间碰撞，运动补偿编码，三维立体视差，都是利用了这种边缘或表面运动的技术。二维图像的移动相对于观察者而言是三维物体移动的在图像平面的投影。有序的图像可以估计出二维图像的瞬时图像速率或离散图像转移。光流算法评估了两幅图像的">
@@ -212,10 +212,10 @@ classes that you can use:
 <p>$$\nabla I^T\cdot\vec{V} = -I_t$$</p>
 <p>这个方程有三个未知量，尚不能被解决，这也就是所谓光流算法的光圈问题。那么要找到光流向量则需要另一套解决的方案。而Lucas-Kanade算法是一个非迭代的算法：</p>
 <p>假设流(Vx,Vy,Vz)在一个大小为m<em>m</em>m(m&gt;1)的小窗中是一个常数，那么从像素1…n, $$n = m^3$$中可以得到下列一组方程</p>
-<p>$$I_{x_1}V<em>x+I</em>{y_1}V<em>y+I</em>{z_1}V<em>z=-I</em>{t_1}$$</p>
-<p>$$I_{x_2}V<em>x+I</em>{y_2}V<em>y+I</em>{z_2}V<em>z=-I</em>{t_2}$$</p>
+<p>$$I_{x_1} V<em>x + I</em>{y_1} V<em>y + I</em>{z_1} V<em>z = -I</em>{t_1}$$</p>
+<p>$$I_{x_2} V<em>x + I</em>{y_2} V<em>y + I</em>{z_2} V<em>z = -I</em>{t_2}$$</p>
 <p>$$\vdots$$</p>
-<p>$$I_{x_n}V<em>x+I</em>{y_n}V<em>y+I</em>{z_n}V<em>z=-I</em>{t_n}$$</p>
+<p>$$I_{x_n} V<em>x + I</em>{y_n} V<em>y + I</em>{z_n} V<em>z = -I</em>{t_n}$$</p>
 <p>三个未知数但是有多于三个的方程，这个方程组自然是个超定方程，也就是说方程组内有冗余，方程组可以表示为：</p>
 <p>$$\begin{bmatrix}I_{x<em>1}&amp;I</em>{y<em>1}&amp;I</em>{z<em>1}\I</em>{x<em>2}&amp;I</em>{y<em>2}&amp;I</em>{z<em>2}\\vdots&amp;\vdots&amp;\vdots\I</em>{x<em>n}&amp;I</em>{y<em>n}&amp;I</em>{z_n}\end{bmatrix}\begin{bmatrix}V_x\V_y\V<em>z\end{bmatrix}=\begin{bmatrix}-I</em>{t<em>1}\-I</em>{t<em>2}\\vdots\-I</em>{t_n}\end{bmatrix}$$</p>
 <p>记作：$$A\vec{v}=-bI_{x_2}V<em>x+I</em>{y_2}V<em>y+I</em>{z_2}V<em>z=-I</em>{t_2}$$</p>
@@ -272,29 +272,24 @@ classes that you can use:
 </article>
 
 
-            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Kuekua Wu</span>
-
-  
-</div>
-
-
-
-
-
-
-
-
-
-<div class="theme-info">
-  <div class="powered-by"></div>
-  <span class="post-count">博客全站共65.6k字</span>
-</div>
-
+            <footer class="footer">
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    <span class="footer__copyright">&copy; 2017-2020. 个人邮箱：wj.bob@163.com</a></span>
+    
+</footer>
         </div>
     </div>
 
