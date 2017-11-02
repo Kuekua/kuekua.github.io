@@ -66,9 +66,9 @@
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -224,9 +224,9 @@ print array
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
         </tags>
         
@@ -306,9 +306,9 @@ print array
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -397,9 +397,9 @@ print array
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -485,9 +485,9 @@ print array
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -611,9 +611,9 @@ print array
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -738,9 +738,9 @@ print array
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -1388,9 +1388,9 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2060,9 +2060,9 @@ class TwoLayerNet(object):
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2112,9 +2112,9 @@ class TwoLayerNet(object):
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2163,9 +2163,9 @@ class TwoLayerNet(object):
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2257,9 +2257,9 @@ MathJax.Hub.Config({
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2335,9 +2335,9 @@ MathJax.Hub.Config({
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2512,9 +2512,9 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2606,9 +2606,9 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2682,9 +2682,9 @@ ssolve/70/gravity/SouthEast" width="70%"></div></p>
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2870,9 +2870,9 @@ ssolve/70/gravity/Center" width="60%" align="center">  </div></p>
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2931,15 +2931,15 @@ ssolve/70/gravity/Center" width="60%" align="center">  </div></p>
 <p>进而得到</p>
 <p>$$\frac{\partial I}{\partial x}V_x+\frac{\partial I}{\partial y}V_y+\frac{\partial I}{\partial z}V_z+\frac{\partial I}{\partial t} = 0$$</p>
 <p>Vx,Vy,Vz分别是I(x,y,z,t)的光流向量中x，y，z的组成。 $$\frac{\partial I}{\partial x}$$, $$\frac{\partial I}{\partial y}$$, $$\frac{\partial I}{\partial z}$$和 $$\frac{\partial I}{\partial t}$$则是图像在(x,y,z,t)这一点向相应方向的差分。<br>所以：</p>
-<p>$$I_xV_x + I_yV_y + I_zV_z= ? I_t$$</p>
+<p>$$I_xV_x + I_yV_y + I_zV_z= I_t$$</p>
 <p>写做：</p>
 <p>$$\nabla I^T\cdot\vec{V} = -I_t$$</p>
 <p>这个方程有三个未知量，尚不能被解决，这也就是所谓光流算法的光圈问题。那么要找到光流向量则需要另一套解决的方案。而Lucas-Kanade算法是一个非迭代的算法：</p>
 <p>假设流(Vx,Vy,Vz)在一个大小为m<em>m</em>m(m&gt;1)的小窗中是一个常数，那么从像素1…n, $$n = m^3$$中可以得到下列一组方程</p>
-<p>$$I_{x_1} V<em>x + I</em>{y_1} V<em>y + I</em>{z_1} V<em>z = -I</em>{t_1}$$</p>
-<p>$$I_{x_2} V<em>x + I</em>{y_2} V<em>y + I</em>{z_2} V<em>z = -I</em>{t_2}$$</p>
+<p>$$I_{x_1}V<em>x+I</em>{y_1}V<em>y+I</em>{z_1}V<em>z =-I</em>{t_1}$$</p>
+<p>$$I_{x_2}V<em>x+I</em>{y_2}V<em>y + I</em>{z_2}V<em>z=-I</em>{t_2}$$</p>
 <p>$$\vdots$$</p>
-<p>$$I_{x_n} V<em>x + I</em>{y_n} V<em>y + I</em>{z_n} V<em>z = -I</em>{t_n}$$</p>
+<p>$$I_{x_n}V<em>x+I</em>{y_n}V<em>y + I</em>{z_n}V<em>z = -I</em>{t_n}$$</p>
 <p>三个未知数但是有多于三个的方程，这个方程组自然是个超定方程，也就是说方程组内有冗余，方程组可以表示为：</p>
 <p>$$\begin{bmatrix}I_{x<em>1}&amp;I</em>{y<em>1}&amp;I</em>{z<em>1}\I</em>{x<em>2}&amp;I</em>{y<em>2}&amp;I</em>{z<em>2}\\vdots&amp;\vdots&amp;\vdots\I</em>{x<em>n}&amp;I</em>{y<em>n}&amp;I</em>{z_n}\end{bmatrix}\begin{bmatrix}V_x\V_y\V<em>z\end{bmatrix}=\begin{bmatrix}-I</em>{t<em>1}\-I</em>{t<em>2}\\vdots\-I</em>{t_n}\end{bmatrix}$$</p>
 <p>记作：$$A\vec{v}=-bI_{x_2}V<em>x+I</em>{y_2}V<em>y+I</em>{z_2}V<em>z=-I</em>{t_2}$$</p>
@@ -2987,9 +2987,9 @@ ssolve/70/gravity/Center" width="60%" align="center">  </div></p>
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Image Processing </tag>
+            
+            <tag> Algorithm </tag>
             
         </tags>
         
@@ -3356,9 +3356,9 @@ MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
             
         </tags>
         
@@ -3528,9 +3528,9 @@ IntegralImage&lt;T&gt;::sum(QRect const&amp; rect) const
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Image Processing </tag>
+            
+            <tag> Algorithm </tag>
             
         </tags>
         
@@ -3559,9 +3559,9 @@ MA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Image Processing </tag>
+            
+            <tag> Algorithm </tag>
             
         </tags>
         
@@ -3743,9 +3743,9 @@ if __name__ == &apos;__main__&apos;:
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Image Processing </tag>
+            
+            <tag> Algorithm </tag>
             
         </tags>
         
@@ -3783,11 +3783,52 @@ if __name__ == &apos;__main__&apos;:
         
         <tags>
             
+            <tag> Image Processing </tag>
+            
             <tag> Algorithm </tag>
+            
+            <tag> Math </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[白平衡算法总结]]></title>
+      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
+<p><strong>TIPS:</strong></p>
+<ol>
+<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
+</li>
+<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
+</li>
+</ol>
+<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
+<p><strong>Tips:</strong></p>
+<ol>
+<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
+</li>
+<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
+</li>
+</ol>
+<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Image Processing </category>
+            
+        </categories>
+        
+        
+        <tags>
             
             <tag> Image Processing </tag>
             
-            <tag> Math </tag>
+            <tag> Machine Learning </tag>
+            
+            <tag> algorithm </tag>
             
         </tags>
         
@@ -3830,50 +3871,9 @@ if __name__ == &apos;__main__&apos;:
         
         <tags>
             
-            <tag> Machine Learning </tag>
-            
             <tag> Image Processing </tag>
             
-            <tag> algorithm </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[白平衡算法总结]]></title>
-      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
-<p><strong>TIPS:</strong></p>
-<ol>
-<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
-</li>
-<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
-</li>
-</ol>
-<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
-<p><strong>Tips:</strong></p>
-<ol>
-<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
-</li>
-<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
-</li>
-</ol>
-<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Image Processing </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
             <tag> Machine Learning </tag>
-            
-            <tag> Image Processing </tag>
             
             <tag> algorithm </tag>
             
@@ -4002,11 +4002,11 @@ applications.html" target="_blank" rel="external"> 机器学习中的数学(5)-�
         
         <tags>
             
-            <tag> Machine Learning </tag>
+            <tag> Image Processing </tag>
             
             <tag> Algorithm </tag>
             
-            <tag> Image Processing </tag>
+            <tag> Machine Learning </tag>
             
         </tags>
         
