@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20170928223931959?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/1/fill/I0JBQkFCMA==/dissolve/7/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170928223950228?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170928224946668?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/4/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-11-02T14:53:47.000Z">
+<meta property="og:updated_time" content="2017-11-02T15:01:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lucas–Kanade光流算法 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. 光流法光流是一种运动模式，这种运动模式指的是一个物体、表面、边缘在一个视角下由一个观察者（比如眼睛、摄像头等）和背景之间形成的明显移动。光流技术，如运动检测和图像分割，时间碰撞，运动补偿编码，三维立体视差，都是利用了这种边缘或表面运动的技术。二维图像的移动相对于观察者而言是三维物体移动的在图像平面的投影。有序的图像可以估计出二维图像的瞬时图像速率或离散图像转移。光流算法评估了两幅图像的">
@@ -215,19 +215,18 @@ classes that you can use:
 <p>$$\nabla I^T\cdot\vec{V} = -I_t$$</p>
 <p>这个方程有三个未知量，尚不能被解决，这也就是所谓光流算法的光圈问题。那么要找到光流向量则需要另一套解决的方案。而Lucas-Kanade算法是一个非迭代的算法：</p>
 <p>假设流(Vx,Vy,Vz)在一个大小为m<em>m</em>m(m&gt;1)的小窗中是一个常数，那么从像素1…n, $$n = m^3$$中可以得到下列一组方程</p>
-<p><div align="center"><br><img src="http://i1.bvimg.com/616572/f97174c2768cb6cc.jpg" width="30%" align="center"></div></p>
+<p><div align="center"><br><img src="http://i1.bvimg.com/616572/f97174c2768cb6cc.jpg" width="35%" align="center"></div></p>
 <div align="left">
 
 <p>三个未知数但是有多于三个的方程，这个方程组自然是个超定方程，也就是说方程组内有冗余，方程组可以表示为：</p>
-<p><div align="center"><br><img src="http://i1.bvimg.com/616572/315e2cb4ad140b77.jpg" width="35%" align="center"></div></p>
+<p><div align="center"><br><img src="http://i1.bvimg.com/616572/315e2cb4ad140b77.jpg" width="40%" align="center"></div></p>
 <div align="left">
 
-<p>记作：$$A\vec{v}=-bI_{x_2}V<em>x+I</em>{y_2}V<em>y+I</em>{z_2}V<em>z=-I</em>{t_2}$$</p>
 <p>为了解决这个超定问题，我们采用最小二乘法：</p>
 <p>$$A^TA\vec{v}=A^T(-b)$$</p>
 <p>$$\vec{v}=(A^TA)^{-1}A^T(-b)$$</p>
 <p>得到：</p>
-<p><div align="center"><br><img src="http://i1.bvimg.com/616572/ccc3f332edbf2b0b.jpg" width="45%" align="center"></div></p>
+<p><div align="center"><br><img src="http://i1.bvimg.com/616572/ccc3f332edbf2b0b.jpg" width="50%" align="center"></div></p>
 <div align="left">
 
 <p>其中的求和是从1到n。</p>
