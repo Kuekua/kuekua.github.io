@@ -66,9 +66,9 @@
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -224,9 +224,9 @@ print array
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
         </tags>
         
@@ -306,9 +306,9 @@ print array
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -397,9 +397,9 @@ print array
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -485,9 +485,9 @@ print array
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -611,9 +611,9 @@ print array
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -738,9 +738,9 @@ print array
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -1388,9 +1388,9 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2060,9 +2060,9 @@ class TwoLayerNet(object):
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2112,9 +2112,9 @@ class TwoLayerNet(object):
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2163,9 +2163,9 @@ class TwoLayerNet(object):
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2257,9 +2257,9 @@ MathJax.Hub.Config({
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2335,9 +2335,9 @@ MathJax.Hub.Config({
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2512,9 +2512,9 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2606,9 +2606,9 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2682,9 +2682,9 @@ ssolve/70/gravity/SouthEast" width="70%"></div></p>
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2870,9 +2870,9 @@ ssolve/70/gravity/Center" width="60%" align="center">  </div></p>
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
             <tag> Deep Learning </tag>
             
@@ -2936,10 +2936,10 @@ ssolve/70/gravity/Center" width="60%" align="center">  </div></p>
 <p>$$\nabla I^T\cdot\vec{V} = -I_t$$</p>
 <p>这个方程有三个未知量，尚不能被解决，这也就是所谓光流算法的光圈问题。那么要找到光流向量则需要另一套解决的方案。而Lucas-Kanade算法是一个非迭代的算法：</p>
 <p>假设流(Vx,Vy,Vz)在一个大小为m<em>m</em>m(m&gt;1)的小窗中是一个常数，那么从像素1…n, $$n = m^3$$中可以得到下列一组方程</p>
-<p>$$I_{x_1}V<em>x+I</em>{y_1}V<em>y+I</em>{z_1}V<em>z =-I</em>{t_1}$$</p>
-<p>$$I_{x_2}V<em>x+I</em>{y_2}V<em>y + I</em>{z_2}V<em>z=-I</em>{t_2}$$</p>
+<p>$$I_{x_1}V<em>x+I</em>{y_1}V<em>y+I</em>{z_1}V<em>z=-I</em>{t_1}$$</p>
+<p>$$I_{x_2}V<em>x+I</em>{y_2}V<em>y+I</em>{z_2}V<em>z=-I</em>{t_2}$$</p>
 <p>$$\vdots$$</p>
-<p>$$I_{x_n}V<em>x+I</em>{y_n}V<em>y + I</em>{z_n}V<em>z = -I</em>{t_n}$$</p>
+<p>$$I_{x_n}V<em>x+I</em>{y_n}V<em>y+I</em>{z_n}V<em>z=-I</em>{t_n}$$</p>
 <p>三个未知数但是有多于三个的方程，这个方程组自然是个超定方程，也就是说方程组内有冗余，方程组可以表示为：</p>
 <p>$$\begin{bmatrix}I_{x<em>1}&amp;I</em>{y<em>1}&amp;I</em>{z<em>1}\I</em>{x<em>2}&amp;I</em>{y<em>2}&amp;I</em>{z<em>2}\\vdots&amp;\vdots&amp;\vdots\I</em>{x<em>n}&amp;I</em>{y<em>n}&amp;I</em>{z_n}\end{bmatrix}\begin{bmatrix}V_x\V_y\V<em>z\end{bmatrix}=\begin{bmatrix}-I</em>{t<em>1}\-I</em>{t<em>2}\\vdots\-I</em>{t_n}\end{bmatrix}$$</p>
 <p>记作：$$A\vec{v}=-bI_{x_2}V<em>x+I</em>{y_2}V<em>y+I</em>{z_2}V<em>z=-I</em>{t_2}$$</p>
@@ -2987,9 +2987,9 @@ ssolve/70/gravity/Center" width="60%" align="center">  </div></p>
         
         <tags>
             
-            <tag> Image Processing </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Image Processing </tag>
             
         </tags>
         
@@ -3356,9 +3356,9 @@ MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
         
         <tags>
             
-            <tag> Algorithm </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
             
         </tags>
         
@@ -3528,9 +3528,9 @@ IntegralImage&lt;T&gt;::sum(QRect const&amp; rect) const
         
         <tags>
             
-            <tag> Image Processing </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Image Processing </tag>
             
         </tags>
         
@@ -3559,9 +3559,9 @@ MA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
         
         <tags>
             
-            <tag> Image Processing </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Image Processing </tag>
             
         </tags>
         
@@ -3743,9 +3743,9 @@ if __name__ == &apos;__main__&apos;:
         
         <tags>
             
-            <tag> Image Processing </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Image Processing </tag>
             
         </tags>
         
@@ -3783,9 +3783,9 @@ if __name__ == &apos;__main__&apos;:
         
         <tags>
             
-            <tag> Image Processing </tag>
-            
             <tag> Algorithm </tag>
+            
+            <tag> Image Processing </tag>
             
             <tag> Math </tag>
             
@@ -3824,9 +3824,9 @@ if __name__ == &apos;__main__&apos;:
         
         <tags>
             
-            <tag> Image Processing </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Image Processing </tag>
             
             <tag> algorithm </tag>
             
@@ -3871,9 +3871,9 @@ if __name__ == &apos;__main__&apos;:
         
         <tags>
             
-            <tag> Image Processing </tag>
-            
             <tag> Machine Learning </tag>
+            
+            <tag> Image Processing </tag>
             
             <tag> algorithm </tag>
             
@@ -4002,11 +4002,11 @@ applications.html" target="_blank" rel="external"> 机器学习中的数学(5)-�
         
         <tags>
             
-            <tag> Image Processing </tag>
+            <tag> Machine Learning </tag>
             
             <tag> Algorithm </tag>
             
-            <tag> Machine Learning </tag>
+            <tag> Image Processing </tag>
             
         </tags>
         

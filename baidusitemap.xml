@@ -5,15 +5,15 @@
     
   <url>
     <loc>http://yoursite.com/2017/07/25/Lucas%E2%80%93Kanade%E5%85%89%E6%B5%81%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2017-11-02T14:09:45.000Z</lastmod>
+    <lastmod>2017-11-02T14:16:32.000Z</lastmod>
     <data>
         <display>
         <title>Lucas–Kanade光流算法</title>
         <pubTime>2017-07-24T16:00:00.000Z</pubTime>
         
-        <tag>Image Processing</tag>
-         
         <tag>Algorithm</tag>
+         
+        <tag>Image Processing</tag>
          
          
            
@@ -35,9 +35,9 @@
         <title>数据处理——One-Hot Encoding</title>
         <pubTime>2017-10-09T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
          
            
@@ -79,9 +79,9 @@
         <title>YOLO算法学习及训练</title>
         <pubTime>2017-10-19T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -147,9 +147,9 @@
         <title>SVM--支持向量机简述</title>
         <pubTime>2017-07-14T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
          
            
@@ -169,9 +169,9 @@
         <title>Canny边缘检测算法</title>
         <pubTime>2017-06-30T16:00:00.000Z</pubTime>
         
-        <tag>Image Processing</tag>
-         
         <tag>Algorithm</tag>
+         
+        <tag>Image Processing</tag>
          
          
            
@@ -213,9 +213,9 @@
         <title>Deep Learning读书笔记8--应用</title>
         <pubTime>2017-09-09T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -237,9 +237,9 @@
         <title>CS231n学习笔记--12.Visualizing and Understanding</title>
         <pubTime>2017-10-04T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -261,9 +261,9 @@
         <title>CS231n学习笔记--11.Detection and Segmentation</title>
         <pubTime>2017-10-03T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -285,9 +285,9 @@
         <title>Deep Learning读书笔记7--实践方法论</title>
         <pubTime>2017-09-02T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -309,9 +309,9 @@
         <title>Deep Learning读书笔记6---序列建模：循环和递归网络</title>
         <pubTime>2017-08-27T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -333,9 +333,9 @@
         <title>Deep Learning读书笔记5---卷积网络</title>
         <pubTime>2017-08-23T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -357,9 +357,9 @@
         <title>积分图的优化</title>
         <pubTime>2017-07-10T16:00:00.000Z</pubTime>
         
-        <tag>Image Processing</tag>
-         
         <tag>Algorithm</tag>
+         
+        <tag>Image Processing</tag>
          
          
            
@@ -401,9 +401,9 @@
         <title>提升人脸检测效率的方法总结</title>
         <pubTime>2017-06-21T10:26:42.000Z</pubTime>
         
-        <tag>Image Processing</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Image Processing</tag>
          
         <tag>algorithm</tag>
          
@@ -425,11 +425,11 @@
         <title>Opencv中Adaboost的具体实现及使用资料总结</title>
         <pubTime>2017-06-05T16:00:00.000Z</pubTime>
         
-        <tag>Image Processing</tag>
+        <tag>Machine Learning</tag>
          
         <tag>Algorithm</tag>
          
-        <tag>Machine Learning</tag>
+        <tag>Image Processing</tag>
          
          
            
@@ -471,9 +471,9 @@
         <title>Randon变换与Hough变换</title>
         <pubTime>2017-06-25T16:00:00.000Z</pubTime>
         
-        <tag>Image Processing</tag>
-         
         <tag>Algorithm</tag>
+         
+        <tag>Image Processing</tag>
          
         <tag>Math</tag>
          
@@ -495,9 +495,9 @@
         <title>Deep Learning读书笔记2---深度前馈网络</title>
         <pubTime>2017-08-07T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -519,9 +519,9 @@
         <title>CS231n学习笔记--4.Backpropagation and Neural Networks</title>
         <pubTime>2017-09-15T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -543,9 +543,9 @@
         <title>CS231n学习笔记--5.CNN&&6-7. Training Neural Networks</title>
         <pubTime>2017-09-22T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -567,9 +567,9 @@
         <title>Deep Learning读书笔记4---深度模型中的优化</title>
         <pubTime>2017-08-17T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -591,9 +591,9 @@
         <title>CS231n学习笔记--10.Recurrent Neural Networks</title>
         <pubTime>2017-10-02T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -615,9 +615,9 @@
         <title>CS231n学习笔记--9.CNN Architectures</title>
         <pubTime>2017-09-29T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -639,9 +639,9 @@
         <title>CS231n学习笔记--8.Deep Learning Software</title>
         <pubTime>2017-09-26T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -663,9 +663,9 @@
         <title>Deep Learning读书笔记3---深度学习中的正则化</title>
         <pubTime>2017-08-12T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -687,9 +687,9 @@
         <title>分水岭算法的原理及实现</title>
         <pubTime>2017-07-07T16:00:00.000Z</pubTime>
         
-        <tag>Image Processing</tag>
-         
         <tag>Algorithm</tag>
+         
+        <tag>Image Processing</tag>
          
          
            
@@ -729,9 +729,9 @@
         <title>DeepLearning读书笔记1-基础知识篇</title>
         <pubTime>2017-07-31T16:00:00.000Z</pubTime>
         
-        <tag>Algorithm</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
          
         <tag>Deep Learning</tag>
          
@@ -753,9 +753,9 @@
         <title>白平衡算法总结</title>
         <pubTime>2017-06-21T10:26:42.000Z</pubTime>
         
-        <tag>Image Processing</tag>
-         
         <tag>Machine Learning</tag>
+         
+        <tag>Image Processing</tag>
          
         <tag>algorithm</tag>
          
