@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://yoursite.com/2017/07/25/Lucas%E2%80%93Kanade%E5%85%89%E6%B5%81%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2017-11-02T14:31:41.000Z</lastmod>
+    <lastmod>2017-11-02T14:53:47.000Z</lastmod>
     <data>
         <display>
         <title>Lucas–Kanade光流算法</title>
@@ -13,12 +13,12 @@
         
         <tag>Algorithm</tag>
          
-        <tag>Image Processing</tag>
+        <tag>Algorithm Optimization</tag>
          
          
            
              
-              <breadCrumb title="Image Processing" url="http://yoursite.com/categories/Image-Processing/"/>
+              <breadCrumb title="Machine Vision" url="http://yoursite.com/categories/Machine-Vision/"/>
           
         </display>
     </data>
