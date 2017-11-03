@@ -28,10 +28,10 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20171012220108288?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171012220151838?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171012215226239?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20171012215348548?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20171012215431389?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171103224031577?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171103224107091?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171012215455652?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T08:25:57.000Z">
+<meta property="og:updated_time" content="2017-11-03T14:42:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MeanShift算法及其在目标跟踪上的运用 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. MeanShift算法在d维空间中，任选一个点，然后以这个点为圆心，h为半径做一个高维球，因为有d维，d可能大于2，所以是高维球。落在这个球内的所有点和圆心都会产生一个向量，向量是以圆心为起点落在球内的点位终点。然后把这些向量都相加。相加的结果就是Meanshift向量。 如图所示，其中黄色箭头就是Mh（meanshift向量）：    再以meanshift向量的终点为圆心，再做一个">
@@ -216,8 +216,8 @@ classes that you can use:
 <h2 id="2-基于MeanShift的目标跟踪算法"><a href="#2-基于MeanShift的目标跟踪算法" class="headerlink" title="2. 基于MeanShift的目标跟踪算法"></a>2. 基于MeanShift的目标跟踪算法</h2><p>基于均值漂移的目标跟踪算法通过分别计算目标区域和候选区域内像素的特征值概率得到关于目标模型和候选模型的描述，然后利用相似函数度量初始帧目标模型和当前帧的候选模版的相似性，选择使相似函数最大的候选模型并得到关于目标模型的Meanshift向量，这个向量正是目标由初始位置向正确位置移动的向量。由于均值漂移算法的快速收敛性，通过不断迭代计算Meanshift向量，算法最终将收敛到目标的真实位置，达到跟踪的目的。</p>
 <p>下面通过图示直观的说明MeanShift跟踪算法的基本原理。如下图所示：目标跟踪开始于数据点xi0（空心圆点xi0，xi1，…，xiN表示的是中心点，上标表示的是的迭代次数，周围的黑色圆点表示不断移动中的窗口样本点，虚线圆圈代表的是密度估计窗口的大小）。箭头表示样本点相对于核函数中心点的漂移向量，平均的漂移向量会指向样本点最密集的方向，也就是梯度方向。因为 Meanshift 算法是收敛的，因此在当前帧中通过反复迭代搜索特征空间中样本点最密集的区域，搜索点沿着样本点密度增加的方向“漂移”到局部密度极大点点xiN，也就是被认为的目标位置，从而达到跟踪的目的，MeanShift 跟踪过程结束。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171012215226239?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171012215348548?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171012215431389?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171103224031577?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171103224107091?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171012215455652?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>   参考博客：</p>
 <ol>
@@ -244,24 +244,29 @@ classes that you can use:
 </article>
 
 
-            <footer class="footer">
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-    <span class="footer__copyright">&copy; 2017-2020. 个人邮箱：wj.bob@163.com</a></span>
-    
-</footer>
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kuekua Wu</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共65.5k字</span>
+</div>
+
         </div>
     </div>
 
