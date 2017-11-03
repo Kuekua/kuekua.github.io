@@ -163,6 +163,7 @@
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171012215226239?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171103224031577?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171103224107091?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171103224603679?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171012215455652?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>   参考博客：</p>
 <ol>
@@ -3795,47 +3796,6 @@ if __name__ == &apos;__main__&apos;:
     </entry>
     
     <entry>
-      <title><![CDATA[白平衡算法总结]]></title>
-      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
-<p><strong>TIPS:</strong></p>
-<ol>
-<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
-</li>
-<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
-</li>
-</ol>
-<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
-<p><strong>Tips:</strong></p>
-<ol>
-<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
-</li>
-<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
-</li>
-</ol>
-<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Image Processing </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Machine Learning </tag>
-            
-            <tag> Image Processing </tag>
-            
-            <tag> algorithm </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[提升人脸检测效率的方法总结]]></title>
       <url>/2017/06/21/%E6%8F%90%E5%8D%87%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E6%95%88%E7%8E%87%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
       <content type="html"><![CDATA[<p>人脸检测是一个非常经典的问题，很多人认为这是一个“已经解决”了的问题。人脸检测最经典的方法是Haar+AdaBoost。采用开源的Haar+AdaBoost实现（如OpenCV中的训练和检测程序），我们可以很容易的训练一个还算不错的人脸检测器。但是，一旦将人脸检测技术投入实际应用，一系列问题便会冒出来。如（1）误检（把非人脸的物体当作人脸）较多，非人脸图像当作人脸送入后续算法，会引起一系列不良后果。（2）漏检问题，例如戴墨镜、大胡子、逆光条件、黑种人、倾斜姿态较大的脸无法检测到。（3）速度问题，虽很多人脸检测算法的速度已经很快，但在一个人脸分析（如人脸识别）系统中，人脸检测步骤的计算量往往超过50%。大部分检测算法采用窗口扫描的方式，窗口数目巨大，所以计算量居高不下。很多系统运行在低功耗平台，对计算量尤其敏感。假如手机一拍照片就发烫就很不好。</p>
@@ -3861,6 +3821,47 @@ if __name__ == &apos;__main__&apos;:
 <h1 id="9-代码优化：GPU优化"><a href="#9-代码优化：GPU优化" class="headerlink" title="9. 代码优化：GPU优化"></a>9. 代码优化：GPU优化</h1><p>GPU跟CPU不同，有自己独特的特点。GPU特别适合做无复杂逻辑但计算量大的事情。例如图像resize、图像滤波等。Boosting算法可以运行在GPU上，并获得加速，但GPU加速Boosting优势并没有你想象的明显。Boosting算法中逻辑分支较多，也就是有不定长的for循环，有if-else判断；并行的时候每个运算单元运算量并不相同，有些运行时间长，有些运行时间短。运行时间短的要等运行时间长的。我们做了很多努力，GPU版本（低端GTX750i显卡）速度大约可以做到CPU版本（i7多核并行）的6倍左右。跟OpenCV中用GPU加速Haar+Adaboost的倍数一致，而没有达到期望的几十倍加速。</p>
 <h1 id="10-吐槽：非连续内存读写"><a href="#10-吐槽：非连续内存读写" class="headerlink" title="10. 吐槽：非连续内存读写"></a>10. 吐槽：非连续内存读写</h1><p>读写非连续内存，速度可能变慢。如下图Haar积分图计算像素和的公式是D-B-C+A，需要读4个元素值，但这4个值在内存里并不连续，特别是A和D距离较远，这样降低了CPU缓存的命中率，也就降低了速度。对缓存小的低价位CPU影响尤为明显。虽然公式D-B-C+A的计算量跟E-F-G-H相同，但一般来说后者速度会快。此外，Boosting方法选出的多个弱特征，在图像上往往也不相邻，同样是低效的非连续内存的读写，这是Boosting类方法的一个缺点。</p>
 <h1 id="11-未来展望"><a href="#11-未来展望" class="headerlink" title="11. 未来展望"></a>11. 未来展望</h1><p>到目前为止，Boosting方法在人脸检测中依然具有明显的速度优势。但基于深度学习的目标检测方法进展迅速，不容小视。深度学习的方法可以很容易地获得非常高的准确率，如在FDDB人脸检测评库上，传统方法能达到85%准确率就非常高了，但深度学习方法可以轻松超过90%，甚至超过95%。如果想兼顾速度和准确率，传统方法和深度学习的方法结合也许是一个思路，现在已经有一些这样的尝试了。此外，CNN专用硬件应可以弥补深度学习方法的劣势。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Image Processing </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Machine Learning </tag>
+            
+            <tag> Image Processing </tag>
+            
+            <tag> algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[白平衡算法总结]]></title>
+      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
+<p><strong>TIPS:</strong></p>
+<ol>
+<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
+</li>
+<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
+</li>
+</ol>
+<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
+<p><strong>Tips:</strong></p>
+<ol>
+<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
+</li>
+<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
+</li>
+</ol>
+<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
 ]]></content>
       
         <categories>
