@@ -233,6 +233,103 @@ print array
     </entry>
     
     <entry>
+      <title><![CDATA[CS231n学习笔记--13. Generative Models]]></title>
+      <url>/2017/10/06/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--13.%20Generative%20Models/</url>
+      <content type="html"><![CDATA[<h2 id="1-Unsupervised-Learning"><a href="#1-Unsupervised-Learning" class="headerlink" title="1. Unsupervised Learning"></a>1. Unsupervised Learning</h2><p><strong>Supervised vs Unsupervised Learning:</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104103705970?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="2-Generative-Models"><a href="#2-Generative-Models" class="headerlink" title="2. Generative Models"></a>2. Generative Models</h2><p><strong>概述：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104104427775?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><strong>Generative Models的作用：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104104459704?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><strong>Generative Models的分类：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104104635315?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="3-PixelRNN-and-PixelCNN"><a href="#3-PixelRNN-and-PixelCNN" class="headerlink" title="3. PixelRNN and PixelCNN"></a>3. PixelRNN and PixelCNN</h2><p><strong>基本原理：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104104943325?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><strong>PixelRNN：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104110548366?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><strong>PixelCNN：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104110710379?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p>Training is faster than PixelRNN (can parallelize convolutions since context region values known from training images)<br>Generation must still proceed sequentially=&gt; still slow</p>
+<p><strong>Generation Samples：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104110944809?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p><strong>PixelRNN and PixelCNN</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104111111772?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%"><div align="left"></div></div></p>
+<h2 id="4-Variational-Autoencoders-VAE"><a href="#4-Variational-Autoencoders-VAE" class="headerlink" title="4. Variational Autoencoders (VAE)"></a>4. Variational Autoencoders (VAE)</h2><h2 id="4-1-与PixelRNN-PixelCNN的比较："><a href="#4-1-与PixelRNN-PixelCNN的比较：" class="headerlink" title="4.1 与PixelRNN/PixelCNN的比较："></a>4.1 与PixelRNN/PixelCNN的比较：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104111730877?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="4-2-Some-background-first-Autoencoders："><a href="#4-2-Some-background-first-Autoencoders：" class="headerlink" title="4.2 Some background first: Autoencoders："></a>4.2 Some background first: Autoencoders：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104111939948?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104112108563?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104112220835?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%"><div align="left"></div></div></p>
+<p><strong>Tips:</strong></p>
+<p>如果将其用于特征提取，则在训练之后，将decoder部分丢弃！</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104112456920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p>Autoencoders can reconstruct data, and can learn features to initialize a supervised model！</p>
+<h2 id="4-3-Variational-Autoencoders"><a href="#4-3-Variational-Autoencoders" class="headerlink" title="4.3 Variational Autoencoders"></a>4.3 Variational Autoencoders</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104151834765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p>利用高斯分布随机生成特征Z：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104152032103?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104152232036?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%"><div align="left"></div></div></p>
+<p><strong>Variational Autoencoders: Intractability</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104155620741?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p>$p<em>θ(z)$跟据高斯分布随机获得，$p</em>θ(x|z)$根据decoder net获得，而为每个z计算$p<em>θ(x|z)$并最终积分得到$p</em>θ(x)$是不可能的！</p>
+<p>解决办法：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104160258564?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p>如何进行优化：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104160431898?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104160602026?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104160651993?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<h2 id="4-4-Generating-Data"><a href="#4-4-Generating-Data" class="headerlink" title="4.4 Generating Data"></a>4.4 Generating Data</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104160759653?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104160904623?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="4-5-性能分析："><a href="#4-5-性能分析：" class="headerlink" title="4.5 性能分析："></a>4.5 性能分析：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104155340465?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="5-Generative-Adversarial-Networks-GAN"><a href="#5-Generative-Adversarial-Networks-GAN" class="headerlink" title="5. Generative Adversarial Networks (GAN)"></a>5. Generative Adversarial Networks (GAN)</h2><p><strong>回顾：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104161112759?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<h2 id="5-1-Training-GANs-Two-player-game"><a href="#5-1-Training-GANs-Two-player-game" class="headerlink" title="5.1 Training GANs: Two-player game"></a>5.1 Training GANs: Two-player game</h2><p><strong>Generator network:</strong> try to fool the discriminator by generating real-looking images<br><strong>Discriminator network:</strong> try to distinguish between real and fake images</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104161425809?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%"><div align="left"></div></div></p>
+<p>网络优化：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104161720914?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p>优化存在的问题：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104161844066?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p>解决办法：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162032863?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p>GAN training algorithm：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162213448?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162325762?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="5-2-Generative-Adversarial-Nets"><a href="#5-2-Generative-Adversarial-Nets" class="headerlink" title="5.2 Generative Adversarial Nets"></a>5.2 Generative Adversarial Nets</h2><p>Generated samples:</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162455660?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162628890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p><strong>Generative Adversarial Nets: Convolutional Architectures</strong></p>
+<p>Generator is an upsampling network with fractionally-strided convolutions<br>Discriminator is a convolutional network</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163059349?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p>Generator网络结构：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163210367?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p>Samples from the model look amazing!</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163405077?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><strong>Generative Adversarial Nets: Interpretable Vector Math</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163612491?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163645915?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163809574?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><strong>GANs的优缺点：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163911789?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="6-回顾："><a href="#6-回顾：" class="headerlink" title="6. 回顾："></a>6. 回顾：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104164014035?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+]]></content>
+      
+        <categories>
+            
+            <category> CS231n </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Machine Learning </tag>
+            
+            <tag> Algorithm </tag>
+            
+            <tag> Deep Learning </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[CS231n学习笔记--12.Visualizing and Understanding]]></title>
       <url>/2017/10/05/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--12.Visualizing%20and%20Understanding/</url>
       <content type="html"><![CDATA[<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
@@ -3796,6 +3893,47 @@ if __name__ == &apos;__main__&apos;:
     </entry>
     
     <entry>
+      <title><![CDATA[白平衡算法总结]]></title>
+      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
+<p><strong>TIPS:</strong></p>
+<ol>
+<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
+</li>
+<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
+</li>
+</ol>
+<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
+<p><strong>Tips:</strong></p>
+<ol>
+<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
+</li>
+<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
+</li>
+</ol>
+<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Image Processing </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Machine Learning </tag>
+            
+            <tag> Image Processing </tag>
+            
+            <tag> algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[提升人脸检测效率的方法总结]]></title>
       <url>/2017/06/21/%E6%8F%90%E5%8D%87%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E6%95%88%E7%8E%87%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
       <content type="html"><![CDATA[<p>人脸检测是一个非常经典的问题，很多人认为这是一个“已经解决”了的问题。人脸检测最经典的方法是Haar+AdaBoost。采用开源的Haar+AdaBoost实现（如OpenCV中的训练和检测程序），我们可以很容易的训练一个还算不错的人脸检测器。但是，一旦将人脸检测技术投入实际应用，一系列问题便会冒出来。如（1）误检（把非人脸的物体当作人脸）较多，非人脸图像当作人脸送入后续算法，会引起一系列不良后果。（2）漏检问题，例如戴墨镜、大胡子、逆光条件、黑种人、倾斜姿态较大的脸无法检测到。（3）速度问题，虽很多人脸检测算法的速度已经很快，但在一个人脸分析（如人脸识别）系统中，人脸检测步骤的计算量往往超过50%。大部分检测算法采用窗口扫描的方式，窗口数目巨大，所以计算量居高不下。很多系统运行在低功耗平台，对计算量尤其敏感。假如手机一拍照片就发烫就很不好。</p>
@@ -3821,47 +3959,6 @@ if __name__ == &apos;__main__&apos;:
 <h1 id="9-代码优化：GPU优化"><a href="#9-代码优化：GPU优化" class="headerlink" title="9. 代码优化：GPU优化"></a>9. 代码优化：GPU优化</h1><p>GPU跟CPU不同，有自己独特的特点。GPU特别适合做无复杂逻辑但计算量大的事情。例如图像resize、图像滤波等。Boosting算法可以运行在GPU上，并获得加速，但GPU加速Boosting优势并没有你想象的明显。Boosting算法中逻辑分支较多，也就是有不定长的for循环，有if-else判断；并行的时候每个运算单元运算量并不相同，有些运行时间长，有些运行时间短。运行时间短的要等运行时间长的。我们做了很多努力，GPU版本（低端GTX750i显卡）速度大约可以做到CPU版本（i7多核并行）的6倍左右。跟OpenCV中用GPU加速Haar+Adaboost的倍数一致，而没有达到期望的几十倍加速。</p>
 <h1 id="10-吐槽：非连续内存读写"><a href="#10-吐槽：非连续内存读写" class="headerlink" title="10. 吐槽：非连续内存读写"></a>10. 吐槽：非连续内存读写</h1><p>读写非连续内存，速度可能变慢。如下图Haar积分图计算像素和的公式是D-B-C+A，需要读4个元素值，但这4个值在内存里并不连续，特别是A和D距离较远，这样降低了CPU缓存的命中率，也就降低了速度。对缓存小的低价位CPU影响尤为明显。虽然公式D-B-C+A的计算量跟E-F-G-H相同，但一般来说后者速度会快。此外，Boosting方法选出的多个弱特征，在图像上往往也不相邻，同样是低效的非连续内存的读写，这是Boosting类方法的一个缺点。</p>
 <h1 id="11-未来展望"><a href="#11-未来展望" class="headerlink" title="11. 未来展望"></a>11. 未来展望</h1><p>到目前为止，Boosting方法在人脸检测中依然具有明显的速度优势。但基于深度学习的目标检测方法进展迅速，不容小视。深度学习的方法可以很容易地获得非常高的准确率，如在FDDB人脸检测评库上，传统方法能达到85%准确率就非常高了，但深度学习方法可以轻松超过90%，甚至超过95%。如果想兼顾速度和准确率，传统方法和深度学习的方法结合也许是一个思路，现在已经有一些这样的尝试了。此外，CNN专用硬件应可以弥补深度学习方法的劣势。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Image Processing </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Machine Learning </tag>
-            
-            <tag> Image Processing </tag>
-            
-            <tag> algorithm </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[白平衡算法总结]]></title>
-      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
-<p><strong>TIPS:</strong></p>
-<ol>
-<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
-</li>
-<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
-</li>
-</ol>
-<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
-<p><strong>Tips:</strong></p>
-<ol>
-<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
-</li>
-<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
-</li>
-</ol>
-<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
 ]]></content>
       
         <categories>

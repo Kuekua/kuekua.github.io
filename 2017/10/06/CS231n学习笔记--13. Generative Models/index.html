@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      CS231n学习笔记--13. Generative Models | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="1. Unsupervised LearningSupervised vs Unsupervised Learning:  2. Generative Models概述：  Generative Models的作用：  Generative Models的分类：  3. PixelRNN and PixelCNN基本原理：  PixelRNN：  PixelCNN：  Training is fa">
+<meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231n学习笔记--13. Generative Models | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/10/06/CS231n学习笔记--13. Generative Models/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="1. Unsupervised LearningSupervised vs Unsupervised Learning:  2. Generative Models概述：  Generative Models的作用：  Generative Models的分类：  3. PixelRNN and PixelCNN基本原理：  PixelRNN：  PixelCNN：  Training is fa">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104103705970?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104104427775?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104104459704?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104104635315?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104104943325?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104110548366?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104110710379?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104110944809?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104111111772?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104111730877?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104111939948?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104112108563?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104112220835?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104112456920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104151834765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104152032103?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104152232036?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104155620741?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104160258564?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104160431898?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104160602026?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104160651993?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104160759653?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104160904623?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104155340465?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104161112759?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104161425809?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104161720914?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104161844066?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104162032863?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104162213448?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104162325762?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104162455660?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104162628890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104163059349?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104163210367?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104163405077?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104163612491?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104163645915?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104163809574?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104163911789?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171104164014035?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-11-04T09:08:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS231n学习笔记--13. Generative Models | Kuekua&#39;s blog">
+<meta name="twitter:description" content="1. Unsupervised LearningSupervised vs Unsupervised Learning:  2. Generative Models概述：  Generative Models的作用：  Generative Models的分类：  3. PixelRNN and PixelCNN基本原理：  PixelRNN：  PixelCNN：  Training is fa">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171104103705970?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">CS231n学习笔记--13. Generative Models</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-10-06" class="post-meta__date date">2017-10-06</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/CS231n/">CS231n</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Deep-Learning/">Deep Learning</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="1-Unsupervised-Learning"><a href="#1-Unsupervised-Learning" class="headerlink" title="1. Unsupervised Learning"></a>1. Unsupervised Learning</h2><p><strong>Supervised vs Unsupervised Learning:</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104103705970?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="2-Generative-Models"><a href="#2-Generative-Models" class="headerlink" title="2. Generative Models"></a>2. Generative Models</h2><p><strong>概述：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104104427775?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><strong>Generative Models的作用：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104104459704?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><strong>Generative Models的分类：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104104635315?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="3-PixelRNN-and-PixelCNN"><a href="#3-PixelRNN-and-PixelCNN" class="headerlink" title="3. PixelRNN and PixelCNN"></a>3. PixelRNN and PixelCNN</h2><p><strong>基本原理：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104104943325?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><strong>PixelRNN：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104110548366?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><strong>PixelCNN：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104110710379?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p>Training is faster than PixelRNN (can parallelize convolutions since context region values known from training images)<br>Generation must still proceed sequentially=&gt; still slow</p>
+<p><strong>Generation Samples：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104110944809?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p><strong>PixelRNN and PixelCNN</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104111111772?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%"><div align="left"></div></div></p>
+<h2 id="4-Variational-Autoencoders-VAE"><a href="#4-Variational-Autoencoders-VAE" class="headerlink" title="4. Variational Autoencoders (VAE)"></a>4. Variational Autoencoders (VAE)</h2><h2 id="4-1-与PixelRNN-PixelCNN的比较："><a href="#4-1-与PixelRNN-PixelCNN的比较：" class="headerlink" title="4.1 与PixelRNN/PixelCNN的比较："></a>4.1 与PixelRNN/PixelCNN的比较：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104111730877?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="4-2-Some-background-first-Autoencoders："><a href="#4-2-Some-background-first-Autoencoders：" class="headerlink" title="4.2 Some background first: Autoencoders："></a>4.2 Some background first: Autoencoders：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104111939948?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104112108563?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104112220835?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%"><div align="left"></div></div></p>
+<p><strong>Tips:</strong></p>
+<p>如果将其用于特征提取，则在训练之后，将decoder部分丢弃！</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104112456920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p>Autoencoders can reconstruct data, and can learn features to initialize a supervised model！</p>
+<h2 id="4-3-Variational-Autoencoders"><a href="#4-3-Variational-Autoencoders" class="headerlink" title="4.3 Variational Autoencoders"></a>4.3 Variational Autoencoders</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104151834765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p>利用高斯分布随机生成特征Z：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104152032103?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104152232036?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%"><div align="left"></div></div></p>
+<p><strong>Variational Autoencoders: Intractability</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104155620741?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p>$p<em>θ(z)$跟据高斯分布随机获得，$p</em>θ(x|z)$根据decoder net获得，而为每个z计算$p<em>θ(x|z)$并最终积分得到$p</em>θ(x)$是不可能的！</p>
+<p>解决办法：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104160258564?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p>如何进行优化：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104160431898?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104160602026?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104160651993?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<h2 id="4-4-Generating-Data"><a href="#4-4-Generating-Data" class="headerlink" title="4.4 Generating Data"></a>4.4 Generating Data</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104160759653?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104160904623?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="4-5-性能分析："><a href="#4-5-性能分析：" class="headerlink" title="4.5 性能分析："></a>4.5 性能分析：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104155340465?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="5-Generative-Adversarial-Networks-GAN"><a href="#5-Generative-Adversarial-Networks-GAN" class="headerlink" title="5. Generative Adversarial Networks (GAN)"></a>5. Generative Adversarial Networks (GAN)</h2><p><strong>回顾：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104161112759?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<h2 id="5-1-Training-GANs-Two-player-game"><a href="#5-1-Training-GANs-Two-player-game" class="headerlink" title="5.1 Training GANs: Two-player game"></a>5.1 Training GANs: Two-player game</h2><p><strong>Generator network:</strong> try to fool the discriminator by generating real-looking images<br><strong>Discriminator network:</strong> try to distinguish between real and fake images</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104161425809?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%"><div align="left"></div></div></p>
+<p>网络优化：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104161720914?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p>优化存在的问题：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104161844066?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p>解决办法：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162032863?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p>GAN training algorithm：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162213448?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162325762?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="5-2-Generative-Adversarial-Nets"><a href="#5-2-Generative-Adversarial-Nets" class="headerlink" title="5.2 Generative Adversarial Nets"></a>5.2 Generative Adversarial Nets</h2><p>Generated samples:</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162455660?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162628890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p><strong>Generative Adversarial Nets: Convolutional Architectures</strong></p>
+<p>Generator is an upsampling network with fractionally-strided convolutions<br>Discriminator is a convolutional network</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163059349?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p>Generator网络结构：</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163210367?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p>Samples from the model look amazing!</p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163405077?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><strong>Generative Adversarial Nets: Interpretable Vector Math</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163612491?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163645915?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163809574?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><strong>GANs的优缺点：</strong></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163911789?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h2 id="6-回顾："><a href="#6-回顾：" class="headerlink" title="6. 回顾："></a>6. 回顾：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104164014035?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+
+  </section>
+
+  <section class="post-comments">
+
+
+<section id="comment">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2147613"></script>
+<!-- UY END -->
+</section>
+
+    
+</section>
+
+
+</article>
+
+
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kuekua Wu</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共65.8k字</span>
+</div>
+
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      displayMath: [ ['$','$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+			    extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {inlineMath: [['[latex]','[/latex]'],['\\(','\\)']],
+				          displayMath: [ ['$','$'], ["\\[","\\]"] ],
+						  processEscapes: true
+						  },
+                "HTML-CSS": { availableFonts: ["TeX"] }						  
+            });
+        });
+    </script>
+	
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
