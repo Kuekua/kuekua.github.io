@@ -66,7 +66,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20171104163809574?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171104163911789?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171104164014035?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-11-04T09:08:42.000Z">
+<meta property="og:updated_time" content="2017-11-04T09:17:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n学习笔记--13. Generative Models | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. Unsupervised LearningSupervised vs Unsupervised Learning:  2. Generative Models概述：  Generative Models的作用：  Generative Models的分类：  3. PixelRNN and PixelCNN基本原理：  PixelRNN：  PixelCNN：  Training is fa">
@@ -230,15 +230,15 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h2 id="1-Unsupervised-Learning"><a href="#1-Unsupervised-Learning" class="headerlink" title="1. Unsupervised Learning"></a>1. Unsupervised Learning</h2><p><strong>Supervised vs Unsupervised Learning:</strong></p>
+    <h1 id="1-Unsupervised-Learning"><a href="#1-Unsupervised-Learning" class="headerlink" title="1. Unsupervised Learning"></a>1. Unsupervised Learning</h1><p><strong>Supervised vs Unsupervised Learning:</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104103705970?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
-<h2 id="2-Generative-Models"><a href="#2-Generative-Models" class="headerlink" title="2. Generative Models"></a>2. Generative Models</h2><p><strong>概述：</strong></p>
+<h1 id="2-Generative-Models"><a href="#2-Generative-Models" class="headerlink" title="2. Generative Models"></a>2. Generative Models</h1><p><strong>概述：</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104104427775?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <p><strong>Generative Models的作用：</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104104459704?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <p><strong>Generative Models的分类：</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104104635315?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
-<h2 id="3-PixelRNN-and-PixelCNN"><a href="#3-PixelRNN-and-PixelCNN" class="headerlink" title="3. PixelRNN and PixelCNN"></a>3. PixelRNN and PixelCNN</h2><p><strong>基本原理：</strong></p>
+<h1 id="3-PixelRNN-and-PixelCNN"><a href="#3-PixelRNN-and-PixelCNN" class="headerlink" title="3. PixelRNN and PixelCNN"></a>3. PixelRNN and PixelCNN</h1><p><strong>基本原理：</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104104943325?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
 <p><strong>PixelRNN：</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104110548366?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
@@ -249,7 +249,7 @@ classes that you can use:
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104110944809?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
 <p><strong>PixelRNN and PixelCNN</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104111111772?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%"><div align="left"></div></div></p>
-<h2 id="4-Variational-Autoencoders-VAE"><a href="#4-Variational-Autoencoders-VAE" class="headerlink" title="4. Variational Autoencoders (VAE)"></a>4. Variational Autoencoders (VAE)</h2><h2 id="4-1-与PixelRNN-PixelCNN的比较："><a href="#4-1-与PixelRNN-PixelCNN的比较：" class="headerlink" title="4.1 与PixelRNN/PixelCNN的比较："></a>4.1 与PixelRNN/PixelCNN的比较：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104111730877?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h1 id="4-Variational-Autoencoders-VAE"><a href="#4-Variational-Autoencoders-VAE" class="headerlink" title="4. Variational Autoencoders (VAE)"></a>4. Variational Autoencoders (VAE)</h1><h2 id="4-1-与PixelRNN-PixelCNN的比较："><a href="#4-1-与PixelRNN-PixelCNN的比较：" class="headerlink" title="4.1 与PixelRNN/PixelCNN的比较："></a>4.1 与PixelRNN/PixelCNN的比较：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104111730877?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
 <h2 id="4-2-Some-background-first-Autoencoders："><a href="#4-2-Some-background-first-Autoencoders：" class="headerlink" title="4.2 Some background first: Autoencoders："></a>4.2 Some background first: Autoencoders：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104111939948?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104112108563?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104112220835?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%"><div align="left"></div></div></p>
@@ -263,7 +263,7 @@ classes that you can use:
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104152232036?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%"><div align="left"></div></div></p>
 <p><strong>Variational Autoencoders: Intractability</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104155620741?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
-<p>$p<em>θ(z)$跟据高斯分布随机获得，$p</em>θ(x|z)$根据decoder net获得，而为每个z计算$p<em>θ(x|z)$并最终积分得到$p</em>θ(x)$是不可能的！</p>
+<p>$$p<em>θ(z)$$ 跟据高斯分布随机获得， $$p</em>θ(x|z)$$ 根据decoder net获得，而为每个z计算 $$p<em>θ(x|z)$$ 并最终积分得到 $$p</em>θ(x)$$ 是不可能的！</p>
 <p>解决办法：</p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104160258564?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <p>如何进行优化：</p>
@@ -273,7 +273,7 @@ classes that you can use:
 <h2 id="4-4-Generating-Data"><a href="#4-4-Generating-Data" class="headerlink" title="4.4 Generating Data"></a>4.4 Generating Data</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104160759653?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104160904623?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
 <h2 id="4-5-性能分析："><a href="#4-5-性能分析：" class="headerlink" title="4.5 性能分析："></a>4.5 性能分析：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104155340465?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
-<h2 id="5-Generative-Adversarial-Networks-GAN"><a href="#5-Generative-Adversarial-Networks-GAN" class="headerlink" title="5. Generative Adversarial Networks (GAN)"></a>5. Generative Adversarial Networks (GAN)</h2><p><strong>回顾：</strong></p>
+<h1 id="5-Generative-Adversarial-Networks-GAN"><a href="#5-Generative-Adversarial-Networks-GAN" class="headerlink" title="5. Generative Adversarial Networks (GAN)"></a>5. Generative Adversarial Networks (GAN)</h1><p><strong>回顾：</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104161112759?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <h2 id="5-1-Training-GANs-Two-player-game"><a href="#5-1-Training-GANs-Two-player-game" class="headerlink" title="5.1 Training GANs: Two-player game"></a>5.1 Training GANs: Two-player game</h2><p><strong>Generator network:</strong> try to fool the discriminator by generating real-looking images<br><strong>Discriminator network:</strong> try to distinguish between real and fake images</p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104161425809?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%"><div align="left"></div></div></p>
@@ -302,7 +302,7 @@ classes that you can use:
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104163809574?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
 <p><strong>GANs的优缺点：</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104163911789?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
-<h2 id="6-回顾："><a href="#6-回顾：" class="headerlink" title="6. 回顾："></a>6. 回顾：</h2><p><div align="center"><img src="http://img.blog.csdn.net/20171104164014035?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<h1 id="6-回顾："><a href="#6-回顾：" class="headerlink" title="6. 回顾："></a>6. 回顾：</h1><p><div align="center"><img src="http://img.blog.csdn.net/20171104164014035?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
 
   </section>
 
@@ -323,29 +323,24 @@ classes that you can use:
 </article>
 
 
-            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Kuekua Wu</span>
-
-  
-</div>
-
-
-
-
-
-
-
-
-
-<div class="theme-info">
-  <div class="powered-by"></div>
-  <span class="post-count">博客全站共65.8k字</span>
-</div>
-
+            <footer class="footer">
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    <span class="footer__copyright">&copy; 2017-2020. 个人邮箱：wj.bob@163.com</a></span>
+    
+</footer>
         </div>
     </div>
 
