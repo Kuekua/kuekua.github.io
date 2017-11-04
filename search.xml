@@ -268,7 +268,7 @@ print array
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104152232036?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%"><div align="left"></div></div></p>
 <p><strong>Variational Autoencoders: Intractability</strong></p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104155620741?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
-<p>$$p<em>θ(z) 跟据高斯分布随机获得， p</em>θ(x|z) 根据decoder net获得，而为每个z计算 p<em>θ(x|z) 并最终积分得到 p</em>θ(x)$$ 是不可能的！</p>
+<p>$p<em>θ(z)$ 跟据高斯分布随机获得， $p</em>θ(x|z)$ 根据decoder net获得，而为每个z计算 $p<em>θ(x|z)$ 并最终积分得到 $p</em>θ(x)$ 是不可能的！</p>
 <p>解决办法：</p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104160258564?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <p>如何进行优化：</p>
