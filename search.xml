@@ -199,8 +199,7 @@
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108231033037?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
 <p><strong>Hardware 101: Number Representation</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108231107741?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<h2 id="1-Algorithms-for-Efficient-Inference"><a href="#1-Algorithms-for-Efficient-Inference" class="headerlink" title="1. Algorithms for Efficient Inference"></a>1. Algorithms for Efficient Inference</h2><p>###1.1 Pruning Neural Networks###</p>
-<p><div align="center"> <img src="http://img.blog.csdn.net/20171108231327347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"> </div></div></p>
+<h2 id="1-Algorithms-for-Efficient-Inference"><a href="#1-Algorithms-for-Efficient-Inference" class="headerlink" title="1. Algorithms for Efficient Inference"></a>1. Algorithms for Efficient Inference</h2><h3 id="1-1-Pruning-Neural-Networks"><a href="#1-1-Pruning-Neural-Networks" class="headerlink" title="1.1 Pruning Neural Networks"></a>1.1 Pruning Neural Networks</h3><p><div align="center"> <img src="http://img.blog.csdn.net/20171108231327347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"> </div></div></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108231404123?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"> </div></div></p>
 <p><strong>Iteratively Retrain to Recover Accuracy</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108231541226?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
@@ -210,8 +209,7 @@
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108231930548?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
 <p><strong>Pruning Changes Weight Distribution</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108232106170?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<p>###1.2  Weight Sharing###</p>
-<p><strong>Trained Quantization</strong></p>
+<h3 id="1-2-Weight-Sharing"><a href="#1-2-Weight-Sharing" class="headerlink" title="1.2  Weight Sharing"></a>1.2  Weight Sharing</h3><p><strong>Trained Quantization</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108232245841?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"> </div></div></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108232316328?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>How Many Bits do We Need?</strong></p>
@@ -228,25 +226,21 @@
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108233330666?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%"><div align="left"> </div></div></p>
 <p><strong>Compressing SqueezeNet</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108233400593?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
-<p>###1.3  Quantization###</p>
-<p><strong>Quantizing the Weight and Activation</strong></p>
+<h3 id="1-3-Quantization"><a href="#1-3-Quantization" class="headerlink" title="1.3  Quantization"></a>1.3  Quantization</h3><p><strong>Quantizing the Weight and Activation</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109213848595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Quantization Result</strong>：选择8bit</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109213955500?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<p>###1.4  Low Rank Approximation###</p>
-<p><strong>Low Rank Approximation for Conv</strong>：类似Inception Module</p>
+<h3 id="1-4-Low-Rank-Approximation"><a href="#1-4-Low-Rank-Approximation" class="headerlink" title="1.4  Low Rank Approximation"></a>1.4  Low Rank Approximation</h3><p><strong>Low Rank Approximation for Conv</strong>：类似Inception Module</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109214145323?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Low Rank Approximation for FC</strong> :矩阵分解</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109214255451?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<p>###1.5  Binary / Ternary Net###</p>
-<p><strong>Trained Ternary（三元） Quantization</strong></p>
+<h3 id="1-5-Binary-Ternary-Net"><a href="#1-5-Binary-Ternary-Net" class="headerlink" title="1.5  Binary/Ternary Net"></a>1.5  Binary/Ternary Net</h3><p><strong>Trained Ternary（三元） Quantization</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109214501350?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Weight Evolution during Training</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109214707154?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Error Rate on ImageNet</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109214836127?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
-<p>###1.6 Winograd Transformation###</p>
-<p><strong>3x3 DIRECT Convolutions</strong></p>
+<h3 id="1-6-Winograd-Transformation"><a href="#1-6-Winograd-Transformation" class="headerlink" title="1.6 Winograd Transformation"></a>1.6 Winograd Transformation</h3><p><strong>3x3 DIRECT Convolutions</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109215139917?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p>Direct convolution: we need 9xCx4 = 36xC FMAs for 4 outputs</p>
 <p><strong>3x3 WINOGRAD Convolutions</strong>：</p>
@@ -274,8 +268,7 @@
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109221444976?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Comparison: Energy Efficiency</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109221519722?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<h2 id="3-Algorithms-for-Efficient-Training"><a href="#3-Algorithms-for-Efficient-Training" class="headerlink" title="3. Algorithms for Efficient Training"></a>3. Algorithms for Efficient Training</h2><p>###3.1  Parallelization###</p>
-<p><strong>Data Parallel – Run multiple inputs in parallel</strong></p>
+<h2 id="3-Algorithms-for-Efficient-Training"><a href="#3-Algorithms-for-Efficient-Training" class="headerlink" title="3. Algorithms for Efficient Training"></a>3. Algorithms for Efficient Training</h2><h3 id="3-1-Parallelization"><a href="#3-1-Parallelization" class="headerlink" title="3.1  Parallelization"></a>3.1  Parallelization</h3><p><strong>Data Parallel – Run multiple inputs in parallel</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109221919820?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Parameter Update</strong></p>
 <p>参数共享更新</p>
@@ -287,21 +280,18 @@
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109222427431?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Summary of Parallelism</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109222808253?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<p>###3.2 Mixed Precision with FP16 and FP32###</p>
-<p><div align="center"> <img src="http://img.blog.csdn.net/20171109222909730?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
+<h3 id="3-2-Mixed-Precision-with-FP16-and-FP32"><a href="#3-2-Mixed-Precision-with-FP16-and-FP32" class="headerlink" title="3.2 Mixed Precision with FP16 and FP32"></a>3.2 Mixed Precision with FP16 and FP32</h3><p><div align="center"> <img src="http://img.blog.csdn.net/20171109222909730?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Mixed Precision Training</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223040672?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p>结果对比：</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223128088?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
-<p>###3.3  Model Distillation###</p>
-<p>student model has much smaller model size</p>
+<h3 id="3-3-Model-Distillation"><a href="#3-3-Model-Distillation" class="headerlink" title="3.3  Model Distillation"></a>3.3  Model Distillation</h3><p>student model has much smaller model size</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223238654?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Softened outputs reveal the dark knowledge</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223330302?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"> </div></div></p>
 <p><strong>Softened outputs reveal the dark knowledge</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223437926?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
-<p>###3.4 DSD: Dense-Sparse-Dense Training###</p>
-<p><div align="center"> <img src="http://img.blog.csdn.net/20171109223535645?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
+<h3 id="3-4-DSD-Dense-Sparse-Dense-Training"><a href="#3-4-DSD-Dense-Sparse-Dense-Training" class="headerlink" title="3.4 DSD: Dense-Sparse-Dense Training"></a>3.4 DSD: Dense-Sparse-Dense Training</h3><p><div align="center"> <img src="http://img.blog.csdn.net/20171109223535645?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p>DSD produces same model architecture but can find better optimization solution, arrives at better local minima, and achieves higher prediction accuracy across a wide range of deep neural networks on CNNs / RNNs / LSTMs.</p>
 <p><strong>DSD: Intuition</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223655342?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%"><div align="left"> </div></div></p>
