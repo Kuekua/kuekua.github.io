@@ -16,13 +16,13 @@
     
     
 
-    <meta name="description" content="Agenda   Hardware 101: the Family    Hardware 101: Number Representation    Hardware 101: Number Representation    1. Algorithms for Efficient Inference###1.1 Pruning Neural Networks       Iteratively">
+    <meta name="description" content="Agenda   Hardware 101: the Family    Hardware 101: Number Representation    Hardware 101: Number Representation    1. Algorithms for Efficient Inference###1.1 Pruning Neural Networks###       Iterativ">
 <meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS231n学习笔记--15. Efficient Methods and Hardware for Deep Learning | Kuekua&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/2017/10/12/CS231n学习笔记--15. Efficient Methods and Hardware for Deep Learning/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="Agenda   Hardware 101: the Family    Hardware 101: Number Representation    Hardware 101: Number Representation    1. Algorithms for Efficient Inference###1.1 Pruning Neural Networks       Iteratively">
+<meta property="og:description" content="Agenda   Hardware 101: the Family    Hardware 101: Number Representation    Hardware 101: Number Representation    1. Algorithms for Efficient Inference###1.1 Pruning Neural Networks###       Iterativ">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img.blog.csdn.net/20171108230711331?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171108230816417?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
@@ -83,10 +83,10 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20171109224506393?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171109224610279?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171109224655472?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-11-09T15:03:49.000Z">
+<meta property="og:updated_time" content="2017-11-09T15:39:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n学习笔记--15. Efficient Methods and Hardware for Deep Learning | Kuekua&#39;s blog">
-<meta name="twitter:description" content="Agenda   Hardware 101: the Family    Hardware 101: Number Representation    Hardware 101: Number Representation    1. Algorithms for Efficient Inference###1.1 Pruning Neural Networks       Iteratively">
+<meta name="twitter:description" content="Agenda   Hardware 101: the Family    Hardware 101: Number Representation    Hardware 101: Number Representation    1. Algorithms for Efficient Inference###1.1 Pruning Neural Networks###       Iterativ">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20171108230711331?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
     
     
@@ -254,7 +254,7 @@ classes that you can use:
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108231033037?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
 <p><strong>Hardware 101: Number Representation</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108231107741?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<h2 id="1-Algorithms-for-Efficient-Inference"><a href="#1-Algorithms-for-Efficient-Inference" class="headerlink" title="1. Algorithms for Efficient Inference"></a>1. Algorithms for Efficient Inference</h2><p>###1.1 Pruning Neural Networks</p>
+<h2 id="1-Algorithms-for-Efficient-Inference"><a href="#1-Algorithms-for-Efficient-Inference" class="headerlink" title="1. Algorithms for Efficient Inference"></a>1. Algorithms for Efficient Inference</h2><p>###1.1 Pruning Neural Networks###</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108231327347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"> </div></div></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108231404123?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"> </div></div></p>
 <p><strong>Iteratively Retrain to Recover Accuracy</strong></p>
@@ -265,7 +265,7 @@ classes that you can use:
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108231930548?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
 <p><strong>Pruning Changes Weight Distribution</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108232106170?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<p>###1.2  Weight Sharing</p>
+<p>###1.2  Weight Sharing###</p>
 <p><strong>Trained Quantization</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108232245841?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"> </div></div></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108232316328?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
@@ -283,24 +283,24 @@ classes that you can use:
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108233330666?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%"><div align="left"> </div></div></p>
 <p><strong>Compressing SqueezeNet</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171108233400593?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
-<p>###1.3  Quantization</p>
+<p>###1.3  Quantization###</p>
 <p><strong>Quantizing the Weight and Activation</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109213848595?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Quantization Result</strong>：选择8bit</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109213955500?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<p>###1.4  Low Rank Approximation</p>
+<p>###1.4  Low Rank Approximation###</p>
 <p><strong>Low Rank Approximation for Conv</strong>：类似Inception Module</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109214145323?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Low Rank Approximation for FC</strong> :矩阵分解</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109214255451?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<p>###1.5  Binary / Ternary Net</p>
+<p>###1.5  Binary / Ternary Net###</p>
 <p><strong>Trained Ternary（三元） Quantization</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109214501350?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Weight Evolution during Training</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109214707154?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Error Rate on ImageNet</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109214836127?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
-<p>###1.6 Winograd Transformation</p>
+<p>###1.6 Winograd Transformation###</p>
 <p><strong>3x3 DIRECT Convolutions</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109215139917?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p>Direct convolution: we need 9xCx4 = 36xC FMAs for 4 outputs</p>
@@ -329,7 +329,7 @@ classes that you can use:
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109221444976?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Comparison: Energy Efficiency</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109221519722?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<h2 id="3-Algorithms-for-Efficient-Training"><a href="#3-Algorithms-for-Efficient-Training" class="headerlink" title="3. Algorithms for Efficient Training"></a>3. Algorithms for Efficient Training</h2><p>###3.1  Parallelization</p>
+<h2 id="3-Algorithms-for-Efficient-Training"><a href="#3-Algorithms-for-Efficient-Training" class="headerlink" title="3. Algorithms for Efficient Training"></a>3. Algorithms for Efficient Training</h2><p>###3.1  Parallelization###</p>
 <p><strong>Data Parallel – Run multiple inputs in parallel</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109221919820?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Parameter Update</strong></p>
@@ -342,20 +342,20 @@ classes that you can use:
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109222427431?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Summary of Parallelism</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109222808253?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
-<p>###3.2 Mixed Precision with FP16 and FP32</p>
+<p>###3.2 Mixed Precision with FP16 and FP32###</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109222909730?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Mixed Precision Training</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223040672?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p>结果对比：</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223128088?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
-<p>###3.3  Model Distillation</p>
+<p>###3.3  Model Distillation###</p>
 <p>student model has much smaller model size</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223238654?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p><strong>Softened outputs reveal the dark knowledge</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223330302?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"> </div></div></p>
 <p><strong>Softened outputs reveal the dark knowledge</strong></p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223437926?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"> </div></div></p>
-<p>###3.4 DSD: Dense-Sparse-Dense Training</p>
+<p>###3.4 DSD: Dense-Sparse-Dense Training###</p>
 <p><div align="center"> <img src="http://img.blog.csdn.net/20171109223535645?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"> </div></div></p>
 <p>DSD produces same model architecture but can find better optimization solution, arrives at better local minima, and achieves higher prediction accuracy across a wide range of deep neural networks on CNNs / RNNs / LSTMs.</p>
 <p><strong>DSD: Intuition</strong></p>
