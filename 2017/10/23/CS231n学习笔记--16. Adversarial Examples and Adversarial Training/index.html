@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      CS231n学习笔记--16. Adversarial Examples and Adversarial Training | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="Overview What are adversarial examples? Why do they happen? How can they be used to compromise machine learningsystems? What are the defenses? How to use adversarial examples to improve machinelearnin">
+<meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231n学习笔记--16. Adversarial Examples and Adversarial Training | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/10/23/CS231n学习笔记--16. Adversarial Examples and Adversarial Training/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="Overview What are adversarial examples? Why do they happen? How can they be used to compromise machine learningsystems? What are the defenses? How to use adversarial examples to improve machinelearnin">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111180523437?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111180752444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111180834679?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111181230937?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111181327718?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111181544790?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111181714777?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111182440932?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111182516598?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111182736670?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111182824016?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111183029038?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111183135444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111183348309?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111183555975?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111183812727?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111184122821?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111184234221?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111184359347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171111184529095?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-11-13T13:25:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS231n学习笔记--16. Adversarial Examples and Adversarial Training | Kuekua&#39;s blog">
+<meta name="twitter:description" content="Overview What are adversarial examples? Why do they happen? How can they be used to compromise machine learningsystems? What are the defenses? How to use adversarial examples to improve machinelearnin">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171111180523437?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">CS231n学习笔记--16. Adversarial Examples and Adversarial Training</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-10-23" class="post-meta__date date">2017-10-23</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/CS231n/">CS231n</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Deep-Learning/">Deep Learning</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
+<li>What are adversarial examples?</li>
+<li>Why do they happen?</li>
+<li>How can they be used to compromise machine learning<br>systems?</li>
+<li>What are the defenses?</li>
+<li>How to use adversarial examples to improve machine<br>learning, even when there is no adversary</li>
+</ul>
+<h2 id="1-Adversarial-Examples"><a href="#1-Adversarial-Examples" class="headerlink" title="1. Adversarial Examples"></a>1. Adversarial Examples</h2><p>Fool  neural nets from Panda to Gibbon</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111180523437?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"> <div align="left"></div></div></p>
+<p><strong>Turning Objects into “Airplanes”</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111180752444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><strong>Attacking a Linear Model</strong></p>
+<p>黄框内的数字被神经网络误识别！</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111180834679?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"> <div align="left"></div></div></p>
+<p>以下类型的分类器也存在这样的问题：</p>
+<ul>
+<li>Linear models：Logistic regression，Softmax regression，SVMs</li>
+<li>Decision trees</li>
+<li>Nearest neighbors</li>
+</ul>
+<h2 id="2-Reason"><a href="#2-Reason" class="headerlink" title="2. Reason"></a>2. Reason</h2><p><strong>原因猜测：Adversarial Examples from Overfitting</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111181230937?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%"> <div align="left"></div></div></p>
+<p><strong>Adversarial Examples from Excessive Linearity：</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111181327718?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%"> <div align="left"></div></div></p>
+<p><strong>Modern deep nets are very piecewise linear</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111181544790?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"> <div align="left"></div></div></p>
+<p><strong>Small inter-class distances</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111181714777?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><strong>High-Dimensional Linear Models</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111182440932?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><strong>Linear Models of ImageNet</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111182516598?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<h2 id="3-compromise-machine-learning-systems"><a href="#3-compromise-machine-learning-systems" class="headerlink" title="3. compromise machine learning systems"></a>3. compromise machine learning systems</h2><p><strong>Cross-model, cross-dataset generalization</strong></p>
+<p>不同的模型使用同样的数据产生的权重几乎相同！</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111182736670?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><strong>Cross-technique transferability</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111182824016?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><strong>Transferability Attack</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111183029038?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><strong>Cross-Training Data Transferability</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111183135444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><strong>Adversarial Examples in the Human Brain</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111183348309?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%"> <div align="left"></div></div></p>
+<p><strong>Practical Attacks</strong></p>
+<ul>
+<li><p>Fool real classifiers trained by remotely hosted API(MetaMind, Amazon, Google)</p>
+</li>
+<li><p>Fool malware detector networks</p>
+</li>
+<li><p>Display adversarial examples in the physical world and fool machine learning systems that perceive them through a camera</p>
+</li>
+</ul>
+<p><strong>Failed defenses</strong></p>
+<p>以下方法均解决不了：</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111183555975?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<h2 id="4-Use-adversarial-examples"><a href="#4-Use-adversarial-examples" class="headerlink" title="4. Use adversarial examples"></a>4. Use adversarial examples</h2><p>Training on Adversarial Examples</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111183812727?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><strong>Adversarial Training of other Models</strong></p>
+<ul>
+<li><p>Linear models: SVM / linear regression cannot learn a step function, so adversarial training is less useful, very similar to weight decay</p>
+</li>
+<li><p>k-NN: adversarial training is prone to overfitting.</p>
+</li>
+<li><p>Takeway: neural nets can actually become more secure than other models. Adversarially trained neural nets have the best empirical success rate on adversarial examples of any machine learning model.</p>
+</li>
+</ul>
+<p><strong>Adversarial Training</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111184122821?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><strong>Virtual Adversarial Training</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111184234221?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><strong>Text Classification with VAT</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111184359347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171111184529095?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><ul>
+<li><p>Attacking is easy</p>
+</li>
+<li><p>Defending is difficult</p>
+</li>
+<li><p>Adversarial training provides regularization and semi-supervised learning</p>
+</li>
+<li><p>The out-of-domain input problem is a bottleneck for model-based optimization generally</p>
+</li>
+</ul>
+
+  </section>
+
+  <section class="post-comments">
+
+
+<section id="comment">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2147613"></script>
+<!-- UY END -->
+</section>
+
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+    <span class="footer__copyright">&copy; 2017-2020. 个人邮箱：wj.bob@163.com</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      displayMath: [ ['$','$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+			    extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {inlineMath: [['[latex]','[/latex]'],['\\(','\\)']],
+				          displayMath: [ ['$','$'], ["\\[","\\]"] ],
+						  processEscapes: true
+						  },
+                "HTML-CSS": { availableFonts: ["TeX"] }						  
+            });
+        });
+    </script>
+	
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
