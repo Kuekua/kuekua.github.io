@@ -16,13 +16,13 @@
     
     
 
-    <meta name="description" content="1. PCA算法1.1 PCA的数学原理转载：  PCA的数学原理  PCA的算法步骤： 设有m条n维数据。 1）将原始数据按列组成n行m列矩阵X 2）将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3）求出协方差矩阵  $$C=1_mXX^T$$ 4）求出协方差矩阵的特征值及对应的特征向量 5）将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6）  Y=P">
+    <meta name="description" content="1. PCA算法1.1 PCA的数学原理转载：  PCA的数学原理  PCA的算法步骤： 设有m条n维数据。 1）将原始数据按列组成n行m列矩阵X 2）将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3）求出协方差矩阵  $$C=1/mXX^T$$ 4）求出协方差矩阵的特征值及对应的特征向量 5）将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6）  Y=P">
 <meta name="keywords" content="Algorithm,Math">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PCA与SVD | Kuekua&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/2017/06/16/PCA与SVD/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="1. PCA算法1.1 PCA的数学原理转载：  PCA的数学原理  PCA的算法步骤： 设有m条n维数据。 1）将原始数据按列组成n行m列矩阵X 2）将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3）求出协方差矩阵  $$C=1_mXX^T$$ 4）求出协方差矩阵的特征值及对应的特征向量 5）将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6）  Y=P">
+<meta property="og:description" content="1. PCA算法1.1 PCA的数学原理转载：  PCA的数学原理  PCA的算法步骤： 设有m条n维数据。 1）将原始数据按列组成n行m列矩阵X 2）将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3）求出协方差矩阵  $$C=1/mXX^T$$ 4）求出协方差矩阵的特征值及对应的特征向量 5）将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6）  Y=P">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://images.cnblogs.com
 /cnblogs_com/LeftNotEasy/201101/201101192226348223.png">
@@ -30,10 +30,10 @@
 26346304.png">
 <meta property="og:image" content="http://images.cnblogs.com/cnblogs_com/LeftNotEasy/201101/2011011922
 26358289.png">
-<meta property="og:updated_time" content="2017-10-28T03:18:38.000Z">
+<meta property="og:updated_time" content="2017-11-13T14:11:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PCA与SVD | Kuekua&#39;s blog">
-<meta name="twitter:description" content="1. PCA算法1.1 PCA的数学原理转载：  PCA的数学原理  PCA的算法步骤： 设有m条n维数据。 1）将原始数据按列组成n行m列矩阵X 2）将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3）求出协方差矩阵  $$C=1_mXX^T$$ 4）求出协方差矩阵的特征值及对应的特征向量 5）将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6）  Y=P">
+<meta name="twitter:description" content="1. PCA算法1.1 PCA的数学原理转载：  PCA的数学原理  PCA的算法步骤： 设有m条n维数据。 1）将原始数据按列组成n行m列矩阵X 2）将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3）求出协方差矩阵  $$C=1/mXX^T$$ 4）求出协方差矩阵的特征值及对应的特征向量 5）将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6）  Y=P">
 <meta name="twitter:image" content="http://images.cnblogs.com
 /cnblogs_com/LeftNotEasy/201101/201101192226348223.png">
     
@@ -200,7 +200,7 @@ classes that you can use:
 <p>设有m条n维数据。</p>
 <p>1）将原始数据按列组成n行m列矩阵X</p>
 <p>2）将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值</p>
-<p>3）求出协方差矩阵  $$C=1_mXX^T$$</p>
+<p>3）求出协方差矩阵  $$C=1/mXX^T$$</p>
 <p>4）求出协方差矩阵的特征值及对应的特征向量</p>
 <p>5）将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P</p>
 <p>6）  Y=PX  即为降维到k维后的数据</p>

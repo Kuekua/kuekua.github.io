@@ -3791,20 +3791,21 @@ ssolve/70/gravity/Center" width="60%" align="center">  </div></p>
 
 <p>此文是根据July大神所写的 <a href="http://download.csdn.net/download/u012554092/9979469" target="_blank" rel="external"> 支持向量机通俗导论（理解SVM的三层境界）
 </a> 一文的读后感，记录下自己的一点感悟与体会。</p>
-<p><strong> SVM </strong> 它本质上即是一个二分类方法，用  w  T  +  b  定义分类函数，于是求w、b，为寻最大间隔，引出  1  /  2  ∥  w  ∥  2  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，求w、b 与求α 等价，而α的求解可以用一种快速学习算法SMO，至于核函数，是为处理非线性情况，若直接映射到高维计算恐维度爆炸，故在低维计算，等效高维表现。 </p>
-<h1 id="1-算法步骤："><a href="#1-算法步骤：" class="headerlink" title="1.算法步骤："></a>1.算法步骤：</h1><p>1.1 选取合适的核函数  K （x  i  ,  x  j  ）  。<br>1.2 将训练数据  x i  带入分类函数中，利用SMO求解系数  α i  。  </p>
+<p><strong> SVM </strong> 它本质上即是一个二分类方法，用$$wT+b$$定义分类函数，于是求w、b，为寻最大间隔，引出$$1/2∥w∥^2$$  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，求w、b 与求α 等价，而α的求解可以用一种快速学习算法SMO，至于核函数，是为处理非线性情况，若直接映射到高维计算恐维度爆炸，故在低维计算，等效高维表现。 </p>
+<h1 id="1-算法步骤："><a href="#1-算法步骤：" class="headerlink" title="1.算法步骤："></a>1.算法步骤：</h1><p>1.1 选取合适的核函数  $$K（x_i,x_j）$$  。<br>1.2 将训练数据 xi带入分类函数中，利用SMO求解系数αi。  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170914221119079?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
-<p><div align="left"><br>这里，大部分  α  i  为0，因为其对应的训练数据  x  i  ,有  y  i  ∗  (  w  ∗  x  i  +  b  )  &gt; 1<br>,只有  w  ∗  x  i  +  b  =  1  的训练数据才真正对分类有效，即其对应的  α  i  不为0，这些数据即为支持向量。<br>1.3 根据上一步求得得分类函数对待分类数据x进行二分类。即判断  f  (  x  )  的正负。</div></p>
-<h2 id="2-核函数"><a href="#2-核函数" class="headerlink" title="2.核函数"></a>2.核函数</h2><p>核函数：  K  (  x  i  ,  x  j  )  ,一般选高斯核函数即可。而核函数的选择往往不是最关键的，分类器性能更依赖于训练数据。</p>
+<p><div align="left"><br>这里，大部分αi为0，因为其对应的训练数据xi,有yi∗(w∗xi+b)&gt;1,只有w∗xi+b=1的训练数据才真正对分类有效，即其对应的αi不为0，这些数据即为支持向量。<br>1.3 根据上一步求得得分类函数对待分类数据x进行二分类。即判断f(x)的正负。</div></p>
+<h2 id="2-核函数"><a href="#2-核函数" class="headerlink" title="2.核函数"></a>2.核函数</h2><p>核函数：  K(xi,xj)  ,一般选高斯核函数即可。而核函数的选择往往不是最关键的，分类器性能更依赖于训练数据。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170914220000498?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">      
 
 <p><strong> 核函数原理： </strong><br>将低维线性不可分数据通过核函数映射到高维，达到线性可分的目的，并利用内积函数使运算量并未明显增加。</p>
-<h2 id="3-多分类器的应用"><a href="#3-多分类器的应用" class="headerlink" title="3.多分类器的应用"></a>3.多分类器的应用</h2><p>SVM是二分类器，对于N类问题的分类有两种办法：<br>1. 训练N个SVM分类器，每个分类器对应分类一种类别与其他N-1种类别，最终分类结果是具有最大正距离的类别，即正向离超平面距离最远。实际应用上应该是取f(x)的最大值。<br>2. 训练  N  ∗  (  N  −  1  )  /  2  个SVM分类器，每个分类器对应两两类别的分类，结果通过投票决定，投票依据仍为f(x)。</p>
+<h2 id="3-多分类器的应用"><a href="#3-多分类器的应用" class="headerlink" title="3.多分类器的应用"></a>3.多分类器的应用</h2><p>SVM是二分类器，对于N类问题的分类有两种办法：<br>1. 训练N个SVM分类器，每个分类器对应分类一种类别与其他N-1种类别，最终分类结果是具有最大正距离的类别，即正向离超平面距离最远。实际应用上应该是取f(x)的最大值。  </p>
+<p>2. 训练  N  ∗  (  N  −  1  )  /  2  个SVM分类器，每个分类器对应两两类别的分类，结果通过投票决定，投票依据仍为f(x)。</p>
 <h2 id="4-拉格朗日对偶性"><a href="#4-拉格朗日对偶性" class="headerlink" title="4.拉格朗日对偶性"></a>4.拉格朗日对偶性</h2><p>凸函数寻找最大值问题的求解方法，其局部最大值即全局最大值！</p>
 <p>目标函数：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170914223601086?watermark/2/text/aHR0cDo
@@ -3834,7 +3835,7 @@ MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">      
 
 
-<h2 id="5-使用松弛变量处理outliers-方法"><a href="#5-使用松弛变量处理outliers-方法" class="headerlink" title="5.使用松弛变量处理outliers 方法"></a>5.使用松弛变量处理outliers 方法</h2><p>数据本身是非线性结构的，而只是因为数据有噪声。对于这种偏离正常位置很远的数据点，我们称之为outlier ，在我们原来的SVM<br>模型里，outlier的存在有可能造成很大的影响，因为超平面本身就是只有少数几个support vector 组成的，如果这些support vector<br>里又存在outlier 的话，其影响就很大了。为了处理这种情况，SVM 允许数据点在一定程度上偏离一下超平面。</p>
+<h2 id="5-使用松弛变量处理outliers-方法"><a href="#5-使用松弛变量处理outliers-方法" class="headerlink" title="5.使用松弛变量处理outliers 方法"></a>5.使用松弛变量处理outliers 方法</h2><p>数据本身是非线性结构的，而只是因为数据有噪声。对于这种偏离正常位置很远的数据点，我们称之为outlier ，在我们原来的SVM模型里，outlier的存在有可能造成很大的影响，因为超平面本身就是只有少数几个support vector 组成的，如果这些support vector里又存在outlier 的话，其影响就很大了。为了处理这种情况，SVM 允许数据点在一定程度上偏离一下超平面。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170914224828260?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/60/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
@@ -3864,7 +3865,7 @@ MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
       <title><![CDATA[积分图的优化]]></title>
       <url>/2017/07/11/%E7%A7%AF%E5%88%86%E5%9B%BE%E7%9A%84%E4%BC%98%E5%8C%96/</url>
       <content type="html"><![CDATA[<p>原文： <a href="http://www.cnblogs.com/Imageshop/p/6219990.html" target="_blank" rel="external"> 13行代码实现最快速最高效的积分图像算法。 </a>  </p>
-<p><strong>Tips：</strong><br>1.某个点的积分图反应的是原图中此位置左上角所有像素之和，这里是的累加和是不包括这个点像素本身的，那么，对于原图的第一行和第一列的所有像素，其对应位置的积分<br>图就应该是0, 这样考虑到所有的像素，为了能容纳最后一列和最后一行的情况，最终的积分图就应该是 (W + 1) X (H + 1)大小。</p>
+<p><strong>Tips：</strong><br>1.某个点的积分图反应的是原图中此位置左上角所有像素之和，这里是的累加和是不包括这个点像素本身的，那么，对于原图的第一行和第一列的所有像素，其对应位置的积分图就应该是0, 这样考虑到所有的像素，为了能容纳最后一列和最后一行的情况，最终的积分图就应该是 (W + 1) X (H + 1)大小。</p>
 <p>2.优化方式：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170908182829328?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
@@ -3872,7 +3873,7 @@ MA==/dissolve/70/gravity/SouthEast" width="80%"></div></p>
 <div align="left">
 
 <pre><code>原始算法                      列优化                             行优化
-</code></pre><p><strong>分析： </strong><br>行优化最优，相比于列优化，更符合图像数据在计算机中的存储顺序，因此并且在计算过程中无需申请额外空间保存各列像素之和，只需一个变量保存行像素之和便可！详见开源<br>软件scantailor里的push函数。</p>
+</code></pre><p><strong>分析： </strong><br>行优化最优，相比于列优化，更符合图像数据在计算机中的存储顺序，因此并且在计算过程中无需申请额外空间保存各列像素之和，只需一个变量保存行像素之和便可！详见开源软件scantailor里的push函数。</p>
 <p>3. 在反汇编中，max和min充分利用了条件按传送指令比如cmovg,cmovl，而一般的if语句很大程度上会调用jmp指令的（当然和常数比较一般编译也会用条件传送替代的，比如和0比较），jmp指令是比较耗时的。</p>
 <p><strong>开源软件scantailor里的积分图算法的实现：</strong><br>（调用的时候先调用beginRow定位行指针，然后循环调用push推入该行的像素值，所有行循环完毕就计算完成，然后可以调用sum计算区域累加和。）</p>
 <pre><code>/**
@@ -4252,22 +4253,26 @@ if __name__ == &apos;__main__&apos;:
       <url>/2017/06/26/Randon%E5%8F%98%E6%8D%A2%E4%B8%8EHough%E5%8F%98%E6%8D%A2/</url>
       <content type="html"><![CDATA[<h1 id="1-Randon-变换"><a href="#1-Randon-变换" class="headerlink" title="1. Randon 变换"></a>1. Randon 变换</h1><p><a href="http://blog.csdn.net/carson2005/article/details/40535199" target="_blank" rel="external"> Radon变换简介 </a></p>
 <h2 id="1-1-Radon变换的基本原理"><a href="#1-1-Radon变换的基本原理" class="headerlink" title="1.1 Radon变换的基本原理"></a>1.1 Radon变换的基本原理</h2><p>一个平面内沿不同的直线（直线与原点的距离为d，方向角为α）对f（x，y）做线积分，得到的像F(d,α)就是函数f的Radon变换。也就是说，平面（d，α）的每个点的像函数值对应了原始函数的某个线积分值。  </p>
-<h2 id="1-2-Radon变换的基本思想"><a href="#1-2-Radon变换的基本思想" class="headerlink" title="1.2 Radon变换的基本思想"></a>1.2 Radon变换的基本思想</h2><p>Radon变换可以理解为图像在(ρ,θ)空间的投影,(ρ,θ)空间的每一点对应一条直线，而Radon变换是图像像素点在每一条直线上的积分。因此，图像中高灰度值的直线会在<br>(ρ,θ)空间形成亮点，而低灰度值的线段在(ρ,θ)空间形成暗点。对直线的检测转化为在变换区域对亮点、暗点的检测。</p>
+<h2 id="1-2-Radon变换的基本思想"><a href="#1-2-Radon变换的基本思想" class="headerlink" title="1.2 Radon变换的基本思想"></a>1.2 Radon变换的基本思想</h2><p>Radon变换可以理解为图像在(ρ,θ)空间的投影,(ρ,θ)空间的每一点对应一条直线，而Radon变换是图像像素点在每一条直线上的积分。因此，图像中高灰度值的直线会在(ρ,θ)空间形成亮点，而低灰度值的线段在(ρ,θ)空间形成暗点。对直线的检测转化为在变换区域对亮点、暗点的检测。</p>
 <h1 id="2-Hough变换"><a href="#2-Hough变换" class="headerlink" title="2. Hough变换"></a>2. Hough变换</h1><p><a href="http://blog.csdn.net/ccxcau/article/details/7816588" target="_blank" rel="external"> Hough Transform(霍夫变换) </a>  </p>
-<h2 id="2-1-Hough变换的基本原理"><a href="#2-1-Hough变换的基本原理" class="headerlink" title="2.1 Hough变换的基本原理"></a>2.1 Hough变换的基本原理</h2><p>其基本原理在于利用点与线的对偶性，将原始图像空间给定的曲线通过曲线表达形式变为参数空间的一个点。这样就把原始图像中给定曲线的检测问题转化为寻找参数空间中的峰<br>值问题。也即把检测整体特性转化为检测局部特性。比如可以将Hough变换推广为检测直线、椭圆、圆、弧线等。 </p>
-<h2 id="2-2-Hough变换的基本思想"><a href="#2-2-Hough变换的基本思想" class="headerlink" title="2.2 Hough变换的基本思想"></a>2.2 Hough变换的基本思想</h2><p>在原始图像坐标系下的一个点对应了参数坐标系中的一条直线，同样参数坐标系的一条直线对应了原始坐标系下的一个点，然后，原始坐标系下呈现直线的所有点，它们的斜率和<br>截距是相同的，所以它们在参数坐标系下对应于同一个点。这样在将原始坐标系下的各个点投影到参数坐标系下之后，看参数坐标系下有没有聚集点，这样的聚集点就对应了原始<br>坐标系下的直线。 </p>
-<h2 id="2-3-对于未知半径的圆检测的简化"><a href="#2-3-对于未知半径的圆检测的简化" class="headerlink" title="2.3 对于未知半径的圆检测的简化"></a>2.3 对于未知半径的圆检测的简化</h2><p>a. 图像边缘除了位置信息，还有方向信息也很重要，这里就用上了。根据圆的性质，圆的半径一定在垂直于圆的切线的直线上，也就是说，在圆上任意一点的法线上。这样，解<br>决上面的问题，我们仍采用2维的参数空间，对于图像上的每一前景点，加上它的方向信息，都可以确定出一条直线，圆的圆心就在这条直线上。这样一来，问题就会简单了许多<br>。<br>问题：实际上这种处理方式存在精度问题，即实际场景中由于噪声、边缘断裂等原因往往不能得到精确边缘方向！  </p>
-<p>b. 同样是利用边缘点的信息，但是引入边缘方向误差Δφ，根据当前图像空间点x的边缘方向φ(x)，对映射到参数空间（a,b）的部分圆参与累计，即：<br>$$a = x1 - R<em>cos(φ(x))$$<br>$$b = x1 - R</em>cos(φ(x))$$<br>$$φ(x) ∈[ φ(x) - Δφ,φ(x) + Δφ ] $$</p>
+<h2 id="2-1-Hough变换的基本原理"><a href="#2-1-Hough变换的基本原理" class="headerlink" title="2.1 Hough变换的基本原理"></a>2.1 Hough变换的基本原理</h2><p>其基本原理在于利用点与线的对偶性，将原始图像空间给定的曲线通过曲线表达形式变为参数空间的一个点。这样就把原始图像中给定曲线的检测问题转化为寻找参数空间中的峰值问题。也即把检测整体特性转化为检测局部特性。比如可以将Hough变换推广为检测直线、椭圆、圆、弧线等。 </p>
+<h2 id="2-2-Hough变换的基本思想"><a href="#2-2-Hough变换的基本思想" class="headerlink" title="2.2 Hough变换的基本思想"></a>2.2 Hough变换的基本思想</h2><p>在原始图像坐标系下的一个点对应了参数坐标系中的一条直线，同样参数坐标系的一条直线对应了原始坐标系下的一个点，然后，原始坐标系下呈现直线的所有点，它们的斜率和截距是相同的，所以它们在参数坐标系下对应于同一个点。这样在将原始坐标系下的各个点投影到参数坐标系下之后，看参数坐标系下有没有聚集点，这样的聚集点就对应了原始坐标系下的直线。 </p>
+<h2 id="2-3-对于未知半径的圆检测的简化"><a href="#2-3-对于未知半径的圆检测的简化" class="headerlink" title="2.3 对于未知半径的圆检测的简化"></a>2.3 对于未知半径的圆检测的简化</h2><p>a. 图像边缘除了位置信息，还有方向信息也很重要，这里就用上了。根据圆的性质，圆的半径一定在垂直于圆的切线的直线上，也就是说，在圆上任意一点的法线上。这样，解决上面的问题，我们仍采用2维的参数空间，对于图像上的每一前景点，加上它的方向信息，都可以确定出一条直线，圆的圆心就在这条直线上。这样一来，问题就会简单了许多。  </p>
+<p>问题：实际上这种处理方式存在精度问题，即实际场景中由于噪声、边缘断裂等原因往往不能得到精确边缘方向！  </p>
+<p>b. 同样是利用边缘点的信息，但是引入边缘方向误差Δφ，根据当前图像空间点x的边缘方向φ(x)，对映射到参数空间（a,b）的部分圆参与累计，即： </p>
+<p>$$a = x1-R*cos(φ(x)) $$ </p>
+<p>$$b = x1-R*cos(φ(x)) $$ </p>
+<p>$$ φ(x)∈[ φ(x) - Δφ,φ(x) + Δφ ]$$</p>
 <p>（详见图像处理、分析与机器视觉P156）</p>
 <h2 id="2-4-广义霍夫变换"><a href="#2-4-广义霍夫变换" class="headerlink" title="2.4 广义霍夫变换"></a>2.4 广义霍夫变换</h2><p><a href="http://blog.csdn.net/tiandijun/article/details/47251913" target="_blank" rel="external"> 霍夫变换到广义霍夫变换 </a></p>
 <p><strong>Tips： </strong> </p>
-<p>Ballard (1981) 的广义霍夫变换最精妙之处在于为参数增加了两个关联，使得有平移和旋转（无缩放）的情况只需要遍历一个参数，三个参数分别是图形的中心坐标（横纵），旋转角度（相对参考图形），Ballard 的算法预先把参考图形边缘点对中心的径向量保存起来，利用待搜索图形边缘点的梯度方向（用相对坐标轴的角度表示）作为索引找到相应的径向量，加上该量后就完成了投射，所以要遍历的参数只有旋转角度，所以说有两个关联。当然如果加上缩放就要遍历两个参数，这也只是和霍夫检测<br>圆的规模一样而已。</p>
+<p>Ballard (1981) 的广义霍夫变换最精妙之处在于为参数增加了两个关联，使得有平移和旋转（无缩放）的情况只需要遍历一个参数，三个参数分别是图形的中心坐标（横纵），旋转角度（相对参考图形），Ballard 的算法预先把参考图形边缘点对中心的径向量保存起来，利用待搜索图形边缘点的梯度方向（用相对坐标轴的角度表示）作为索引找到相应的径向量，加上该量后就完成了投射，所以要遍历的参数只有旋转角度，所以说有两个关联。当然如果加上缩放就要遍历两个参数，这也只是和霍夫检测圆的规模一样而已。</p>
 <h1 id="3-Hough变换与Radon变换的联系与区别"><a href="#3-Hough变换与Radon变换的联系与区别" class="headerlink" title="3. Hough变换与Radon变换的联系与区别"></a>3. Hough变换与Radon变换的联系与区别</h1><p><a href="http://blog.sina.com.cn/s/blog_66d4b4620101eig3.html" target="_blank" rel="external"> Hough变换与Radon变换的联系与区别
 </a></p>
-<p>Hough变换把图像空间中给定的曲线按曲线的参数表达式变换成参数空间中的点，然后通过在参数空间中寻找峰值来达到在图像空间中寻找曲线的目的。可以使用Hough<br>变换来寻找图像中的直线。</p>
+<p>Hough变换把图像空间中给定的曲线按曲线的参数表达式变换成参数空间中的点，然后通过在参数空间中寻找峰值来达到在图像空间中寻找曲线的目的。可以使用Hough变换来寻找图像中的直线。</p>
 <p>Radon变换则以线积分的形式把图像空间投影到ρθ空间（等同于直线的参数空间）。</p>
-<p>直线Hough变换与Radon变换的区别在于前者是直线参数变换的离散形式，而后者则是直线参数变换的连续形式。所以Hough变换直接应用在二值图像上，而Rad<br>on变换直接应用在灰度图像上。另外，由于二值图像只需要处理前景或者背景像素，所以Hough变换速度一般更快。Hough变换通常用在几何形状检测、文档版面分割<br>等领域。</p>
-<p>而Radon变换也有独特的优势。由于二值图像的不连续性，表面上看Hough变换结果中峰值位置明显，效果比Radon变换好，但实际上由于通常意义上难以对一幅图<br>像进行恰当的二值分割，所以 <strong> 在一般情况下Radon变换要比Hough变换更精致而且准确 </strong><br>。Radon变换是全面的变换，可以从Radon变换的结果重建变换前的图像。所以在断层扫描中大量使用了Radon变换及其逆变换。</p>
+<p>直线Hough变换与Radon变换的区别在于前者是直线参数变换的离散形式，而后者则是直线参数变换的连续形式。所以Hough变换直接应用在二值图像上，而Radon变换直接应用在灰度图像上。另外，由于二值图像只需要处理前景或者背景像素，所以Hough变换速度一般更快。Hough变换通常用在几何形状检测、文档版面分割等领域。</p>
+<p>而Radon变换也有独特的优势。由于二值图像的不连续性，表面上看Hough变换结果中峰值位置明显，效果比Radon变换好，但实际上由于通常意义上难以对一幅图像进行恰当的二值分割，所以 <strong> 在一般情况下Radon变换要比Hough变换更精致而且准确 </strong>。Radon变换是全面的变换，可以从Radon变换的结果重建变换前的图像。所以在断层扫描中大量使用了Radon变换及其逆变换。</p>
 ]]></content>
       
         <categories>
@@ -4284,47 +4289,6 @@ if __name__ == &apos;__main__&apos;:
             <tag> Image Processing </tag>
             
             <tag> Math </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[白平衡算法总结]]></title>
-      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
-<p><strong>TIPS:</strong></p>
-<ol>
-<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
-</li>
-<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
-</li>
-</ol>
-<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
-<p><strong>Tips:</strong></p>
-<ol>
-<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
-</li>
-<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
-</li>
-</ol>
-<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Image Processing </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Machine Learning </tag>
-            
-            <tag> Image Processing </tag>
-            
-            <tag> algorithm </tag>
             
         </tags>
         
@@ -4378,6 +4342,47 @@ if __name__ == &apos;__main__&apos;:
     </entry>
     
     <entry>
+      <title><![CDATA[白平衡算法总结]]></title>
+      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
+<p><strong>TIPS:</strong></p>
+<ol>
+<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
+</li>
+<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
+</li>
+</ol>
+<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
+<p><strong>Tips:</strong></p>
+<ol>
+<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
+</li>
+<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
+</li>
+</ol>
+<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Image Processing </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Machine Learning </tag>
+            
+            <tag> Image Processing </tag>
+            
+            <tag> algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[PCA与SVD]]></title>
       <url>/2017/06/16/PCA%E4%B8%8ESVD/</url>
       <content type="html"><![CDATA[<h1 id="1-PCA算法"><a href="#1-PCA算法" class="headerlink" title="1. PCA算法"></a>1. PCA算法</h1><h2 id="1-1-PCA的数学原理"><a href="#1-1-PCA的数学原理" class="headerlink" title="1.1 PCA的数学原理"></a>1.1 PCA的数学原理</h2><p>转载： <a href="http://blog.codinglabs.org/articles/pca-tutorial.html" target="_blank" rel="external"> PCA的数学原理 </a></p>
@@ -4385,7 +4390,7 @@ if __name__ == &apos;__main__&apos;:
 <p>设有m条n维数据。</p>
 <p>1）将原始数据按列组成n行m列矩阵X</p>
 <p>2）将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值</p>
-<p>3）求出协方差矩阵  $$C=1_mXX^T$$</p>
+<p>3）求出协方差矩阵  $$C=1/mXX^T$$</p>
 <p>4）求出协方差矩阵的特征值及对应的特征向量</p>
 <p>5）将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P</p>
 <p>6）  Y=PX  即为降维到k维后的数据</p>
@@ -4436,8 +4441,7 @@ applications.html" target="_blank" rel="external"> 机器学习中的数学(5)-�
     <entry>
       <title><![CDATA[Opencv中Adaboost的具体实现及使用资料总结]]></title>
       <url>/2017/06/06/Opencv%E4%B8%ADAdaboost%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E5%8F%8A%E4%BD%BF%E7%94%A8%E8%B5%84%E6%96%99%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<h1 id="1-opencv级联分类器训练"><a href="#1-opencv级联分类器训练" class="headerlink" title="1.opencv级联分类器训练"></a>1.opencv级联分类器训练</h1><p>$ A = \sum_t L^{(t)} $</p>
-<blockquote>
+      <content type="html"><![CDATA[<h1 id="1-opencv级联分类器训练"><a href="#1-opencv级联分类器训练" class="headerlink" title="1.opencv级联分类器训练"></a>1.opencv级联分类器训练</h1><blockquote>
 <p><a href="http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/user_guide/ug_traincascade.html?highlight=opencv_traincascade" target="_blank" rel="external">opencv官方指南</a></p>
 </blockquote>
 <p><a href="http://blog.csdn.net/zdyueguanyun/article/details/8572385" target="_blank" rel="external">opencv级联分类器训练</a></p>

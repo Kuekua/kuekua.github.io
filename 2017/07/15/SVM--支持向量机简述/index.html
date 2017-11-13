@@ -16,13 +16,13 @@
     
     
 
-    <meta name="description" content="此文是根据July大神所写的  支持向量机通俗导论（理解SVM的三层境界）  一文的读后感，记录下自己的一点感悟与体会。  SVM  它本质上即是一个二分类方法，用  w  T  +  b  定义分类函数，于是求w、b，为寻最大间隔，引出  1  /  2  ∥  w  ∥  2  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，">
+    <meta name="description" content="此文是根据July大神所写的  支持向量机通俗导论（理解SVM的三层境界）  一文的读后感，记录下自己的一点感悟与体会。  SVM  它本质上即是一个二分类方法，用$$wT+b$$定义分类函数，于是求w、b，为寻最大间隔，引出$$1/2∥w∥^2$$  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，求w、b 与求α 等价，而α的">
 <meta name="keywords" content="Machine Learning,Algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SVM--支持向量机简述 | Kuekua&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/2017/07/15/SVM--支持向量机简述/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="此文是根据July大神所写的  支持向量机通俗导论（理解SVM的三层境界）  一文的读后感，记录下自己的一点感悟与体会。  SVM  它本质上即是一个二分类方法，用  w  T  +  b  定义分类函数，于是求w、b，为寻最大间隔，引出  1  /  2  ∥  w  ∥  2  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，">
+<meta property="og:description" content="此文是根据July大神所写的  支持向量机通俗导论（理解SVM的三层境界）  一文的读后感，记录下自己的一点感悟与体会。  SVM  它本质上即是一个二分类方法，用$$wT+b$$定义分类函数，于是求w、b，为寻最大间隔，引出$$1/2∥w∥^2$$  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，求w、b 与求α 等价，而α的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img.blog.csdn.net/20170914221119079?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
@@ -45,10 +45,10 @@ MA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170914224828260?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/60/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T08:32:01.000Z">
+<meta property="og:updated_time" content="2017-11-13T15:30:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVM--支持向量机简述 | Kuekua&#39;s blog">
-<meta name="twitter:description" content="此文是根据July大神所写的  支持向量机通俗导论（理解SVM的三层境界）  一文的读后感，记录下自己的一点感悟与体会。  SVM  它本质上即是一个二分类方法，用  w  T  +  b  定义分类函数，于是求w、b，为寻最大间隔，引出  1  /  2  ∥  w  ∥  2  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，">
+<meta name="twitter:description" content="此文是根据July大神所写的  支持向量机通俗导论（理解SVM的三层境界）  一文的读后感，记录下自己的一点感悟与体会。  SVM  它本质上即是一个二分类方法，用$$wT+b$$定义分类函数，于是求w、b，为寻最大间隔，引出$$1/2∥w∥^2$$  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，求w、b 与求α 等价，而α的">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20170914221119079?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast">
@@ -215,20 +215,21 @@ classes that you can use:
 
 <p>此文是根据July大神所写的 <a href="http://download.csdn.net/download/u012554092/9979469" target="_blank" rel="external"> 支持向量机通俗导论（理解SVM的三层境界）
 </a> 一文的读后感，记录下自己的一点感悟与体会。</p>
-<p><strong> SVM </strong> 它本质上即是一个二分类方法，用  w  T  +  b  定义分类函数，于是求w、b，为寻最大间隔，引出  1  /  2  ∥  w  ∥  2  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，求w、b 与求α 等价，而α的求解可以用一种快速学习算法SMO，至于核函数，是为处理非线性情况，若直接映射到高维计算恐维度爆炸，故在低维计算，等效高维表现。 </p>
-<h1 id="1-算法步骤："><a href="#1-算法步骤：" class="headerlink" title="1.算法步骤："></a>1.算法步骤：</h1><p>1.1 选取合适的核函数  K （x  i  ,  x  j  ）  。<br>1.2 将训练数据  x i  带入分类函数中，利用SMO求解系数  α i  。  </p>
+<p><strong> SVM </strong> 它本质上即是一个二分类方法，用$$wT+b$$定义分类函数，于是求w、b，为寻最大间隔，引出$$1/2∥w∥^2$$  ，继而引入拉格朗日因子，化为对拉格朗日乘子α的求解（求解过程中会涉及到一系列最优化或凸二次规划等问题），如此，求w、b 与求α 等价，而α的求解可以用一种快速学习算法SMO，至于核函数，是为处理非线性情况，若直接映射到高维计算恐维度爆炸，故在低维计算，等效高维表现。 </p>
+<h1 id="1-算法步骤："><a href="#1-算法步骤：" class="headerlink" title="1.算法步骤："></a>1.算法步骤：</h1><p>1.1 选取合适的核函数  $$K（x_i,x_j）$$  。<br>1.2 将训练数据 xi带入分类函数中，利用SMO求解系数αi。  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170914221119079?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
-<p><div align="left"><br>这里，大部分  α  i  为0，因为其对应的训练数据  x  i  ,有  y  i  ∗  (  w  ∗  x  i  +  b  )  &gt; 1<br>,只有  w  ∗  x  i  +  b  =  1  的训练数据才真正对分类有效，即其对应的  α  i  不为0，这些数据即为支持向量。<br>1.3 根据上一步求得得分类函数对待分类数据x进行二分类。即判断  f  (  x  )  的正负。</div></p>
-<h2 id="2-核函数"><a href="#2-核函数" class="headerlink" title="2.核函数"></a>2.核函数</h2><p>核函数：  K  (  x  i  ,  x  j  )  ,一般选高斯核函数即可。而核函数的选择往往不是最关键的，分类器性能更依赖于训练数据。</p>
+<p><div align="left"><br>这里，大部分αi为0，因为其对应的训练数据xi,有yi∗(w∗xi+b)&gt;1,只有w∗xi+b=1的训练数据才真正对分类有效，即其对应的αi不为0，这些数据即为支持向量。<br>1.3 根据上一步求得得分类函数对待分类数据x进行二分类。即判断f(x)的正负。</div></p>
+<h2 id="2-核函数"><a href="#2-核函数" class="headerlink" title="2.核函数"></a>2.核函数</h2><p>核函数：  K(xi,xj)  ,一般选高斯核函数即可。而核函数的选择往往不是最关键的，分类器性能更依赖于训练数据。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170914220000498?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">      
 
 <p><strong> 核函数原理： </strong><br>将低维线性不可分数据通过核函数映射到高维，达到线性可分的目的，并利用内积函数使运算量并未明显增加。</p>
-<h2 id="3-多分类器的应用"><a href="#3-多分类器的应用" class="headerlink" title="3.多分类器的应用"></a>3.多分类器的应用</h2><p>SVM是二分类器，对于N类问题的分类有两种办法：<br>1. 训练N个SVM分类器，每个分类器对应分类一种类别与其他N-1种类别，最终分类结果是具有最大正距离的类别，即正向离超平面距离最远。实际应用上应该是取f(x)的最大值。<br>2. 训练  N  ∗  (  N  −  1  )  /  2  个SVM分类器，每个分类器对应两两类别的分类，结果通过投票决定，投票依据仍为f(x)。</p>
+<h2 id="3-多分类器的应用"><a href="#3-多分类器的应用" class="headerlink" title="3.多分类器的应用"></a>3.多分类器的应用</h2><p>SVM是二分类器，对于N类问题的分类有两种办法：<br>1. 训练N个SVM分类器，每个分类器对应分类一种类别与其他N-1种类别，最终分类结果是具有最大正距离的类别，即正向离超平面距离最远。实际应用上应该是取f(x)的最大值。  </p>
+<p>2. 训练  N  ∗  (  N  −  1  )  /  2  个SVM分类器，每个分类器对应两两类别的分类，结果通过投票决定，投票依据仍为f(x)。</p>
 <h2 id="4-拉格朗日对偶性"><a href="#4-拉格朗日对偶性" class="headerlink" title="4.拉格朗日对偶性"></a>4.拉格朗日对偶性</h2><p>凸函数寻找最大值问题的求解方法，其局部最大值即全局最大值！</p>
 <p>目标函数：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170914223601086?watermark/2/text/aHR0cDo
@@ -258,7 +259,7 @@ MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">      
 
 
-<h2 id="5-使用松弛变量处理outliers-方法"><a href="#5-使用松弛变量处理outliers-方法" class="headerlink" title="5.使用松弛变量处理outliers 方法"></a>5.使用松弛变量处理outliers 方法</h2><p>数据本身是非线性结构的，而只是因为数据有噪声。对于这种偏离正常位置很远的数据点，我们称之为outlier ，在我们原来的SVM<br>模型里，outlier的存在有可能造成很大的影响，因为超平面本身就是只有少数几个support vector 组成的，如果这些support vector<br>里又存在outlier 的话，其影响就很大了。为了处理这种情况，SVM 允许数据点在一定程度上偏离一下超平面。</p>
+<h2 id="5-使用松弛变量处理outliers-方法"><a href="#5-使用松弛变量处理outliers-方法" class="headerlink" title="5.使用松弛变量处理outliers 方法"></a>5.使用松弛变量处理outliers 方法</h2><p>数据本身是非线性结构的，而只是因为数据有噪声。对于这种偏离正常位置很远的数据点，我们称之为outlier ，在我们原来的SVM模型里，outlier的存在有可能造成很大的影响，因为超平面本身就是只有少数几个support vector 组成的，如果这些support vector里又存在outlier 的话，其影响就很大了。为了处理这种情况，SVM 允许数据点在一定程度上偏离一下超平面。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170914224828260?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/60/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast" width="70%"></div></p>

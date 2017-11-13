@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20170908182829328?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
 MA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T03:21:28.000Z">
+<meta property="og:updated_time" content="2017-11-13T14:57:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="积分图的优化 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="原文：  13行代码实现最快速最高效的积分图像算法。    Tips：1.某个点的积分图反应的是原图中此位置左上角所有像素之和，这里是的累加和是不包括这个点像素本身的，那么，对于原图的第一行和第一列的所有像素，其对应位置的积分图就应该是0, 这样考虑到所有的像素，为了能容纳最后一列和最后一行的情况，最终的积分图就应该是 (W + 1) X (H + 1)大小。 2.优化方式：      原始算法">
@@ -194,7 +194,7 @@ classes that you can use:
 
   <section id="post-content" class="article-content post">
     <p>原文： <a href="http://www.cnblogs.com/Imageshop/p/6219990.html" target="_blank" rel="external"> 13行代码实现最快速最高效的积分图像算法。 </a>  </p>
-<p><strong>Tips：</strong><br>1.某个点的积分图反应的是原图中此位置左上角所有像素之和，这里是的累加和是不包括这个点像素本身的，那么，对于原图的第一行和第一列的所有像素，其对应位置的积分<br>图就应该是0, 这样考虑到所有的像素，为了能容纳最后一列和最后一行的情况，最终的积分图就应该是 (W + 1) X (H + 1)大小。</p>
+<p><strong>Tips：</strong><br>1.某个点的积分图反应的是原图中此位置左上角所有像素之和，这里是的累加和是不包括这个点像素本身的，那么，对于原图的第一行和第一列的所有像素，其对应位置的积分图就应该是0, 这样考虑到所有的像素，为了能容纳最后一列和最后一行的情况，最终的积分图就应该是 (W + 1) X (H + 1)大小。</p>
 <p>2.优化方式：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170908182829328?watermark/2/text/aHR0cDo
 vL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFC
@@ -202,7 +202,7 @@ MA==/dissolve/70/gravity/SouthEast" width="80%"></div></p>
 <div align="left">
 
 <pre><code>原始算法                      列优化                             行优化
-</code></pre><p><strong>分析： </strong><br>行优化最优，相比于列优化，更符合图像数据在计算机中的存储顺序，因此并且在计算过程中无需申请额外空间保存各列像素之和，只需一个变量保存行像素之和便可！详见开源<br>软件scantailor里的push函数。</p>
+</code></pre><p><strong>分析： </strong><br>行优化最优，相比于列优化，更符合图像数据在计算机中的存储顺序，因此并且在计算过程中无需申请额外空间保存各列像素之和，只需一个变量保存行像素之和便可！详见开源软件scantailor里的push函数。</p>
 <p>3. 在反汇编中，max和min充分利用了条件按传送指令比如cmovg,cmovl，而一般的if语句很大程度上会调用jmp指令的（当然和常数比较一般编译也会用条件传送替代的，比如和0比较），jmp指令是比较耗时的。</p>
 <p><strong>开源软件scantailor里的积分图算法的实现：</strong><br>（调用的时候先调用beginRow定位行指针，然后循环调用push推入该行的像素值，所有行循环完毕就计算完成，然后可以调用sum计算区域累加和。）</p>
 <pre><code>/**
