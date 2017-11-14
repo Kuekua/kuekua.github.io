@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="Kuekua&#39;s blog">
 <meta property="og:description" content="文章参考  OpenCV ——双线性插值（Bilinear interpolation）  一般图像插值算法中有两处可以进行优化： 1. 源图像和目标图像几何中心的对齐在计算源图像的虚拟浮点坐标的时候，一般情况：   srcX=dstX (srcWidth/dstWidth) ,srcY = dstY  (srcHeight/dstHeight)    中心对齐(OpenCV也是如此)：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-28T03:21:17.000Z">
+<meta property="og:updated_time" content="2017-11-14T14:09:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像插值中的优化 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="文章参考  OpenCV ——双线性插值（Bilinear interpolation）  一般图像插值算法中有两处可以进行优化： 1. 源图像和目标图像几何中心的对齐在计算源图像的虚拟浮点坐标的时候，一般情况：   srcX=dstX (srcWidth/dstWidth) ,srcY = dstY  (srcHeight/dstHeight)    中心对齐(OpenCV也是如此)：">
@@ -195,8 +195,9 @@ classes that you can use:
 <p><strong> 中心对齐(OpenCV也是如此)： </strong>   </p>
 <p>SrcX=(dstX+0.5)<em> (srcWidth/dstWidth) -0.5<br>SrcY=(dstY+0.5) </em> (srcHeight/dstHeight)-0.5  </p>
 <p><strong> 原理： </strong></p>
-<p>将公式变形：srcX=dstX<em> (srcWidth/dstWidth)+0.5</em>(srcWidth/dstWidth-1)相当于我们在原始的浮点坐标上加上<br>了0.5<em>(srcWidth/dstWidth-1)这样一个控制因子，这项的符号可正可负，与srcWidth/dstWidth的比值也就是当前插值是扩大还是<br>缩小图像有关，有什么作用呢？看一个例子：假设源图像是3</em>3，中心点坐标（1，1）目标图像是9<em>9，中心点坐标（4，4），我们在进行插值映射的时候，尽可能希望<br>均匀的用到源图像的像素信息，最直观的就是（4,4）映射到（1,1）现在直接计算srcX=4</em>3/9=1.3333！=1，也就是我们在插值的时候所利用的像素集<br>中在图像的右下方，而不是均匀分布整个图像。现在考虑中心点对齐，srcX=(4+0.5)*3/9-0.5=1，刚好满足我们的要求。  </p>
-<h2 id="2-将浮点运算转换成整数运算"><a href="#2-将浮点运算转换成整数运算" class="headerlink" title="2. 将浮点运算转换成整数运算"></a>2. 将浮点运算转换成整数运算</h2><p>直接进行计算的话，由于计算的srcX和srcY<br>都是浮点数，后续会进行大量的乘法，而图像数据量又大，速度不会理想，解决思路是：浮点运算→→整数运算→→”&lt;&lt;左右移按位运算”。<br>放大的主要对象是u，v这些浮点数， <strong> OpenCV选择的放大倍数是2048 </strong> “如何取这个合适的放大倍数呢，要从三个方面考虑，第一：精度问题，如果这<br>个数取得过小，那么经过计算后可能会导致结果出现较大的误差。第二，这个数不能太大，太大会导致计算过程超过长整形所能表达的范围。第三：速度考虑。假如放大倍数取为<br>12，那么算式在最后的结果中应该需要除以12<em>12=144，但是如果取为16，则最后的除数为16</em>16=256，这个数字好，我们可以用右移来实现，而右移要比<br>普通的整除快多了。”我们利用左移11位操作就可以达到放大目的。</p>
+<p>将公式变形：srcX=dstX<em> (srcWidth/dstWidth)+0.5</em>(srcWidth/dstWidth-1)相当于我们在原始的浮点坐标上加上了0.5*(srcWidth/dstWidth-1)这样一个控制因子，这项的符号可正可负，与srcWidth/dstWidth的比值也就是当前插值是扩大还是缩小图像有关，有什么作用呢？</p>
+<p>看一个例子：假设源图像是3<em>3，中心点坐标（1，1）目标图像是9</em>9，中心点坐标（4，4），我们在进行插值映射的时候，尽可能希望均匀的用到源图像的像素信息，最直观的就是（4,4）映射到（1,1）现在直接计算srcX=4<em>3/9=1.3333！=1，也就是我们在插值的时候所利用的像素集中在图像的右下方，而不是均匀分布整个图像。现在考虑中心点对齐，srcX=(4+0.5)</em>3/9-0.5=1，刚好满足我们的要求。  </p>
+<h2 id="2-将浮点运算转换成整数运算"><a href="#2-将浮点运算转换成整数运算" class="headerlink" title="2. 将浮点运算转换成整数运算"></a>2. 将浮点运算转换成整数运算</h2><p>直接进行计算的话，由于计算的srcX和srcY都是浮点数，后续会进行大量的乘法，而图像数据量又大，速度不会理想，解决思路是：浮点运算→→整数运算→→”&lt;&lt;左右移按位运算”。<br>放大的主要对象是u，v这些浮点数， <strong> OpenCV选择的放大倍数是2048 </strong> “如何取这个合适的放大倍数呢，要从三个方面考虑，第一：精度问题，如果这个数取得过小，那么经过计算后可能会导致结果出现较大的误差。第二，这个数不能太大，太大会导致计算过程超过长整形所能表达的范围。第三：速度考虑。假如放大倍数取为12，那么算式在最后的结果中应该需要除以12x12=144，但是如果取为16，则最后的除数为16x16=256，这个数字好，我们可以用右移来实现，而右移要比普通的整除快多了(浮点数如何右移实现放大缩小？存疑！)。”我们利用左移11位操作就可以达到放大目的。</p>
 
   </section>
 
@@ -217,24 +218,29 @@ classes that you can use:
 </article>
 
 
-            <footer class="footer">
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-    <span class="footer__copyright">&copy; 2017-2020. 个人邮箱：wj.bob@163.com</a></span>
-    
-</footer>
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kuekua Wu</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共84.0k字</span>
+</div>
+
         </div>
     </div>
 

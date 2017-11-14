@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20170930185554184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170930190606088?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170930190812597?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T08:36:34.000Z">
+<meta property="og:updated_time" content="2017-11-14T13:40:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="定点数与浮点数 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="转载自：定点数与浮点数    本文主要介绍了定点数和浮点数的概念，定点数和浮点数的加减运算（比如34.6f-34.0f），最后介绍了浮点数的特殊值。 I.定点数所谓定点格式，即约定机器中所有数据的小数点位置是固定不变的。通常将定点数据表示成纯小数或纯整数，为了将数表示成纯小数，通常把小数点固定在数值部分的最高位之前；而为了将数表示成纯整数，则把小数点固定在数值部分的最后面，如下图所示：   图中所">
@@ -203,7 +203,8 @@ classes that you can use:
 <h2 id="I-定点数"><a href="#I-定点数" class="headerlink" title="I.定点数"></a>I.定点数</h2><p>所谓定点格式，即约定机器中所有数据的小数点位置是固定不变的。通常将定点数据表示成纯小数或纯整数，为了将数表示成纯小数，通常把小数点固定在数值部分的最高位之前；而为了将数表示成纯整数，则把小数点固定在数值部分的最后面，如下图所示：</p>
 <p> <img src="http://img.blog.csdn.net/20170930183705140?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
 <p>图中所标示的小数点在机器中是不表示出来的，而是事先约定在固定的位置。对于一台计算机，一旦确定了小数点的位置，就不再改变。</p>
-<p>假设用n位来表示一个定点数$$x=x_0x_1x<em>2…x</em>(n-1)$$，其中x0用来表示数的符号位，通常放在最左位置，并用数值0和1分别表示正号和负号，其余位数表示它的量值。如果定点数x表示纯整数，则小数点位于最低位x(n-1)的右边，数值范围是$$0&lt;=|x|&lt;=2^{(n-1)}-1$$，且，例如1111表示-7；如果定点数x表示纯小数，则小数点位于x0和x1之间，数值范围是$$0&lt;=|x|&lt;=1-2^{(-(n-1))}$$，且，例如1111表示-0.875.</p>
+<p>假设用n位来表示一个定点数$$ x=x_0x_1x<em>2…x</em>(n-1) $$，其中x0用来表示数的符号位，通常放在最左位置，并用数值0和1分别表示正号和负号，其余位数表示它的量值。</p>
+<p>如果定点数x表示纯整数，则小数点位于最低位x(n-1)的右边，数值范围是$$0&lt;=|x|&lt;=2^{(n-1)}-1$$，例如1111表示-7；如果定点数x表示纯小数，则小数点位于x0和x1之间，数值范围是$$ 0&lt;=|x|&lt;=1-2^{(-(n-1))}$$，例如1111表示-0.875.</p>
 <h2 id="II-定点数加减运算"><a href="#II-定点数加减运算" class="headerlink" title="II.定点数加减运算"></a>II.定点数加减运算</h2><p>不论操作数是正还是负，在做补码加减法时，只需将符号位和数值部分一起参与运算，并且将符号位产生的进位丢掉即可。如：</p>
 <p>short A=-9, B=-5;</p>
 <p>A+B = -14</p>
@@ -446,24 +447,29 @@ classes that you can use:
 </article>
 
 
-            <footer class="footer">
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-    <span class="footer__copyright">&copy; 2017-2020. 个人邮箱：wj.bob@163.com</a></span>
-    
-</footer>
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kuekua Wu</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共84.0k字</span>
+</div>
+
         </div>
     </div>
 

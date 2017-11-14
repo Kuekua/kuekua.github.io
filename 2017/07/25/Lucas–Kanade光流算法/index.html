@@ -24,17 +24,16 @@
 <meta property="og:site_name" content="Kuekua&#39;s blog">
 <meta property="og:description" content="1. 光流法光流是一种运动模式，这种运动模式指的是一个物体、表面、边缘在一个视角下由一个观察者（比如眼睛、摄像头等）和背景之间形成的明显移动。光流技术，如运动检测和图像分割，时间碰撞，运动补偿编码，三维立体视差，都是利用了这种边缘或表面运动的技术。二维图像的移动相对于观察者而言是三维物体移动的在图像平面的投影。有序的图像可以估计出二维图像的瞬时图像速率或离散图像转移。光流算法评估了两幅图像的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://i1.bvimg.com/616572/f97174c2768cb6cc.jpg">
-<meta property="og:image" content="http://i1.bvimg.com/616572/315e2cb4ad140b77.jpg">
-<meta property="og:image" content="http://i1.bvimg.com/616572/ccc3f332edbf2b0b.jpg">
+<meta property="og:image" content="http://img.blog.csdn.net/20171114215124825?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171114215135763?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170928223931959?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/1/fill/I0JBQkFCMA==/dissolve/7/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170928223950228?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170928224946668?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/4/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-11-02T15:01:13.000Z">
+<meta property="og:updated_time" content="2017-11-14T14:03:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lucas–Kanade光流算法 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. 光流法光流是一种运动模式，这种运动模式指的是一个物体、表面、边缘在一个视角下由一个观察者（比如眼睛、摄像头等）和背景之间形成的明显移动。光流技术，如运动检测和图像分割，时间碰撞，运动补偿编码，三维立体视差，都是利用了这种边缘或表面运动的技术。二维图像的移动相对于观察者而言是三维物体移动的在图像平面的投影。有序的图像可以估计出二维图像的瞬时图像速率或离散图像转移。光流算法评估了两幅图像的">
-<meta name="twitter:image" content="http://i1.bvimg.com/616572/f97174c2768cb6cc.jpg">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171114215124825?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
     
     
     
@@ -215,18 +214,12 @@ classes that you can use:
 <p>$$\nabla I^T\cdot\vec{V} = -I_t$$</p>
 <p>这个方程有三个未知量，尚不能被解决，这也就是所谓光流算法的光圈问题。那么要找到光流向量则需要另一套解决的方案。而Lucas-Kanade算法是一个非迭代的算法：</p>
 <p>假设流(Vx,Vy,Vz)在一个大小为m<em>m</em>m(m&gt;1)的小窗中是一个常数，那么从像素1…n, $$n = m^3$$中可以得到下列一组方程</p>
-<p><div align="center"><br><img src="http://i1.bvimg.com/616572/f97174c2768cb6cc.jpg" width="35%" align="center"></div></p>
-<div align="left">
-
-<p>三个未知数但是有多于三个的方程，这个方程组自然是个超定方程，也就是说方程组内有冗余，方程组可以表示为：</p>
-<p><div align="center"><br><img src="http://i1.bvimg.com/616572/315e2cb4ad140b77.jpg" width="40%" align="center"></div></p>
-<div align="left">
-
+<p><div align="left"><br><img src="http://img.blog.csdn.net/20171114215124825?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="85%" align="center"></div></p>
 <p>为了解决这个超定问题，我们采用最小二乘法：</p>
 <p>$$A^TA\vec{v}=A^T(-b)$$</p>
 <p>$$\vec{v}=(A^TA)^{-1}A^T(-b)$$</p>
 <p>得到：</p>
-<p><div align="center"><br><img src="http://i1.bvimg.com/616572/ccc3f332edbf2b0b.jpg" width="50%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171114215135763?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
 <div align="left">
 
 <p>其中的求和是从1到n。</p>
@@ -242,7 +235,7 @@ classes that you can use:
 <p>令I0 = I 是第 0 层的图像，它是金字塔图像中分辨率最高的图像，图像的宽度和高度分别定义为nx0 = nx 和 ny0 = ny 。以一种递归的方式建立金字塔：从I0中计算I1，从I1中计算I2 ，···。用一个[0.25 0.5 0.25]的低通滤波器对$$I_{L-1}$$进行卷积。</p>
 <p><strong>金字塔跟踪</strong></p>
 <p>总体来讲，金字塔特征跟踪算法描述如下：首先，光流和仿射变换矩阵在最高一层的图像上计算出；将上一层的计算结果作为初始值传递给下一层图像，这一层的图像在这个初始值的基础上，计算这一层的光流和仿射变化矩阵；再将这一层的光流和仿射矩阵作为初始值传递给下一层图像，直到传递给最后一层，即原始图像层，这一层计算出来的光流和仿射变换矩阵作为最后的光流和仿射变换矩阵的结果。</p>
-<p>用L+1层得到的最初估计gL对L层作预平移，L层在gL的基础上求该层的光流dL，这样求得的残余光流向量$$dL=[d<em>{Lx},d</em>{Ly}]^T$$就足够小，因此能够通过标准的光流法来求出这个运动矢量。然后得到的dL结合gL又可以对L-1层的gL-1做估计。最终的光流和就是在所有层的分段光流d的叠加。使用金字塔图像计算光流的一个明显的好处是，对于一个有着较大的像素偏移的矢量d，可以通过计算几个比较小的残余光流来得到。这里就是金字塔跟踪算法的核心。</p>
+<p>用L+1层得到的最初估计gL对L层作<strong>预平移</strong>，L层在gL的基础上求该层的光流dL，这样求得的残余光流向量$$ dL=[d_{L<em>x},d</em>{L_y}]^T $$就足够小，因此能够通过标准的光流法来求出这个运动矢量。然后得到的dL结合gL又可以对L-1层的gL-1做估计。最终的光流和就是在所有层的分段光流d的叠加。使用金字塔图像计算光流的一个明显的好处是，对于一个有着较大的像素偏移的矢量d，可以通过计算几个比较小的残余光流来得到。这里就是金字塔跟踪算法的核心。</p>
 <p>这种算法最明显的优势在于对于每一层的光流都会保持很小，但是最终计算来的光流可以进行累积，便于有效地跟踪特征点。</p>
 <p><strong>迭代过程</strong></p>
 <p>在金字塔的每一层，通过迭代计算出光流dL和仿射变换矩阵AL从而使误差ξL最小。</p>
@@ -253,11 +246,11 @@ classes that you can use:
 <div align="left"> 
 
 <h4 id="2-3-3-特征点选择"><a href="#2-3-3-特征点选择" class="headerlink" title="2.3.3 特征点选择"></a>2.3.3 特征点选择</h4><p>为了使得$$(A^TA)^{-1} $$稳定，需要该矩阵的两个特征值不能太小，所以在构建KL方程时可以只挑选合适的特征点（角点）进行计算：</p>
-<p>1、计算图像 I 中每一个像素的矩阵G和最小特征值λm。<br>2、寻找整副图像中最小特征值 λm 中的最大特征值λmax。<br>3、保留最小特征值 λm 大于给定阈值的像素点。阈值通常取$$0.05λ<em>{max}-0.01λ</em>{max}$$。<br>4、保留 λm 局部最大值的像素：像素特征值 λm 大于其3<em>3 邻域中其他像素的特征值 λm 。<br>5、剔除像素密集区域中的一些像素，确保图像中相邻像素的距离都大于给定的阈值（常取5~10 pixels）。<br>上述操作完成后，图像 I 中剩下的像素即为选择的特征点，并作为跟踪特征点。特征点选择算法的步骤5 确保了特征点间的最小距离。<br>没有必要取一个大的综合窗口选择特征点（或计算矩阵G）。大量实验证明，wx = wy =1的 3</em>3 大小的综合窗口能够取得满意的效果。</p>
+<p>1、计算图像 I 中每一个像素的矩阵G和最小特征值λm。<br>2、寻找整副图像中最小特征值 λm 中的最大特征值λmax。<br>3、保留最小特征值 λm 大于给定阈值的像素点。阈值通常取$$0.05λ<em>{max}-0.01λ</em>{max}$$。<br>4、保留 λm 局部最大值的像素：像素特征值 λm 大于其3x3 邻域中其他像素的特征值 λm 。<br>5、剔除像素密集区域中的一些像素，确保图像中相邻像素的距离都大于给定的阈值（常取5~10 pixels）。<br>上述操作完成后，图像 I 中剩下的像素即为选择的特征点，并作为跟踪特征点。特征点选择算法的步骤5 确保了特征点间的最小距离。<br>没有必要取一个大的综合窗口选择特征点（或计算矩阵G）。大量实验证明，wx = wy =1的 3x3 大小的综合窗口能够取得满意的效果。</p>
 <p><strong>参考博文：</strong></p>
 <p><a href="http://m.blog.csdn.net/qq_19764963/article/details/42583467" target="_blank" rel="external">Lucas-Kanade光流法</a></p>
 <p><a href="http://blog.csdn.net/u014568921/article/details/46638557" target="_blank" rel="external">目标跟踪之Lukas-Kanade光流法</a></p>
-</div></div></div></div>
+</div></div>
   </section>
 
   <section class="post-comments">
@@ -277,24 +270,29 @@ classes that you can use:
 </article>
 
 
-            <footer class="footer">
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-    <span class="footer__copyright">&copy; 2017-2020. 个人邮箱：wj.bob@163.com</a></span>
-    
-</footer>
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kuekua Wu</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共84.0k字</span>
+</div>
+
         </div>
     </div>
 
