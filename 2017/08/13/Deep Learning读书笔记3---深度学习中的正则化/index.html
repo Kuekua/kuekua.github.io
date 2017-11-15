@@ -45,7 +45,7 @@ ssolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170915142953389?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-27T13:50:58.000Z">
+<meta property="og:updated_time" content="2017-11-15T14:24:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning读书笔记3---深度学习中的正则化 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1.概念正则化定义为“  对学习算法的修改——旨在减少泛化误差而不是训练误差  ”。目前有许多正则化策略。 有些策略向机器学习模型添加限制参数值的额外约束。 有些策略向目标函数增加额外项来对参数值进行软约束。有时侯，这些约束和惩罚被设计为编码特定类型的先验知识； 其他时候，这些约束和惩罚被设计为偏好简单模型，以便提高泛化能力。有时，惩罚和约束对于确定欠定的问题是必要的。 其他形式的正则化，如被称为">
@@ -216,38 +216,38 @@ classes that you can use:
 <h3 id="2-1-L-2-参数正则化"><a href="#2-1-L-2-参数正则化" class="headerlink" title="2.1  L  2  参数正则化"></a>2.1  L  2  参数正则化</h3><p>目标函数：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915094204772?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 <p>L2  参数正则化效应示意图：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915095451330?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 <p><strong> 说明： </strong> 只有在显著减小目标函数方向上的参数会保留得相对完好。 在无助于目标函数减小的方向上改变参数不会显著增加梯度。 这种不重要方向对应的分量会在训练过程中因正则化而衰减掉。 </p>
-<h3 id="2-2-L-1-参数正则化"><a href="#2-2-L-1-参数正则化" class="headerlink" title="2.2  L  1  参数正则化"></a>2.2  L  1  参数正则化</h3><p>形式地，对模型参数  w  的  L  1  正则化被定义为：</p>
-<p>$$Ω(θ)  =  ||w||^1  =  ∑_i|w_i|$$</p>
+<h3 id="2-2-L-1-参数正则化"><a href="#2-2-L-1-参数正则化" class="headerlink" title="2.2  L  1  参数正则化"></a>2.2  L  1  参数正则化</h3><p>形式地，对模型参数w的L1正则化被定义为：</p>
+<p>$$Ω(θ)=||w||^1=∑_i|w_i|$$</p>
 <p>即各个参数的绝对值之和正则化。</p>
 <p>相比  L  2  正则化，  L  1  正则化会产生更稀疏的解。 此处稀疏性指的是最优值中的一些参数为  0  。  L  2<br>正则化不会使参数变得稀疏，而  L  1  正则化有可能通过足够大的  α  实现稀疏。</p>
 <p>由  L  1  正则化导出的稀疏性质已经被广泛地用于特征选择机制。 特征选择从可用的特征子集选择出有意义的特征，化简机器学习问题。<br>著名的LASSO（Least Absolute Shrinkage and Selection Operator）模型将L1惩罚和线性模型结合，并使用最小二乘代价函数。  L  1  惩罚使部分子集的权重为零，表明相应的特征可以被安全地忽略。</p>
 <h2 id="3-作为约束的范数惩罚"><a href="#3-作为约束的范数惩罚" class="headerlink" title="3.作为约束的范数惩罚"></a>3.作为约束的范数惩罚</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170915102248001?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 <p>这和最小化  $$J^~$$  的正则化训练问题是完全一样的。 因此，我们可以把参数范数惩罚看作对权重强加的约束。 如果  Ω  是  L  2范数，那么权重就是被约束在一个  L  2  球中。 如果  Ω  是  L  1  范数，那么权重就是被约束在一个  L  1  范数限制的区域中。<br>通常我们不知道权重衰减系数  α  约束的区域大小，因为  α  的值不直接告诉我们  k  的值。 原则上我们可以解得  k  ，但  k  和  α∗  之间的关系取决于  J  的形式。 虽然我们不知道约束区域的确切大小，但我们可以通过增加或者减小  α  来大致扩大或收缩约束区域。 较大的  α，将得到一个较小的约束区域。</p>
-<p>有时候，我们希望使用显式的限制，而不是惩罚。 我们可以修改下降算法（如随机梯度下降算法），使其先计算  J  (  θ  )  的下降步长，然后将θ投影到满足  Ω  (  θ  )  &lt; k  的最近点。 如果我们知道什么样的  k  是合适的，而不想花时间寻找对应于此  k  处的  α<br>值，这会非常有用。原因如下：<br>a.惩罚可能会导致目标函数非凸而使算法陷入局部极小(对应于小的  θ  ）。<br>b.当使用较高的学习率时，很可能进入正反馈，即大的权重诱导大梯度，然后使得权重获得较大更新。 如果这些更新持续增加权重的大小，  θ就会迅速增大，直到离原点很远而发生溢出。 重投影的显式约束可以防止这种反馈环引起权重无限制地持续增加。</p>
+<p>有时候，我们希望使用显式的限制，而不是惩罚。 我们可以修改下降算法（如随机梯度下降算法），使其先计算  J  ( θ  )  的下降步长，然后将θ投影到满足  Ω  (  θ  )  &lt; k  的最近点。 如果我们知道什么样的  k  是合适的，而不想花时间寻找对应于此k处的α值，这会非常有用。原因如下：<br>a.惩罚可能会导致目标函数非凸而使算法陷入局部极小(对应于小的  θ  ）。<br>b.当使用较高的学习率时，很可能进入正反馈，即大的权重诱导大梯度，然后使得权重获得较大更新。 如果这些更新持续增加权重的大小，  θ就会迅速增大，直到离原点很远而发生溢出。 重投影的显式约束可以防止这种反馈环引起权重无限制地持续增加。</p>
 <p>建议结合使用约束和高学习速率，这样能更快地探索参数空间，并保持一定的稳定性。</p>
 <h2 id="4-数据集增强"><a href="#4-数据集增强" class="headerlink" title="4.数据集增强"></a>4.数据集增强</h2><p>让机器学习模型泛化得更好的最好办法是使用更多的数据进行训练。 当然，在实践中，我们拥有的数据量是很有限的。<br>解决这个问题的一种方法是创建假数据并添加到训练集中。方式包括加入特定噪声（如高斯噪声），做一定的几何变换等等。</p>
 <p>另一种正则化模型的噪声使用方式是将其 <strong> 加到权重 </strong> ，这项技术主要用于循环神经网络。 这可以被解释为关于权重的贝叶斯推断的随机实现。<br>贝叶斯学习过程将权重视为不确定的，并且可以通过概率分布表示这种不确定性。 向权重添加噪声是反映这种不确定性的一种实用的随机方法。</p>
 <p>大多数数据集的  y  标签都有一定错误。 错误的  y  不利于最大化  log  p  (  y  |x  )  。<br>避免这种情况的一种方法是显式地对 <strong> 标签上的噪声 </strong> 进行建模。 例如，我们可以假设，对于一些小常数  ϵ  ，训练集标记  y  是正确的概率1  −  ϵ  ，（以  ϵ  的概率）任何其他可能的标签也可能是正确的。 这个假设很容易就能解析地与代价函数结合，而不用显式地抽取噪声样本。<br>例如，标签平滑（label smoothing）通过把确切分类目标从0和1替换成  ϵ  k  −  1  和  1  −  ϵ  ，正则化具有  k个输出的softmax函数的模型。 标准交叉熵损失可以用在这些非确切目标的输出上。 使用softmax函数和明确目标的最大似然学习可能永远不会收敛——softmax函数永远无法真正预测0概率或1概率，因此它会继续学习越来越大的权重，使预测更极端。 使用如权重衰减等其他正则化策略能够防止这种情况。<br>标签平滑的优势是能够防止模型追求确切概率而不影响模型学习正确分类。</p>
 <h2 id="5-半监督学习"><a href="#5-半监督学习" class="headerlink" title="5.半监督学习"></a>5.半监督学习</h2><p>在半监督学习的框架下，  P  (  x  )  产生的未标记样本和  P  (  x  ,  y  )  中的标记样本都用于估计  P  (  y  ∣x  )  或者根据  x  预测  y  。</p>
 <p>在深度学习的背景下，半监督学习通常指的是学习一个表示  h  =  f  (  x  )  。 学习表示的目的是使相同类中的样本有类似的表示。<br>无监督学习可以为如何在表示空间聚集样本提供有用线索。 在输入空间紧密聚集的样本应该被映射到类似的表示。<br>在许多情况下，新空间上的线性分类器可以达到较好的泛化。 这种方法的一个经典变种是使用主成分分析作为分类前（在投影后的数据上分类）的预处理步骤。</p>
-<p>我们可以构建这样一个模型，其中生成模型  P  (  x  )  或  P  (  x  ,  y  )  与判别模型  P  (  y  ∣  x  )共享参数，而不用分离无监督和监督部分。 我们权衡监督模型准则  − log  P  (y∣x)  和无监督或生成模型准则（如  −<br>log  P  (  x  )  或  −  log  P  (  x  ,  y  )  ）。 生成模型准则表达了对监督学习问题解的特殊形式的先验知识，即P  (  x  )  的结构通过某种共享参数的方式连接到  P  (  y  ∣  x  )  。<br>通过控制在总准则中的生成准则，我们可以获得比纯生成或纯判别训练准则更好的权衡。</p>
+<p>我们可以构建这样一个模型，其中生成模型  P  (  x  )  或  P  (  x  ,  y  )  与判别模型  P  (  y  ∣  x  )共享参数，而不用分离无监督和监督部分。 我们权衡监督模型准则 log  P  (y∣x)  和无监督或生成模型准则（如  −log  P  (  x  )  或  −  log  P  (  x  ,  y  )  ）。 生成模型准则表达了对监督学习问题解的特殊形式的先验知识，即P  (  x  )  的结构通过某种共享参数的方式连接到  P  (  y  ∣  x  )  。<br>通过控制在总准则中的生成准则，我们可以获得比纯生成或纯判别训练准则更好的权衡。</p>
 <h2 id="6-多任务学习"><a href="#6-多任务学习" class="headerlink" title="6.多任务学习"></a>6.多任务学习</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170915105548176?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 <p>从深度学习的观点看，底层的先验知识如下：能解释数据变化（在与之相关联的不同任务中观察到）的因素中，某些因素是跨两个或更多任务共享的。</p>
@@ -263,13 +263,13 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
 <p>Bagging集成必须根据所有成员的累积投票做一个预测。 在这种背景下，我们将这个过程称为 <strong> 推断 </strong> 。<br>目前为止，我们在介绍Bagging和Dropout时没有要求模型具有明确的概率。 现在，我们假定该模型的作用是输出一个概率分布。<br>在Bagging的情况下，每个模型  i  产生一个概率分布  p  (  i  )  (  y  ∣  x  )  。<br>集成的预测由这些分布的算术平均值给出：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915135742736?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 <p>其中  p  (  u  )  是训练时采样  u  的概率分布。</p>
 <p>虽然Dropout在特定模型上每一步的代价是微不足道的，但在一个完整的系统上使用Dropout的代价可能非常显著。<br>因为Dropout是一个正则化技术，它减少了模型的有效容量。 为了抵消这种影响，我们必须增大模型规模。<br>不出意外的话，使用Dropout时最佳验证集的误差会低很多，但这是以更大的模型和更多训练算法的迭代次数为代价换来的。<br>对于非常大的数据集，正则化带来的泛化误差减少得很小。 在这些情况下，使用Dropout和更大模型的计算代价可能超过正则化带来的好处。</p>
 <h2 id="11-对抗训练"><a href="#11-对抗训练" class="headerlink" title="11. 对抗训练"></a>11. 对抗训练</h2><p>我们可以训练分类器为  x  和  x  ′  分配相同的标签。 这鼓励分类器学习一个沿着未标签数据所在流形上任意微小变化都很鲁棒的函数。<br>驱动这种方法的假设是，不同的类通常位于分离的流形上，并且小扰动不会使数据点从一个类的流形跳到另一个类的流形上。<br>进行对抗训练的目的是使分类结果对训练样本 <strong> 小邻域 </strong> 更加鲁棒！</p>
-<h2 id="12-切面距离、正切传播和流形正切分类器"><a href="#12-切面距离、正切传播和流形正切分类器" class="headerlink" title="12. 切面距离、正切传播和流形正切分类器"></a>12. 切面距离、正切传播和流形正切分类器</h2><p>正切传播算法训练带有额外惩罚的神经网络分类器，使神经网络的每个输出  f  (  x  )  对已知的变化因素是局部不变的。<br>这些变化因素对应于沿着的相同样本聚集的流形的移动。 这里实现局部不变性的方法是要求  ∇  x  f  (  x  )  与已知流形的切向  v  (  i<br>)  正交，或者等价地通过正则化惩罚  Ω  使  f  在  x  的  v  (  i  )  方向的导数较小：  </p>
+<h2 id="12-切面距离、正切传播和流形正切分类器"><a href="#12-切面距离、正切传播和流形正切分类器" class="headerlink" title="12. 切面距离、正切传播和流形正切分类器"></a>12. 切面距离、正切传播和流形正切分类器</h2><p>正切传播算法训练带有额外惩罚的神经网络分类器，使神经网络的每个输出  f  (  x  )  对已知的变化因素是局部不变的。<br>这些变化因素对应于沿着的相同样本聚集的流形的移动。 这里实现局部不变性的方法是要求  ∇  x  f  (  x  )  与已知流形的切向  v(i)正交，或者等价地通过正则化惩罚  Ω  使  f  在  x  的  v  (  i  )  方向的导数较小：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915142914347?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast" width="30%"></div></p>
@@ -278,7 +278,7 @@ ssolve/70/gravity/SouthEast" width="30%"></div></p>
 
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915142953389?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 </div></div></div></div></div></div></div>

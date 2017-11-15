@@ -28,8 +28,7 @@
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
 solve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170922094440191?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
-solve/70/gravity/SouthEast">
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170922102754955?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
@@ -67,7 +66,7 @@ ssolve/70/gravity/SouthEast">
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
 solve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170922144225958?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dis
 solve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170922143919690?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
@@ -75,6 +74,9 @@ ssolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170922144700517?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
 solve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170922145245567?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170922153951385?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
@@ -87,7 +89,7 @@ ssolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170922161601583?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T03:17:28.000Z">
+<meta property="og:updated_time" content="2017-11-15T14:39:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning读书笔记4---深度模型中的优化 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. 最小化经验风险利用训练集上的经验分布,  p^(  x  ,  y  )  替代真实分布  p  (  x  ,  y  )  。 现在，我们将最小化经验风险：       其中  m  表示训练样本的数目。 2.小批量算法通常，在所有训练集上准确计算优化参数计算代价非常大，因为我们需要在整个数据集上的每个样本上评估模型。在实践中，我们可以从数据集中随机采样少量的样本，然后计算这些样本上的平">
@@ -260,19 +262,18 @@ solve/70/gravity/SouthEast" width="50%"></div></p>
 <div align="left"> 
 
 <p>其中  m  表示训练样本的数目。</p>
-<h2 id="2-小批量算法"><a href="#2-小批量算法" class="headerlink" title="2.小批量算法"></a>2.小批量算法</h2><p>通常，在所有训练集上准确计算优化参数计算代价非常大，因为我们需要在整个数据集上的每个样本上评估模型。<br>在实践中，我们可以从数据集中随机采样少量的样本，然后计算这些样本上的平均值。<br>随机方法的典型示例是随机梯度下降，小批量的大小通常由以下几个因素决定：<br>  - 更大的批量会计算更精确的梯度估计，但是回报却是小于线性的。<br>  - 极小批量通常难以充分利用多核架构。 这促使我们使用一些绝对最小批量，低于这个值的小批量处理不会减少计算时间。<br>- 如果批量处理中的所有样本可以并行地处理（通常确是如此），那么内存消耗和批量大小会正比。 对于很多硬件设施，这是批量大小的限制因素。<br>- 在某些硬件上使用特定大小的数组时，运行时间会更少。 尤其是在使用,GPU,时，通常使用  2  的幂数作为批量大小可以获得更少的运行时间。一般，  2的幂数的取值范围是  32  到  256  ，  16  有时在尝试大模型时使用。<br>- 可能是由于小批量在学习过程中加入了噪声，它们会有一些正则化效果。 泛化误差通常在批量大小为  1  时最好。因为梯度估计的高方差，小批量训练需要较小的<br>学习率以保持稳定性。因为降低的学习率和消耗更多步骤来遍历整个训练集都会产生更多的步骤，所以会导致总的运行时间非常大。</p>
-<h2 id="3-神经网络优化中的挑战"><a href="#3-神经网络优化中的挑战" class="headerlink" title="3.神经网络优化中的挑战"></a>3.神经网络优化中的挑战</h2><h3 id="3-1-病态"><a href="#3-1-病态" class="headerlink" title="3.1 病态"></a>3.1 病态</h3><p>在优化凸函数时，会遇到一些挑战。 这其中最突出的是Hessian矩阵的病态。<br>我们通常通过（方向）二阶导数预期一个梯度下降步骤能表现得多好。如果我们使用学习率  ϵ  ，那么新的点  x  将会是  x  (  0  )  −  ϵ<br>g  。我们在该点处作函数  f  (  x  )  的近似二阶泰勒级数：  </p>
+<h2 id="2-小批量算法"><a href="#2-小批量算法" class="headerlink" title="2.小批量算法"></a>2.小批量算法</h2><p>通常，在所有训练集上准确计算优化参数计算代价非常大，因为我们需要在整个数据集上的每个样本上评估模型。<br>在实践中，我们可以从数据集中随机采样少量的样本，然后计算这些样本上的平均值。<br>随机方法的典型示例是随机梯度下降，小批量的大小通常由以下几个因素决定：<br>  - 更大的批量会计算更精确的梯度估计，但是回报却是小于线性的。<br>  - 极小批量通常难以充分利用多核架构。 这促使我们使用一些绝对最小批量，低于这个值的小批量处理不会减少计算时间。<br>- 如果批量处理中的所有样本可以并行地处理（通常确是如此），那么内存消耗和批量大小会正比。 对于很多硬件设施，这是批量大小的限制因素。<br>- 在某些硬件上使用特定大小的数组时，运行时间会更少。 尤其是在使用,GPU,时，通常使用  2  的幂数作为批量大小可以获得更少的运行时间。一般，  2的幂数的取值范围是  32  到  256  ，  16  有时在尝试大模型时使用。<br>- 可能是由于小批量在学习过程中加入了噪声，它们会有一些正则化效果。 泛化误差通常在批量大小为  1  时最好。因为梯度估计的高方差，小批量训练需要较小的学习率以保持稳定性。因为降低的学习率和消耗更多步骤来遍历整个训练集都会产生更多的步骤，所以会导致总的运行时间非常大。</p>
+<h2 id="3-神经网络优化中的挑战"><a href="#3-神经网络优化中的挑战" class="headerlink" title="3.神经网络优化中的挑战"></a>3.神经网络优化中的挑战</h2><h3 id="3-1-病态"><a href="#3-1-病态" class="headerlink" title="3.1 病态"></a>3.1 病态</h3><p>在优化凸函数时，会遇到一些挑战。 这其中最突出的是Hessian矩阵的病态。<br>我们通常通过（方向）二阶导数预期一个梯度下降步骤能表现得多好。如果我们使用学习率  ϵ  ，那么新的点  x  将会是  x  (  0  )  −  ϵg  。我们在该点处作函数  f  (  x  )  的近似二阶泰勒级数：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922094440191?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
-solve/70/gravity/SouthEast" width="50%"></div></p>
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%"></div></p>
 <div align="left"> 
 
-<p>当  $$1/2ϵ^2g^THg$$  超过  $$ϵg⊤g$$  时，梯度的病态会成为问题。<br>判断病态是否不利于神经网络训练任务，我们可以监测平方梯度范数 $$g^⊤g$$  和$$g^⊤Hg$$  。<br>在很多情况中，梯度范数不会在训练过程中显著缩小，但是$$g^⊤Hg$的增长会超过一个数量级。<br>其结果是尽管梯度很强，学习会变得非常缓慢，因为学习率必须收缩以弥补更强的曲率。</p>
-<h3 id="3-2-局部极小值"><a href="#3-2-局部极小值" class="headerlink" title="3.2 局部极小值"></a>3.2 局部极小值</h3><p>如果一个足够大的训练集可以唯一确定一组模型参数，那么该模型被称为辨识性的。由于模型可辨识性问题，神经网络和任意具有多个等效参数化潜变量的模型都会具有多个局部<br>极小值。 带有潜变量的模型通常是不可辨认的，因为通过相互交换潜变量我们能得到等价的模型。 例如，考虑神经网络的第一层，我们可以交换单元  i  和单元  j<br>的传入权重向量、传出权重向量而得到等价的模型。 如果神经网络有  m  层，每层有  n  个单元，那么会有  n  !  m  种排列隐藏单元的方式。<br>这种不可辨认性被称为权重空间对称性。<br>除了权重空间对称性，很多神经网络还有其他导致不可辨认的原因。 例如，在任意整流线性网络或者maxout网络中， 我们可以将传入权重和偏置扩大  α<br>倍，然后将传出权重扩大  1  α  倍，而保持模型等价。<br>这意味着，如果代价函数不包括如权重衰减这种直接依赖于权重而非模型输出的项，那么整流线性网络或者maxout网络的每一个局部极小点都在等价的局部极小值的  (m  ×  n  )  维双曲线上。</p>
+<p>当  $$1/2ϵ^2g^THg$$  超过  $$ϵg⊤g$$  时，梯度的病态会成为问题。<br>判断病态是否不利于神经网络训练任务，我们可以监测平方梯度范数$$g^⊤g$$和$$g^⊤Hg$$。<br>在很多情况中，梯度范数不会在训练过程中显著缩小，但是$$g^⊤Hg$$的增长会超过一个数量级。<br>其结果是尽管梯度很强，学习会变得非常缓慢，因为学习率必须收缩以弥补更强的曲率。</p>
+<h3 id="3-2-局部极小值"><a href="#3-2-局部极小值" class="headerlink" title="3.2 局部极小值"></a>3.2 局部极小值</h3><p>如果一个足够大的训练集可以唯一确定一组模型参数，那么该模型被称为辨识性的。由于模型可辨识性问题，神经网络和任意具有多个等效参数化潜变量的模型都会具有多个局部极小值。 带有潜变量的模型通常是不可辨认的，因为通过相互交换潜变量我们能得到等价的模型。 例如，考虑神经网络的第一层，我们可以交换单元i和单元j的传入权重向量、传出权重向量而得到等价的模型。如果神经网络有m层，每层有n个单元，那么会有n!m种排列隐藏单元的方式。<br>这种不可辨认性被称为权重空间对称性。<br>除了权重空间对称性，很多神经网络还有其他导致不可辨认的原因。 例如，在任意整流线性网络或者maxout网络中， 我们可以将传入权重和偏置扩大α倍，然后将传出权重扩大1/α倍，而保持模型等价。<br>这意味着，如果代价函数不包括如权重衰减这种直接依赖于权重而非模型输出的项，那么整流线性网络或者maxout网络的每一个局部极小点都在等价的局部极小值的(m×n)维双曲线上。</p>
 <h3 id="3-3-高原、鞍点和其他平坦区域"><a href="#3-3-高原、鞍点和其他平坦区域" class="headerlink" title="3.3 高原、鞍点和其他平坦区域"></a>3.3 高原、鞍点和其他平坦区域</h3><p>对于很多高维非凸函数而言，局部极小值（以及极大值）事实上都远少于另一类梯度为零的点：鞍点。 鞍点附近的某些点比鞍点有更大的代价，而其他点则有更小的代价。<br>在鞍点处，Hessian,矩阵同时具有正负特征值。<br>位于正特征值对应的特征向量方向的点比鞍点有更大的代价，反之，位于负特征值对应的特征向量方向的点有更小的代价。<br>我们可以将鞍点视为代价函数某个横截面上的局部极小点，同时也可以视为代价函数某个横截面上的局部极大点。</p>
 <h3 id="3-4-悬崖和梯度爆炸"><a href="#3-4-悬崖和梯度爆炸" class="headerlink" title="3.4 悬崖和梯度爆炸"></a>3.4 悬崖和梯度爆炸</h3><p><div align="center"><br><img src="http://img.blog.csdn.net/20170922102754955?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <p>其基本想法源自梯度并没有指明最佳步长，只说明了在无限小区域内的最佳方向。<br>当传统的梯度下降算法提议更新很大一步时，启发式梯度截断会干涉来减小步长，从而使其不太可能走出梯度近似为最陡下降方向的悬崖区域。</p>
@@ -280,25 +281,25 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
 <h3 id="3-6-非精确梯度"><a href="#3-6-非精确梯度" class="headerlink" title="3.6 非精确梯度"></a>3.6 非精确梯度</h3><p>大多数优化算法的先决条件都是我们知道精确的梯度或是Hessian矩阵。<br>在实践中，通常这些量会有噪声，甚至是有偏的估计。几乎每一个深度学习算法都需要基于采样的估计，至少使用训练样本的小批量来计算梯度。<br>在其他情况，我们希望最小化的目标函数实际上是难以处理的。 当目标函数不可解时，通常其梯度也是难以处理的。<br>各种神经网络优化算法的设计都考虑到了梯度估计的缺陷。 我们可以选择比真实损失函数更容易估计的代理损失函数来避免这个问题。</p>
 <h3 id="3-7-局部和全局结构间的弱对应"><a href="#3-7-局部和全局结构间的弱对应" class="headerlink" title="3.7 局部和全局结构间的弱对应"></a>3.7 局部和全局结构间的弱对应</h3><p><div align="center"><br><img src="http://img.blog.csdn.net/20170922103155685?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <h2 id="4-基本算法"><a href="#4-基本算法" class="headerlink" title="4.基本算法"></a>4.基本算法</h2><h3 id="4-1-SGD"><a href="#4-1-SGD" class="headerlink" title="4.1 SGD"></a>4.1 SGD</h3><p><div align="center"><br><img src="http://img.blog.csdn.net/20170922103316817?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <p>SGD算法中的一个关键参数是学习率。 之前，我们介绍的SGD使用固定的学习率。 在实践中，有必要随着时间的推移逐渐降低学习率，因此我们将第  k<br>步迭代的学习率记作  ϵ  k  。<br>实践中，一般会线性衰减学习率直到第  τ  次迭代：<br>$$ϵ-k  =  (  1  −  α  )  ϵ_0  +  αϵ<em>t $$<br>其中  α  =  k</em>τ  。 在  τ  步迭代之后，一般使  ϵ  保持常数。</p>
 <p><strong> 4.2 动量 </strong>   </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922104728067?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922105042316?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <p>速度  v  累积了梯度元素  $$∇  θ  (  1/m  ∑  m _{i  =  1}  L  (  f  (  x  (  i  )  ;  θ  ),  y  (  i  )  )  )$$  。 相对于  ϵ  ，  α  越大，之前梯度对现在方向的影响也越大。之前，步长只是梯度范数乘以学习率。<br>现在，步长取决于梯度序列的大小和排列。 当许多连续的梯度指向相同的方向时，步长最大。</p>
@@ -306,7 +307,7 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
 <p>Nesterov 动量可以解释为往标准动量方法中添加了一个校正因子。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922105656434?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <p>在凸批量梯度的情况下，Nesterov 动量将额外误差收敛率从  O  (  1  /  k  )  （  k  步后）改进到  O  (  1  /  k<br>2  )  可惜，在随机梯度的情况下，Nesterov 动量没有改进收敛率。</p>
@@ -321,44 +322,44 @@ ssolve/70/gravity/SouthEast" width="30%"></div></p>
 <h2 id="6-自适应学习率算法"><a href="#6-自适应学习率算法" class="headerlink" title="6. 自适应学习率算法"></a>6. 自适应学习率算法</h2><h3 id="6-1-AdaGrad"><a href="#6-1-AdaGrad" class="headerlink" title="6.1 AdaGrad"></a>6.1 AdaGrad</h3><p>AdaGrad算法，如下图所示，能独立地适应所有模型参数的学习率，缩放每个参数反比于其所有梯度历史平方值总和的平方根。<br>具有损失最大偏导的参数相应地有一个快速下降的学习率，而具有小偏导的参数在学习率上有相对较小的下降。 净效果是在参数空间中更为平缓的倾斜方向会取得更大的进步。<br>在凸优化背景中，AdaGrad 算法具有一些令人满意的理论性质。<br>然而，经验上已经发现，对于训练深度神经网络模型而言，从训练开始时积累梯度平方会导致有效学习率过早和过量的减小。<br>AdaGrad在某些深度学习模型上效果不错，但不是全部。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922113116588?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <h3 id="6-2-RMSProp"><a href="#6-2-RMSProp" class="headerlink" title="6.2 RMSProp"></a>6.2 RMSProp</h3><p>RMSProp算法修改AdaGrad以在非凸设定下效果更好，改变梯度积累为指数加权的移动平均。 AdaGrad旨在应用于凸问题时快速收敛。<br>当应用于非凸函数训练神经网络时，学习轨迹可能穿过了很多不同的结构，最终到达一个局部是凸碗的区域。<br>AdaGrad根据平方梯度的整个历史收缩学习率，可能使得学习率在达到这样的凸结构前就变得太小了。<br>RMSProp使用指数衰减平均以丢弃遥远过去的历史，使其能够在找到凸碗状结构后快速收敛， 它就像一个初始化于该碗状结构的AdaGrad算法实例。</p>
 <p>RMSProp的标准形式如算法8.5所示，算法8.6为结合Nesterov动量的形式。 相比于AdaGrad，使用移动平均引入了一个新的超参数  ρ，用来控制移动平均的长度范围。  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922113523234?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922113752900?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <h3 id="6-3-Adam"><a href="#6-3-Adam" class="headerlink" title="6.3 Adam"></a>6.3 Adam</h3><p>首先，在Adam中，动量直接并入了梯度一阶矩（指数加权）的估计。 将动量加入RMSProp最直观的方法是将动量应用于缩放后的梯度。<br>结合缩放的动量使用没有明确的理论动机。 其次，Adam包括偏置修正，修正从原点初始化的一阶矩（动量项）和（非中心的）二阶矩的估计。<br>RMSProp也采用了（非中心的）二阶矩估计，然而缺失了修正因子。 因此，不像Adam，RMSProp二阶矩估计可能在训练初期有很高的偏置。<br>Adam通常被认为对超参数的选择相当鲁棒，尽管学习率有时需要从建议的默认修改。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922113939300?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <h2 id="7-二阶近似方法"><a href="#7-二阶近似方法" class="headerlink" title="7. 二阶近似方法"></a>7. 二阶近似方法</h2><h3 id="7-1-牛顿法"><a href="#7-1-牛顿法" class="headerlink" title="7.1 牛顿法"></a>7.1 牛顿法</h3><p>牛顿法是基于二阶泰勒级数展开在某点$$θ_0$$附近来近似  J  (  θ  )  的优化方法，其忽略了高阶导数：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922144108575?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
-solve/70/gravity/SouthEast" width="50%"></div></p>
+solve/70/gravity/SouthEast" width="60%"></div></p>
 <div align="left"> 
 
 <p>其中  H  是  J  相对于  θ  的Hessian矩阵在 $$θ_0$$处的估计。 如果我们再求解这个函数的临界点，我们将得到牛顿参数更新规则：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922144225958?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
-solve/70/gravity/SouthEast" width="20%"></div></p>
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dis
+solve/70/gravity/SouthEast" width="30%"></div></p>
 <div align="left"> 
 
 <p>因此，对于局部的二次函数（具有正定的  H  ,），用  H  −  1  重新调整梯度，牛顿法会直接跳到极小值。<br>如果目标函数是凸的但非二次的（有高阶项），该更新将是迭代的，得到和牛顿法相关的算法，如算法8.8所示。  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922143919690?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <p>牛顿法只适用于Hessian矩阵是正定的情况。 在深度学习中，目标函数的表面通常非凸（有很多特征），如鞍点。如果Hessian矩阵的特征值并不都是正的，例如，靠近鞍点处，牛顿法实际上会导致更新朝错误的方向移动。 这种情况可以通过正则化Hessian矩阵来避免。<br>常用的正则化策略包括在Hessian矩阵对角线上增加常数  α  。 正则化更新变为  </p>
@@ -367,9 +368,13 @@ cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
 solve/70/gravity/SouthEast" width="30%"></div></p>
 <div align="left"> 
 
-<p>只要Hessian矩阵的负特征值仍然相对接近零，效果就会很好。 在曲率方向更极端的情况下，  α  的值必须足够大，以抵消负特征值。 然而，如果  α<br>持续增加，Hessian,矩阵会变得由对角矩阵  α  I  主导，通过牛顿法所选择的方向会收敛到普通梯度除以  α  。 当很强的负曲率存在时，  α<br>可能需要特别大，以致于牛顿法比选择合适学习率的梯度下降的步长更小。</p>
+<p>只要Hessian矩阵的负特征值仍然相对接近零，效果就会很好。 在曲率方向更极端的情况下，  α  的值必须足够大，以抵消负特征值。 然而，如果α持续增加，Hessian,矩阵会变得由对角矩阵  α  I  主导，通过牛顿法所选择的方向会收敛到普通梯度除以  α  。 当很强的负曲率存在时，  α可能需要特别大，以致于牛顿法比选择合适学习率的梯度下降的步长更小。</p>
 <h2 id="7-2-共轭梯度"><a href="#7-2-共轭梯度" class="headerlink" title="7.2 共轭梯度"></a>7.2 共轭梯度</h2><p>对于二次曲面而言，共轭方向确保梯度沿着前一方向大小不变。 因此，我们在前一方向上仍然是极小值。 其结果是，在k维参数空间中，共轭梯度只需要至多k次线搜索就能达到极小值。  </p>
-<p><div align="center"><br>&lt;img src=”<a href="http://img.blog.csdn.net/20170922145245567?watermark/2/text/aHR0cDovL2Jsb2" target="_blank" rel="external">http://img.blog.csdn.net/20170922145245567?watermark/2/text/aHR0cDovL2Jsb2</a><br>cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di<br>ssolve/70/gravity/SouthEast)</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170922145245567?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
+<div align="left"> 
+
 <h2 id="8-优化策略和元算法"><a href="#8-优化策略和元算法" class="headerlink" title="8. 优化策略和元算法"></a>8. 优化策略和元算法</h2><h2 id="8-1-批标准化"><a href="#8-1-批标准化" class="headerlink" title="8.1 批标准化"></a>8.1 批标准化</h2><p>重参数化显著减少了多层之间协调更新的问题。 批标准化可应用于网络的任何输入层或隐藏层。 设  H是需要标准化的某层的小批量激活函数，排布为设计矩阵，每个样本的激活出现在矩阵的每一行中。 为了标准化H，我们将其替换为  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922153951385?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
@@ -399,14 +404,14 @@ ssolve/70/gravity/SouthEast" width="30%"></div></p>
 <p>贪心算法将问题分解成许多部分，然后独立地在每个部分求解最优值。 令人遗憾的是，结合各个最佳的部分不能保证得到一个最佳的完整解。<br>然而，贪心算法计算上比求解最优联合解的算法高效得多，并且贪心算法的解在不是最优的情况下，往往也是可以接受的。<br>贪心算法也可以紧接一个精调阶段，联合优化算法搜索全问题的最优解。 使用贪心解初始化联合优化算法，可以极大地加速算法，并提高寻找到的解的质量。  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922161601583?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <h3 id="8-5-设计有助于优化的模型"><a href="#8-5-设计有助于优化的模型" class="headerlink" title="8.5 设计有助于优化的模型"></a>8.5 设计有助于优化的模型</h3><p><strong> 在实践中，选择一族容易优化的模型比使用一个强大的优化算法更重要。 </strong></p>
 <p>具体来说，现代神经网络的设计选择体现在层之间的线性变换，几乎处处可导的激活函数，和大部分定义域都有明显的梯度。<br>特别地，创新的模型，如LSTM，整流线性单元和maxout单元都比先前的模型（如基于sigmoid单元的深度网络）使用更多的线性函数。<br>这些模型都具有简化优化的性质。 如果线性变换的Jacobian具有相对合理的奇异值，那么梯度能够流经很多层。<br>此外，线性函数在一个方向上一致增加，所以即使模型的输出远离正确值，也可以简单清晰地计算梯度，使其输出方向朝降低损失函数的方向移动。<br>换言之，现代神经网络的设计方案旨在使其局部梯度信息合理地对应着移向一个遥远的解。</p>
 <p>其他的模型设计策略有助于使优化更简单。 例如，层之间的线性路径或是跳跃连接减少了从较低层参数到输出最短路径的长度，因而缓解了梯度消失的问题。<br>一个和跳跃连接相关的想法是添加和网络中间隐藏层相连的输出的额外副本，如GoogLeNet和深度监督网络。<br>这些”辅助头”被训练来执行和网络顶层主要输出相同的任务，以确保底层网络能够接受较大的梯度。 当训练完成时，辅助头可能被丢弃。<br>这是前一小节介绍到的预训练策略的替代方法。<br>以这种方式，我们可以在一个阶段联合训练所有层，而不改变架构，使得中间层（特别是低层）能够通过更短的路径得到一些如何更新的有用信息。<br>这些信息为底层提供了误差信号。</p>
 <h3 id="8-6-延拓法和课程学习"><a href="#8-6-延拓法和课程学习" class="headerlink" title="8.6 延拓法和课程学习"></a>8.6 延拓法和课程学习</h3><p>延拓法是一族通过挑选初始点使优化更容易的方法，以确保局部优化花费大部分时间在表现良好的空间。 延拓法的背后想法是构造一系列具有相同参数的目标函数。<br>为了最小化代价函数  J  (  θ  )  ，我们构建新的代价函数  J  (  0  )  ,  …  ,  J  (  n  )  。<br>这些代价函数的难度逐步提高，其中  J  (  0  )  是最容易最小化的，  J  (  n  )  是最难的，真正的代价函数驱动整个过程。 当我们说J  (  i  )  比  J  (  i  +  1  )  更容易时，是指其在更多的  θ  空间上表现良好。<br>随机初始化更有可能落入局部下降可以成功最小化代价函数的区域，因为其良好区域更大。 这系列代价函数设计为前一个解是下一个的良好初始点。<br>因此，我们首先解决一个简单的问题，然后改进解以解决逐步变难的问题，直到我们求解真正问题的解。</p>
-</div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+</div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
   </section>
 
   <section class="post-comments">

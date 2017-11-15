@@ -2855,19 +2855,18 @@ solve/70/gravity/SouthEast" width="50%"></div></p>
 <div align="left"> 
 
 <p>其中  m  表示训练样本的数目。</p>
-<h2 id="2-小批量算法"><a href="#2-小批量算法" class="headerlink" title="2.小批量算法"></a>2.小批量算法</h2><p>通常，在所有训练集上准确计算优化参数计算代价非常大，因为我们需要在整个数据集上的每个样本上评估模型。<br>在实践中，我们可以从数据集中随机采样少量的样本，然后计算这些样本上的平均值。<br>随机方法的典型示例是随机梯度下降，小批量的大小通常由以下几个因素决定：<br>  - 更大的批量会计算更精确的梯度估计，但是回报却是小于线性的。<br>  - 极小批量通常难以充分利用多核架构。 这促使我们使用一些绝对最小批量，低于这个值的小批量处理不会减少计算时间。<br>- 如果批量处理中的所有样本可以并行地处理（通常确是如此），那么内存消耗和批量大小会正比。 对于很多硬件设施，这是批量大小的限制因素。<br>- 在某些硬件上使用特定大小的数组时，运行时间会更少。 尤其是在使用,GPU,时，通常使用  2  的幂数作为批量大小可以获得更少的运行时间。一般，  2的幂数的取值范围是  32  到  256  ，  16  有时在尝试大模型时使用。<br>- 可能是由于小批量在学习过程中加入了噪声，它们会有一些正则化效果。 泛化误差通常在批量大小为  1  时最好。因为梯度估计的高方差，小批量训练需要较小的<br>学习率以保持稳定性。因为降低的学习率和消耗更多步骤来遍历整个训练集都会产生更多的步骤，所以会导致总的运行时间非常大。</p>
-<h2 id="3-神经网络优化中的挑战"><a href="#3-神经网络优化中的挑战" class="headerlink" title="3.神经网络优化中的挑战"></a>3.神经网络优化中的挑战</h2><h3 id="3-1-病态"><a href="#3-1-病态" class="headerlink" title="3.1 病态"></a>3.1 病态</h3><p>在优化凸函数时，会遇到一些挑战。 这其中最突出的是Hessian矩阵的病态。<br>我们通常通过（方向）二阶导数预期一个梯度下降步骤能表现得多好。如果我们使用学习率  ϵ  ，那么新的点  x  将会是  x  (  0  )  −  ϵ<br>g  。我们在该点处作函数  f  (  x  )  的近似二阶泰勒级数：  </p>
+<h2 id="2-小批量算法"><a href="#2-小批量算法" class="headerlink" title="2.小批量算法"></a>2.小批量算法</h2><p>通常，在所有训练集上准确计算优化参数计算代价非常大，因为我们需要在整个数据集上的每个样本上评估模型。<br>在实践中，我们可以从数据集中随机采样少量的样本，然后计算这些样本上的平均值。<br>随机方法的典型示例是随机梯度下降，小批量的大小通常由以下几个因素决定：<br>  - 更大的批量会计算更精确的梯度估计，但是回报却是小于线性的。<br>  - 极小批量通常难以充分利用多核架构。 这促使我们使用一些绝对最小批量，低于这个值的小批量处理不会减少计算时间。<br>- 如果批量处理中的所有样本可以并行地处理（通常确是如此），那么内存消耗和批量大小会正比。 对于很多硬件设施，这是批量大小的限制因素。<br>- 在某些硬件上使用特定大小的数组时，运行时间会更少。 尤其是在使用,GPU,时，通常使用  2  的幂数作为批量大小可以获得更少的运行时间。一般，  2的幂数的取值范围是  32  到  256  ，  16  有时在尝试大模型时使用。<br>- 可能是由于小批量在学习过程中加入了噪声，它们会有一些正则化效果。 泛化误差通常在批量大小为  1  时最好。因为梯度估计的高方差，小批量训练需要较小的学习率以保持稳定性。因为降低的学习率和消耗更多步骤来遍历整个训练集都会产生更多的步骤，所以会导致总的运行时间非常大。</p>
+<h2 id="3-神经网络优化中的挑战"><a href="#3-神经网络优化中的挑战" class="headerlink" title="3.神经网络优化中的挑战"></a>3.神经网络优化中的挑战</h2><h3 id="3-1-病态"><a href="#3-1-病态" class="headerlink" title="3.1 病态"></a>3.1 病态</h3><p>在优化凸函数时，会遇到一些挑战。 这其中最突出的是Hessian矩阵的病态。<br>我们通常通过（方向）二阶导数预期一个梯度下降步骤能表现得多好。如果我们使用学习率  ϵ  ，那么新的点  x  将会是  x  (  0  )  −  ϵg  。我们在该点处作函数  f  (  x  )  的近似二阶泰勒级数：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922094440191?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
-solve/70/gravity/SouthEast" width="50%"></div></p>
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%"></div></p>
 <div align="left"> 
 
-<p>当  $$1/2ϵ^2g^THg$$  超过  $$ϵg⊤g$$  时，梯度的病态会成为问题。<br>判断病态是否不利于神经网络训练任务，我们可以监测平方梯度范数 $$g^⊤g$$  和$$g^⊤Hg$$  。<br>在很多情况中，梯度范数不会在训练过程中显著缩小，但是$$g^⊤Hg$的增长会超过一个数量级。<br>其结果是尽管梯度很强，学习会变得非常缓慢，因为学习率必须收缩以弥补更强的曲率。</p>
-<h3 id="3-2-局部极小值"><a href="#3-2-局部极小值" class="headerlink" title="3.2 局部极小值"></a>3.2 局部极小值</h3><p>如果一个足够大的训练集可以唯一确定一组模型参数，那么该模型被称为辨识性的。由于模型可辨识性问题，神经网络和任意具有多个等效参数化潜变量的模型都会具有多个局部<br>极小值。 带有潜变量的模型通常是不可辨认的，因为通过相互交换潜变量我们能得到等价的模型。 例如，考虑神经网络的第一层，我们可以交换单元  i  和单元  j<br>的传入权重向量、传出权重向量而得到等价的模型。 如果神经网络有  m  层，每层有  n  个单元，那么会有  n  !  m  种排列隐藏单元的方式。<br>这种不可辨认性被称为权重空间对称性。<br>除了权重空间对称性，很多神经网络还有其他导致不可辨认的原因。 例如，在任意整流线性网络或者maxout网络中， 我们可以将传入权重和偏置扩大  α<br>倍，然后将传出权重扩大  1  α  倍，而保持模型等价。<br>这意味着，如果代价函数不包括如权重衰减这种直接依赖于权重而非模型输出的项，那么整流线性网络或者maxout网络的每一个局部极小点都在等价的局部极小值的  (m  ×  n  )  维双曲线上。</p>
+<p>当  $$1/2ϵ^2g^THg$$  超过  $$ϵg⊤g$$  时，梯度的病态会成为问题。<br>判断病态是否不利于神经网络训练任务，我们可以监测平方梯度范数$$g^⊤g$$和$$g^⊤Hg$$。<br>在很多情况中，梯度范数不会在训练过程中显著缩小，但是$$g^⊤Hg$$的增长会超过一个数量级。<br>其结果是尽管梯度很强，学习会变得非常缓慢，因为学习率必须收缩以弥补更强的曲率。</p>
+<h3 id="3-2-局部极小值"><a href="#3-2-局部极小值" class="headerlink" title="3.2 局部极小值"></a>3.2 局部极小值</h3><p>如果一个足够大的训练集可以唯一确定一组模型参数，那么该模型被称为辨识性的。由于模型可辨识性问题，神经网络和任意具有多个等效参数化潜变量的模型都会具有多个局部极小值。 带有潜变量的模型通常是不可辨认的，因为通过相互交换潜变量我们能得到等价的模型。 例如，考虑神经网络的第一层，我们可以交换单元i和单元j的传入权重向量、传出权重向量而得到等价的模型。如果神经网络有m层，每层有n个单元，那么会有n!m种排列隐藏单元的方式。<br>这种不可辨认性被称为权重空间对称性。<br>除了权重空间对称性，很多神经网络还有其他导致不可辨认的原因。 例如，在任意整流线性网络或者maxout网络中， 我们可以将传入权重和偏置扩大α倍，然后将传出权重扩大1/α倍，而保持模型等价。<br>这意味着，如果代价函数不包括如权重衰减这种直接依赖于权重而非模型输出的项，那么整流线性网络或者maxout网络的每一个局部极小点都在等价的局部极小值的(m×n)维双曲线上。</p>
 <h3 id="3-3-高原、鞍点和其他平坦区域"><a href="#3-3-高原、鞍点和其他平坦区域" class="headerlink" title="3.3 高原、鞍点和其他平坦区域"></a>3.3 高原、鞍点和其他平坦区域</h3><p>对于很多高维非凸函数而言，局部极小值（以及极大值）事实上都远少于另一类梯度为零的点：鞍点。 鞍点附近的某些点比鞍点有更大的代价，而其他点则有更小的代价。<br>在鞍点处，Hessian,矩阵同时具有正负特征值。<br>位于正特征值对应的特征向量方向的点比鞍点有更大的代价，反之，位于负特征值对应的特征向量方向的点有更小的代价。<br>我们可以将鞍点视为代价函数某个横截面上的局部极小点，同时也可以视为代价函数某个横截面上的局部极大点。</p>
 <h3 id="3-4-悬崖和梯度爆炸"><a href="#3-4-悬崖和梯度爆炸" class="headerlink" title="3.4 悬崖和梯度爆炸"></a>3.4 悬崖和梯度爆炸</h3><p><div align="center"><br><img src="http://img.blog.csdn.net/20170922102754955?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <p>其基本想法源自梯度并没有指明最佳步长，只说明了在无限小区域内的最佳方向。<br>当传统的梯度下降算法提议更新很大一步时，启发式梯度截断会干涉来减小步长，从而使其不太可能走出梯度近似为最陡下降方向的悬崖区域。</p>
@@ -2875,25 +2874,25 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
 <h3 id="3-6-非精确梯度"><a href="#3-6-非精确梯度" class="headerlink" title="3.6 非精确梯度"></a>3.6 非精确梯度</h3><p>大多数优化算法的先决条件都是我们知道精确的梯度或是Hessian矩阵。<br>在实践中，通常这些量会有噪声，甚至是有偏的估计。几乎每一个深度学习算法都需要基于采样的估计，至少使用训练样本的小批量来计算梯度。<br>在其他情况，我们希望最小化的目标函数实际上是难以处理的。 当目标函数不可解时，通常其梯度也是难以处理的。<br>各种神经网络优化算法的设计都考虑到了梯度估计的缺陷。 我们可以选择比真实损失函数更容易估计的代理损失函数来避免这个问题。</p>
 <h3 id="3-7-局部和全局结构间的弱对应"><a href="#3-7-局部和全局结构间的弱对应" class="headerlink" title="3.7 局部和全局结构间的弱对应"></a>3.7 局部和全局结构间的弱对应</h3><p><div align="center"><br><img src="http://img.blog.csdn.net/20170922103155685?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <h2 id="4-基本算法"><a href="#4-基本算法" class="headerlink" title="4.基本算法"></a>4.基本算法</h2><h3 id="4-1-SGD"><a href="#4-1-SGD" class="headerlink" title="4.1 SGD"></a>4.1 SGD</h3><p><div align="center"><br><img src="http://img.blog.csdn.net/20170922103316817?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <p>SGD算法中的一个关键参数是学习率。 之前，我们介绍的SGD使用固定的学习率。 在实践中，有必要随着时间的推移逐渐降低学习率，因此我们将第  k<br>步迭代的学习率记作  ϵ  k  。<br>实践中，一般会线性衰减学习率直到第  τ  次迭代：<br>$$ϵ-k  =  (  1  −  α  )  ϵ_0  +  αϵ<em>t $$<br>其中  α  =  k</em>τ  。 在  τ  步迭代之后，一般使  ϵ  保持常数。</p>
 <p><strong> 4.2 动量 </strong>   </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922104728067?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922105042316?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <p>速度  v  累积了梯度元素  $$∇  θ  (  1/m  ∑  m _{i  =  1}  L  (  f  (  x  (  i  )  ;  θ  ),  y  (  i  )  )  )$$  。 相对于  ϵ  ，  α  越大，之前梯度对现在方向的影响也越大。之前，步长只是梯度范数乘以学习率。<br>现在，步长取决于梯度序列的大小和排列。 当许多连续的梯度指向相同的方向时，步长最大。</p>
@@ -2901,7 +2900,7 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
 <p>Nesterov 动量可以解释为往标准动量方法中添加了一个校正因子。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922105656434?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <p>在凸批量梯度的情况下，Nesterov 动量将额外误差收敛率从  O  (  1  /  k  )  （  k  步后）改进到  O  (  1  /  k<br>2  )  可惜，在随机梯度的情况下，Nesterov 动量没有改进收敛率。</p>
@@ -2916,44 +2915,44 @@ ssolve/70/gravity/SouthEast" width="30%"></div></p>
 <h2 id="6-自适应学习率算法"><a href="#6-自适应学习率算法" class="headerlink" title="6. 自适应学习率算法"></a>6. 自适应学习率算法</h2><h3 id="6-1-AdaGrad"><a href="#6-1-AdaGrad" class="headerlink" title="6.1 AdaGrad"></a>6.1 AdaGrad</h3><p>AdaGrad算法，如下图所示，能独立地适应所有模型参数的学习率，缩放每个参数反比于其所有梯度历史平方值总和的平方根。<br>具有损失最大偏导的参数相应地有一个快速下降的学习率，而具有小偏导的参数在学习率上有相对较小的下降。 净效果是在参数空间中更为平缓的倾斜方向会取得更大的进步。<br>在凸优化背景中，AdaGrad 算法具有一些令人满意的理论性质。<br>然而，经验上已经发现，对于训练深度神经网络模型而言，从训练开始时积累梯度平方会导致有效学习率过早和过量的减小。<br>AdaGrad在某些深度学习模型上效果不错，但不是全部。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922113116588?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <h3 id="6-2-RMSProp"><a href="#6-2-RMSProp" class="headerlink" title="6.2 RMSProp"></a>6.2 RMSProp</h3><p>RMSProp算法修改AdaGrad以在非凸设定下效果更好，改变梯度积累为指数加权的移动平均。 AdaGrad旨在应用于凸问题时快速收敛。<br>当应用于非凸函数训练神经网络时，学习轨迹可能穿过了很多不同的结构，最终到达一个局部是凸碗的区域。<br>AdaGrad根据平方梯度的整个历史收缩学习率，可能使得学习率在达到这样的凸结构前就变得太小了。<br>RMSProp使用指数衰减平均以丢弃遥远过去的历史，使其能够在找到凸碗状结构后快速收敛， 它就像一个初始化于该碗状结构的AdaGrad算法实例。</p>
 <p>RMSProp的标准形式如算法8.5所示，算法8.6为结合Nesterov动量的形式。 相比于AdaGrad，使用移动平均引入了一个新的超参数  ρ，用来控制移动平均的长度范围。  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922113523234?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922113752900?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <h3 id="6-3-Adam"><a href="#6-3-Adam" class="headerlink" title="6.3 Adam"></a>6.3 Adam</h3><p>首先，在Adam中，动量直接并入了梯度一阶矩（指数加权）的估计。 将动量加入RMSProp最直观的方法是将动量应用于缩放后的梯度。<br>结合缩放的动量使用没有明确的理论动机。 其次，Adam包括偏置修正，修正从原点初始化的一阶矩（动量项）和（非中心的）二阶矩的估计。<br>RMSProp也采用了（非中心的）二阶矩估计，然而缺失了修正因子。 因此，不像Adam，RMSProp二阶矩估计可能在训练初期有很高的偏置。<br>Adam通常被认为对超参数的选择相当鲁棒，尽管学习率有时需要从建议的默认修改。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922113939300?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <h2 id="7-二阶近似方法"><a href="#7-二阶近似方法" class="headerlink" title="7. 二阶近似方法"></a>7. 二阶近似方法</h2><h3 id="7-1-牛顿法"><a href="#7-1-牛顿法" class="headerlink" title="7.1 牛顿法"></a>7.1 牛顿法</h3><p>牛顿法是基于二阶泰勒级数展开在某点$$θ_0$$附近来近似  J  (  θ  )  的优化方法，其忽略了高阶导数：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922144108575?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
-solve/70/gravity/SouthEast" width="50%"></div></p>
+solve/70/gravity/SouthEast" width="60%"></div></p>
 <div align="left"> 
 
 <p>其中  H  是  J  相对于  θ  的Hessian矩阵在 $$θ_0$$处的估计。 如果我们再求解这个函数的临界点，我们将得到牛顿参数更新规则：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922144225958?watermark/2/text/aHR0cDovL2Jsb2
-cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
-solve/70/gravity/SouthEast" width="20%"></div></p>
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dis
+solve/70/gravity/SouthEast" width="30%"></div></p>
 <div align="left"> 
 
 <p>因此，对于局部的二次函数（具有正定的  H  ,），用  H  −  1  重新调整梯度，牛顿法会直接跳到极小值。<br>如果目标函数是凸的但非二次的（有高阶项），该更新将是迭代的，得到和牛顿法相关的算法，如算法8.8所示。  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922143919690?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <p>牛顿法只适用于Hessian矩阵是正定的情况。 在深度学习中，目标函数的表面通常非凸（有很多特征），如鞍点。如果Hessian矩阵的特征值并不都是正的，例如，靠近鞍点处，牛顿法实际上会导致更新朝错误的方向移动。 这种情况可以通过正则化Hessian矩阵来避免。<br>常用的正则化策略包括在Hessian矩阵对角线上增加常数  α  。 正则化更新变为  </p>
@@ -2962,9 +2961,13 @@ cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
 solve/70/gravity/SouthEast" width="30%"></div></p>
 <div align="left"> 
 
-<p>只要Hessian矩阵的负特征值仍然相对接近零，效果就会很好。 在曲率方向更极端的情况下，  α  的值必须足够大，以抵消负特征值。 然而，如果  α<br>持续增加，Hessian,矩阵会变得由对角矩阵  α  I  主导，通过牛顿法所选择的方向会收敛到普通梯度除以  α  。 当很强的负曲率存在时，  α<br>可能需要特别大，以致于牛顿法比选择合适学习率的梯度下降的步长更小。</p>
+<p>只要Hessian矩阵的负特征值仍然相对接近零，效果就会很好。 在曲率方向更极端的情况下，  α  的值必须足够大，以抵消负特征值。 然而，如果α持续增加，Hessian,矩阵会变得由对角矩阵  α  I  主导，通过牛顿法所选择的方向会收敛到普通梯度除以  α  。 当很强的负曲率存在时，  α可能需要特别大，以致于牛顿法比选择合适学习率的梯度下降的步长更小。</p>
 <h2 id="7-2-共轭梯度"><a href="#7-2-共轭梯度" class="headerlink" title="7.2 共轭梯度"></a>7.2 共轭梯度</h2><p>对于二次曲面而言，共轭方向确保梯度沿着前一方向大小不变。 因此，我们在前一方向上仍然是极小值。 其结果是，在k维参数空间中，共轭梯度只需要至多k次线搜索就能达到极小值。  </p>
-<p><div align="center"><br>&lt;img src=”<a href="http://img.blog.csdn.net/20170922145245567?watermark/2/text/aHR0cDovL2Jsb2" target="_blank" rel="external">http://img.blog.csdn.net/20170922145245567?watermark/2/text/aHR0cDovL2Jsb2</a><br>cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di<br>ssolve/70/gravity/SouthEast)</div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170922145245567?watermark/2/text/aHR0cDovL2Jsb2
+cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/di
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
+<div align="left"> 
+
 <h2 id="8-优化策略和元算法"><a href="#8-优化策略和元算法" class="headerlink" title="8. 优化策略和元算法"></a>8. 优化策略和元算法</h2><h2 id="8-1-批标准化"><a href="#8-1-批标准化" class="headerlink" title="8.1 批标准化"></a>8.1 批标准化</h2><p>重参数化显著减少了多层之间协调更新的问题。 批标准化可应用于网络的任何输入层或隐藏层。 设  H是需要标准化的某层的小批量激活函数，排布为设计矩阵，每个样本的激活出现在矩阵的每一行中。 为了标准化H，我们将其替换为  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922153951385?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
@@ -2994,14 +2997,14 @@ ssolve/70/gravity/SouthEast" width="30%"></div></p>
 <p>贪心算法将问题分解成许多部分，然后独立地在每个部分求解最优值。 令人遗憾的是，结合各个最佳的部分不能保证得到一个最佳的完整解。<br>然而，贪心算法计算上比求解最优联合解的算法高效得多，并且贪心算法的解在不是最优的情况下，往往也是可以接受的。<br>贪心算法也可以紧接一个精调阶段，联合优化算法搜索全问题的最优解。 使用贪心解初始化联合优化算法，可以极大地加速算法，并提高寻找到的解的质量。  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922161601583?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
 <h3 id="8-5-设计有助于优化的模型"><a href="#8-5-设计有助于优化的模型" class="headerlink" title="8.5 设计有助于优化的模型"></a>8.5 设计有助于优化的模型</h3><p><strong> 在实践中，选择一族容易优化的模型比使用一个强大的优化算法更重要。 </strong></p>
 <p>具体来说，现代神经网络的设计选择体现在层之间的线性变换，几乎处处可导的激活函数，和大部分定义域都有明显的梯度。<br>特别地，创新的模型，如LSTM，整流线性单元和maxout单元都比先前的模型（如基于sigmoid单元的深度网络）使用更多的线性函数。<br>这些模型都具有简化优化的性质。 如果线性变换的Jacobian具有相对合理的奇异值，那么梯度能够流经很多层。<br>此外，线性函数在一个方向上一致增加，所以即使模型的输出远离正确值，也可以简单清晰地计算梯度，使其输出方向朝降低损失函数的方向移动。<br>换言之，现代神经网络的设计方案旨在使其局部梯度信息合理地对应着移向一个遥远的解。</p>
 <p>其他的模型设计策略有助于使优化更简单。 例如，层之间的线性路径或是跳跃连接减少了从较低层参数到输出最短路径的长度，因而缓解了梯度消失的问题。<br>一个和跳跃连接相关的想法是添加和网络中间隐藏层相连的输出的额外副本，如GoogLeNet和深度监督网络。<br>这些”辅助头”被训练来执行和网络顶层主要输出相同的任务，以确保底层网络能够接受较大的梯度。 当训练完成时，辅助头可能被丢弃。<br>这是前一小节介绍到的预训练策略的替代方法。<br>以这种方式，我们可以在一个阶段联合训练所有层，而不改变架构，使得中间层（特别是低层）能够通过更短的路径得到一些如何更新的有用信息。<br>这些信息为底层提供了误差信号。</p>
 <h3 id="8-6-延拓法和课程学习"><a href="#8-6-延拓法和课程学习" class="headerlink" title="8.6 延拓法和课程学习"></a>8.6 延拓法和课程学习</h3><p>延拓法是一族通过挑选初始点使优化更容易的方法，以确保局部优化花费大部分时间在表现良好的空间。 延拓法的背后想法是构造一系列具有相同参数的目标函数。<br>为了最小化代价函数  J  (  θ  )  ，我们构建新的代价函数  J  (  0  )  ,  …  ,  J  (  n  )  。<br>这些代价函数的难度逐步提高，其中  J  (  0  )  是最容易最小化的，  J  (  n  )  是最难的，真正的代价函数驱动整个过程。 当我们说J  (  i  )  比  J  (  i  +  1  )  更容易时，是指其在更多的  θ  空间上表现良好。<br>随机初始化更有可能落入局部下降可以成功最小化代价函数的区域，因为其良好区域更大。 这系列代价函数设计为前一个解是下一个的良好初始点。<br>因此，我们首先解决一个简单的问题，然后改进解以解决逐步变难的问题，直到我们求解真正问题的解。</p>
-</div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>]]></content>
+</div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>]]></content>
       
         <categories>
             
@@ -3030,38 +3033,38 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
 <h3 id="2-1-L-2-参数正则化"><a href="#2-1-L-2-参数正则化" class="headerlink" title="2.1  L  2  参数正则化"></a>2.1  L  2  参数正则化</h3><p>目标函数：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915094204772?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 <p>L2  参数正则化效应示意图：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915095451330?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 <p><strong> 说明： </strong> 只有在显著减小目标函数方向上的参数会保留得相对完好。 在无助于目标函数减小的方向上改变参数不会显著增加梯度。 这种不重要方向对应的分量会在训练过程中因正则化而衰减掉。 </p>
-<h3 id="2-2-L-1-参数正则化"><a href="#2-2-L-1-参数正则化" class="headerlink" title="2.2  L  1  参数正则化"></a>2.2  L  1  参数正则化</h3><p>形式地，对模型参数  w  的  L  1  正则化被定义为：</p>
-<p>$$Ω(θ)  =  ||w||^1  =  ∑_i|w_i|$$</p>
+<h3 id="2-2-L-1-参数正则化"><a href="#2-2-L-1-参数正则化" class="headerlink" title="2.2  L  1  参数正则化"></a>2.2  L  1  参数正则化</h3><p>形式地，对模型参数w的L1正则化被定义为：</p>
+<p>$$Ω(θ)=||w||^1=∑_i|w_i|$$</p>
 <p>即各个参数的绝对值之和正则化。</p>
 <p>相比  L  2  正则化，  L  1  正则化会产生更稀疏的解。 此处稀疏性指的是最优值中的一些参数为  0  。  L  2<br>正则化不会使参数变得稀疏，而  L  1  正则化有可能通过足够大的  α  实现稀疏。</p>
 <p>由  L  1  正则化导出的稀疏性质已经被广泛地用于特征选择机制。 特征选择从可用的特征子集选择出有意义的特征，化简机器学习问题。<br>著名的LASSO（Least Absolute Shrinkage and Selection Operator）模型将L1惩罚和线性模型结合，并使用最小二乘代价函数。  L  1  惩罚使部分子集的权重为零，表明相应的特征可以被安全地忽略。</p>
 <h2 id="3-作为约束的范数惩罚"><a href="#3-作为约束的范数惩罚" class="headerlink" title="3.作为约束的范数惩罚"></a>3.作为约束的范数惩罚</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170915102248001?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 <p>这和最小化  $$J^~$$  的正则化训练问题是完全一样的。 因此，我们可以把参数范数惩罚看作对权重强加的约束。 如果  Ω  是  L  2范数，那么权重就是被约束在一个  L  2  球中。 如果  Ω  是  L  1  范数，那么权重就是被约束在一个  L  1  范数限制的区域中。<br>通常我们不知道权重衰减系数  α  约束的区域大小，因为  α  的值不直接告诉我们  k  的值。 原则上我们可以解得  k  ，但  k  和  α∗  之间的关系取决于  J  的形式。 虽然我们不知道约束区域的确切大小，但我们可以通过增加或者减小  α  来大致扩大或收缩约束区域。 较大的  α，将得到一个较小的约束区域。</p>
-<p>有时候，我们希望使用显式的限制，而不是惩罚。 我们可以修改下降算法（如随机梯度下降算法），使其先计算  J  (  θ  )  的下降步长，然后将θ投影到满足  Ω  (  θ  )  &lt; k  的最近点。 如果我们知道什么样的  k  是合适的，而不想花时间寻找对应于此  k  处的  α<br>值，这会非常有用。原因如下：<br>a.惩罚可能会导致目标函数非凸而使算法陷入局部极小(对应于小的  θ  ）。<br>b.当使用较高的学习率时，很可能进入正反馈，即大的权重诱导大梯度，然后使得权重获得较大更新。 如果这些更新持续增加权重的大小，  θ就会迅速增大，直到离原点很远而发生溢出。 重投影的显式约束可以防止这种反馈环引起权重无限制地持续增加。</p>
+<p>有时候，我们希望使用显式的限制，而不是惩罚。 我们可以修改下降算法（如随机梯度下降算法），使其先计算  J  ( θ  )  的下降步长，然后将θ投影到满足  Ω  (  θ  )  &lt; k  的最近点。 如果我们知道什么样的  k  是合适的，而不想花时间寻找对应于此k处的α值，这会非常有用。原因如下：<br>a.惩罚可能会导致目标函数非凸而使算法陷入局部极小(对应于小的  θ  ）。<br>b.当使用较高的学习率时，很可能进入正反馈，即大的权重诱导大梯度，然后使得权重获得较大更新。 如果这些更新持续增加权重的大小，  θ就会迅速增大，直到离原点很远而发生溢出。 重投影的显式约束可以防止这种反馈环引起权重无限制地持续增加。</p>
 <p>建议结合使用约束和高学习速率，这样能更快地探索参数空间，并保持一定的稳定性。</p>
 <h2 id="4-数据集增强"><a href="#4-数据集增强" class="headerlink" title="4.数据集增强"></a>4.数据集增强</h2><p>让机器学习模型泛化得更好的最好办法是使用更多的数据进行训练。 当然，在实践中，我们拥有的数据量是很有限的。<br>解决这个问题的一种方法是创建假数据并添加到训练集中。方式包括加入特定噪声（如高斯噪声），做一定的几何变换等等。</p>
 <p>另一种正则化模型的噪声使用方式是将其 <strong> 加到权重 </strong> ，这项技术主要用于循环神经网络。 这可以被解释为关于权重的贝叶斯推断的随机实现。<br>贝叶斯学习过程将权重视为不确定的，并且可以通过概率分布表示这种不确定性。 向权重添加噪声是反映这种不确定性的一种实用的随机方法。</p>
 <p>大多数数据集的  y  标签都有一定错误。 错误的  y  不利于最大化  log  p  (  y  |x  )  。<br>避免这种情况的一种方法是显式地对 <strong> 标签上的噪声 </strong> 进行建模。 例如，我们可以假设，对于一些小常数  ϵ  ，训练集标记  y  是正确的概率1  −  ϵ  ，（以  ϵ  的概率）任何其他可能的标签也可能是正确的。 这个假设很容易就能解析地与代价函数结合，而不用显式地抽取噪声样本。<br>例如，标签平滑（label smoothing）通过把确切分类目标从0和1替换成  ϵ  k  −  1  和  1  −  ϵ  ，正则化具有  k个输出的softmax函数的模型。 标准交叉熵损失可以用在这些非确切目标的输出上。 使用softmax函数和明确目标的最大似然学习可能永远不会收敛——softmax函数永远无法真正预测0概率或1概率，因此它会继续学习越来越大的权重，使预测更极端。 使用如权重衰减等其他正则化策略能够防止这种情况。<br>标签平滑的优势是能够防止模型追求确切概率而不影响模型学习正确分类。</p>
 <h2 id="5-半监督学习"><a href="#5-半监督学习" class="headerlink" title="5.半监督学习"></a>5.半监督学习</h2><p>在半监督学习的框架下，  P  (  x  )  产生的未标记样本和  P  (  x  ,  y  )  中的标记样本都用于估计  P  (  y  ∣x  )  或者根据  x  预测  y  。</p>
 <p>在深度学习的背景下，半监督学习通常指的是学习一个表示  h  =  f  (  x  )  。 学习表示的目的是使相同类中的样本有类似的表示。<br>无监督学习可以为如何在表示空间聚集样本提供有用线索。 在输入空间紧密聚集的样本应该被映射到类似的表示。<br>在许多情况下，新空间上的线性分类器可以达到较好的泛化。 这种方法的一个经典变种是使用主成分分析作为分类前（在投影后的数据上分类）的预处理步骤。</p>
-<p>我们可以构建这样一个模型，其中生成模型  P  (  x  )  或  P  (  x  ,  y  )  与判别模型  P  (  y  ∣  x  )共享参数，而不用分离无监督和监督部分。 我们权衡监督模型准则  − log  P  (y∣x)  和无监督或生成模型准则（如  −<br>log  P  (  x  )  或  −  log  P  (  x  ,  y  )  ）。 生成模型准则表达了对监督学习问题解的特殊形式的先验知识，即P  (  x  )  的结构通过某种共享参数的方式连接到  P  (  y  ∣  x  )  。<br>通过控制在总准则中的生成准则，我们可以获得比纯生成或纯判别训练准则更好的权衡。</p>
+<p>我们可以构建这样一个模型，其中生成模型  P  (  x  )  或  P  (  x  ,  y  )  与判别模型  P  (  y  ∣  x  )共享参数，而不用分离无监督和监督部分。 我们权衡监督模型准则 log  P  (y∣x)  和无监督或生成模型准则（如  −log  P  (  x  )  或  −  log  P  (  x  ,  y  )  ）。 生成模型准则表达了对监督学习问题解的特殊形式的先验知识，即P  (  x  )  的结构通过某种共享参数的方式连接到  P  (  y  ∣  x  )  。<br>通过控制在总准则中的生成准则，我们可以获得比纯生成或纯判别训练准则更好的权衡。</p>
 <h2 id="6-多任务学习"><a href="#6-多任务学习" class="headerlink" title="6.多任务学习"></a>6.多任务学习</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170915105548176?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 <p>从深度学习的观点看，底层的先验知识如下：能解释数据变化（在与之相关联的不同任务中观察到）的因素中，某些因素是跨两个或更多任务共享的。</p>
@@ -3077,13 +3080,13 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
 <p>Bagging集成必须根据所有成员的累积投票做一个预测。 在这种背景下，我们将这个过程称为 <strong> 推断 </strong> 。<br>目前为止，我们在介绍Bagging和Dropout时没有要求模型具有明确的概率。 现在，我们假定该模型的作用是输出一个概率分布。<br>在Bagging的情况下，每个模型  i  产生一个概率分布  p  (  i  )  (  y  ∣  x  )  。<br>集成的预测由这些分布的算术平均值给出：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915135742736?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 <p>其中  p  (  u  )  是训练时采样  u  的概率分布。</p>
 <p>虽然Dropout在特定模型上每一步的代价是微不足道的，但在一个完整的系统上使用Dropout的代价可能非常显著。<br>因为Dropout是一个正则化技术，它减少了模型的有效容量。 为了抵消这种影响，我们必须增大模型规模。<br>不出意外的话，使用Dropout时最佳验证集的误差会低很多，但这是以更大的模型和更多训练算法的迭代次数为代价换来的。<br>对于非常大的数据集，正则化带来的泛化误差减少得很小。 在这些情况下，使用Dropout和更大模型的计算代价可能超过正则化带来的好处。</p>
 <h2 id="11-对抗训练"><a href="#11-对抗训练" class="headerlink" title="11. 对抗训练"></a>11. 对抗训练</h2><p>我们可以训练分类器为  x  和  x  ′  分配相同的标签。 这鼓励分类器学习一个沿着未标签数据所在流形上任意微小变化都很鲁棒的函数。<br>驱动这种方法的假设是，不同的类通常位于分离的流形上，并且小扰动不会使数据点从一个类的流形跳到另一个类的流形上。<br>进行对抗训练的目的是使分类结果对训练样本 <strong> 小邻域 </strong> 更加鲁棒！</p>
-<h2 id="12-切面距离、正切传播和流形正切分类器"><a href="#12-切面距离、正切传播和流形正切分类器" class="headerlink" title="12. 切面距离、正切传播和流形正切分类器"></a>12. 切面距离、正切传播和流形正切分类器</h2><p>正切传播算法训练带有额外惩罚的神经网络分类器，使神经网络的每个输出  f  (  x  )  对已知的变化因素是局部不变的。<br>这些变化因素对应于沿着的相同样本聚集的流形的移动。 这里实现局部不变性的方法是要求  ∇  x  f  (  x  )  与已知流形的切向  v  (  i<br>)  正交，或者等价地通过正则化惩罚  Ω  使  f  在  x  的  v  (  i  )  方向的导数较小：  </p>
+<h2 id="12-切面距离、正切传播和流形正切分类器"><a href="#12-切面距离、正切传播和流形正切分类器" class="headerlink" title="12. 切面距离、正切传播和流形正切分类器"></a>12. 切面距离、正切传播和流形正切分类器</h2><p>正切传播算法训练带有额外惩罚的神经网络分类器，使神经网络的每个输出  f  (  x  )  对已知的变化因素是局部不变的。<br>这些变化因素对应于沿着的相同样本聚集的流形的移动。 这里实现局部不变性的方法是要求  ∇  x  f  (  x  )  与已知流形的切向  v(i)正交，或者等价地通过正则化惩罚  Ω  使  f  在  x  的  v  (  i  )  方向的导数较小：  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915142914347?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast" width="30%"></div></p>
@@ -3092,7 +3095,7 @@ ssolve/70/gravity/SouthEast" width="30%"></div></p>
 
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170915142953389?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
-ssolve/70/gravity/SouthEast" width="60%"></div></p>
+ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
 </div></div></div></div></div></div></div>]]></content>
@@ -3123,7 +3126,7 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
 
 <h1 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h1><h2 id="1-1隐藏层："><a href="#1-1隐藏层：" class="headerlink" title="1.1隐藏层："></a>1.1隐藏层：</h2><p>神经网络中输入与输出层之间的中间层，训练数据并没有给出这些层中的每一层所需的输出，所以叫隐藏层。</p>
 <h2 id="1-2模型的宽度："><a href="#1-2模型的宽度：" class="headerlink" title="1.2模型的宽度："></a>1.2模型的宽度：</h2><p>网络中的每个隐藏层通常都是向量值的。这些隐藏层的维数决定了模型的宽度。 向量的每个元素都可以被视为起到类似一个神经元的作用。<br>除了将层想象成向量到向量的单个函数，我们也可以把层想象成由许多并行操作的单元组成，每个单元表示一个向量到标量的函数。<br>每个单元在某种意义上类似一个神经元，它接收的输入来源于许多其他的单元，并计算它自己的激活值。  </p>
-<h2 id="1-3激活函数："><a href="#1-3激活函数：" class="headerlink" title="1.3激活函数："></a>1.3激活函数：</h2><p>用于计算隐藏层值的函数，常见的有整流线性单元（分段函数max{0,f()}）。</p>
+<h2 id="1-3激活函数："><a href="#1-3激活函数：" class="headerlink" title="1.3激活函数："></a>1.3激活函数：</h2><p>用于计算隐藏层值的函数，常见的有整流线性单元（分段函数max{0,f(x)}）。</p>
 <h2 id="1-4常见的代价函数："><a href="#1-4常见的代价函数：" class="headerlink" title="1.4常见的代价函数："></a>1.4常见的代价函数：</h2><p>交叉熵（负的最大似然函数）</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170907102812491?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dis
@@ -3151,9 +3154,9 @@ solve/70/gravity/SouthEast" width="30%"></div></p>
 
 <h1 id="3-隐藏单元"><a href="#3-隐藏单元" class="headerlink" title="3.隐藏单元"></a>3.隐藏单元</h1><h2 id="3-1整流线性单元"><a href="#3-1整流线性单元" class="headerlink" title="3.1整流线性单元"></a>3.1整流线性单元</h2><p>整流线性单元使用激活函数  g  (  z  )  =  max  (  0  ,  z  )</p>
 <p><strong> 扩展： </strong>   </p>
-<p>a. 当  z_i &lt; 0  时使用一个非零的斜率  $$α_i：h_i =  g  (z,  α  )  i =  max  (0  ,  z_i  )  +  α_i min  (  0  ,  z_i  )$$ 。<br>b. 绝对值整流固定  α  i  =  −  1  来得到  g  (  z  )  =  |  z  |  。<br>它用于图像中的对象识别{cite?}，其中寻找在输入照明极性反转下不变的特征是有意义的。<br>c. 渗漏整流线性单元将  α_i固定成一个类似0.01的小值，参数化整流线性单元（PReLU）将  α  i 作为学习的参数。<br>d. maxout单元将  z  划分为每组具有  k  个值的组，而不是使用作用于每个元素的函数  g  (  z  )  。<br>每个maxout单元则输出每组中的最大元素。</p>
-<h2 id="3-2-logistic-sigmoid与双曲正切函数"><a href="#3-2-logistic-sigmoid与双曲正切函数" class="headerlink" title="3.2 logistic sigmoid与双曲正切函数"></a>3.2 logistic sigmoid与双曲正切函数</h2><p>在引入整流线性单元之前，大多数神经网络使用logistic sigmoid激活函数<br>g(z)=σ(z)<br>或者是双曲正切激活函数<br>g(z)=tanh(z)<br>这些激活函数紧密相关，因为  tanh  (  z  )  =  2  σ  (  2  z  )  −  1  。<br>与分段线性单元不同，sigmoid单元在其大部分定义域内都饱和——当  z  取绝对值很大的正值时，它们饱和到一个高值，当  z<br>取绝对值很大的负值时，它们饱和到一个低值，并且仅仅当  z  接近0时它们才对输入强烈敏感。<br>sigmoid单元的广泛饱和性会使得基于梯度的学习变得非常困难。 因为这个原因，现在不鼓励将它们用作前馈网络中的隐藏单元。<br>当使用一个合适的代价函数来抵消sigmoid的饱和性时，它们作为输出单元可以与基于梯度的学习相兼容。</p>
-<p>当必须要使用sigmoid激活函数时，双曲正切激活函数通常要比logistic sigmoid函数表现更好。 在  tanh  (  0  )  =  0<br>而  σ  (  0  )  =  1  2  的意义上，它更像是单位函数。 因为  tanh  在0附近与单位函数类似，训练深层神经网络  $$y^  =w^⊤  tanh  (  U^⊤  tanh  (  V^⊤  x  ))$$  类似于训练一个线性模型  $$y^  =  w^⊤U^⊤V^⊤x $$ ，只要网络的激活能够被保持地很小。 这使得训练  tanh  网络更加容易。</p>
+<p>a.当$$z_i&lt;0$$时使用一个非零的斜率$$α_i:h_i=g(z,α)i=max(0,z_i)+α_imin(0,z_i)$$ 。<br>b. 绝对值整流固定  α  i  =  −  1  来得到  g  (  z  )  =  |  z  |  。<br>它用于图像中的对象识别，其中寻找在输入照明极性反转下不变的特征是有意义的。<br>c. 渗漏整流线性单元将  α_i固定成一个类似0.01的小值，参数化整流线性单元（PReLU）将  α  i 作为学习的参数。<br>d. maxout单元将  z  划分为每组具有  k  个值的组，而不是使用作用于每个元素的函数  g  (  z  )  。<br>每个maxout单元则输出每组中的最大元素。</p>
+<h2 id="3-2-logistic-sigmoid与双曲正切函数"><a href="#3-2-logistic-sigmoid与双曲正切函数" class="headerlink" title="3.2 logistic sigmoid与双曲正切函数"></a>3.2 logistic sigmoid与双曲正切函数</h2><p>在引入整流线性单元之前，大多数神经网络使用logistic sigmoid激活函数<br>g(z)=σ(z)<br>或者是双曲正切激活函数<br>g(z)=tanh(z)<br>这些激活函数紧密相关，因为  tanh  (  z  )  =  2  σ  (  2  z  )  −  1  。<br>与分段线性单元不同，sigmoid单元在其大部分定义域内都饱和——当  z  取绝对值很大的正值时，它们饱和到一个高值，当  z取绝对值很大的负值时，它们饱和到一个低值，并且仅仅当z接近0时它们才对输入强烈敏感。<br>sigmoid单元的广泛饱和性会使得基于梯度的学习变得非常困难。 因为这个原因，现在不鼓励将它们用作前馈网络中的隐藏单元。<br>当使用一个合适的代价函数来抵消sigmoid的饱和性时，它们作为输出单元可以与基于梯度的学习相兼容。</p>
+<p>当必须要使用sigmoid激活函数时，双曲正切激活函数通常要比logistic sigmoid函数表现更好。 在  tanh(0 )=0而σ(0)=0.5的意义上，它更像是单位函数。因为tanh在0附近与单位函数类似，训练深层神经网络 $$y^=w^⊤tanh(U^⊤tanh(V^⊤x))$$ 类似于训练一个线性模型$$y^= w^⊤U^⊤V^⊤x$$ ，只要网络的激活能够被保持地很小。 这使得训练tanh网络更加容易。</p>
 <h1 id="4-架构设计"><a href="#4-架构设计" class="headerlink" title="4.架构设计"></a>4.架构设计</h1><p><strong> 万能近似定理： </strong> 一个前馈神经网络如果具有线性输出层和至少一层具有任何一种”挤压”性质的激活函数（例如logistic sigmoid激活函数）的隐藏层，只要给予网络足够数量的隐藏单元，它可以以任意的精度来近似任何从一个有限维空间到另一个有限维空间的Borel可测函数。 前馈网络的导数也可以任意好地来近似函数的导数。 </p>
 <p>在神经网络框架中，更深的神经网络远远比大模型尺寸的单层网络好得多，这说明神经网络中应该用许多简单的函数组成，而尽量不用复杂庞大的单模型。</p>
 <h1 id="5-反向传播"><a href="#5-反向传播" class="headerlink" title="5.反向传播"></a>5.反向传播</h1><h2 id="5-1链式法则"><a href="#5-1链式法则" class="headerlink" title="5.1链式法则"></a>5.1链式法则</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170911163754870?watermark/2/text/aHR0cDovL2Jsb2
@@ -3161,7 +3164,7 @@ cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">
 
-<p>从这里我们看到，变量  x  的梯度可以通过~Jacobian矩阵  ∂  y  ∂  x  和梯度  ∇  y  z  相乘来得到。<br>反向传播算法由图中每一个这样的~Jacobian~梯度的乘积操作所组成。</p>
+<p>从这里我们看到，变量  x  的梯度可以通过~Jacobian矩阵∂y/∂x和梯度∇yz相乘来得到。<br>反向传播算法由图中每一个这样的~Jacobian~梯度的乘积操作所组成。</p>
 <h2 id="5-2反向传播步骤："><a href="#5-2反向传播步骤：" class="headerlink" title="5.2反向传播步骤："></a>5.2反向传播步骤：</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170911165232295?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast" width="70%"></div></p>
@@ -3208,31 +3211,29 @@ ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <h2 id="1-3-Moore-Penrose-伪逆"><a href="#1-3-Moore-Penrose-伪逆" class="headerlink" title="1.3 Moore-Penrose 伪逆"></a>1.3 Moore-Penrose 伪逆</h2><p>对于非方矩阵而言，其逆矩阵没有定义。 假设在下面的问题中，我们希望通过矩阵A的左逆B来求解线性方程：</p>
 <p>$$A  x  =  y$$ </p>
 <p>Moore-Penrose 伪逆使我们在这类问题上取得了一定的进展。 矩阵A的伪逆定义为：</p>
-<p>$$A  +  =  lim  α  ↘  0  (  A ^⊤ A  +  α  I  )  −  1_{A^⊤}$$</p>
+<p>$$A^+ =lim_{α↘0}(A^⊤A +αI)^{-1}{A^⊤}$$</p>
 <p>计算伪逆的实际算法没有基于这个定义，而是使用下面的公式：</p>
-<p>$$A  +  =  V  D  +  U  ⊤$$</p>
-<p>其中，矩阵V，D和U  是矩阵A奇异值分解后得到的矩阵。 对角矩阵D的伪逆D^+是其非零元素取倒数之后再转置得到的。</p>
+<p>$$A^+  = VD^+U^⊤$$</p>
+<p>其中，矩阵V，D和U  是矩阵A奇异值分解后得到的矩阵。 对角矩阵D的伪逆$$D^+$$是其非零元素取倒数之后再转置得到的。</p>
 <p>奇异值分解：</p>
-<p>$$A  =  U  D  V  ⊤$$</p>
+<p>$$A = UDV^⊤$$</p>
 <p>假设A是一个mxn的矩阵，那么U是一个mxm的矩阵，D是一个mxn的对角矩阵，V是一个nx n的矩阵。</p>
 <h2 id="1-4-迹运算"><a href="#1-4-迹运算" class="headerlink" title="1.4 迹运算"></a>1.4 迹运算</h2><p>迹运算返回的是矩阵对角元素的和：</p>
 <p>$$Tr  (  A  )  =  ∑   A _{ i  ,  j } $$</p>
 <p>迹运算提供了另一种描述矩阵Frobenius 范数的方式：  </p>
 <p>$$∥  A  ∥  F  =  Tr  (  A  A  ⊤  )  $$<br>迹运算性质</p>
 <p>$$Tr  (  A  B  C  )  =  Tr  (  C  A  B  )  =  Tr  (  B  C  A  )$$</p>
-<p>或者更一般地，</p>
-<p>$$Tr  (  ∏  i  =  1  n  F  (  i  )  )  =  Tr  (  F  (  n  )  ∏  i  =  1  n  −  1<br>F  (  i  )  ) $$</p>
 <h1 id="2-概率与信息论"><a href="#2-概率与信息论" class="headerlink" title="2. 概率与信息论"></a>2. 概率与信息论</h1><h2 id="2-1-协方差"><a href="#2-1-协方差" class="headerlink" title="2.1 协方差"></a>2.1 协方差</h2><p>协方差在某种意义上给出了两个变量线性相关性的强度以及这些变量的尺度：</p>
 <p>$$Cov  (  f  (  x  )  ,  g  (  y  )  )  =  E  [  (  f  (  x  )  −  E  [  f  (x)  ]  )  (  g  (  y  )  −  E  [  g  (  y  )  ]  )  ] $$</p>
 <h2 id="2-2-信息论"><a href="#2-2-信息论" class="headerlink" title="2.2 信息论"></a>2.2 信息论</h2><p>香农熵：  </p>
-<p>$$H  (  x  )  =  E  x  ∼  P  [  I  (  x  )  ]  =  −  E  x  ∼  P  [ log (x)  ]$$</p>
-<p>一个分布的香农熵是指遵循这个分布的事件所产生的期望信息总量。 它给出了对依据概率分布<br>P生成的符号进行编码所需的比特数在平均意义上的下界(当对数底数不是2时，单位将有所不同)。  </p>
+<p>$$H(x)=E<em>{x∼P}[I(x)]=−E</em>{x∼P}[log(x)]$$</p>
+<p>一个分布的香农熵是指遵循这个分布的事件所产生的期望信息总量。 它给出了对依据概率分布P生成的符号进行编码所需的比特数在平均意义上的下界(当对数底数不是2时，单位将有所不同)。  </p>
 <p>如果我们对于同一个随机变量 x有两个单独的概率分布 P(x)和Q(x)，我们可以使用KL散度来衡量这两个分布的差异：</p>
-<p>$$D  KL  (  P  |  |  Q  )  =  E  x  ∼  P  [  log  P  (  x  )  Q  (  x  )  ]  =E  x  ∼  P  [  log  P  (  x  )  −  log  Q  (  x  )  ]  $$</p>
-<p>在离散型变量的情况下，KL散度衡量的是，当我们使用一种被设计成能够使得概率分布 Q产生的消息的长度最小的编码，发送包含由概率分布<br>P产生的符号的消息时，所需要的额外信息量。  KL散度是非负的并且衡量的是两个分布之间的差异，它经常被用作分布之间的某种距离。</p>
+<p>$$ D<em>{KL}(P||Q)=E</em>{x∼P}[logP(x)Q(x)]=E_{x∼P}[logp(x)− logQ(x)] $$</p>
+<p>在离散型变量的情况下，KL散度衡量的是，当我们使用一种被设计成能够使得概率分布 Q产生的消息的长度最小的编码，发送包含由概率分布P产生的符号的消息时，所需要的额外信息量。  KL散度是非负的并且衡量的是两个分布之间的差异，它经常被用作分布之间的某种距离。</p>
 <p>交叉熵：</p>
-<p>$$H  (  P  ,  Q  )  =  −  E  x  ∼  P  log  Q  (  x  ) = H(P) +  D  KL  (  P  ||  Q  )$$</p>
-<p>最小化交叉熵等价于最小化KL散度，因为当P已知时，H（P）是常量。</p>
+<p>$$ H(P,Q)=−E<em>{x∼P}logQ(x)=H(P)+D</em>{KL}(P||Q) $$</p>
+<p>最小化交叉熵等价于最小化KL散度，因为当P已知时，H(P)是常量。</p>
 <h1 id="3-数值计算"><a href="#3-数值计算" class="headerlink" title="3. 数值计算"></a>3. 数值计算</h1><h2 id="3-1-方向导数"><a href="#3-1-方向导数" class="headerlink" title="3.1 方向导数"></a>3.1 方向导数</h2><p>方向导数  ：是一个数；  反映的是f(x,y)在P0点沿方向v的变化率。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170822171450834?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
@@ -3248,7 +3249,7 @@ ssolve/70/gravity/SouthEast" width="70%" align="center">  </div></p>
 <li>给定终止误差值 0&lt;= ε &lt;&lt;1，初始点 $$x_0∈R^n$$，令 k=0; </li>
 <li>计算$$g_k =  △f(x_k)$$，若 $$||g_k|| &lt;= ε$$，则停止，输出 $$x* ≈ x_k$$ ； </li>
 <li>计算 $$G_k = △^2f(x_k)$$ ，并求解线性方程组得解$$d_k : G_kd = -g_k$$</li>
-<li>令 $$x_{k+1}=x_k+d_k,k=k+1$$ ，并转2。 </li>
+<li>令 $$x_{k+1}=x_k+d_k$$ , $$k=k+1$$ ，并转2。 </li>
 </ol>
 <h2 id="3-3-全局牛顿法"><a href="#3-3-全局牛顿法" class="headerlink" title="3.3 全局牛顿法"></a>3.3 全局牛顿法</h2><p>牛顿法最突出的优点是收敛速度快，具有局部二阶收敛性，但是，基本牛顿法初始点需要足够“靠近”极小点，否则，有可能导致算法不收敛。这样就引入了全局牛顿法。</p>
 <p><strong>流程</strong></p>
@@ -3257,10 +3258,10 @@ ssolve/70/gravity/SouthEast" width="70%" align="center">  </div></p>
 <li>计算 $$g_k =  △f(x_k)$$ ，若 $$||g_k|| &lt;= ε$$，则停止，输出 $$x* ≈ x_k$$ ； </li>
 <li>计算 $$G_k =  △^2f(x_k)$$ ，并求解线性方程组得解$$d_k : G_kd = -g_k$$ ;</li>
 <li>记 $$m_k$$是不满足下列不等式的最小非负整数 $$m:f(x_k +δ^md_k) &lt;= f(x_k)+σδ^mg_k^Td_k;$$； </li>
-<li>令 $$α_k=δ^{m<em>k}，x</em>{k+1}=x_k+α_kd_k，k=k+1$$，并转2。 </li>
+<li>令 $$α_k=δ^{m<em>k}$$，$$x</em>{k+1}=x_k+α_kd_k$$，$$k=k+1$$，并转2。 </li>
 </ol>
 <h2 id="Armijo搜索"><a href="#Armijo搜索" class="headerlink" title="Armijo搜索"></a>Armijo搜索</h2><p>全局牛顿法是基于  Armijo  的搜索，满足  Armijo  准则：</p>
-<p>给定β∈(0,1),σ∈(0,0.5)，令步长因子$$α_k=β^{m<em>k}，x</em>{k+1}=x_k+α_kd_k，k=k+1$$，其中 <img src="http://latex.codecogs.com/gif.latex?m_k" alt=""> 是满足下列不等式的最小非负整数:</p>
+<p>给定β∈(0,1),σ∈(0,0.5)，令步长因子$$α_k=β^{m<em>k}$$，$$x</em>{k+1}=x_k+α_kd_k$$，$$k=k+1$$，其中 <img src="http://latex.codecogs.com/gif.latex?m_k" alt=""> 是满足下列不等式的最小非负整数:</p>
 <p><img src="http://latex.codecogs.com/gif.latex?f\left&amp;space;(&amp;space;x_k+\beta&amp;space;^md_k&amp;space;\right&amp;space;)\leq&amp;space;f\left&amp;space;(&amp;space;x_k&amp;space;\right&amp;space;)+\sigma&amp;space;\beta&amp;space;^mg_k^Td_k" _xhe_src="http://latex.codecogs.com/gif.latex?f\left&amp;space;(&amp;space;x_k+\beta&amp;space;^md_k&amp;space;\right&amp;space;)\leq&amp;space;f\left&amp;space;(&amp;space;x_k&amp;space;\right&amp;space;)+\sigma&amp;space;\beta&amp;space;^mg_k^Td_k" title="f\left ( x_k+\beta ^md_k \right )\leq f\left ( x_k \right )+\sigma \beta ^mg_k^Td_k" alt="" style="border:none; max-width:100%"></p>
 <h2 id="3-4-KKT条件"><a href="#3-4-KKT条件" class="headerlink" title="3.4 KKT条件"></a>3.4 KKT条件</h2><p><a href="http://www.cnblogs.com/zhangchaoyang/articles/2726873.html" target="_blank" rel="external"> 拉格朗日乘子法和KKT条件  </a></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170822183505539?watermark/2/text/aHR0cDovL2Jsb2
@@ -3287,7 +3288,7 @@ ssolve/7/gravity/SouthEast" width="70%" align="center">  </div></p>
 <p>训练数据分成两个不相交的子集。 其中一个用于学习参数，另一个作为验证集，用于估计训练中或训练后的泛化误差，更新超参数。  由于验证集是用来”训练”超参数的，尽管验证集的误差通常会比训练集误差小，验证集会低估泛化误差。 所有超参数优化完成之后，泛化误差可能会通过测试集来估计。    </p>
 <p><strong>k折交叉验证过程：</strong> </p>
 <p>将数据集分成k个不重合的子集。 测试误差可以估计为k次计算后的平均测试误差。 在第i次测试时，数据的第i个子集用于测试集，其他的数据用于训练集。    </p>
-<h2 id="4-3-点估计"><a href="#4-3-点估计" class="headerlink" title="4.3 点估计"></a>4.3 点估计</h2><p>令$${x(1),…,x^(m)}$$是m个独立同分布的数据点。 点估计或统计量是这些数据的任意函数：</p>
+<h2 id="4-3-点估计"><a href="#4-3-点估计" class="headerlink" title="4.3 点估计"></a>4.3 点估计</h2><p>令$${x(1),…,x^{(m)}}$$是m个独立同分布的数据点。 点估计或统计量是这些数据的任意函数：</p>
 <p>$$θ  ^  m  =  g  (  x  (  1  )  ,  …  ,  x  (  m  )  )  $$</p>
 <p>这个定义不要求g返回一个接近真实θ的值，或者g的值域恰好是  θ  的允许取值范围。 点估计的定义非常宽泛，给了估计量的设计者极大的灵活性。<br>虽然几乎所有的函数都可以称为估计量，但是一个良好的估计量的输出会接近生成训练数据的真实参数  θ  。  </p>
 <h2 id="4-4-一致性"><a href="#4-4-一致性" class="headerlink" title="4.4 一致性"></a>4.4 一致性</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170825181336921?watermark/2/text/aHR0cDovL2Jsb2
@@ -3305,14 +3306,14 @@ ssolve/7/gravity/Center" width="70%" align="center">  </div></p>
 <p>通常运用于解决 <strong>模型已知，参数未知</strong> 的情况！</p>
 <p>注意：最大似然估计只考虑某个模型能产生某个给定观察序列的概率。而未考虑该模型本身的概率，这点与贝叶斯估计区别。  </p>
 <p><strong>最大似然估计解决线性回归</strong></p>
-<p>设样本数据数据（xi,yi）,现用线性方程的形式去做回归，线性方程结构为：y=f(x)+e,其中f(x)=w<em>x，w是我们要进行估计的参数向量，e是噪声，且<br>该噪声服从均值为0高斯分布，即：$$e~N(0,sigema^2)$$.<br>假设有一个w（此w并不是最终的w），对于 <strong> 每一个 </strong> 实际得到的数据我们都可以看成是由均值为w</em>xi,方差为$$sigema^2$$的一个高斯模型生成的。但<br>是在w不定的情况下，高斯模型有无数种可能，我们需要从中选择一个我们想要的，而选择需要一个准则，该准则就是：使得在该模型下生成我们获得的数据的可能性最大。<br>问题来了，什么叫可能性最大？怎样来衡量？——&gt;将每一个数据产生的概率连乘起来（似然函数），将该值最为总的数据产生的可能性。很容易理解。</p>
+<p>设样本数据数据（xi,yi）,现用线性方程的形式去做回归，线性方程结构为：y=f(x)+e,其中f(x)=w<em>x，w是我们要进行估计的参数向量，e是噪声，且该噪声服从均值为0高斯分布，即：$$e ~ N(0,sigema^2)$$.<br>假设有一个w（此w并不是最终的w），对于 <strong> 每一个 </strong> 实际得到的数据我们都可以看成是由均值为w</em>xi,方差为$$sigema^2$$的一个高斯模型生成的。但是在w不定的情况下，高斯模型有无数种可能，我们需要从中选择一个我们想要的，而选择需要一个准则，该准则就是：使得在该模型下生成我们获得的数据的可能性最大。<br>问题来了，什么叫可能性最大？怎样来衡量？——&gt;将每一个数据产生的概率连乘起来（似然函数），将该值最为总的数据产生的可能性。很容易理解。</p>
 <h2 id="4-6-贝叶斯估计"><a href="#4-6-贝叶斯估计" class="headerlink" title="4.6 贝叶斯估计"></a>4.6 贝叶斯估计</h2><p><a href="http://blog.csdn.net/guohecang/article/details/52313046" target="_blank" rel="external"> 先验概率、最大似然估计、贝叶斯估计、最大后验概率</a></p>
 <p><a href="http://www.cnblogs.com/little-YTMM/p/5399532.html" target="_blank" rel="external">贝叶斯思想以及与最大似然估计、最大后验估计的区别</a></p>
-<p>贝叶斯估计，是在给定训练数据D时，确定假设空间H中的最佳假设。 最佳假设：一种方法是把它定义为在给定数据D以及H中不同假设的先验概率的有关知识下的最可能假设<br>。贝叶斯理论提供了一种计算假设概率的方法，基于假设的先验概率、给定假设下观察到不同数据的概率以及观察到的数据本身。</p>
-<p>1、 <strong>先验分布</strong> 。总体分布参数θ的一个概率分布。贝叶斯学派的根本观点，是认为在关于总体分布参数θ的任何统计推断问题中，除了使用样本所提供的信息外<br>，还必须规定一个先验分布，它是在进行统计推断时不可缺少的一个要素。他们认为先验分布不必有客观的依据，可以部分地或完全地基于主观信念。</p>
-<p>2、 <strong>后验分布</strong> 。根据样本分布和未知参数的先验分布，用概率论中求条件概率分布的方法，求出的在样本已知下，未知参数的条件分布。因为这个分布是在抽样<br>以后才得到的，故称为后验分布。贝叶斯推断方法的关键是任何推断都必须且只须根据后验分布，而不能再涉及样本分布。</p>
+<p>贝叶斯估计，是在给定训练数据D时，确定假设空间H中的最佳假设。 最佳假设：一种方法是把它定义为在给定数据D以及H中不同假设的先验概率的有关知识下的最可能假设。贝叶斯理论提供了一种计算假设概率的方法，基于假设的先验概率、给定假设下观察到不同数据的概率以及观察到的数据本身。</p>
+<p>1、 <strong>先验分布</strong> 。总体分布参数θ的一个概率分布。贝叶斯学派的根本观点，是认为在关于总体分布参数θ的任何统计推断问题中，除了使用样本所提供的信息外，还必须规定一个先验分布，它是在进行统计推断时不可缺少的一个要素。他们认为先验分布不必有客观的依据，可以部分地或完全地基于主观信念。</p>
+<p>2、 <strong>后验分布</strong> 。根据样本分布和未知参数的先验分布，用概率论中求条件概率分布的方法，求出的在样本已知下，未知参数的条件分布。因为这个分布是在抽样以后才得到的，故称为后验分布。贝叶斯推断方法的关键是任何推断都必须且只须根据后验分布，而不能再涉及样本分布。</p>
 <p>贝叶斯公式为：</p>
-<p>$$P(A∩B)=P(A)<em>P(B|A)=P(B)</em>P(A|B)$$</p>
+<p>$$ P(A∩B)=P(A)<em>P(B|A)=P(B)</em>P(A|B) $$</p>
 <p>$$P(A|B)=P(B|A)*P(A)/P(B)$$</p>
 <p>其中：</p>
 <p>1、P(A)是A的先验概率或边缘概率，称作”先验”是因为它不考虑B因素。</p>
@@ -3343,7 +3344,7 @@ ssolve/70/gravity/Center" width="60%" align="center">  </div></p>
 <p>k  (  u  ,  v  )  =  N  (  u  −  v  ;  0  ,  σ^2 )  ,</p>
 <p>其中N(x; u, Sigma)是标准正态密度。 这个核也被称为径向基函数核，因为其值沿v中从u向外辐射的方向减小。<br>高斯核对应于无限维空间中的点积，但是该空间的推导没有整数上最小核的示例那么直观。<br>我们可以认为高斯核在执行一种 <strong>模板匹配</strong> 。 训练标签 y相关的训练样本 x变成了类别y的模版。<br>当测试点x‘到x的欧几里得距离很小，对应的高斯核响应很大时，表明x’和模版x非常相似。 该模型进而会赋予相对应的训练标签 y较大的权重。<br>总的来说，预测将会组合很多这种通过训练样本相似度加权的训练标签。</p>
 <p>Tips: 利用高斯核函数将低维数据映射到无限维，以达到线性可分的目的。</p>
-<h2 id="4-9-k均值聚类"><a href="#4-9-k均值聚类" class="headerlink" title="4.9 k均值聚类"></a>4.9 k均值聚类</h2><p>k均值聚类初始化k个不同的中心点$${u_1},…,u_k}$$，然后迭代交换两个不同的步骤直到收敛。<br>步骤一，每个训练样本分配到最近的中心点ui所代表的聚类i。<br>步骤二，每一个中心点ui更新为聚类i中所有训练样本 xj的均值。  </p>
+<h2 id="4-9-k均值聚类"><a href="#4-9-k均值聚类" class="headerlink" title="4.9 k均值聚类"></a>4.9 k均值聚类</h2><p>k均值聚类初始化k个不同的中心点$$(u_1,…,u_k)$$，然后迭代交换两个不同的步骤直到收敛。<br>步骤一，每个训练样本分配到最近的中心点ui所代表的聚类i。<br>步骤二，每一个中心点ui更新为聚类i中所有训练样本 xj的均值。  </p>
 <p>关于聚类的一个问题是聚类问题本身是病态的。 这是说没有单一的标准去度量聚类的数据在真实世界中效果如何。<br>我们可以度量聚类的性质，例如类中元素到类中心点的欧几里得距离的均值。 这使我们可以判断从聚类分配中重建训练数据的效果如何。<br>然而我们不知道聚类的性质是否很好地对应到真实世界的性质。 此外，可能有许多不同的聚类都能很好地对应到现实世界的某些属性。<br>我们可能希望找到和一个特征相关的聚类，但是得到了一个和任务无关的，同样是合理的不同聚类。  </p>
 <h2 id="4-10-随机梯度下降"><a href="#4-10-随机梯度下降" class="headerlink" title="4.10 随机梯度下降"></a>4.10 随机梯度下降</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170830095345174?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/di
@@ -3358,7 +3359,7 @@ ssolve/70/gravity/Center" width="70%" align="center">  </div></p>
 <p>只要在要学习的真实函数的峰值和谷值处有足够多的样本，那么平滑性假设和相关的无参数学习算法的效果都非常好。<br>当要学习的函数足够平滑，并且只在少数几维变化，这样做一般没问题。 在高维空间中，即使是非常平滑的函数，也会在不同维度上有不同的变化方式。<br>如果函数在不同的区间中表现不一样，那么就非常难用一组训练样本去刻画函数。 如果函数是复杂的（我们想区分多于训练样本数目的大量区间），有希望很好地泛化么？</p>
 <p><strong>流形学习</strong></p>
 <p>流形指连接在一起的区域。 数学上，它是指一组点，且每个点都有其邻域。 给定一个任意的点，其流形局部看起来像是欧几里得空间。<br>日常生活中，我们将地球视为二维平面，但实际上它是三维空间中的球状流形。<br>机器学习中倾向于更松散地定义一组点，只需要考虑少数嵌入在高维空间中的自由度或维数就能很好地近似。 每一维都对应着局部的变化方向。  </p>
-<p>流形学习算法通过一个假设来克服这个障碍，该假设认为Rn中大部分区域都是无效的输入，有意义的输入只分布在包含少量数据点的子集构成的一组流形中，而学习函数的输出<br>中，有意义的变化都沿着流形的方向或仅发生在我们切换到另一流形时。  </p>
+<p>流形学习算法通过一个假设来克服这个障碍，该假设认为Rn中大部分区域都是无效的输入，有意义的输入只分布在包含少量数据点的子集构成的一组流形中，而学习函数的输出中，有意义的变化都沿着流形的方向或仅发生在我们切换到另一流形时。  </p>
 </div></div></div></div></div></div>]]></content>
       
         <categories>
