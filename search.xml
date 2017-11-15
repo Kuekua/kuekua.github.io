@@ -2772,11 +2772,11 @@ MathJax.Hub.Config({
       <url>/2017/08/24/Deep%20Learning%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B05---%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/</url>
       <content type="html"><![CDATA[<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
 
-<h2 id="1-卷积公式："><a href="#1-卷积公式：" class="headerlink" title="1. 卷积公式："></a>1. 卷积公式：</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170927104818444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast" width="40%" align="center"></div></p>
+<h2 id="1-卷积公式："><a href="#1-卷积公式：" class="headerlink" title="1. 卷积公式："></a>1. 卷积公式：</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170927104818444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast" width="50%" align="center"></div></p>
 <div align="left"> 
 
 <h2 id="2-卷积运算特点："><a href="#2-卷积运算特点：" class="headerlink" title="2.卷积运算特点："></a>2.卷积运算特点：</h2><p><strong>稀疏交互：</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927105858854?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927105858854?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast" width="70%" align="center"></div></p>
 <div align="left"> 
 
 <p><strong>参数共享：</strong></p>
@@ -2791,29 +2791,29 @@ MathJax.Hub.Config({
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170927111624901?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
 <div align="left"> 
 
-<h2 id="4-基本卷积函数的变体"><a href="#4-基本卷积函数的变体" class="headerlink" title="4. 基本卷积函数的变体"></a>4. 基本卷积函数的变体</h2><p>我们有时会希望跳过核中的一些位置来降低计算的开销（相应的代价是提取特征没有先前那么好了）。 我们可以把这一过程看作是对全卷积函数输出的下采样(downsampling)。 如果我们只想在输出的每个方向上每间隔s个像素进行采样，那么我们可以定义一个下采样卷积函数c使得$$\begin{equation} Z<em>{i,j,k} = c(K, V, s)</em>{i,j,k} = \sum<em>{l,m,n} [V</em>{l,(j-1)\timess+m, (k-1)\times s +n,} K_{i,l,m,n}].\end{equation}$$，我们把s称为下采样卷积的步幅。 当然也可以对每个移动方向定义不同的步幅。</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927113213889?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<h2 id="4-基本卷积函数的变体"><a href="#4-基本卷积函数的变体" class="headerlink" title="4. 基本卷积函数的变体"></a>4. 基本卷积函数的变体</h2><p>我们有时会希望跳过核中的一些位置来降低计算的开销（相应的代价是提取特征没有先前那么好了）。 我们可以把这一过程看作是对全卷积函数输出的下采样(downsampling)。 如果我们只想在输出的每个方向上每间隔s个像素进行采样，那么我们可以定义一个下采样卷积函数c使得:</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171115235405274?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<div align="left"> 
+
+<p>我们把s称为下采样卷积的步幅。 当然也可以对每个移动方向定义不同的步幅。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927113213889?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
 <div align="left"> 
 
 <p><strong>平铺卷积</strong>对卷积层和局部连接层进行了折衷。 这里并不是对每一个空间位置的权重集合进行学习，我们学习一组核使得当我们在空间移动时它们可以循环利用。 这意味着在近邻的位置上拥有不同的过滤器，就像局部连接层一样，但是对于这些参数的存储需求仅仅会增长常数倍，这个常数就是核的集合的大小，而不是整个输出的特征映射的大小。</p>
 <p>局部连接，卷积和全连接的比较 :</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927112647161?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927112647161?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
 <div align="left"> 
 
 <h2 id="5-结构化输出"><a href="#5-结构化输出" class="headerlink" title="5. 结构化输出"></a>5. 结构化输出</h2><p>对图像逐个像素标记的一种策略是先产生图像标签的原始猜测，然后使用相邻像素之间的交互来修正该原始猜测。 重复这个修正步骤数次对应于在每一步使用相同的卷积，该卷积在深层网络的最后几层之间共享权重。 这使得在层之间共享参数的连续的卷积层所执行的一系列运算，形成了一种特殊的循环神经网络。 下图给出了这样一个循环卷积网络的结构。</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927114217706?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927114217706?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
 <p><div align="left"> </div></p>
-<h2 id="6-数据类型"><a href="#6-数据类型" class="headerlink" title="6. 数据类型"></a>6. 数据类型</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170927141521499?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<h2 id="6-数据类型"><a href="#6-数据类型" class="headerlink" title="6. 数据类型"></a>6. 数据类型</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170927141521499?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
 <p><div align="left"> </div></p>
 <h2 id="7-高效的卷积算法"><a href="#7-高效的卷积算法" class="headerlink" title="7. 高效的卷积算法"></a>7. 高效的卷积算法</h2><ol>
 <li>卷积等效于使用傅立叶变换将输入与核都转换到频域、执行两个信号的逐点相乘，再使用傅立叶逆变换转换回时域。</li>
-<li><p>当一个d维的核可以表示成d个向量（每一维一个向量）的外积时，该核被称为可分离的。  它等价于组合d个一维卷积，每个卷积使用这些向量中的一个。 组合方法显著快于使用它们的外积来执行一个d维的卷积。 并且核也只要更少的参数来表示成向量。 如果核在每一维都是w个元素宽，那么朴素的多维卷积需要O(w^d)的运行时间和参数存储空间，而可分离卷积只需要$$O(w\times d)$$的运行时间和参数存储空间。</p>
-</li>
-<li><p>随机或无监督的特征</p>
-</li>
+<li>当一个d维的核可以表示成d个向量（每一维一个向量）的外积时，该核被称为可分离的。  它等价于组合d个一维卷积，每个卷积使用这些向量中的一个。 组合方法显著快于使用它们的外积来执行一个d维的卷积。 并且核也只要更少的参数来表示成向量。 如果核在每一维都是w个元素宽，那么朴素的多维卷积需要O(w^d)的运行时间和参数存储空间，而可分离卷积只需要$$O(w\times d)$$的运行时间和参数存储空间。</li>
 </ol>
-<hr>
-<p>通常，卷积网络训练中最昂贵的部分是学习特征。 减少卷积网络训练成本的一种方式是使用那些不是由监督方式训练得到的特征。</p>
+<h2 id="8-随机或无监督的特征"><a href="#8-随机或无监督的特征" class="headerlink" title="8. 随机或无监督的特征"></a>8. 随机或无监督的特征</h2><p>通常，卷积网络训练中最昂贵的部分是学习特征。 减少卷积网络训练成本的一种方式是使用那些不是由监督方式训练得到的特征。</p>
 <p>有三种基本策略可以不通过监督训练而得到卷积核：</p>
 <ol>
 <li>简单地随机初始化它们。 </li>
@@ -2821,10 +2821,10 @@ MathJax.Hub.Config({
 <li>使用无监督的标准来学习核。 例如，将k均值聚类算法应用于小图像块，然后使用每个学得的中心作为卷积核。  使用无监督的标准来学习特征，允许这些特征的确定与位于网络结构顶层的分类层相分离。 然后只需提取一次全部训练集的特征，构造用于最后一层的新训练集。 假设最后一层类似逻辑回归或者SVM，那么学习最后一层通常是凸优化问题。</li>
 </ol>
 <h2 id="9-卷积网络的神经科学基础"><a href="#9-卷积网络的神经科学基础" class="headerlink" title="9. 卷积网络的神经科学基础"></a>9. 卷积网络的神经科学基础</h2><p>初级视觉皮层细胞具有由Gabor函数所描述的权重。 Gabor函数描述在图像中的2维点处的权重。我们可以认为图像是2维坐标I(x,y)的函数。 类似地，我们可以认为简单细胞是在图像中的一组位置采样，这组位置由一组x坐标X和一组y坐标Y来定义，并且使用的权重$w(x,y)$也是位置的函数。 从这个观点来看，简单细胞对于图像的响应由下式给出:</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927142822259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927142822259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
 <p><div align="left"><br>这里$$\alpha, \beta_x, \beta_y, f, \phi, x_0, y_0, \tau$$都是控制Gabor函数性质的参数。 下图给出了Gabor函数在不同参数集上的一些例子：</div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927143010384?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
-</div></div></div></div></div>]]></content>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927143010384?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
+</div></div></div></div></div></div>]]></content>
       
         <categories>
             
@@ -2882,7 +2882,7 @@ cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
-<p>SGD算法中的一个关键参数是学习率。 之前，我们介绍的SGD使用固定的学习率。 在实践中，有必要随着时间的推移逐渐降低学习率，因此我们将第  k<br>步迭代的学习率记作  ϵ  k  。<br>实践中，一般会线性衰减学习率直到第  τ  次迭代：<br>$$ϵ-k  =  (  1  −  α  )  ϵ_0  +  αϵ<em>t $$<br>其中  α  =  k</em>τ  。 在  τ  步迭代之后，一般使  ϵ  保持常数。</p>
+<p>SGD算法中的一个关键参数是学习率。 之前，我们介绍的SGD使用固定的学习率。 在实践中，有必要随着时间的推移逐渐降低学习率，因此我们将第k步迭代的学习率记作  ϵ  k  。<br>实践中，一般会线性衰减学习率直到第  τ  次迭代：<br>$$ ϵ_k=(1−α)ϵ_0+αϵ<em>t $$<br>其中$$ α=k</em>τ $$ 。 在  τ  步迭代之后，一般使  ϵ  保持常数。</p>
 <p><strong> 4.2 动量 </strong>   </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922104728067?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
@@ -2895,7 +2895,7 @@ cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left"> 
 
-<p>速度  v  累积了梯度元素  $$∇  θ  (  1/m  ∑  m _{i  =  1}  L  (  f  (  x  (  i  )  ;  θ  ),  y  (  i  )  )  )$$  。 相对于  ϵ  ，  α  越大，之前梯度对现在方向的影响也越大。之前，步长只是梯度范数乘以学习率。<br>现在，步长取决于梯度序列的大小和排列。 当许多连续的梯度指向相同的方向时，步长最大。</p>
+<p>速度  v  累积了梯度元素  $$∇θ(1/m∑  m _{i  =  1}  L  (  f  (  x  (  i  )  ;  θ  ),  y  (  i  )  )  )$$  。 相对于ϵ  ，  α  越大，之前梯度对现在方向的影响也越大。之前，步长只是梯度范数乘以学习率。<br>现在，步长取决于梯度序列的大小和排列。 当许多连续的梯度指向相同的方向时，步长最大。</p>
 <p><strong> 4.3 Nesterov 动量 </strong></p>
 <p>Nesterov 动量可以解释为往标准动量方法中添加了一个校正因子。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922105656434?watermark/2/text/aHR0cDovL2Jsb2
@@ -2949,7 +2949,7 @@ cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dis
 solve/70/gravity/SouthEast" width="30%"></div></p>
 <div align="left"> 
 
-<p>因此，对于局部的二次函数（具有正定的  H  ,），用  H  −  1  重新调整梯度，牛顿法会直接跳到极小值。<br>如果目标函数是凸的但非二次的（有高阶项），该更新将是迭代的，得到和牛顿法相关的算法，如算法8.8所示。  </p>
+<p>因此，对于局部的二次函数（具有正定的  H  ,），用$$H^{−1}$$重新调整梯度，牛顿法会直接跳到极小值。<br>如果目标函数是凸的但非二次的（有高阶项），该更新将是迭代的，得到和牛顿法相关的算法，如算法8.8所示。  </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170922143919690?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast" width="70%"></div></p>
@@ -2981,10 +2981,10 @@ cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast" width="30%"></div></p>
 <div align="left"> 
 
-<p>其中  δ  是个很小的正值，比如  10  −  8  ，以强制避免遇到  z  √  的梯度在  z  =  0  处未定义的问题。<br>至关重要的是，我们通过反向传播这些操作来计算均值和标准差，并应用它们于标准化  H  。 这意味着，梯度不会再简单地增加  h  i的标准差或均值；标准化操作会除掉这一操作的影响，归零其在梯度中的元素。<br>以前的方法添加代价函数的惩罚，以鼓励单元标准化激活统计量，或是在每个梯度下降步骤之后重新标准化单元统计量。<br>前者通常会导致不完全的标准化，而后者通常会显著地消耗时间，因为学习算法会反复改变均值和方差而标准化步骤会反复抵消这种变化。<br>批标准化重参数化模型，以使一些单元总是被定义标准化，巧妙地回避了这两个问题。</p>
+<p>其中  δ  是个很小的正值，比如  $$10^{−8}$$  ，以强制避免遇到z的梯度在  z  =  0  处未定义的问题。<br>至关重要的是，我们通过反向传播这些操作来计算均值和标准差，并应用它们于标准化  H  。 这意味着，梯度不会再简单地增加  h  i的标准差或均值；标准化操作会除掉这一操作的影响，归零其在梯度中的元素。<br>以前的方法添加代价函数的惩罚，以鼓励单元标准化激活统计量，或是在每个梯度下降步骤之后重新标准化单元统计量。<br>前者通常会导致不完全的标准化，而后者通常会显著地消耗时间，因为学习算法会反复改变均值和方差而标准化步骤会反复抵消这种变化。<br>批标准化重参数化模型，以使一些单元总是被定义标准化，巧妙地回避了这两个问题。</p>
 <p>在 <strong> 测试阶段 </strong> ，  μ  和  σ  可以被替换为训练阶段收集的运行均值。 这使得模型可以对单一样本评估，而无需使用定义于整个小批量的  μ和  σ  。</p>
 <p>标准化一个单元的均值和标准差会降低包含该单元的神经网络的表达能力。 为了保持网络的表现力，通常会将批量隐藏单元激活  H  替换为  γ  H  ′  +β  ，而不是简单地使用标准化的  H  ′  。 变量  γ  和  β  是允许新变量有任意均值和标准差的学习参数。<br>乍一看，这似乎是无用的——为什么我们将均值设为  0  ，然后又引入参数允许它被重设为任意值  β  ？答案是新的参数可以表示旧参数作为输入的同一族函数，但是新参数有不同的学习动态。 在旧参数中，  H  的均值取决于  H  下层中参数的复杂关联。<br>在新参数中，  γ  H  ′  +  β  的均值仅由  β  确定。 新参数很容易通过梯度下降来学习。</p>
-<h2 id="8-2-坐标下降"><a href="#8-2-坐标下降" class="headerlink" title="8.2 坐标下降"></a>8.2 坐标下降</h2><p>在某些情况下，将一个优化问题分解成几个部分，可以更快地解决原问题。 如果我们相对于某个单一变量  x  i  最小化  f  (  x  )<br>，然后相对于另一个变量  x  j  等等，反复循环所有的变量，我们会保证到达（局部）极小值。 这种做法被称为坐标下降，因为我们一次优化一个坐标。<br>更一般地，块坐标下降是指对于某个子集的变量同时最小化。 术语”坐标下降”通常既指块坐标下降，也指严格的单个坐标下降。</p>
+<h2 id="8-2-坐标下降"><a href="#8-2-坐标下降" class="headerlink" title="8.2 坐标下降"></a>8.2 坐标下降</h2><p>在某些情况下，将一个优化问题分解成几个部分，可以更快地解决原问题。 如果我们相对于某个单一变量  x  i  最小化  f  (  x  )，然后相对于另一个变量  x  j  等等，反复循环所有的变量，我们会保证到达（局部）极小值。 这种做法被称为坐标下降，因为我们一次优化一个坐标。<br>更一般地，块坐标下降是指对于某个子集的变量同时最小化。 术语”坐标下降”通常既指块坐标下降，也指严格的单个坐标下降。</p>
 <p>当优化问题中的不同变量能够清楚地分成相对独立的组，或是当优化一组变量明显比优化所有变量效率更高时，坐标下降最有意义。</p>
 <h2 id="8-3-Polyak平均"><a href="#8-3-Polyak平均" class="headerlink" title="8.3 Polyak平均"></a>8.3 Polyak平均</h2><p>Polyak平均会平均优化算法在参数空间访问轨迹中的几个点。 如果  t  次迭代梯度下降访问了点  θ  (  1  )  ,  …  ,  θ  (t  )  ，那么Polyak平均算法的输出是 $$ θ^t =  1  /t  ∑_  iθ^i$$  。<br>在某些问题中，如梯度下降应用于凸问题时，这种方法具有较强的收敛保证。 当应用于神经网络时，其验证更多是启发式的，但在实践中表现良好。<br>基本想法是，优化算法可能会来回穿过山谷好几次而没经过山谷底部附近的点。 尽管两边所有位置的均值应比较接近谷底。</p>
 <p>在非凸问题中，优化轨迹的路径可以非常复杂，并且经过了许多不同的区域。<br>包括参数空间中遥远过去的点，可能与当前点在代价函数上相隔很大的障碍，看上去不像一个有用的行为。<br>其结果是，当应用Polyak平均于非凸问题时，通常会使用指数衰减计算平均值：  </p>
@@ -4307,47 +4307,6 @@ if __name__ == &apos;__main__&apos;:
     </entry>
     
     <entry>
-      <title><![CDATA[白平衡算法总结]]></title>
-      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
-<p><strong>TIPS:</strong></p>
-<ol>
-<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
-</li>
-<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
-</li>
-</ol>
-<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
-<p><strong>Tips:</strong></p>
-<ol>
-<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
-</li>
-<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
-</li>
-</ol>
-<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Image Processing </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Machine Learning </tag>
-            
-            <tag> Image Processing </tag>
-            
-            <tag> algorithm </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[提升人脸检测效率的方法总结]]></title>
       <url>/2017/06/21/%E6%8F%90%E5%8D%87%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B%E6%95%88%E7%8E%87%E7%9A%84%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
       <content type="html"><![CDATA[<p>人脸检测是一个非常经典的问题，很多人认为这是一个“已经解决”了的问题。人脸检测最经典的方法是Haar+AdaBoost。采用开源的Haar+AdaBoost实现（如OpenCV中的训练和检测程序），我们可以很容易的训练一个还算不错的人脸检测器。但是，一旦将人脸检测技术投入实际应用，一系列问题便会冒出来。如（1）误检（把非人脸的物体当作人脸）较多，非人脸图像当作人脸送入后续算法，会引起一系列不良后果。（2）漏检问题，例如戴墨镜、大胡子、逆光条件、黑种人、倾斜姿态较大的脸无法检测到。（3）速度问题，虽很多人脸检测算法的速度已经很快，但在一个人脸分析（如人脸识别）系统中，人脸检测步骤的计算量往往超过50%。大部分检测算法采用窗口扫描的方式，窗口数目巨大，所以计算量居高不下。很多系统运行在低功耗平台，对计算量尤其敏感。假如手机一拍照片就发烫就很不好。</p>
@@ -4373,6 +4332,47 @@ if __name__ == &apos;__main__&apos;:
 <h1 id="9-代码优化：GPU优化"><a href="#9-代码优化：GPU优化" class="headerlink" title="9. 代码优化：GPU优化"></a>9. 代码优化：GPU优化</h1><p>GPU跟CPU不同，有自己独特的特点。GPU特别适合做无复杂逻辑但计算量大的事情。例如图像resize、图像滤波等。Boosting算法可以运行在GPU上，并获得加速，但GPU加速Boosting优势并没有你想象的明显。Boosting算法中逻辑分支较多，也就是有不定长的for循环，有if-else判断；并行的时候每个运算单元运算量并不相同，有些运行时间长，有些运行时间短。运行时间短的要等运行时间长的。我们做了很多努力，GPU版本（低端GTX750i显卡）速度大约可以做到CPU版本（i7多核并行）的6倍左右。跟OpenCV中用GPU加速Haar+Adaboost的倍数一致，而没有达到期望的几十倍加速。</p>
 <h1 id="10-吐槽：非连续内存读写"><a href="#10-吐槽：非连续内存读写" class="headerlink" title="10. 吐槽：非连续内存读写"></a>10. 吐槽：非连续内存读写</h1><p>读写非连续内存，速度可能变慢。如下图Haar积分图计算像素和的公式是D-B-C+A，需要读4个元素值，但这4个值在内存里并不连续，特别是A和D距离较远，这样降低了CPU缓存的命中率，也就降低了速度。对缓存小的低价位CPU影响尤为明显。虽然公式D-B-C+A的计算量跟E-F-G-H相同，但一般来说后者速度会快。此外，Boosting方法选出的多个弱特征，在图像上往往也不相邻，同样是低效的非连续内存的读写，这是Boosting类方法的一个缺点。</p>
 <h1 id="11-未来展望"><a href="#11-未来展望" class="headerlink" title="11. 未来展望"></a>11. 未来展望</h1><p>到目前为止，Boosting方法在人脸检测中依然具有明显的速度优势。但基于深度学习的目标检测方法进展迅速，不容小视。深度学习的方法可以很容易地获得非常高的准确率，如在FDDB人脸检测评库上，传统方法能达到85%准确率就非常高了，但深度学习方法可以轻松超过90%，甚至超过95%。如果想兼顾速度和准确率，传统方法和深度学习的方法结合也许是一个思路，现在已经有一些这样的尝试了。此外，CNN专用硬件应可以弥补深度学习方法的劣势。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Image Processing </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Machine Learning </tag>
+            
+            <tag> Image Processing </tag>
+            
+            <tag> algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[白平衡算法总结]]></title>
+      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
+<p><strong>TIPS:</strong></p>
+<ol>
+<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
+</li>
+<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
+</li>
+</ol>
+<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
+<p><strong>Tips:</strong></p>
+<ol>
+<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
+</li>
+<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
+</li>
+</ol>
+<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
 ]]></content>
       
         <categories>

@@ -27,13 +27,14 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20170927104818444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927105858854?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927111624901?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171115235405274?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927113213889?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927112647161?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927114217706?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927141521499?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927142822259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170927143010384?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T07:53:47.000Z">
+<meta property="og:updated_time" content="2017-11-15T15:55:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deep Learning读书笔记5---卷积网络 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. 卷积公式：    2.卷积运算特点：稀疏交互：     参数共享： 参数共享是指在一个模型的多个函数中使用相同的参数。 在卷积神经网络中，核的每一个元素都作用在输入的每一位置上（是否考虑边界像素取决于对边界决策的设计）。 卷积运算中的参数共享保证了我们只需要学习一个参数集合，而不是对于每一位置都需要学习一个单独的参数集合。 平移等变： 如果一个函数满足输入改变，输出也以同样的方式改变这">
@@ -199,11 +200,11 @@ classes that you can use:
   <section id="post-content" class="article-content post">
     <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
 
-<h2 id="1-卷积公式："><a href="#1-卷积公式：" class="headerlink" title="1. 卷积公式："></a>1. 卷积公式：</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170927104818444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast" width="40%" align="center"></div></p>
+<h2 id="1-卷积公式："><a href="#1-卷积公式：" class="headerlink" title="1. 卷积公式："></a>1. 卷积公式：</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170927104818444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/100/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast" width="50%" align="center"></div></p>
 <div align="left"> 
 
 <h2 id="2-卷积运算特点："><a href="#2-卷积运算特点：" class="headerlink" title="2.卷积运算特点："></a>2.卷积运算特点：</h2><p><strong>稀疏交互：</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927105858854?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927105858854?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/40/gravity/SouthEast" width="70%" align="center"></div></p>
 <div align="left"> 
 
 <p><strong>参数共享：</strong></p>
@@ -218,29 +219,29 @@ classes that you can use:
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170927111624901?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
 <div align="left"> 
 
-<h2 id="4-基本卷积函数的变体"><a href="#4-基本卷积函数的变体" class="headerlink" title="4. 基本卷积函数的变体"></a>4. 基本卷积函数的变体</h2><p>我们有时会希望跳过核中的一些位置来降低计算的开销（相应的代价是提取特征没有先前那么好了）。 我们可以把这一过程看作是对全卷积函数输出的下采样(downsampling)。 如果我们只想在输出的每个方向上每间隔s个像素进行采样，那么我们可以定义一个下采样卷积函数c使得$$\begin{equation} Z<em>{i,j,k} = c(K, V, s)</em>{i,j,k} = \sum<em>{l,m,n} [V</em>{l,(j-1)\timess+m, (k-1)\times s +n,} K_{i,l,m,n}].\end{equation}$$，我们把s称为下采样卷积的步幅。 当然也可以对每个移动方向定义不同的步幅。</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927113213889?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<h2 id="4-基本卷积函数的变体"><a href="#4-基本卷积函数的变体" class="headerlink" title="4. 基本卷积函数的变体"></a>4. 基本卷积函数的变体</h2><p>我们有时会希望跳过核中的一些位置来降低计算的开销（相应的代价是提取特征没有先前那么好了）。 我们可以把这一过程看作是对全卷积函数输出的下采样(downsampling)。 如果我们只想在输出的每个方向上每间隔s个像素进行采样，那么我们可以定义一个下采样卷积函数c使得:</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171115235405274?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<div align="left"> 
+
+<p>我们把s称为下采样卷积的步幅。 当然也可以对每个移动方向定义不同的步幅。</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927113213889?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
 <div align="left"> 
 
 <p><strong>平铺卷积</strong>对卷积层和局部连接层进行了折衷。 这里并不是对每一个空间位置的权重集合进行学习，我们学习一组核使得当我们在空间移动时它们可以循环利用。 这意味着在近邻的位置上拥有不同的过滤器，就像局部连接层一样，但是对于这些参数的存储需求仅仅会增长常数倍，这个常数就是核的集合的大小，而不是整个输出的特征映射的大小。</p>
 <p>局部连接，卷积和全连接的比较 :</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927112647161?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927112647161?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
 <div align="left"> 
 
 <h2 id="5-结构化输出"><a href="#5-结构化输出" class="headerlink" title="5. 结构化输出"></a>5. 结构化输出</h2><p>对图像逐个像素标记的一种策略是先产生图像标签的原始猜测，然后使用相邻像素之间的交互来修正该原始猜测。 重复这个修正步骤数次对应于在每一步使用相同的卷积，该卷积在深层网络的最后几层之间共享权重。 这使得在层之间共享参数的连续的卷积层所执行的一系列运算，形成了一种特殊的循环神经网络。 下图给出了这样一个循环卷积网络的结构。</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927114217706?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927114217706?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
 <p><div align="left"> </div></p>
-<h2 id="6-数据类型"><a href="#6-数据类型" class="headerlink" title="6. 数据类型"></a>6. 数据类型</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170927141521499?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<h2 id="6-数据类型"><a href="#6-数据类型" class="headerlink" title="6. 数据类型"></a>6. 数据类型</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20170927141521499?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
 <p><div align="left"> </div></p>
 <h2 id="7-高效的卷积算法"><a href="#7-高效的卷积算法" class="headerlink" title="7. 高效的卷积算法"></a>7. 高效的卷积算法</h2><ol>
 <li>卷积等效于使用傅立叶变换将输入与核都转换到频域、执行两个信号的逐点相乘，再使用傅立叶逆变换转换回时域。</li>
-<li><p>当一个d维的核可以表示成d个向量（每一维一个向量）的外积时，该核被称为可分离的。  它等价于组合d个一维卷积，每个卷积使用这些向量中的一个。 组合方法显著快于使用它们的外积来执行一个d维的卷积。 并且核也只要更少的参数来表示成向量。 如果核在每一维都是w个元素宽，那么朴素的多维卷积需要O(w^d)的运行时间和参数存储空间，而可分离卷积只需要$$O(w\times d)$$的运行时间和参数存储空间。</p>
-</li>
-<li><p>随机或无监督的特征</p>
-</li>
+<li>当一个d维的核可以表示成d个向量（每一维一个向量）的外积时，该核被称为可分离的。  它等价于组合d个一维卷积，每个卷积使用这些向量中的一个。 组合方法显著快于使用它们的外积来执行一个d维的卷积。 并且核也只要更少的参数来表示成向量。 如果核在每一维都是w个元素宽，那么朴素的多维卷积需要O(w^d)的运行时间和参数存储空间，而可分离卷积只需要$$O(w\times d)$$的运行时间和参数存储空间。</li>
 </ol>
-<hr>
-<p>通常，卷积网络训练中最昂贵的部分是学习特征。 减少卷积网络训练成本的一种方式是使用那些不是由监督方式训练得到的特征。</p>
+<h2 id="8-随机或无监督的特征"><a href="#8-随机或无监督的特征" class="headerlink" title="8. 随机或无监督的特征"></a>8. 随机或无监督的特征</h2><p>通常，卷积网络训练中最昂贵的部分是学习特征。 减少卷积网络训练成本的一种方式是使用那些不是由监督方式训练得到的特征。</p>
 <p>有三种基本策略可以不通过监督训练而得到卷积核：</p>
 <ol>
 <li>简单地随机初始化它们。 </li>
@@ -248,10 +249,10 @@ classes that you can use:
 <li>使用无监督的标准来学习核。 例如，将k均值聚类算法应用于小图像块，然后使用每个学得的中心作为卷积核。  使用无监督的标准来学习特征，允许这些特征的确定与位于网络结构顶层的分类层相分离。 然后只需提取一次全部训练集的特征，构造用于最后一层的新训练集。 假设最后一层类似逻辑回归或者SVM，那么学习最后一层通常是凸优化问题。</li>
 </ol>
 <h2 id="9-卷积网络的神经科学基础"><a href="#9-卷积网络的神经科学基础" class="headerlink" title="9. 卷积网络的神经科学基础"></a>9. 卷积网络的神经科学基础</h2><p>初级视觉皮层细胞具有由Gabor函数所描述的权重。 Gabor函数描述在图像中的2维点处的权重。我们可以认为图像是2维坐标I(x,y)的函数。 类似地，我们可以认为简单细胞是在图像中的一组位置采样，这组位置由一组x坐标X和一组y坐标Y来定义，并且使用的权重$w(x,y)$也是位置的函数。 从这个观点来看，简单细胞对于图像的响应由下式给出:</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927142822259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927142822259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
 <p><div align="left"><br>这里$$\alpha, \beta_x, \beta_y, f, \phi, x_0, y_0, \tau$$都是控制Gabor函数性质的参数。 下图给出了Gabor函数在不同参数集上的一些例子：</div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927143010384?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="60%" align="center"></div></p>
-</div></div></div></div></div>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20170927143010384?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/20/gravity/SouthEast" width="70%" align="center"></div></p>
+</div></div></div></div></div></div>
   </section>
 
   <section class="post-comments">
