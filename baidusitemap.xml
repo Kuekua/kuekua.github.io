@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/08/01/DeepLearning%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B01-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%AF%87/</loc>
+    <lastmod>2017-11-15T13:03:37.000Z</lastmod>
+    <data>
+        <display>
+        <title>DeepLearning读书笔记1-基础知识篇</title>
+        <pubTime>2017-07-31T16:00:00.000Z</pubTime>
+        
+        <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
+         
+        <tag>Deep Learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="Deep Learning Book" url="http://yoursite.com/categories/Deep-Learning-Book/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/11/11/Yolo2%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90/</loc>
     <lastmod>2017-11-14T15:36:12.000Z</lastmod>
     <data>
@@ -859,30 +883,6 @@
            
              
               <breadCrumb title="Code" url="http://yoursite.com/categories/Code/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/08/01/DeepLearning%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B01-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%AF%87/</loc>
-    <lastmod>2017-10-27T08:37:29.000Z</lastmod>
-    <data>
-        <display>
-        <title>DeepLearning读书笔记1-基础知识篇</title>
-        <pubTime>2017-07-31T16:00:00.000Z</pubTime>
-        
-        <tag>Machine Learning</tag>
-         
-        <tag>Algorithm</tag>
-         
-        <tag>Deep Learning</tag>
-         
-         
-           
-             
-              <breadCrumb title="Deep Learning Book" url="http://yoursite.com/categories/Deep-Learning-Book/"/>
           
         </display>
     </data>
