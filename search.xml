@@ -2573,9 +2573,7 @@ class TwoLayerNet(object):
     <entry>
       <title><![CDATA[Deep Learning读书笔记8--应用]]></title>
       <url>/2017/09/10/Deep%20Learning%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B08--%E5%BA%94%E7%94%A8/</url>
-      <content type="html"><![CDATA[<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-
-<h2 id="1-大规模深度学习"><a href="#1-大规模深度学习" class="headerlink" title="1. 大规模深度学习"></a>1. 大规模深度学习</h2><p>深度学习的基本思想基于联结主义：尽管机器学习模型中单个生物性的神经元或者说是单个特征不是智能的，但是大量的神经元或者特征作用在一起往往能够表现出智能。 </p>
+      <content type="html"><![CDATA[<h2 id="1-大规模深度学习"><a href="#1-大规模深度学习" class="headerlink" title="1. 大规模深度学习"></a>1. 大规模深度学习</h2><p>深度学习的基本思想基于联结主义：尽管机器学习模型中单个生物性的神经元或者说是单个特征不是智能的，但是大量的神经元或者特征作用在一起往往能够表现出智能。 </p>
 <p>在训练过程中，数据并行某种程度上来说更加困难。 对于随机梯度下降的单步来说，我们可以增加小批量的大小，但是从优化性能的角度来说，我们得到的回报通常并不会线性增长。 使用多个机器并行地计算多个梯度下降步骤是一个更好的选择。 不幸的是，梯度下降的标准定义完全是一个串行的过程： 第$$t$$步的梯度是第$$t-1$$步所得参数的函数。<br>这个问题可以使用<strong>异步随机梯度下降</strong>解决。 在这个方法中，几个处理器的核共用存有参数的内存。 每一个核在<strong>无锁</strong>情况下读取这些参数并计算对应的梯度，然后在无锁状态下更新这些参数。 由于一些核把其他的核所更新的参数覆盖了，因此这种方法减少了每一步梯度下降所获得的平均提升。 但因为更新步数的速率增加，总体上还是加快了学习过程。 </p>
 <p><strong>模型压缩</strong></p>
 <p>模型压缩的基本思想是用一个更小的模型取代原始耗时的模型，从而使得用来存储与评估所需的内存与运行时间更少。</p>
@@ -2584,16 +2582,21 @@ class TwoLayerNet(object):
 <p>一般来说，加速数据处理系统的一种策略是构造一个系统，这个系统用动态结构描述图中处理输入的所需计算过程。 在给定一个输入的情况中，数据处理系统可以动态地决定运行神经网络系统的哪一部分。 单个神经网络内部同样也存在动态结构，给定输入信息，决定特征（隐藏单元）哪一部分用于计算。 这种神经网络中的动态结构有时被称为条件计算。 由于模型结构许多部分可能只跟输入的一小部分有关，只计算那些需要的特征可以起到加速的目的。</p>
 <h2 id="2-计算机视觉"><a href="#2-计算机视觉" class="headerlink" title="2. 计算机视觉"></a>2. 计算机视觉</h2><p><strong>预处理：对比度归一化</strong></p>
 <p>对比度指的是图像中亮像素和暗像素之间差异的大小。  在深度学习中，对比度通常指的是图像或图像区域中像素的标准差。 假设我们有一个张量表示的图像$$X \in R^{r\times c\times 3}$$，其中$$X<em>{i,j,1}$$表示第$$i$$行第$$j$$列红色的强度，$$X</em>{i,j,2}$$对应的是绿色的强度，$$X_{i,j,3}$$对应的是蓝色的强度。 然后整个图像的对比度可以表示如下：</p>
-<p>$$\begin{align}  \sqrt{ {\frac{1}{3rc}\sum<em>{i=1}^{r}\sum</em>{j=1}^{c}\sum<em>{k=1}^{3}} (X</em>{i,j,k} - \bar{X} )^2} . \end{align}$$</p>
-<p>其中$$\bar{X}$$是整个图片的平均强度，满足</p>
-<p>$$\begin{align}  \bar{X} = {\frac{1}{3rc}\sum<em>{i=1}^{r}\sum</em>{j=1}^{c}\sum<em>{k=1}^{3}} (X</em>{i,j,k} ). \end{align}$$</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171116224217078?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<div align="left">
+
+
 <p>全局对比度归一化旨在通过从每个图像中减去其平均值，然后重新缩放其使得其像素上的标准差等于某个常数$$s$$来防止图像具有变化的对比度。 这种方法非常复杂，因为没有缩放因子可以改变零对比度图像（所有像素都具有相等强度的图像）的对比度。 具有非常低但非零对比度的图像通常几乎没有信息内容。 在这种情况下除以真实标准差通常仅能放大传感器噪声或压缩伪像。 这种现象启发我们引入一个小的正的正则化参数$$\lambda$$来平衡估计的标准差。 或者，我们至少可以约束分母使其大于等于$$\epsilon$$。 给定一个输入图像$$X$$，全局对比度归一化产生输出图像$$X’$$，定义为 </p>
-<p>$$\begin{align} X’{i,j,k} = s\frac{X{i,j,k} - \bar{X}}{\max {（{ \epsilon, \sqrt{ \lambda + {\frac{1}{3rc}\sum<em>{i=1}^{r}\sum</em>{j=1}^{c}\sum<em>{k=1}^{3}} (X</em>{i,j,k} - \bar{X} )^2} }）}}. \end{align}$$</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171116224226596?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"></div></p>
+<div align="left">
+
 <p>从大图像中剪切感兴趣的对象所组成的数据集不可能包含任何强度几乎恒定的图像。 在这些情况下，通过设置$$\lambda = 0$$来忽略小分母问题是安全的，并且在非常罕见的情况下为了避免除以$$0$$，通过将$$\epsilon$$设置为一个非常小的值比如说$$10^{-8}$$。<br>尺度参数$$s$$通常可以设置为$$1$$，或选择使所有样本上每个像素的标准差接近$$1$$。</p>
 <p>全局对比度归一化常常不能突出我们想要突出的图像特征，例如边缘和角。 如果我们有一个场景，包含了一个大的黑暗区域和一个大的明亮的区域（例如一个城市广场有一半的区域处于建筑物的阴影之中）， 则全局对比度归一化将确保暗区域的亮度与亮区域的亮度之间存在大的差异。 然而，它不能确保暗区内的边缘突出。</p>
 <p>局部对比度归一化确保对比度在每个小窗口上被归一化，而不是作为整体在图像上被归一化。<br>我们可以通过减去邻近像素的平均值并除以邻近像素的标准差来修改每个像素。 在一些情况下，要计算以当前要修改的像素为中心的矩形窗口中所有像素的平均值和标准差。 在其他情况下，使用的则是以要修改的像素为中心的高斯权重的加权平均和加权标准差。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171018102431153?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left">  <div align="left"> </div></div></div></p>
-<h2 id="3-语音识别"><a href="#3-语音识别" class="headerlink" title="3. 语音识别"></a>3. 语音识别</h2><p>语音识别任务在于将一段包括了自然语言发音的声学信号投影到对应说话人的词序列上。 令$$X=(x^{(1)},x^{(2)},\ldots,x^{(T)})$$表示语音的输入向量（传统做法以$$20$$ms为一帧分割信号）。 许多语音识别的系统通过特殊的手工设计方法预处理输入信号，从而提取特征，但是某些深度学习系统直接从原始输入中学习特征。 令$$y=(y<em>{1},y</em>{2},\ldots,y<em>{N})$$表示目标的输出序列（通常是一个词或者字符的序列）。 自动语音识别任务指的是构造一个函数$$f^*</em>{ASR}$$，使得它能够在给定声学序列$$X$$的情况下计算最有可能的语言序列$$y$$：<br>$$\begin{align} f^<em>_{ASR}(X) = \underset{y}{\arg\max} P^</em>(y \mid X = X), \end{align}$$<br> 其中$$P^*$$是给定输入值$$X$$时对应目标$$y$$的真实条件分布。</p>
+<h2 id="3-语音识别"><a href="#3-语音识别" class="headerlink" title="3. 语音识别"></a>3. 语音识别</h2><p>语音识别任务在于将一段包括了自然语言发音的声学信号投影到对应说话人的词序列上。 令$$X=(x^1,x^2,…,x^T)$$表示语音的输入向量（传统做法以$$20$$ms为一帧分割信号）。 许多语音识别的系统通过特殊的手工设计方法预处理输入信号，从而提取特征，但是某些深度学习系统直接从原始输入中学习特征。 令$$y=(y_1,y_2,…,y<em>N)$$表示目标的输出序列（通常是一个词或者字符的序列）。 自动语音识别任务指的是构造一个函数$$f^*</em>{ASR}$$，使得它能够在给定声学序列$$X$$的情况下计算最有可能的语言序列$$y$$： </p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171116224234545?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%" align="center"></div></p>
+<p><div align="left"><br> 其中$$P^*$$是给定输入值$$X$$时对应目标$$y$$的真实条件分布。</div></p>
 <p>从20世纪80年代直到约2009-2012年，最先进的语音识别系统是隐马尔可夫模型和高斯混合模型的结合。 GMM对声学特征和音素之间的关系建模，HMM对音素序列建模。 GMM-HMM模型将语音信号视作由如下过程生成：首先，一个HMM生成了一个音素的序列以及离散的子音素状态（比如每一个音素的开始，中间，结尾），然后GMM把每一个离散的状态转化为一个简短的声音信号。<br>之后，随着更大更深的模型以及更大的数据集的出现，通过使用神经网络代替GMM来实现将声学特征转化为音素（或者子音素状态）的过程可以大大地提高识别的精度。<br>一个重要的创新是，卷积网络在时域与频域上复用了权重，改进了之前的仅在时域上使用重复权值的时延神经网络。 这种新的二维的卷积模型并不是将输入的频谱当作一个长的向量，而是当成是一个图像，其中一个轴对应着时间，另一个轴对应的是谱分量的频率。</p>
 <h2 id="4-自然语言处理"><a href="#4-自然语言处理" class="headerlink" title="4. 自然语言处理"></a>4. 自然语言处理</h2><p>自然语言处理让计算机能够使用人类语言，例如英语或法语。 为了让简单的程序能够高效明确地解析，计算机程序通常读取和发出特殊化的语言。 而自然的语言通常是模糊的，并且可能不遵循形式的描述。 自然语言处理中的应用如机器翻译，学习者需要读取一种人类语言的句子，并用另一种人类语言发出等同的句子。 许多NLP应用程序基于语言模型，语言模型定义了关于自然语言中的字、字符或字节序列的概率分布。</p>
 <h2 id="5-其他应用"><a href="#5-其他应用" class="headerlink" title="5. 其他应用"></a>5. 其他应用</h2><p><strong>推荐系统</strong></p>
@@ -2601,7 +2604,7 @@ class TwoLayerNet(object):
 <p>协同过滤系统有一个基本限制：当引入新项目或新用户时，缺乏评级历史意味着无法评估其与其他项目或用户的相似性，或者说无法评估新的用户和现有项目的联系。 这被称为冷启动推荐问题。 解决冷启动推荐问题的一般方式是引入单个用户和项目的额外信息。 例如，该额外信息可以是用户简要信息或每个项目的特征。 使用这种信息的系统被称为<strong>基于内容的推荐系统</strong>。 从丰富的用户特征或项目特征集到嵌入的映射可以通过深度学习架构学习。</p>
 <p><strong>知识表示、推理和回答</strong></p>
 <p>因为使用符号和词嵌入，深度学习方法在语言模型、机器翻译和自然语言处理方面非常成功。 这些嵌入表示关于单个词或概念的语义知识。 研究前沿是为短语或词和事实之间的关系开发嵌入。 搜索引擎已经使用机器学习来实现这一目的，但是要改进这些更高级的表示还有许多工作要做。<br>知识、联系和回答 一个有趣的研究方向是确定如何训练分布式表示才能捕获两个实体之间的关系。</p>
-]]></content>
+</div></div>]]></content>
       
         <categories>
             
@@ -2649,7 +2652,7 @@ class TwoLayerNet(object):
 <p><strong>拟合极小的数据集：</strong></p>
 <p> 当训练集上有很大的误差时，我们需要确定问题是真正的欠拟合，还是软件错误。 通常，即使是小模型也可以保证很好地拟合一个足够小的数据集。 例如，只有一个样本的分类数据可以通过正确设置输出层的偏置来拟合。 通常，如果不能训练一个分类器来正确标注一个单独的样本，或不能训练一个自编码器来成功地精准再现一个单独的样本，或不能训练一个生成模型来一致地生成一个单独的样本，那么很有可能是由于软件错误阻止训练集上的成功优化。 此测试可以扩展到只有少量样本的小数据集上。</p>
 <p><strong>比较反向传播导数和数值导数：</strong></p>
-<p> 如果读者正在使用一个需要实现梯度计算的软件框架，或者在添加一个新操作到求导库中，必须定义它的bprop方法，那么常见的错误原因是没能正确地实现梯度表达。 验证这些求导正确性的一种方法是比较实现的自动求导和通过有限差分计算的导数。 因为</p>
+<p> 如果读者正在使用一个需要实现梯度计算的软件框架，或者在添加一个新操作到求导库中，必须定义它的bprop方法，那么常见的错误原因是没能正确地实现梯度表达。 验证这些求导正确性的一种方法是比较实现的自动求导和通过有限差分计算的导数。 </p>
 <p><strong>监控激活函数值和梯度的直方图：</strong></p>
 <p> 可视化神经网络在大量训练迭代后（也许是一个轮）收集到的激活函数值和梯度的统计量往往是有用的。 隐藏单元的预激活值可以告诉我们该单元是否饱和，或者它们饱和的频率如何。 例如，对于整流器，它们多久关一次？是否有单元一直关闭？ 对于双曲正切单元而言，预激活绝对值的平均值可以告诉我们该单元的饱和程度。 在深度网络中，传播梯度的快速增长或快速消失，可能会阻碍优化过程。 最后，比较参数梯度和参数的量级也是有帮助的。 我们希望参数在一个小批量更新中变化的幅度是参数量值$$1\%$$这样的级别，而不是$$50\%$$或者$$0.001\%$$（这会导致参数移动得太慢）。 也有可能是某些参数以良好的步长移动，而另一些停滞。 如果数据是稀疏的（比如自然语言），有些参数可能很少更新，检测它们变化时应该记住这一点。</p>
 ]]></content>
@@ -2690,27 +2693,25 @@ class TwoLayerNet(object):
 <p>RNN从特定的初始状态$$h^{(0)}$$开始前向传播。 从$$t= 1$$到$$t = \tau$$的每个时间步，我们应用以下更新方程：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171011141924222?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="40%" align="center"> <div align="left"> </div></div></p>
 <p>其中的参数的偏置向量$$b$$和$$c$$连同权重矩阵$$U$$、$$V$$和$$W$$，分别对应于输入到隐藏、隐藏到输出和隐藏到隐藏的连接。 这个循环网络将一个输入序列映射到相同长度的输出序列。 与$$x$$序列配对的$$y$$的总损失就是所有时间步的损失之和。 例如，$$L^{(t)}$$为给定的$$x^{(1)}, \dots, x^{(t)}$$后$$y^{(t)}$$的负对数似然，则</p>
-<p>$$ L\big( { x^{(1)}, \dots, x^{(\tau)} }, { y^{(1)}, \dots, y^{(\tau)} } \big) $$<br>$$  = \sum_t L^{(t)} $$<br>$$  = - \sum<em>t \log p</em>{\text{model}} \big( y^{(t)} \mid { x^{(1)}, \dots, x^{(t)} } \big)  $$</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171116215341081?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="45%" align="center"><div align="left"> </div></div></p>
 <p>其中$$p_{\text{model}} \big( y^{(t)} \mid { x^{(1)}, \dots, x^{(t)} } \big) $$需要读取模型输出向量$$\hat y^{(t)}$$中对应于$$y^{(t)}$$的项。 关于各个参数计算这个损失函数的梯度是计算成本很高的操作。 梯度计算涉及执行一次前向传播（如在10.3展开图中从左到右的传播），接着是由右到左的反向传播。 运行时间是$$O(\tau)$$，并且不能通过并行化来降低，因为前向传播图是固有循序的;每个时间步只能一前一后地计算。 前向传播中的各个状态必须保存，直到它们反向传播中被再次使用，因此内存代价也是$$O(\tau)$$。 应用于展开图且代价为$$O(\tau)$$的反向传播算法称为通过时间反向传播（BPTT）。 因此隐藏单元之间存在循环的网络非常强大但训练代价也很大。</p>
 <p><strong>导师驱动过程和输出循环网络:</strong></p>
 <p>我们使用导师驱动过程的最初动机是为了在缺乏隐藏到隐藏连接的模型中避免通过时间反向传播。只要模型一个时间步的输出与下一时间步计算的值存在连接，导师驱动过程仍然可以应用到这些存在隐藏到隐藏连接的模型。然而，只要隐藏单元成为较早时间步的函数，BPTT 算法是必要的。因此训练某些模型时要同时使用导师驱动过程和BPTT。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171011143331622?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>计算循环神经网络的梯度：</strong></p>
-<p>我们假设输出$$o^{(t)}$$作为softmax函数的参数，我们可以从softmax函数可以获得关于输出概率的向量$$\hat{y}$$。 我们也假设损失是迄今为止给定了输入后的真实目标$$y^{(t)}$$的负对数似然。 对于所有$$i,t$$，关于时间步$$t$$输出的梯度$$\nabla<em>{o^{(t)}} L$$如下：<br>$$ (\nabla</em>{o^{(t)}} L)_i = \frac{\partial L}{\partial o_i^{(t)}} $$$$= \frac{\partial L}{\partial L^{(t)}} \frac{\partial L^{(t)}}{\partial o_i^{(t)}}$$$$= \hat y_i^{(t)} - \mathbf{1}{i,y^{(t)}}$$</p>
-<p> <div align="center"><br><img src="http://img.blog.csdn.net/20171011144402450?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%" align="center"> <div align="left"> </div></div></p>
-<p>然后，我们可以从时刻$$t=\tau-1$$到$$t=1$$反向迭代， 通过时间反向传播梯度，注意$$h^{(t)}(t &lt; \tau)$$同时具有$$o^{(t)}$$和$$h^{(t+1)}$$两个后续节点。 因此，它的梯度由下式计算 :</p>
-<p>$$ \nabla<em>{h^{(t)}} L = \Big( \frac{\partial h^{(t+1)}}{ \partial h^{(t)}} \Big)^\top(\nabla</em>{h^{(t+1)}} L) + \Big( \frac{\partial o^{(t)}}{ \partial h^{(t)}} \Big)^\top (\nabla<em>{o^{(t)}} L) $$$$= W^\top (\nabla</em>{h^{(t+1)}} L) \text{diag} \Big( 1 - (h^{(t+1)})^2 \Big)V^\top ( \nabla_{o^{(t)}} L )$$<br>其中$$\text{diag} \Big( 1 - (h^{(t+1)})^2 \Big) $$ 表示包含元素$$1 - (h_i^{(t+1)})^2$$的对角矩阵。 这是关于时刻$$t+1$$与隐藏单元~$$i$$关联的双曲正切的Jacobian。</p>
+<p>我们假设输出$$o^{(t)}$$作为softmax函数的参数，我们可以从softmax函数可以获得关于输出概率的向量$$\hat{y}$$。 我们也假设损失是迄今为止给定了输入后的真实目标$$y^{(t)}$$的负对数似然。 对于所有$$i,t$$，关于时间步$$t$$输出的梯度</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171116215949918?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171011144831980?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
 <h2 id="3-双向RNN"><a href="#3-双向RNN" class="headerlink" title="3. 双向RNN"></a>3. 双向RNN</h2><p>顾名思义，双向RNN 结合时间上从序列起点开始移动的RNN 和另一个时间上从序列末尾开始移动的RNN。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171011153527060?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>这个想法可以自然地扩展到2维输入，如图像，由四个RNN组成，每一个沿着四个方向中的一个计算：上、下、左、右。 如果RNN能够学习到承载长期信息，那在2维网格每个点$$(i, j)$$的输出$$O_{i,j}$$就能计算一个能捕捉到大多局部信息但仍依赖于长期输入的表示。 相比卷积网络，应用于图像的RNN计算成本通常更高，但允许同一特征图的特征之间存在长期横向的相互作用。 实际上，对于这样的RNN，前向传播公式可以写成表示使用卷积的形式，计算自底向上到每一层的输入（在整合横向相互作用的特征图的循环传播之前）。</p>
 <h2 id="4-基于编码-解码的序列到序列架构"><a href="#4-基于编码-解码的序列到序列架构" class="headerlink" title="4. 基于编码-解码的序列到序列架构"></a>4. 基于编码-解码的序列到序列架构</h2><p>( 1 ) 编码器或读取器或输入RNN处理输入序列。 编码器输出上下文$$C$$（通常是最终隐藏状态的简单函数）。  </p>
 <p> ( 2 ) 解码器或写入器或输出RNN则以固定长度的向量为条件产生输出序列$$Y=(y^{(1)}, \dots, y^{(n_y)})$$。 </p>
-<p>这种架构对比本章前几节提出的架构的创新之处在于长度$$n_x$$和$$n_y$$可以彼此不同，而之前的架构约束$$n_x = n_y = \tau$$。 在序列到序列的架构中，两个RNN共同训练以最大化$$\log P( y^{(1)}, \dots, y^{(n_y)} \mid x^{(1)},\dots,x^{(n<em>x)} )$$(关于训练集中所有$$x$$和$$y$$对的平均)。 编码器RNN的最后一个状态$$h</em>{n_x}$$通常被当作输入的表示$$C$$并作为解码器RNN的输入。</p>
+<p>这种架构对比本章前几节提出的架构的创新之处在于长度$$n_x$$和$$n_y$$可以彼此不同，而之前的架构约束$$n_x = n_y = \tau$$。 在序列到序列的架构中，两个RNN共同训练以最大化$$logP(y^1, .., y^{(n_y)}|x^1,…,x^{(n<em>x)} )$$(关于训练集中所有$$x$$和$$y$$对的平均)。 编码器RNN的最后一个状态$$h</em>{n_x}$$通常被当作输入的表示$$C$$并作为解码器RNN的输入。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171011225044448?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <h2 id="5-深度循环网络"><a href="#5-深度循环网络" class="headerlink" title="5. 深度循环网络"></a>5. 深度循环网络</h2><p>Graves第一个展示了将RNN的状态分为多层的显著好处，如下图左。 我们可以认为，在下图(a)所示层次结构中较低的层起到了将原始输入转化为对更高层的隐藏状态更合适表示的作用。 Pascanu更进一步提出在上述三个块中各使用一个单独的MLP（可能是深度的），如下图(b)所示。 考虑表示容量，我们建议在这三个步中都分配足够的容量，但增加深度可能会因为优化困难而损害学习效果。 在一般情况下，更容易优化较浅的架构，加入下图(b)的额外深度导致从时间步$$t$$的变量到时间步$$t+1$$的最短路径变得更长。 例如，如果具有单个隐藏层的MLP被用于状态到状态的转换，那么与下图相比，我们就会加倍任何两个不同时间步变量之间最短路径的长度。 然而Pascanu认为，在隐藏到隐藏的路径中引入跳跃连接可以缓和这个问题，如下图(c)所示。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171011225443859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
-<h2 id="6-递归神经网络"><a href="#6-递归神经网络" class="headerlink" title="6. 递归神经网络"></a>6. 递归神经网络</h2><p>递归网络的一个明显优势是，对于具有相同长度$$\tau$$的序列，深度（通过非线性操作的组合数量来衡量）可以急剧地从$$\tau$$减小为$$O(\log \tau)$$，这可能有助于解决长期依赖。 一个悬而未决的问题是如何以最佳的方式构造树。 一种选择是使用不依赖于数据的树结构，如平衡二叉树。 在某些应用领域，外部方法可以为选择适当的树结构提供借鉴。 例如，处理自然语言的句子时，用于递归网络的树结构可以被固定为句子语法分析树的结构（可以由自然语言语法分析程序提供）{cite?}。 理想的情况下，人们希望学习器自行发现和推断适合于任意给定输入的树结构。</p>
+<h2 id="6-递归神经网络"><a href="#6-递归神经网络" class="headerlink" title="6. 递归神经网络"></a>6. 递归神经网络</h2><p>递归网络的一个明显优势是，对于具有相同长度$$\tau$$的序列，深度（通过非线性操作的组合数量来衡量）可以急剧地从$$\tau$$减小为$$O(\log \tau)$$，这可能有助于解决长期依赖。 一个悬而未决的问题是如何以最佳的方式构造树。 一种选择是使用不依赖于数据的树结构，如平衡二叉树。 在某些应用领域，外部方法可以为选择适当的树结构提供借鉴。 例如，处理自然语言的句子时，用于递归网络的树结构可以被固定为句子语法分析树的结构（可以由自然语言语法分析程序提供）。 理想的情况下，人们希望学习器自行发现和推断适合于任意给定输入的树结构。</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171011225834513?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <h2 id="7-长期依赖的挑战"><a href="#7-长期依赖的挑战" class="headerlink" title="7. 长期依赖的挑战"></a>7. 长期依赖的挑战</h2><p>经过许多阶段传播后的梯度倾向于消失（大部分情况）或爆炸（很少，但对优化过程影响很大）。 即使我们假设循环网络是参数稳定的（可存储记忆，且梯度不爆炸），但长期依赖的困难来自比短期相互作用指数小的权重（涉及许多Jacobian相乘）。</p>
 <p>特别地，循环神经网络所使用的函数组合有点像矩阵乘法。 我们可以认为，循环联系</p>
@@ -4292,9 +4293,9 @@ if __name__ == &apos;__main__&apos;:
             
             <tag> Algorithm </tag>
             
-            <tag> Math </tag>
-            
             <tag> Image Processing </tag>
+            
+            <tag> Math </tag>
             
         </tags>
         
