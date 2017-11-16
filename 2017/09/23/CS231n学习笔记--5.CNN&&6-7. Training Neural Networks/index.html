@@ -200,7 +200,7 @@ ssolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170923185109436?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T03:17:46.000Z">
+<meta property="og:updated_time" content="2017-11-16T15:45:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n学习笔记--5.CNN&amp;&amp;6-7. Training Neural Networks | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1.CNN1.1 原理    Tips：1.每个卷积层由K个卷积模板生成，例如：第一层一般为边缘检测的卷积模板。2.为了使卷积前后的数据维度一致，可以将原始数据进行边拓展，拓展的数量为P。 1.2.CNN流程    Tips：   1.每个卷积层后会有Relu操作，起将矩阵稀疏化的作用。2.若干个卷积层后会有POOL操作，其实就是降采样，一般取采样区域中的最大值为采样结果。3.最后是FC（f">
@@ -493,7 +493,7 @@ ssolve/70/gravity/SouthEast" width="30%"></div></p>
 
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170923173136443?watermark/2/text/aHR0cDovL2J
 sb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==
-/dissolve/70/gravity/SouthEast" width="30%"></div></p>
+/dissolve/70/gravity/SouthEast" width="70%"></div></p>
 <div align="left">  
 
 
@@ -595,7 +595,7 @@ ssolve/70/gravity/SouthEast" width="80%"></div></p>
 <p><strong>   
 </strong></p>
 <p><strong> Tips:  </strong></p>
-<p>learning rate与regularization系数以log形式搜索，而不是直接按值搜索，这是因为它们更新权重时时乘数！</p>
+<p>learning rate与regularization系数以log形式搜索，而不是直接按值搜索，这是因为它们更新权重时是乘数！</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170918113209290?watermark/2/text/aHR0cDovL2Jsb2
 cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/di
 ssolve/70/gravity/SouthEast" width="80%"></div></p>
@@ -835,7 +835,7 @@ ssolve/70/gravity/SouthEast" width="60%"></div></p>
 <p>二阶牛顿优化法具有没有学习率等超参数等优点，但是要求Hession矩阵的逆矩阵，应用于大型网络计算量太大，一般使用其改进版本：L-BFGS！</p>
 <p>总结：</p>
 <p>1. Adam是不错的默认参数优化算法！</p>
-<p>2. If you can afford to do full batch updates then try out L-BFGS(do not<br>forget to disable all sources of noise).</p>
+<p>2. If you can afford to do full batch updates then try out L-BFGS(do not forget to disable all sources of noise).</p>
 <h2 id="3-2-Regularization"><a href="#3-2-Regularization" class="headerlink" title="3.2 Regularization"></a>3.2 Regularization</h2><h3 id="3-2-1-Dropout"><a href="#3-2-1-Dropout" class="headerlink" title="3.2.1 Dropout"></a>3.2.1 Dropout</h3><p><strong>   
 </strong></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20170923182844208?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
