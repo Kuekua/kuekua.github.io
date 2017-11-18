@@ -693,24 +693,24 @@ print array
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104162032863?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
 <p>GAN training algorithm：</p>
 <p><div align="center"><img src="http://img.blog.csdn.net/20171104162213448?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
-<p><div align="center"><img src="http://img.blog.csdn.net/20171104162325762?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162325762?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <h2 id="5-2-Generative-Adversarial-Nets"><a href="#5-2-Generative-Adversarial-Nets" class="headerlink" title="5.2 Generative Adversarial Nets"></a>5.2 Generative Adversarial Nets</h2><p>Generated samples:</p>
-<p><div align="center"><img src="http://img.blog.csdn.net/20171104162455660?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
-<p><div align="center"><img src="http://img.blog.csdn.net/20171104162628890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162455660?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104162628890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%"><div align="left"></div></div></p>
 <p><strong>Generative Adversarial Nets: Convolutional Architectures</strong></p>
 <p>Generator is an upsampling network with fractionally-strided convolutions<br>Discriminator is a convolutional network</p>
-<p><div align="center"><img src="http://img.blog.csdn.net/20171104163059349?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163059349?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <p>Generator网络结构：</p>
-<p><div align="center"><img src="http://img.blog.csdn.net/20171104163210367?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163210367?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <p>Samples from the model look amazing!</p>
-<p><div align="center"><img src="http://img.blog.csdn.net/20171104163405077?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163405077?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <p><strong>Generative Adversarial Nets: Interpretable Vector Math</strong></p>
-<p><div align="center"><img src="http://img.blog.csdn.net/20171104163612491?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
-<p><div align="center"><img src="http://img.blog.csdn.net/20171104163645915?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
-<p><div align="center"><img src="http://img.blog.csdn.net/20171104163809574?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163612491?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163645915?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163809574?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 <p><strong>GANs的优缺点：</strong></p>
-<p><div align="center"><img src="http://img.blog.csdn.net/20171104163911789?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
-<h1 id="6-回顾："><a href="#6-回顾：" class="headerlink" title="6. 回顾："></a>6. 回顾：</h1><p><div align="center"><img src="http://img.blog.csdn.net/20171104164014035?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"><div align="left"></div></div></p>
+<p><div align="center"><img src="http://img.blog.csdn.net/20171104163911789?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
+<h1 id="6-回顾："><a href="#6-回顾：" class="headerlink" title="6. 回顾："></a>6. 回顾：</h1><p><div align="center"><img src="http://img.blog.csdn.net/20171104164014035?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/10/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"><div align="left"></div></div></p>
 ]]></content>
       
         <categories>
@@ -768,16 +768,16 @@ print array
 <p>多目标：Adding “multi-faceted” visualization gives even nicer results:(Plus more careful regularization, center-bias)</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171015223622361?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <h2 id="4-DeepDream-Amplify-existing-features"><a href="#4-DeepDream-Amplify-existing-features" class="headerlink" title="4. DeepDream: Amplify existing features"></a>4. DeepDream: Amplify existing features</h2><p>Rather than synthesizing an image to maximize a specific neuron, instead try to amplify the neuron activations at some layer in the network：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171015224026731?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171015224026731?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <p>code:</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171015224107845?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
-<p>结果图（最后一层）：</p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171015224107845?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%" align="center"> <div align="left"> </div></div></p>
+<p>结果图：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171015224629614?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
-<h2 id="5-Feature-Inversion"><a href="#5-Feature-Inversion" class="headerlink" title="5. Feature Inversion"></a>5. Feature Inversion</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171015224929000?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<h2 id="5-Feature-Inversion"><a href="#5-Feature-Inversion" class="headerlink" title="5. Feature Inversion"></a>5. Feature Inversion</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171015224929000?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <p>利用不同层进行图像重建：Reconstructing from different layers of VGG-16 </p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171015225040266?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <h2 id="6-Neural-Texture-Synthesis"><a href="#6-Neural-Texture-Synthesis" class="headerlink" title="6. Neural Texture Synthesis"></a>6. Neural Texture Synthesis</h2><p>算法步骤（没看懂。。。）：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171015225740000?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171015225740000?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="99%" align="center"> <div align="left"> </div></div></p>
 <p>Reconstructing texture from higher layers recovers larger features from the input texture：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171015225852124?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <h2 id="7-Neural-Style-Transfer"><a href="#7-Neural-Style-Transfer" class="headerlink" title="7. Neural Style Transfer"></a>7. Neural Style Transfer</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171015230033442?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
@@ -792,9 +792,9 @@ print array
 <p><strong>Solution:</strong> Train another neural network to perform style transfer for us!</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171015230528532?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>效果图：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171015230934609?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171015230934609?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>One Network, Many Styles:</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171015230812075?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171015230812075?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 ]]></content>
       
         <categories>
@@ -929,42 +929,40 @@ print array
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007220048380?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
 <p>单词构建场景测试阶段：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007220127803?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
-<p>RNN前后向传输计算t梯度策略：</p>
+<p>RNN前后向传输计算梯度策略：</p>
 <p>1.前后向传输均使用完整序列</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007220610954?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
-<ol>
-<li>前后向传输均使用分块序列</li>
-</ol>
+<p>2 前后向传输均使用分块序列</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007220749020?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
-<p>3.前使用完整序列, 后向传输使用分块序列</p>
+<p>3.前向传输使用完整序列, 后向传输使用分块序列</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007220831322?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
 <p>CNN+RNN进行图像内容识别：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221113103?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221212884?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221236543?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221113103?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221212884?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221236543?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Image Captioning with Attention：</strong></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221347502?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221759533?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221759533?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221833125?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="15%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Tips：</strong></p>
 <p>vi指的是CNN之后的图像分块特征，pi指的是该图像块包含特征词汇的概率。</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007222325927?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007222325927?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <p>Soft attention：指的是该词汇参考全图，不过每块有权重大小区别。<br>Hard attention：指的是该词汇参考某块图像块。</p>
 <p><strong>RNN用于问题解答：</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007222720764?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007223112884?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007222720764?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007223112884?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <h2 id="2-LSTM"><a href="#2-LSTM" class="headerlink" title="2. LSTM"></a>2. LSTM</h2><p>会有一些更加复杂的场景。假设我们试着去预测“I grew up in France… I speak fluent French”最后的词。当前的信息建议下一个词可能是一种语言的名字，但是如果我们需要弄清楚是什么语言，我们是需要先前提到的离当前位置很远的 France 的上下文的。这说明相关信息和当前预测位置之间的间隔就肯定变得相当的大。<br>不幸的是，在这个间隔不断增大时，RNN 会丧失学习到连接如此远的信息的能力。<br>LSTM 通过刻意的设计来避免长期依赖问题。记住长期的信息在实践中是 LSTM 的默认行为，而非需要付出很大代价才能获得的能力！</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007223732907?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007223732907?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>多个传统RNN级联存在的问题，梯度爆炸/消失：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007224109590?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007224109590?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <p>LSTM架构：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007224258039?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>特别要注意的因为激活函数是sigmoid的，所以i,f,0均二值化的数值，所以可以缓解传统RNN存在的梯度问题！</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007224347184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007224347184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <p>LSTM与ResNet的相似之处：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007225220654?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007225220654?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <p><strong>其他模型：</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007225803715?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007225803715?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <p>进一步理解，可参考博客：<a href="http://www.jianshu.com/p/9dc9f41f0b29" target="_blank" rel="external">理解 LSTM 网络</a></p>
 <h1 id="3-Summary"><a href="#3-Summary" class="headerlink" title="3. Summary"></a>3. Summary</h1><p> RNNs allow a lot of flexibility in architecture design</p>
 <ul>
@@ -1000,17 +998,17 @@ print array
       <url>/2017/09/30/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--9.CNN%20Architectures/</url>
       <content type="html"><![CDATA[<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
 
-<h2 id="1-AlexNet"><a href="#1-AlexNet" class="headerlink" title="1. AlexNet"></a>1. AlexNet</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171006102227749?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<h2 id="1-AlexNet"><a href="#1-AlexNet" class="headerlink" title="1. AlexNet"></a>1. AlexNet</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171006102227749?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Tips：</strong></p>
 <ol>
-<li><p>Trained on GTX 580 GPU with only 3 GB of memory.Network spread across 2 GPUs, half the neurons (feature maps) on each<br>GPU.所以在CONV1中分为两部分，每部分输出大小为55X55X48！</p>
+<li><p>Trained on GTX 580 GPU with only 3 GB of memory.Network spread across 2 GPUs, half the neurons (feature maps) on each GPU.所以在CONV1中分为两部分，每部分输出大小为55X55X48！</p>
 </li>
 <li><p>CONV1, CONV2, CONV4, CONV5: Connections only with feature maps on same GPU</p>
 </li>
-<li><p>CONV3, FC6, FC7, FC8: Connections with all feature maps in<br>preceding layer, communication across GPUs</p>
+<li><p>CONV3, FC6, FC7, FC8: Connections with all feature maps in preceding layer, communication across GPUs</p>
 </li>
 <li><p>heavy data augmentation：</p>
-<p> a. 增大训练样本：通过对于图像的变换实现了对于数据集合的enlarge。首先对于输入的图像（size 256<em>256）随机提取224</em>224的图像集合，并对他们做一个horizontal reflections。变换后图像和原图像相差了32个像素，因此主体部分应该都包含在训练集合中，相当于在位置这个维度上丰富了训练数据。对horizontal reflections来说，相当于相机在主轴方向做了镜像，丰富了反方向的图像。数据集合增大了2048倍，直接结果就是降低了overfitting同时降低了网络结构设计的复杂层度。</p>
+<p> a. 增大训练样本：通过对于图像的变换实现了对于数据集合的enlarge。首先对于输入的图像（size 256x256）随机提取224x224的图像集合，并对他们做一个horizontal reflections。变换后图像和原图像相差了32个像素，因此主体部分应该都包含在训练集合中，相当于在位置这个维度上丰富了训练数据。对horizontal reflections来说，相当于相机在主轴方向做了镜像，丰富了反方向的图像。数据集合增大了2048倍，直接结果就是降低了overfitting同时降低了网络结构设计的复杂层度。</p>
 <p> 在测试阶段，取每一个测试样本四个角以及中间区域，一共5个patch然后再镜像后得到10个样本输入到网络中，最后将10个softmax输出平均后作为最后的输出。</p>
 <p> b.使用PCA对于训练数据进行增强：对于每一个RGB图像进行一个PCA的变换，完成去噪功能，同时为了保证图像的多样性，在eigenvalue上加了一个随机的尺度因子，每一轮重新生成一个尺度因子，这样保证了同一副图像中在显著特征上有一定范围的变换，降低了overfitting的概率。</p>
 </li>
@@ -1018,10 +1016,10 @@ print array
 <p>更常用的是Local Response Normalization：<br>使用ReLU f(x)=max(0,x)后，你会发现激活函数之后的值没有了tanh，sigmoid函数那样有一个值域区间，所以一般在ReLU之后会做一个normalization，LRU就是其中一种方法，在神经科学中有个概念叫“Lateral inhibition”，讲的是活跃的神经元对它周边神经元的影响。</p>
 </li>
 </ol>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006104608122?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006104608122?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <p>从这个公式中可以看出，原来的激活值a被加一个归一化权重（分母部分）生成了新的激活b，相当于在同一个位置（x，y），不同的map上的激活进行了平滑，平滑操作大概可以将识别率提高1-2个百分点。<br>之后，这一层已经被其它种的Regularization技术，如drop out, batch normalization取代了。知道了这些，似乎也可以不那么纠结这个LRN了。</p>
-<h2 id="2-ZFNet"><a href="#2-ZFNet" class="headerlink" title="2. ZFNet"></a>2. ZFNet</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171006105228083?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006105341267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<h2 id="2-ZFNet"><a href="#2-ZFNet" class="headerlink" title="2. ZFNet"></a>2. ZFNet</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171006105228083?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006105341267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <h2 id="3-VGGNet"><a href="#3-VGGNet" class="headerlink" title="3. VGGNet"></a>3. VGGNet</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171006105627204?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Tips：</strong></p>
 <ol>
@@ -1029,9 +1027,9 @@ print array
 <li>No Local Response Normalisation (LRN)</li>
 </ol>
 <p>VGGNet消耗资源表：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006110142088?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006110142088?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <h2 id="4-GoogLeNet"><a href="#4-GoogLeNet" class="headerlink" title="4. GoogLeNet"></a>4. GoogLeNet</h2><p>GoogLeNet架构：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006110524369?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006110524369?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Tips：</strong></p>
 <p>“Inception module”: design a good local network topology (network within a network) and then stack these modules on top of each other</p>
 <p>初始的Inception module及其存在的问题：</p>
@@ -1043,11 +1041,11 @@ print array
 <p>改进的Inception module：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171006112916918?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>Full GoogLeNet architecture：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006113103546?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006113103546?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%" align="center"> <div align="left"> </div></div></p>
 <p>Auxiliary classification outputs可以缓解深度过深导致权重梯度过小而无法优化的现象！</p>
 <h2 id="5-ResNet"><a href="#5-ResNet" class="headerlink" title="5. ResNet"></a>5. ResNet</h2><p>受到深度的意义的驱使，出现了这样一个问题：是不是更多的堆叠层就一定能学习出更好的网络？这个问题的一大障碍就是臭名昭著的梯度消失/爆炸问题，它从一开始就阻碍了收敛，然而梯度消失/爆炸的问题，很大程度上可以通过标准的初始化和正则化层来基本解决，确保几十层的网络能够收敛（用SGD+反向传播）。</p>
 <p>　　然而当开始考虑更深层的网络的收敛问题时，退化问题就暴露了：随着神经网络深度的增加，精确度开始饱和（这是不足为奇的），然后会迅速的变差。出人意料的，这样一种退化，并不是过拟合导致的，并且增加更多的层匹配深度模型，会导致更多的训练误差。如下图所示：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006155054290?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006155054290?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>　　我们通过引入一个深度残差学习框架，解决了这个退化问题。我们不期望每一层能直接吻合一个映射，我们明确的让这些层去吻合残差映射。形式上看，就是用H(X)来表示最优解映射，但我们让堆叠的非线性层去拟合另一个映射F（X）:=H(X) - X, 此时原最优解映射H（X）就可以改写成F(X)+X，我们假设残差映射跟原映射相比更容易被优化。极端情况下，如果一个映射是可优化的，那也会很容易将残差推至0，<strong>把残差推至0和把此映射逼近另一个非线性层相比要容易的多。</strong></p>
 <p>　　F(X)+X的公式可以通过在前馈网络中做一个“快捷连接”来实现 ，快捷连接跳过一个或多个层。在我们的用例中，快捷连接简单的执行自身映射，它们的输出被添加到叠加层的输出中。自身快捷连接既不会添加额外的参数也不会增加计算复杂度。整个网络依然可以用SGD+反向传播来做端到端的训练，并且可以很容易用大众框架来实现（比如Caffe）不用修改slover配置（slover是caffe中的核心slover.prototxt）</p>
 <p>ResNet结构图：</p>
@@ -1080,25 +1078,25 @@ print array
 <h2 id="6-Other-architectures"><a href="#6-Other-architectures" class="headerlink" title="6. Other architectures"></a>6. Other architectures</h2><p><strong>Network in Network (NiN)：</strong></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171006160409516?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Improving ResNets：</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006160734579?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006160734579?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>更宽的残差网络：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161004901?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161050225?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161004901?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161050225?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>加入随机概念：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161416263?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161416263?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>Fractal architecture with both shallow and deep paths to output：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161558698?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161558698?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Beyond ResNets</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161729409?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161729409?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Efficient networks</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161816291?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161816291?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Summary: CNN Architectures</strong></p>
 <ul>
 <li>VGG, GoogLeNet, ResNet all in wide use, available in model zoos</li>
 <li>ResNet current best default</li>
 <li>Trend towards extremely deep networks</li>
 <li>Significant research centers around design of layer / skip connections and improving gradient flow</li>
-<li>Even more recent trend towards examining necessity of depth vs.<br>width and residual connections</li>
+<li>Even more recent trend towards examining necessity of depth vs.width and residual connections</li>
 </ul>
 ]]></content>
       
@@ -1175,6 +1173,8 @@ print array
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171004221827008?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
 <p>PyTorch的nn模型：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171004222120729?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+<div align="left">
+
 <p>利用PyTorch对训练数据进行minbath：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171004222303436?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
 <p><div align="left"><br>PyTorch的预训练模型库：</div></p>
@@ -1213,7 +1213,7 @@ print array
 ●  HDF5Layer: Read from HDF5 file
 ●  From memory, using Python interface
 ●  All of these are harder to use (except Python)
-</code></pre><p><strong>2.  Define net (edit prototxt)</strong><br>     <div align="center"><br><img src="http://img.blog.csdn.net/20171004225034281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
+</code></pre><p><strong>2.  Define net (edit prototxt)</strong><br>     <div align="center"><br><img src="http://img.blog.csdn.net/20171004225034281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"></div></p>
 <p><div align="left"><br><strong>3.  Define solver (edit prototxt)</strong></div></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171004225137723?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"></div></p>
 <p><div align="left"><br><strong>4.  Train (with pretrained weights) (run a script)</strong></div></p>
@@ -1227,7 +1227,7 @@ print array
 <p><strong>Caffe2 Overview</strong><br>● Static graphs, somewhat similar to TensorFlow<br>● Core written in C++<br>● Nice Python interface<br>● Can train model in Python, then serialize and deploy<br>without Python<br>● Works on iOS / Android, etc</p>
 <p><strong>模型使用建议：</strong></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171004225626076?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"></div></p>
-</div></div></div></div></div></div>]]></content>
+</div></div></div></div></div></div></div>]]></content>
       
         <categories>
             
@@ -4293,9 +4293,50 @@ if __name__ == &apos;__main__&apos;:
             
             <tag> Algorithm </tag>
             
+            <tag> Math </tag>
+            
             <tag> Image Processing </tag>
             
-            <tag> Math </tag>
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[白平衡算法总结]]></title>
+      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
+<p><strong>TIPS:</strong></p>
+<ol>
+<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
+</li>
+<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
+</li>
+</ol>
+<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
+<p><strong>Tips:</strong></p>
+<ol>
+<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
+</li>
+<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
+</li>
+</ol>
+<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Image Processing </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Machine Learning </tag>
+            
+            <tag> Image Processing </tag>
+            
+            <tag> algorithm </tag>
             
         </tags>
         
@@ -4327,47 +4368,6 @@ if __name__ == &apos;__main__&apos;:
 <h1 id="9-代码优化：GPU优化"><a href="#9-代码优化：GPU优化" class="headerlink" title="9. 代码优化：GPU优化"></a>9. 代码优化：GPU优化</h1><p>GPU跟CPU不同，有自己独特的特点。GPU特别适合做无复杂逻辑但计算量大的事情。例如图像resize、图像滤波等。Boosting算法可以运行在GPU上，并获得加速，但GPU加速Boosting优势并没有你想象的明显。Boosting算法中逻辑分支较多，也就是有不定长的for循环，有if-else判断；并行的时候每个运算单元运算量并不相同，有些运行时间长，有些运行时间短。运行时间短的要等运行时间长的。我们做了很多努力，GPU版本（低端GTX750i显卡）速度大约可以做到CPU版本（i7多核并行）的6倍左右。跟OpenCV中用GPU加速Haar+Adaboost的倍数一致，而没有达到期望的几十倍加速。</p>
 <h1 id="10-吐槽：非连续内存读写"><a href="#10-吐槽：非连续内存读写" class="headerlink" title="10. 吐槽：非连续内存读写"></a>10. 吐槽：非连续内存读写</h1><p>读写非连续内存，速度可能变慢。如下图Haar积分图计算像素和的公式是D-B-C+A，需要读4个元素值，但这4个值在内存里并不连续，特别是A和D距离较远，这样降低了CPU缓存的命中率，也就降低了速度。对缓存小的低价位CPU影响尤为明显。虽然公式D-B-C+A的计算量跟E-F-G-H相同，但一般来说后者速度会快。此外，Boosting方法选出的多个弱特征，在图像上往往也不相邻，同样是低效的非连续内存的读写，这是Boosting类方法的一个缺点。</p>
 <h1 id="11-未来展望"><a href="#11-未来展望" class="headerlink" title="11. 未来展望"></a>11. 未来展望</h1><p>到目前为止，Boosting方法在人脸检测中依然具有明显的速度优势。但基于深度学习的目标检测方法进展迅速，不容小视。深度学习的方法可以很容易地获得非常高的准确率，如在FDDB人脸检测评库上，传统方法能达到85%准确率就非常高了，但深度学习方法可以轻松超过90%，甚至超过95%。如果想兼顾速度和准确率，传统方法和深度学习的方法结合也许是一个思路，现在已经有一些这样的尝试了。此外，CNN专用硬件应可以弥补深度学习方法的劣势。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Image Processing </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Machine Learning </tag>
-            
-            <tag> Image Processing </tag>
-            
-            <tag> algorithm </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[白平衡算法总结]]></title>
-      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
-<p><strong>TIPS:</strong></p>
-<ol>
-<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
-</li>
-<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
-</li>
-</ol>
-<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
-<p><strong>Tips:</strong></p>
-<ol>
-<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
-</li>
-<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
-</li>
-</ol>
-<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
 ]]></content>
       
         <categories>

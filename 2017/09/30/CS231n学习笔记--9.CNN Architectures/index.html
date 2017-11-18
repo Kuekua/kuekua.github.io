@@ -16,16 +16,16 @@
     
     
 
-    <meta name="description" content="1. AlexNet   Tips：  Trained on GTX 580 GPU with only 3 GB of memory.Network spread across 2 GPUs, half the neurons (feature maps) on eachGPU.所以在CONV1中分为两部分，每部分输出大小为55X55X48！  CONV1, CONV2, CONV4, C">
+    <meta name="description" content="1. AlexNet   Tips：  Trained on GTX 580 GPU with only 3 GB of memory.Network spread across 2 GPUs, half the neurons (feature maps) on each GPU.所以在CONV1中分为两部分，每部分输出大小为55X55X48！  CONV1, CONV2, CONV4,">
 <meta name="keywords" content="Machine Learning,Algorithm,Deep Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CS231n学习笔记--9.CNN Architectures | Kuekua&#39;s blog">
 <meta property="og:url" content="http://yoursite.com/2017/09/30/CS231n学习笔记--9.CNN Architectures/index.html">
 <meta property="og:site_name" content="Kuekua&#39;s blog">
-<meta property="og:description" content="1. AlexNet   Tips：  Trained on GTX 580 GPU with only 3 GB of memory.Network spread across 2 GPUs, half the neurons (feature maps) on eachGPU.所以在CONV1中分为两部分，每部分输出大小为55X55X48！  CONV1, CONV2, CONV4, C">
+<meta property="og:description" content="1. AlexNet   Tips：  Trained on GTX 580 GPU with only 3 GB of memory.Network spread across 2 GPUs, half the neurons (feature maps) on each GPU.所以在CONV1中分为两部分，每部分输出大小为55X55X48！  CONV1, CONV2, CONV4,">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img.blog.csdn.net/20171006102227749?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20171006104608122?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171006104608122?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171006105228083?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171006105341267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171006105627204?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
@@ -49,10 +49,10 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20171006161558698?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171006161729409?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171006161816291?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T02:34:45.000Z">
+<meta property="og:updated_time" content="2017-11-18T02:53:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n学习笔记--9.CNN Architectures | Kuekua&#39;s blog">
-<meta name="twitter:description" content="1. AlexNet   Tips：  Trained on GTX 580 GPU with only 3 GB of memory.Network spread across 2 GPUs, half the neurons (feature maps) on eachGPU.所以在CONV1中分为两部分，每部分输出大小为55X55X48！  CONV1, CONV2, CONV4, C">
+<meta name="twitter:description" content="1. AlexNet   Tips：  Trained on GTX 580 GPU with only 3 GB of memory.Network spread across 2 GPUs, half the neurons (feature maps) on each GPU.所以在CONV1中分为两部分，每部分输出大小为55X55X48！  CONV1, CONV2, CONV4,">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20171006102227749?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
     
     
@@ -215,17 +215,17 @@ classes that you can use:
   <section id="post-content" class="article-content post">
     <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
 
-<h2 id="1-AlexNet"><a href="#1-AlexNet" class="headerlink" title="1. AlexNet"></a>1. AlexNet</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171006102227749?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<h2 id="1-AlexNet"><a href="#1-AlexNet" class="headerlink" title="1. AlexNet"></a>1. AlexNet</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171006102227749?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Tips：</strong></p>
 <ol>
-<li><p>Trained on GTX 580 GPU with only 3 GB of memory.Network spread across 2 GPUs, half the neurons (feature maps) on each<br>GPU.所以在CONV1中分为两部分，每部分输出大小为55X55X48！</p>
+<li><p>Trained on GTX 580 GPU with only 3 GB of memory.Network spread across 2 GPUs, half the neurons (feature maps) on each GPU.所以在CONV1中分为两部分，每部分输出大小为55X55X48！</p>
 </li>
 <li><p>CONV1, CONV2, CONV4, CONV5: Connections only with feature maps on same GPU</p>
 </li>
-<li><p>CONV3, FC6, FC7, FC8: Connections with all feature maps in<br>preceding layer, communication across GPUs</p>
+<li><p>CONV3, FC6, FC7, FC8: Connections with all feature maps in preceding layer, communication across GPUs</p>
 </li>
 <li><p>heavy data augmentation：</p>
-<p> a. 增大训练样本：通过对于图像的变换实现了对于数据集合的enlarge。首先对于输入的图像（size 256<em>256）随机提取224</em>224的图像集合，并对他们做一个horizontal reflections。变换后图像和原图像相差了32个像素，因此主体部分应该都包含在训练集合中，相当于在位置这个维度上丰富了训练数据。对horizontal reflections来说，相当于相机在主轴方向做了镜像，丰富了反方向的图像。数据集合增大了2048倍，直接结果就是降低了overfitting同时降低了网络结构设计的复杂层度。</p>
+<p> a. 增大训练样本：通过对于图像的变换实现了对于数据集合的enlarge。首先对于输入的图像（size 256x256）随机提取224x224的图像集合，并对他们做一个horizontal reflections。变换后图像和原图像相差了32个像素，因此主体部分应该都包含在训练集合中，相当于在位置这个维度上丰富了训练数据。对horizontal reflections来说，相当于相机在主轴方向做了镜像，丰富了反方向的图像。数据集合增大了2048倍，直接结果就是降低了overfitting同时降低了网络结构设计的复杂层度。</p>
 <p> 在测试阶段，取每一个测试样本四个角以及中间区域，一共5个patch然后再镜像后得到10个样本输入到网络中，最后将10个softmax输出平均后作为最后的输出。</p>
 <p> b.使用PCA对于训练数据进行增强：对于每一个RGB图像进行一个PCA的变换，完成去噪功能，同时为了保证图像的多样性，在eigenvalue上加了一个随机的尺度因子，每一轮重新生成一个尺度因子，这样保证了同一副图像中在显著特征上有一定范围的变换，降低了overfitting的概率。</p>
 </li>
@@ -233,10 +233,10 @@ classes that you can use:
 <p>更常用的是Local Response Normalization：<br>使用ReLU f(x)=max(0,x)后，你会发现激活函数之后的值没有了tanh，sigmoid函数那样有一个值域区间，所以一般在ReLU之后会做一个normalization，LRU就是其中一种方法，在神经科学中有个概念叫“Lateral inhibition”，讲的是活跃的神经元对它周边神经元的影响。</p>
 </li>
 </ol>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006104608122?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006104608122?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <p>从这个公式中可以看出，原来的激活值a被加一个归一化权重（分母部分）生成了新的激活b，相当于在同一个位置（x，y），不同的map上的激活进行了平滑，平滑操作大概可以将识别率提高1-2个百分点。<br>之后，这一层已经被其它种的Regularization技术，如drop out, batch normalization取代了。知道了这些，似乎也可以不那么纠结这个LRN了。</p>
-<h2 id="2-ZFNet"><a href="#2-ZFNet" class="headerlink" title="2. ZFNet"></a>2. ZFNet</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171006105228083?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006105341267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<h2 id="2-ZFNet"><a href="#2-ZFNet" class="headerlink" title="2. ZFNet"></a>2. ZFNet</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171006105228083?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006105341267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <h2 id="3-VGGNet"><a href="#3-VGGNet" class="headerlink" title="3. VGGNet"></a>3. VGGNet</h2><p><div align="center"><br><img src="http://img.blog.csdn.net/20171006105627204?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Tips：</strong></p>
 <ol>
@@ -244,9 +244,9 @@ classes that you can use:
 <li>No Local Response Normalisation (LRN)</li>
 </ol>
 <p>VGGNet消耗资源表：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006110142088?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006110142088?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <h2 id="4-GoogLeNet"><a href="#4-GoogLeNet" class="headerlink" title="4. GoogLeNet"></a>4. GoogLeNet</h2><p>GoogLeNet架构：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006110524369?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006110524369?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Tips：</strong></p>
 <p>“Inception module”: design a good local network topology (network within a network) and then stack these modules on top of each other</p>
 <p>初始的Inception module及其存在的问题：</p>
@@ -258,11 +258,11 @@ classes that you can use:
 <p>改进的Inception module：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171006112916918?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>Full GoogLeNet architecture：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006113103546?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006113103546?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%" align="center"> <div align="left"> </div></div></p>
 <p>Auxiliary classification outputs可以缓解深度过深导致权重梯度过小而无法优化的现象！</p>
 <h2 id="5-ResNet"><a href="#5-ResNet" class="headerlink" title="5. ResNet"></a>5. ResNet</h2><p>受到深度的意义的驱使，出现了这样一个问题：是不是更多的堆叠层就一定能学习出更好的网络？这个问题的一大障碍就是臭名昭著的梯度消失/爆炸问题，它从一开始就阻碍了收敛，然而梯度消失/爆炸的问题，很大程度上可以通过标准的初始化和正则化层来基本解决，确保几十层的网络能够收敛（用SGD+反向传播）。</p>
 <p>　　然而当开始考虑更深层的网络的收敛问题时，退化问题就暴露了：随着神经网络深度的增加，精确度开始饱和（这是不足为奇的），然后会迅速的变差。出人意料的，这样一种退化，并不是过拟合导致的，并且增加更多的层匹配深度模型，会导致更多的训练误差。如下图所示：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006155054290?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006155054290?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>　　我们通过引入一个深度残差学习框架，解决了这个退化问题。我们不期望每一层能直接吻合一个映射，我们明确的让这些层去吻合残差映射。形式上看，就是用H(X)来表示最优解映射，但我们让堆叠的非线性层去拟合另一个映射F（X）:=H(X) - X, 此时原最优解映射H（X）就可以改写成F(X)+X，我们假设残差映射跟原映射相比更容易被优化。极端情况下，如果一个映射是可优化的，那也会很容易将残差推至0，<strong>把残差推至0和把此映射逼近另一个非线性层相比要容易的多。</strong></p>
 <p>　　F(X)+X的公式可以通过在前馈网络中做一个“快捷连接”来实现 ，快捷连接跳过一个或多个层。在我们的用例中，快捷连接简单的执行自身映射，它们的输出被添加到叠加层的输出中。自身快捷连接既不会添加额外的参数也不会增加计算复杂度。整个网络依然可以用SGD+反向传播来做端到端的训练，并且可以很容易用大众框架来实现（比如Caffe）不用修改slover配置（slover是caffe中的核心slover.prototxt）</p>
 <p>ResNet结构图：</p>
@@ -295,25 +295,25 @@ classes that you can use:
 <h2 id="6-Other-architectures"><a href="#6-Other-architectures" class="headerlink" title="6. Other architectures"></a>6. Other architectures</h2><p><strong>Network in Network (NiN)：</strong></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171006160409516?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Improving ResNets：</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006160734579?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006160734579?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>更宽的残差网络：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161004901?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161050225?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161004901?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161050225?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>加入随机概念：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161416263?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161416263?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>Fractal architecture with both shallow and deep paths to output：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161558698?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161558698?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Beyond ResNets</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161729409?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161729409?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Efficient networks</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161816291?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171006161816291?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Summary: CNN Architectures</strong></p>
 <ul>
 <li>VGG, GoogLeNet, ResNet all in wide use, available in model zoos</li>
 <li>ResNet current best default</li>
 <li>Trend towards extremely deep networks</li>
 <li>Significant research centers around design of layer / skip connections and improving gradient flow</li>
-<li>Even more recent trend towards examining necessity of depth vs.<br>width and residual connections</li>
+<li>Even more recent trend towards examining necessity of depth vs.width and residual connections</li>
 </ul>
 
   </section>

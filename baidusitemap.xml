@@ -4,6 +4,126 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/10/06/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--13.%20Generative%20Models/</loc>
+    <lastmod>2017-11-18T08:15:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>CS231n学习笔记--13. Generative Models</title>
+        <pubTime>2017-10-05T16:00:00.000Z</pubTime>
+        
+        <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
+         
+        <tag>Deep Learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="CS231n" url="http://yoursite.com/categories/CS231n/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/10/05/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--12.Visualizing%20and%20Understanding/</loc>
+    <lastmod>2017-11-18T08:14:40.000Z</lastmod>
+    <data>
+        <display>
+        <title>CS231n学习笔记--12.Visualizing and Understanding</title>
+        <pubTime>2017-10-04T16:00:00.000Z</pubTime>
+        
+        <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
+         
+        <tag>Deep Learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="CS231n" url="http://yoursite.com/categories/CS231n/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/10/03/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--10.Recurrent%20Neural%20Networks/</loc>
+    <lastmod>2017-11-18T03:08:33.000Z</lastmod>
+    <data>
+        <display>
+        <title>CS231n学习笔记--10.Recurrent Neural Networks</title>
+        <pubTime>2017-10-02T16:00:00.000Z</pubTime>
+        
+        <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
+         
+        <tag>Deep Learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="CS231n" url="http://yoursite.com/categories/CS231n/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/09/30/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--9.CNN%20Architectures/</loc>
+    <lastmod>2017-11-18T02:53:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>CS231n学习笔记--9.CNN Architectures</title>
+        <pubTime>2017-09-29T16:00:00.000Z</pubTime>
+        
+        <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
+         
+        <tag>Deep Learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="CS231n" url="http://yoursite.com/categories/CS231n/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/09/27/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--8.Deep%20Learning%20Software/</loc>
+    <lastmod>2017-11-17T15:22:25.000Z</lastmod>
+    <data>
+        <display>
+        <title>CS231n学习笔记--8.Deep Learning Software</title>
+        <pubTime>2017-09-26T16:00:00.000Z</pubTime>
+        
+        <tag>Machine Learning</tag>
+         
+        <tag>Algorithm</tag>
+         
+        <tag>Deep Learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="CS231n" url="http://yoursite.com/categories/CS231n/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/09/23/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--5.CNN&&6-7.%20Training%20Neural%20Networks/</loc>
     <lastmod>2017-11-16T15:45:55.000Z</lastmod>
     <data>
@@ -409,9 +529,9 @@
         
         <tag>Algorithm</tag>
          
-        <tag>Image Processing</tag>
-         
         <tag>Math</tag>
+         
+        <tag>Image Processing</tag>
          
          
            
@@ -566,30 +686,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/10/06/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--13.%20Generative%20Models/</loc>
-    <lastmod>2017-11-04T09:32:54.000Z</lastmod>
-    <data>
-        <display>
-        <title>CS231n学习笔记--13. Generative Models</title>
-        <pubTime>2017-10-05T16:00:00.000Z</pubTime>
-        
-        <tag>Machine Learning</tag>
-         
-        <tag>Algorithm</tag>
-         
-        <tag>Deep Learning</tag>
-         
-         
-           
-             
-              <breadCrumb title="CS231n" url="http://yoursite.com/categories/CS231n/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2017/10/16/MeanShift%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6%E5%9C%A8%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA%E4%B8%8A%E7%9A%84%E8%BF%90%E7%94%A8/</loc>
     <lastmod>2017-11-03T14:47:07.000Z</lastmod>
     <data>
@@ -704,30 +800,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/10/05/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--12.Visualizing%20and%20Understanding/</loc>
-    <lastmod>2017-10-28T08:13:32.000Z</lastmod>
-    <data>
-        <display>
-        <title>CS231n学习笔记--12.Visualizing and Understanding</title>
-        <pubTime>2017-10-04T16:00:00.000Z</pubTime>
-        
-        <tag>Machine Learning</tag>
-         
-        <tag>Algorithm</tag>
-         
-        <tag>Deep Learning</tag>
-         
-         
-           
-             
-              <breadCrumb title="CS231n" url="http://yoursite.com/categories/CS231n/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2017/10/04/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--11.Detection%20and%20Segmentation/</loc>
     <lastmod>2017-10-28T08:11:36.000Z</lastmod>
     <data>
@@ -769,78 +841,6 @@
            
              
               <breadCrumb title="Image Processing" url="http://yoursite.com/categories/Image-Processing/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/10/03/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--10.Recurrent%20Neural%20Networks/</loc>
-    <lastmod>2017-10-28T02:39:20.000Z</lastmod>
-    <data>
-        <display>
-        <title>CS231n学习笔记--10.Recurrent Neural Networks</title>
-        <pubTime>2017-10-02T16:00:00.000Z</pubTime>
-        
-        <tag>Machine Learning</tag>
-         
-        <tag>Algorithm</tag>
-         
-        <tag>Deep Learning</tag>
-         
-         
-           
-             
-              <breadCrumb title="CS231n" url="http://yoursite.com/categories/CS231n/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/09/30/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--9.CNN%20Architectures/</loc>
-    <lastmod>2017-10-28T02:34:45.000Z</lastmod>
-    <data>
-        <display>
-        <title>CS231n学习笔记--9.CNN Architectures</title>
-        <pubTime>2017-09-29T16:00:00.000Z</pubTime>
-        
-        <tag>Machine Learning</tag>
-         
-        <tag>Algorithm</tag>
-         
-        <tag>Deep Learning</tag>
-         
-         
-           
-             
-              <breadCrumb title="CS231n" url="http://yoursite.com/categories/CS231n/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/09/27/CS231n%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--8.Deep%20Learning%20Software/</loc>
-    <lastmod>2017-10-28T02:19:15.000Z</lastmod>
-    <data>
-        <display>
-        <title>CS231n学习笔记--8.Deep Learning Software</title>
-        <pubTime>2017-09-26T16:00:00.000Z</pubTime>
-        
-        <tag>Machine Learning</tag>
-         
-        <tag>Algorithm</tag>
-         
-        <tag>Deep Learning</tag>
-         
-         
-           
-             
-              <breadCrumb title="CS231n" url="http://yoursite.com/categories/CS231n/"/>
           
         </display>
     </data>

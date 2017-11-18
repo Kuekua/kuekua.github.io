@@ -50,7 +50,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20171007224347184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171007225220654?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171007225803715?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-10-28T02:39:20.000Z">
+<meta property="og:updated_time" content="2017-11-18T03:08:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231n学习笔记--10.Recurrent Neural Networks | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. Recurrent Neural NetworkRNN 的关键点之一就是他们可以用来连接先前的信息到当前的任务上，例如使用过去的视频段来推测对当前段的理解。有时候，我们仅仅需要知道先前的信息来执行当前的任务。例如，我们有一个语言模型用来基于先前的词来预测下一个词。如果我们试着预测 “the clouds are in the sky” 最后的词，我们并不需要任何其他的上下文 —— 因此下">
@@ -233,42 +233,40 @@ classes that you can use:
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007220048380?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
 <p>单词构建场景测试阶段：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007220127803?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
-<p>RNN前后向传输计算t梯度策略：</p>
+<p>RNN前后向传输计算梯度策略：</p>
 <p>1.前后向传输均使用完整序列</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007220610954?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
-<ol>
-<li>前后向传输均使用分块序列</li>
-</ol>
+<p>2 前后向传输均使用分块序列</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007220749020?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
-<p>3.前使用完整序列, 后向传输使用分块序列</p>
+<p>3.前向传输使用完整序列, 后向传输使用分块序列</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007220831322?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
 <p>CNN+RNN进行图像内容识别：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221113103?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221212884?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221236543?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="30%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221113103?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221212884?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221236543?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Image Captioning with Attention：</strong></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221347502?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221759533?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="50%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221759533?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007221833125?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="15%" align="center"> <div align="left"> </div></div></p>
 <p><strong>Tips：</strong></p>
 <p>vi指的是CNN之后的图像分块特征，pi指的是该图像块包含特征词汇的概率。</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007222325927?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007222325927?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <p>Soft attention：指的是该词汇参考全图，不过每块有权重大小区别。<br>Hard attention：指的是该词汇参考某块图像块。</p>
 <p><strong>RNN用于问题解答：</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007222720764?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007223112884?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007222720764?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007223112884?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <h2 id="2-LSTM"><a href="#2-LSTM" class="headerlink" title="2. LSTM"></a>2. LSTM</h2><p>会有一些更加复杂的场景。假设我们试着去预测“I grew up in France… I speak fluent French”最后的词。当前的信息建议下一个词可能是一种语言的名字，但是如果我们需要弄清楚是什么语言，我们是需要先前提到的离当前位置很远的 France 的上下文的。这说明相关信息和当前预测位置之间的间隔就肯定变得相当的大。<br>不幸的是，在这个间隔不断增大时，RNN 会丧失学习到连接如此远的信息的能力。<br>LSTM 通过刻意的设计来避免长期依赖问题。记住长期的信息在实践中是 LSTM 的默认行为，而非需要付出很大代价才能获得的能力！</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007223732907?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007223732907?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>多个传统RNN级联存在的问题，梯度爆炸/消失：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007224109590?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007224109590?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <p>LSTM架构：</p>
 <p><div align="center"><br><img src="http://img.blog.csdn.net/20171007224258039?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
 <p>特别要注意的因为激活函数是sigmoid的，所以i,f,0均二值化的数值，所以可以缓解传统RNN存在的梯度问题！</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007224347184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007224347184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%" align="center"> <div align="left"> </div></div></p>
 <p>LSTM与ResNet的相似之处：</p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007225220654?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007225220654?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <p><strong>其他模型：</strong></p>
-<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007225803715?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%" align="center"> <div align="left"> </div></div></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171007225803715?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="90%" align="center"> <div align="left"> </div></div></p>
 <p>进一步理解，可参考博客：<a href="http://www.jianshu.com/p/9dc9f41f0b29" target="_blank" rel="external">理解 LSTM 网络</a></p>
 <h1 id="3-Summary"><a href="#3-Summary" class="headerlink" title="3. Summary"></a>3. Summary</h1><p> RNNs allow a lot of flexibility in architecture design</p>
 <ul>
