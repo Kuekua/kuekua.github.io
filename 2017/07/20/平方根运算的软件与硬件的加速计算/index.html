@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20170928161138122?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/40/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20170928161138122?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="http://img.blog.csdn.net/20171114212446698?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-11-14T13:26:35.000Z">
+<meta property="og:updated_time" content="2017-11-19T14:57:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="平方根运算的软件与硬件的加速计算 | Kuekua&#39;s blog">
 <meta name="twitter:description" content="1. 平方根运算软件算法1.1 二分法利用二分进行开平方的思想很简单：假定中值为最终解。假定下限为0，上限为x，然后求中值；然后比较中值的平方和x的大小，并根据大小修改下限或者上限；重新计算中值，开始新的循环，直到前后两次中值的距离小于给定的精度为止。**需要注意的一点是，如果x小于1，我们需要将上限置为1。 代码如下： 1234567891011121314151617float Sqr">
@@ -211,7 +211,7 @@ classes that you can use:
 <h2 id="2-整数平方根———硬件加速算法"><a href="#2-整数平方根———硬件加速算法" class="headerlink" title="2. 整数平方根———硬件加速算法"></a>2. 整数平方根———硬件加速算法</h2><h3 id="2-1-手工开平方算法法"><a href="#2-1-手工开平方算法法" class="headerlink" title="2.1 手工开平方算法法"></a>2.1 手工开平方算法法</h3><p>先以10进制为例，解释手动开平方算法：</p>
 <p>首先将数字每两位分成一段。如：745836942。就分成：<br>7|45|83|69|42，即从个位开始分。共分成五段，第一段是7。对第一段的数字7开方取整，可得a=2。此时，要在2后面接一个数字b，并在7后面加上下一段的数45，使产生的两位数ab的平方不大于745。<br>我们知道，数ab实际值表示为<strong>10a+b</strong>，其平方是$$100a^2+20ab+b^2$$。我们可以暂时忽略$$b^2$$，而产生一个“试商”b。即$$b = (745 - 100a^2) / 20a = (745 - 100<em>2</em>2) / (20 * 2) = 8.625 ≈ 8$$(向下取整)。但是，我们发现$$28^2 = 784&gt;745$$，于是这个试商需要减少为7。然而，当a=0时，上述求试商的方法不在适用，但我们可以直接取下一段的两位数开方。如√45≈6。求出试商后，用$$745-ab^2$$得到新的“第一段”的数。</p>
 <p><strong>具体过程：</strong></p>
-<p>取出第一段的数mn，开方得到a，然后接上第二段的数pq，用$$mnpq-100a^2$$得到“余数”x，$$x/20a$$得到试商b，然后调整b（当$$20<em>a</em>b+b<em>b&gt;x$$时b需要减少），调整后，将$$x-20a</em>b-b*b$$作为新的余数x’，新的a就是手动开平方的简易方法。由于前面已经将$$100a^2$$减掉，所以后面每次都不用再减去$$100a^2$$。重复步骤，直到开方完毕，或达到要求的精度为止。最后得到的a就是平方根。</p>
+<p>取出第一段的数mn，开方得到a，然后接上第二段的数pq，用$$mnpq-100a^2$$得到“余数”x，   $$x/20a$$得到试商b，然后调整b（当$$ 20<em>a</em>b+b<em>b&gt;x $$时b需要减少），调整后，将        $$x-20a</em>b-b*b$$作为新的余数x’，ab就是第二轮开平方的结果。由于前面已经将$$100a^2$$减掉，所以后面每次都不用再减去$$100a^2$$。重复步骤，直到开方完毕，或达到要求的精度为止。最后得到的a就是平方根。</p>
 <p>如求$$745836942$$的平方根：<br> $$7|45|83|69|42$$<br>$$①a=sqrt(7)≈2，b=(745-400)/40≈8，28^2=784&gt;745  ==&gt;  b=7  ==&gt; 27^2=729&lt;745，745-729 = 16$$</p>
 <p>$$②a=27，b=1683/540≈3，27<em>20</em>3+3*3=1629&lt;1683，1683-1629 = 54$$</p>
 <p>$$③a=273，b=5469/5460≈1，273<em>20</em>1+1*1=5461<5469 =="">  b=1， 5469-5461=8$$</5469></p>
@@ -239,24 +239,29 @@ classes that you can use:
 </article>
 
 
-            <footer class="footer">
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-    <span class="footer__copyright">&copy; 2017-2020. 个人邮箱：wj.bob@163.com</a></span>
-    
-</footer>
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kuekua Wu</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共83.5k字</span>
+</div>
+
         </div>
     </div>
 
