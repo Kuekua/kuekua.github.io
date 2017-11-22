@@ -3,6 +3,72 @@
   
     
     <entry>
+      <title><![CDATA[YOLO算法的调整与优化]]></title>
+      <url>/2017/11/20/YOLO%E7%AE%97%E6%B3%95%E7%9A%84%E8%B0%83%E6%95%B4%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
+      <content type="html"><![CDATA[<h2 id="一-代码篇"><a href="#一-代码篇" class="headerlink" title="一. 代码篇"></a>一. 代码篇</h2><h3 id="1-1-引入const引用形参改善代码效率"><a href="#1-1-引入const引用形参改善代码效率" class="headerlink" title="1.1 引入const引用形参改善代码效率"></a>1.1 引入const引用形参改善代码效率</h3><p>举个栗子：<br>在convolutional_layer.c文件的convolutional_out_height函数中：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/<span class="strong">*</span></div><div class="line"><span class="strong">*</span>*  根据输入图像的高度(h)，两边补0的个数(pad)，卷积核尺寸(size)以及跨度(stride)计算输出的特征图的高度</div><div class="line"><span class="bullet">**  </span>输入：l    卷积层，包含该卷积层的所有参数，实际这里没有必要输入整个l，因为只需要到其中的四个参数而已</div><div class="line"><span class="bullet">**  </span>输出：int类型，输出图像的高度</div><div class="line"><span class="bullet">**  </span>说明：这个函数的实现应该可以进一步改善一下，虽然这个函数只是在最初构建网络时调用一次，之后就不调用了，</div><div class="line"><span class="bullet">**       </span>不怎么影响性能，但输入整个l实在不妥（l比较大，按值传递复制过程比较冗长），要么就只输入用到的四个参数，</div><div class="line"><span class="bullet">**       </span>要么传入l的指针，并且不需要返回值了，直接在函数内部为l.out<span class="emphasis">_h赋值</span></div><div class="line"><span class="emphasis">*/</span></div><div class="line"><span class="emphasis">int convolutional_</span>out<span class="emphasis">_height(convolutional_</span>layer l)</div></pre></td></tr></table></figure></p>
+<p>若改成：</p>
+<p>int convolutional_out_height(const convolutional_layer &amp;l)<br>是否更加合理？</p>
+<h3 id="1-2-指针释放空间后最好做置0处理"><a href="#1-2-指针释放空间后最好做置0处理" class="headerlink" title="1.2 指针释放空间后最好做置0处理"></a>1.2 指针释放空间后最好做置0处理</h3><p>举个栗子：<br>在文件layer.c中的void free_layer(layer l)函数中</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">free_layer</span><span class="params">(layer l)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">...</div><div class="line">	<span class="keyword">if</span> (l.indexes)        <span class="built_in">free</span>(l.indexes);</div><div class="line">	**l.indexes = <span class="literal">NULL</span>;**</div><div class="line">	<span class="keyword">if</span> (l.rand)           <span class="built_in">free</span>(l.rand);</div><div class="line">	**l.rand = <span class="literal">NULL</span>;**</div><div class="line">	<span class="keyword">if</span> (l.cost)           <span class="built_in">free</span>(l.cost);</div><div class="line">	**l.cost = <span class="literal">NULL</span>;**</div><div class="line">	<span class="keyword">if</span> (l.biases)         <span class="built_in">free</span>(l.biases);</div><div class="line">	**l.biases = <span class="literal">NULL</span>;**</div><div class="line">	<span class="keyword">if</span> (l.weights)        <span class="built_in">free</span>(l.weights);</div><div class="line">	**l.weights = <span class="literal">NULL</span>;**</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="1-3-使用strncmp而不是strcmp"><a href="#1-3-使用strncmp而不是strcmp" class="headerlink" title="1.3 使用strncmp而不是strcmp"></a>1.3 使用strncmp而不是strcmp</h3><p>举个栗子：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/*	return (<span class="name">strcmp</span>(<span class="name">s-&gt;type</span>, <span class="string">"[net]"</span>) == <span class="number">0</span></div><div class="line">		|| strcmp(<span class="name">s-&gt;type</span>, <span class="string">"[network]"</span>) == <span class="number">0</span>)<span class="comment">;*/</span></div><div class="line">   return (<span class="name">strncmp</span>(<span class="name">s-&gt;type</span>, <span class="string">"[net]"</span>, strlen(<span class="string">"[net]"</span>)) == <span class="number">0</span></div><div class="line">		|| strncmp(<span class="name">s-&gt;type</span>, <span class="string">"[network]"</span>, strlen(<span class="string">"[network]"</span>)) == <span class="number">0</span>)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<h2 id="二-算法加速篇"><a href="#二-算法加速篇" class="headerlink" title="二. 算法加速篇"></a>二. 算法加速篇</h2><h3 id="2-1-引入定点数的优化"><a href="#2-1-引入定点数的优化" class="headerlink" title="2.1 引入定点数的优化"></a>2.1 引入定点数的优化</h3><p>关于定点数的理论知识，可以参考我的博客：</p>
+<p><a href="https://kuekua.github.io/2017/07/22/%E5%AE%9A%E7%82%B9%E6%95%B0%E4%B8%8E%E6%B5%AE%E7%82%B9%E6%95%B0/" target="_blank" rel="external">定点数与浮点数</a></p>
+<p>具体的定点数转换公式如下：<br>一般，取<strong>q=12</strong><br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">/* The basic operations performed on two numbers a and b of fixed point q</div><div class="line">format returning the answer in q format */</div><div class="line"></div><div class="line">#define FADD(<span class="name">a</span>, b)     ((<span class="name">a</span>) + (<span class="name">b</span>))</div><div class="line">#define FSUB(<span class="name">a</span>, b)     ((<span class="name">a</span>) - (<span class="name">b</span>))</div><div class="line">//#define FMUL(<span class="name">a</span>, b, q)  (((<span class="name">a</span>)*(b))&gt;&gt;(q))</div><div class="line">#define FMUL(a, b, q)  ((long)((a)*(<span class="name">b</span>))&gt;&gt;(<span class="name">q</span>))</div><div class="line">#define FDIV(<span class="name">a</span>, b, q)  (((<span class="name">a</span>)&lt;&lt;(<span class="name">q</span>))/(<span class="name">b</span>))</div><div class="line"></div><div class="line"></div><div class="line">/* The basic operation where a is of fixed point q format and b is</div><div class="line">an integer */</div><div class="line"></div><div class="line">#define FADDI(<span class="name">a</span>, b, q)  ((<span class="name">a</span>) + ((<span class="name">b</span>)&lt;&lt;(<span class="name">q</span>)))</div><div class="line">#define FSUBI(<span class="name">a</span>, b, q) ((<span class="name">a</span>) - ((<span class="name">b</span>)&lt;&lt;(<span class="name">q</span>)))</div><div class="line">#define FMULI(<span class="name">a</span>, b)    ((<span class="name">a</span>)*(b))</div><div class="line">#define FDIVI(a, b)    ((a)/(b))</div><div class="line"></div><div class="line"></div><div class="line">/* convert a from q1 format to q2 format */</div><div class="line"></div><div class="line">#define FCONV(a, q1, q2)  (((q2) &gt; (q1)) ? (a)&lt;&lt;((q2)-(q1)) : (a)&gt;&gt;((q1) - (q2)))</div><div class="line"></div><div class="line">/* the general operation between a in q1 format and b in q2 format</div><div class="line">returning the result in q3 format */</div><div class="line"></div><div class="line">#define FADDG(a, b, q1, q2, q3)  (FCONV(a, q1, q3) + FCONV(b, q2, q3))</div><div class="line">#define FSUBG(a, b, q1, q2, q3)  (FCONV(a, q1, q3) - FCONV(b, q2, q3))</div><div class="line">#define FMULG(a, b, q1, q2, q3)   FCONV((a)*(<span class="name">b</span>), (<span class="name">q1</span>)+(<span class="name">q2</span>), q3)</div><div class="line">#define FDIVG(<span class="name">a</span>, b, q1, q2, q3)  (<span class="name">FCONV</span>(<span class="name">a</span>, q1, (<span class="name">q2</span>) + (<span class="name">q3</span>))/(<span class="name">b</span>))</div><div class="line"></div><div class="line"></div><div class="line">/* convert to and from floating point */</div><div class="line">#define TOFIX(<span class="name">d</span>, q)  ((<span class="name">int</span>) ( (<span class="name">d</span>)*(double) (1&lt;&lt;(q)) ))</div><div class="line">#define TOFLT(a, q)  (  (double)(a) / (double)(1&lt;&lt;(q)) )</div></pre></td></tr></table></figure></p>
+<h3 id="2-2-在参数矩阵中引入稀疏矩阵的存储方式"><a href="#2-2-在参数矩阵中引入稀疏矩阵的存储方式" class="headerlink" title="2.2 在参数矩阵中引入稀疏矩阵的存储方式"></a>2.2 在参数矩阵中引入稀疏矩阵的存储方式</h3><p>参考博客：<a href="http://blog.csdn.net/stark_summer/article/details/49050079" target="_blank" rel="external">稀疏矩阵存储格式总结+存储效率对比:COO,CSR,DIA,ELL,HYB</a></p>
+<p><strong>Coordinate（COO）</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171122222924306?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<p>这是最简单的一种格式，每一个元素需要用一个三元组来表示，分别是（行号，列号，数值），对应上图右边的一列。这种方式简单，但是记录单信息多（行列），每个三元组自己可以定位，因此空间不是最优。</p>
+<p><strong>Compressed Sparse Row (CSR)</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171122223030430?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<p>CSR是比较标准的一种，也需要三类数据来表达：数值，列号，以及行偏移。CSR不是三元组，而是整体的编码方式。数值和列号与COO一致，表示一个元素以及其列号，行偏移表示某一行的<strong>第一个</strong>元素在values里面的起始偏移位置。如上图中，第一行元素1是0偏移，第二行元素2是2偏移，第三行元素5是4偏移，第4行元素6是7偏移。在行偏移的最后补上矩阵总的元素个数，本例中是9。</p>
+<p>CSC是和CSR相对应的一种方式，即按列压缩的意思。</p>
+<p><strong>ELLPACK (ELL)</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171122223235311?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<p>用两个和原始矩阵相同行数的矩阵来存：第一个矩阵存的是列号，第二个矩阵存的是数值，行号就不存了，用自身所在的行来表示；这两个矩阵每一行都是从头开始放，如果没有元素了就用个标志比如*结束。上图中间矩阵有误，第三行应该是 0 2 3。</p>
+<p>注：这样如果某一行很多元素，那么后面两个矩阵就会很胖，其他行结尾*很多，浪费。可以存成数组，比如上面两个矩阵就是：</p>
+<p>0 1 <em> 1 2 </em> 0 2 3 <em> 1 3 </em></p>
+<p>1 7 <em> 2 8 </em> 5 3 9 <em> 6 4 </em></p>
+<p>但是这样要取一行就比较不方便了</p>
+<p><strong>Diagonal (DIA)</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171122223544148?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<p>对角线存储法，按对角线方式存，列代表对角线，行代表行。省略全零的对角线。(从左下往右上开始：第一个对角线是零忽略，第二个对角线是5，6，第三个对角线是零忽略，第四个对角线是1，2，3，4，第五个对角线是7，8，9，第六第七个对角线忽略)。</p>
+<p>这里行对应行，所以5和6是分别在第三行第四行的，前面补上无效元素<em>。<em>*如果对角线中间有0，存的时候也需要补0</em></em>，所以如果原始矩阵就是一个对角性很好的矩阵那压缩率会非常高，比如下图，但是如果是随机的那效率会非常糟糕。</p>
+<p><strong>Hybrid (HYB) ELL + COO</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171122223729857?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<p>为了解决ELL中提到的，如果某一行特别多，造成其他行的浪费，那么把这些多出来的元素（比如第三行的9，其他每一行最大都是2个元素）用COO单独存储。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">unified_matrix</span>     <span class="title">UM</span>;</span></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">unified_matrix</span>  _<span class="title">dense_matrix</span>;</span></div><div class="line"><span class="keyword">typedef</span> _dense_matrix DM;</div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">unified_matrix</span>  _<span class="title">compressed_sparse_matrix</span>;</span></div><div class="line"><span class="keyword">typedef</span> _compressed_sparse_matrix CSPM;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">sparse_matrix</span>     <span class="title">SPM</span>;</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span>   FORMAT          FORMAT;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> FORMAT &#123;</div><div class="line">	DENSE,</div><div class="line">	CSR,</div><div class="line">	CSC</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>  _<span class="title">unified_matrix</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line">	FORMAT format;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> rows;</div><div class="line">	<span class="keyword">int</span> cols;</div><div class="line">	<span class="keyword">int</span> bits_val;</div><div class="line">	<span class="keyword">int</span> num_vals;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">short</span> *vals;</div><div class="line">	<span class="keyword">unsigned</span>  <span class="keyword">short</span> *weight_powers;</div><div class="line">	<span class="keyword">short</span> <span class="keyword">int</span> *weight_masks;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> *row_offsets;</div><div class="line">	<span class="keyword">int</span> *col_offsets;</div><div class="line">	<span class="keyword">int</span> *starts;</div><div class="line">	<span class="keyword">int</span> bits_intv;</div><div class="line">	<span class="keyword">int</span> num_intvs;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">short</span> *intvs;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">sparse_matrix</span> &#123;</span></div><div class="line">	FORMAT format;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> rows;</div><div class="line">	<span class="keyword">int</span> cols;</div><div class="line">	<span class="keyword">int</span> *row_offsets;</div><div class="line">	<span class="keyword">int</span> *col_offsets;</div><div class="line">	<span class="keyword">int</span> num_vals;</div><div class="line">	<span class="keyword">float</span> *vals;</div><div class="line">	<span class="keyword">int</span> *INTvals;   <span class="comment">//Mark</span></div><div class="line">	<span class="keyword">int</span> *offsets;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> *powers;  <span class="comment">//Mark</span></div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</div></div></div></div></div>]]></content>
+      
+        <categories>
+            
+            <category> Deep Learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
+            
+            <tag> Deep Learning </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Yolo2代码解析]]></title>
       <url>/2017/11/11/Yolo2%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
       <content type="html"><![CDATA[<h2 id="1-激活层"><a href="#1-激活层" class="headerlink" title="1. 激活层"></a>1. 激活层</h2><figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">计算激活函数对加权输入的导数，并乘以<span class="keyword">delta</span>，得到当前层最终的<span class="keyword">delta</span>（敏感度图）</div><div class="line">输入： x  当前层的所有输出</div><div class="line">n    l.output的维度，即为l.batch * l.out_c * l.out_w * l.out_h（包含整个batch的）</div><div class="line">ACTIVATION    激活函数类型</div><div class="line"><span class="keyword">delta</span>     当前层敏感度图（与当前层输出x维度一样）</div><div class="line"></div><div class="line">说明<span class="number">1</span>： 该函数不但计算了激活函数对于加权输入的导数，还将该导数乘以了之前完成大部分计算的敏感度图<span class="keyword">delta</span>（对应元素相乘），</div><div class="line">因此调用改函数之后，将得到该层最终的敏感度图</div><div class="line"></div><div class="line">说明<span class="number">2</span>： 这里直接利用输出值求激活函数关于输入的导数值是因为神经网络中所使用的绝大部分激活函数，</div><div class="line">其关于输入的导数值都可以描述为输出值的函数表达式，比如对于Sigmoid激活函数（记作f(x)），其导数值为f(x)'=f(x)*(<span class="number">1</span>-f(x)),</div><div class="line">因此如果给出y=f(x)，那么f(x)'=y*(<span class="number">1</span>-y)，只需要输出值y就可以了，不需要输入x的值，</div><div class="line">（暂时不确定darknet中有没有使用特殊的激活函数，以致于必须要输入值才能够求出导数值，</div><div class="line">在activiation.c文件中，有几个激活函数暂时没看懂，也没在网上查到）。</div><div class="line"></div><div class="line">说明<span class="number">3</span>： 关于l.<span class="keyword">delta</span>的初值，可能你有注意到在看某一类型网络层的时候，比如卷积层中的backward_convolutional_layer()函数，</div><div class="line">没有发现在此之前对l.<span class="keyword">delta</span>赋初值的语句，只是用calloc为其动态分配了内存，这样的l.<span class="keyword">delta</span>其所有元素的值都为<span class="number">0</span>,</div><div class="line">那么这里使用*=运算符得到的值将恒为<span class="number">0</span>。是的，如果只看某一层，或者说某一类型的层，的确有这个疑惑，但是整个网络是有很多层的，</div><div class="line">且有多种类型，一般来说，不会以卷积层为最后一层，而回以COST或者REGION为最后一层，这些层中，会对l.<span class="keyword">delta</span>赋初值，</div><div class="line">又由于l.<span class="keyword">delta</span>是由后网前逐层传播的，因此，当反向运行到某一层时，l.<span class="keyword">delta</span>的值将都不会为<span class="number">0</span>.</div><div class="line">*/</div><div class="line"></div><div class="line">void gradient_array(const float *x, const int n, const ACTIVATION a, float *<span class="keyword">delta</span>)</div><div class="line">&#123;</div><div class="line">    int i;</div><div class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; n; ++i)&#123;</div><div class="line">        <span class="keyword">delta</span>[i] *= gradient(x[i], a);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -4293,50 +4359,9 @@ if __name__ == &apos;__main__&apos;:
             
             <tag> Algorithm </tag>
             
+            <tag> Image Processing </tag>
+            
             <tag> Math </tag>
-            
-            <tag> Image Processing </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[白平衡算法总结]]></title>
-      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
-      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
-<p><strong>TIPS:</strong></p>
-<ol>
-<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
-</li>
-<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
-</li>
-</ol>
-<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
-<p><strong>Tips:</strong></p>
-<ol>
-<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
-</li>
-<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
-</li>
-</ol>
-<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
-]]></content>
-      
-        <categories>
-            
-            <category> Image Processing </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Machine Learning </tag>
-            
-            <tag> Image Processing </tag>
-            
-            <tag> algorithm </tag>
             
         </tags>
         
@@ -4368,6 +4393,47 @@ if __name__ == &apos;__main__&apos;:
 <h1 id="9-代码优化：GPU优化"><a href="#9-代码优化：GPU优化" class="headerlink" title="9. 代码优化：GPU优化"></a>9. 代码优化：GPU优化</h1><p>GPU跟CPU不同，有自己独特的特点。GPU特别适合做无复杂逻辑但计算量大的事情。例如图像resize、图像滤波等。Boosting算法可以运行在GPU上，并获得加速，但GPU加速Boosting优势并没有你想象的明显。Boosting算法中逻辑分支较多，也就是有不定长的for循环，有if-else判断；并行的时候每个运算单元运算量并不相同，有些运行时间长，有些运行时间短。运行时间短的要等运行时间长的。我们做了很多努力，GPU版本（低端GTX750i显卡）速度大约可以做到CPU版本（i7多核并行）的6倍左右。跟OpenCV中用GPU加速Haar+Adaboost的倍数一致，而没有达到期望的几十倍加速。</p>
 <h1 id="10-吐槽：非连续内存读写"><a href="#10-吐槽：非连续内存读写" class="headerlink" title="10. 吐槽：非连续内存读写"></a>10. 吐槽：非连续内存读写</h1><p>读写非连续内存，速度可能变慢。如下图Haar积分图计算像素和的公式是D-B-C+A，需要读4个元素值，但这4个值在内存里并不连续，特别是A和D距离较远，这样降低了CPU缓存的命中率，也就降低了速度。对缓存小的低价位CPU影响尤为明显。虽然公式D-B-C+A的计算量跟E-F-G-H相同，但一般来说后者速度会快。此外，Boosting方法选出的多个弱特征，在图像上往往也不相邻，同样是低效的非连续内存的读写，这是Boosting类方法的一个缺点。</p>
 <h1 id="11-未来展望"><a href="#11-未来展望" class="headerlink" title="11. 未来展望"></a>11. 未来展望</h1><p>到目前为止，Boosting方法在人脸检测中依然具有明显的速度优势。但基于深度学习的目标检测方法进展迅速，不容小视。深度学习的方法可以很容易地获得非常高的准确率，如在FDDB人脸检测评库上，传统方法能达到85%准确率就非常高了，但深度学习方法可以轻松超过90%，甚至超过95%。如果想兼顾速度和准确率，传统方法和深度学习的方法结合也许是一个思路，现在已经有一些这样的尝试了。此外，CNN专用硬件应可以弥补深度学习方法的劣势。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Image Processing </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Machine Learning </tag>
+            
+            <tag> Image Processing </tag>
+            
+            <tag> algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[白平衡算法总结]]></title>
+      <url>/2017/06/21/%E7%99%BD%E5%B9%B3%E8%A1%A1%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h1 id="1-图像自动白平衡算法的原理、实现及效果"><a href="#1-图像自动白平衡算法的原理、实现及效果" class="headerlink" title="1.图像自动白平衡算法的原理、实现及效果"></a>1.图像自动白平衡算法的原理、实现及效果</h1><p><a href="http://www.cnblogs.com/Imageshop/archive/2013/04/20/3032062.html" target="_blank" rel="external">基于灰度世界、完美反射、动态阈值等图像自动白平衡算法的原理、实现及效果</a></p>
+<p><strong>TIPS:</strong></p>
+<ol>
+<li><p>灰度世界算法（Gray World)是以灰度世界假设为基础的,该假设认为对于一幅有着大量色彩变化的图像, R、 G、 B 三个分量的平均值趋于同一个灰度K。</p>
+</li>
+<li><p>完美全反射理论perfect Reflector假设图像上最亮点就是白点，并以此白点为参考对图像进行自动白平衡,最亮点定义为R+G+B的最大值。</p>
+</li>
+</ol>
+<h1 id="2-基于色温估计的自动白平衡"><a href="#2-基于色温估计的自动白平衡" class="headerlink" title="2. 基于色温估计的自动白平衡"></a>2. 基于色温估计的自动白平衡</h1><p><a href="http://blog.csdn.net/lz0499/article/details/70495698" target="_blank" rel="external">基于色温估计的自动白平衡</a></p>
+<p><strong>Tips:</strong></p>
+<ol>
+<li><p>相同的物体在不同的色温光源下呈现出相同的颜色，这就称为色彩恒常性。</p>
+</li>
+<li><p>白平衡的目的就是使得图像传感器在不同色温光源下拍摄的物体进行一个图像纠正的过程，还原物体本来的颜色。也可以说是在任意色温条件下，图像传感器所拍摄的标准白色经过白平衡的调整，使之成像后仍然为白色。</p>
+</li>
+</ol>
+<p><a href="http://blog.csdn.net/wzwxiaozheng/article/details/38434391" target="_blank" rel="external">自动白平衡(AWB)算法—1,色温曲线</a><br><a href="http://blog.csdn.net/wzwxiaozheng/article/details/40586293" target="_blank" rel="external">自动白平衡(AWB)算法—2,色温计算</a></p>
 ]]></content>
       
         <categories>

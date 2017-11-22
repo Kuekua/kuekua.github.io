@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/11/20/YOLO%E7%AE%97%E6%B3%95%E7%9A%84%E8%B0%83%E6%95%B4%E4%B8%8E%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2017-11-22T14:58:06.000Z</lastmod>
+    <data>
+        <display>
+        <title>YOLO算法的调整与优化</title>
+        <pubTime>2017-11-19T16:00:00.000Z</pubTime>
+        
+        <tag>Algorithm</tag>
+         
+        <tag>Machine Learning</tag>
+         
+        <tag>Deep Learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="Deep Learning" url="http://yoursite.com/categories/Deep-Learning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/07/20/%E5%B9%B3%E6%96%B9%E6%A0%B9%E8%BF%90%E7%AE%97%E7%9A%84%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%8A%A0%E9%80%9F%E8%AE%A1%E7%AE%97/</loc>
     <lastmod>2017-11-19T14:57:02.000Z</lastmod>
     <data>
@@ -529,9 +553,9 @@
         
         <tag>Algorithm</tag>
          
-        <tag>Math</tag>
-         
         <tag>Image Processing</tag>
+         
+        <tag>Math</tag>
          
          
            

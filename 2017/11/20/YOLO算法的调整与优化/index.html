@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      YOLO算法的调整与优化 | Kuekua&#39;s blog 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Kuekua Wu">
+    
+    
+
+    <meta name="description" content="一. 代码篇1.1 引入const引用形参改善代码效率举个栗子：在convolutional_layer.c文件的convolutional_out_height函数中：123456789/***  根据输入图像的高度(h)，两边补0的个数(pad)，卷积核尺寸(size)以及跨度(stride)计算输出的特征图的高度**  输入：l    卷积层，包含该卷积层的所有参数，实际这里没有必要输入整个">
+<meta name="keywords" content="Algorithm,Machine Learning,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YOLO算法的调整与优化 | Kuekua&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/2017/11/20/YOLO算法的调整与优化/index.html">
+<meta property="og:site_name" content="Kuekua&#39;s blog">
+<meta property="og:description" content="一. 代码篇1.1 引入const引用形参改善代码效率举个栗子：在convolutional_layer.c文件的convolutional_out_height函数中：123456789/***  根据输入图像的高度(h)，两边补0的个数(pad)，卷积核尺寸(size)以及跨度(stride)计算输出的特征图的高度**  输入：l    卷积层，包含该卷积层的所有参数，实际这里没有必要输入整个">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20171122222924306?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171122223030430?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171122223235311?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171122223544148?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171122223729857?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-11-22T14:58:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="YOLO算法的调整与优化 | Kuekua&#39;s blog">
+<meta name="twitter:description" content="一. 代码篇1.1 引入const引用形参改善代码效率举个栗子：在convolutional_layer.c文件的convolutional_out_height函数中：123456789/***  根据输入图像的高度(h)，两边补0的个数(pad)，卷积核尺寸(size)以及跨度(stride)计算输出的特征图的高度**  输入：l    卷积层，包含该卷积层的所有参数，实际这里没有必要输入整个">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171122222924306?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Kuekua&#39;s blog</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          YesterDay you said tomorrow!
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">分类</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">YOLO算法的调整与优化</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-11-20" class="post-meta__date date">2017-11-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Deep-Learning/">Deep Learning</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Algorithm/">Algorithm</a>, <a class="tags-link" href="/tags/Deep-Learning/">Deep Learning</a>, <a class="tags-link" href="/tags/Machine-Learning/">Machine Learning</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="一-代码篇"><a href="#一-代码篇" class="headerlink" title="一. 代码篇"></a>一. 代码篇</h2><h3 id="1-1-引入const引用形参改善代码效率"><a href="#1-1-引入const引用形参改善代码效率" class="headerlink" title="1.1 引入const引用形参改善代码效率"></a>1.1 引入const引用形参改善代码效率</h3><p>举个栗子：<br>在convolutional_layer.c文件的convolutional_out_height函数中：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/<span class="strong">*</span></div><div class="line"><span class="strong">*</span>*  根据输入图像的高度(h)，两边补0的个数(pad)，卷积核尺寸(size)以及跨度(stride)计算输出的特征图的高度</div><div class="line"><span class="bullet">**  </span>输入：l    卷积层，包含该卷积层的所有参数，实际这里没有必要输入整个l，因为只需要到其中的四个参数而已</div><div class="line"><span class="bullet">**  </span>输出：int类型，输出图像的高度</div><div class="line"><span class="bullet">**  </span>说明：这个函数的实现应该可以进一步改善一下，虽然这个函数只是在最初构建网络时调用一次，之后就不调用了，</div><div class="line"><span class="bullet">**       </span>不怎么影响性能，但输入整个l实在不妥（l比较大，按值传递复制过程比较冗长），要么就只输入用到的四个参数，</div><div class="line"><span class="bullet">**       </span>要么传入l的指针，并且不需要返回值了，直接在函数内部为l.out<span class="emphasis">_h赋值</span></div><div class="line"><span class="emphasis">*/</span></div><div class="line"><span class="emphasis">int convolutional_</span>out<span class="emphasis">_height(convolutional_</span>layer l)</div></pre></td></tr></table></figure></p>
+<p>若改成：</p>
+<p>int convolutional_out_height(const convolutional_layer &amp;l)<br>是否更加合理？</p>
+<h3 id="1-2-指针释放空间后最好做置0处理"><a href="#1-2-指针释放空间后最好做置0处理" class="headerlink" title="1.2 指针释放空间后最好做置0处理"></a>1.2 指针释放空间后最好做置0处理</h3><p>举个栗子：<br>在文件layer.c中的void free_layer(layer l)函数中</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">free_layer</span><span class="params">(layer l)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">...</div><div class="line">	<span class="keyword">if</span> (l.indexes)        <span class="built_in">free</span>(l.indexes);</div><div class="line">	**l.indexes = <span class="literal">NULL</span>;**</div><div class="line">	<span class="keyword">if</span> (l.rand)           <span class="built_in">free</span>(l.rand);</div><div class="line">	**l.rand = <span class="literal">NULL</span>;**</div><div class="line">	<span class="keyword">if</span> (l.cost)           <span class="built_in">free</span>(l.cost);</div><div class="line">	**l.cost = <span class="literal">NULL</span>;**</div><div class="line">	<span class="keyword">if</span> (l.biases)         <span class="built_in">free</span>(l.biases);</div><div class="line">	**l.biases = <span class="literal">NULL</span>;**</div><div class="line">	<span class="keyword">if</span> (l.weights)        <span class="built_in">free</span>(l.weights);</div><div class="line">	**l.weights = <span class="literal">NULL</span>;**</div><div class="line">...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="1-3-使用strncmp而不是strcmp"><a href="#1-3-使用strncmp而不是strcmp" class="headerlink" title="1.3 使用strncmp而不是strcmp"></a>1.3 使用strncmp而不是strcmp</h3><p>举个栗子：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/*	return (<span class="name">strcmp</span>(<span class="name">s-&gt;type</span>, <span class="string">"[net]"</span>) == <span class="number">0</span></div><div class="line">		|| strcmp(<span class="name">s-&gt;type</span>, <span class="string">"[network]"</span>) == <span class="number">0</span>)<span class="comment">;*/</span></div><div class="line">   return (<span class="name">strncmp</span>(<span class="name">s-&gt;type</span>, <span class="string">"[net]"</span>, strlen(<span class="string">"[net]"</span>)) == <span class="number">0</span></div><div class="line">		|| strncmp(<span class="name">s-&gt;type</span>, <span class="string">"[network]"</span>, strlen(<span class="string">"[network]"</span>)) == <span class="number">0</span>)<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<h2 id="二-算法加速篇"><a href="#二-算法加速篇" class="headerlink" title="二. 算法加速篇"></a>二. 算法加速篇</h2><h3 id="2-1-引入定点数的优化"><a href="#2-1-引入定点数的优化" class="headerlink" title="2.1 引入定点数的优化"></a>2.1 引入定点数的优化</h3><p>关于定点数的理论知识，可以参考我的博客：</p>
+<p><a href="https://kuekua.github.io/2017/07/22/%E5%AE%9A%E7%82%B9%E6%95%B0%E4%B8%8E%E6%B5%AE%E7%82%B9%E6%95%B0/" target="_blank" rel="external">定点数与浮点数</a></p>
+<p>具体的定点数转换公式如下：<br>一般，取<strong>q=12</strong><br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">/* The basic operations performed on two numbers a and b of fixed point q</div><div class="line">format returning the answer in q format */</div><div class="line"></div><div class="line">#define FADD(<span class="name">a</span>, b)     ((<span class="name">a</span>) + (<span class="name">b</span>))</div><div class="line">#define FSUB(<span class="name">a</span>, b)     ((<span class="name">a</span>) - (<span class="name">b</span>))</div><div class="line">//#define FMUL(<span class="name">a</span>, b, q)  (((<span class="name">a</span>)*(b))&gt;&gt;(q))</div><div class="line">#define FMUL(a, b, q)  ((long)((a)*(<span class="name">b</span>))&gt;&gt;(<span class="name">q</span>))</div><div class="line">#define FDIV(<span class="name">a</span>, b, q)  (((<span class="name">a</span>)&lt;&lt;(<span class="name">q</span>))/(<span class="name">b</span>))</div><div class="line"></div><div class="line"></div><div class="line">/* The basic operation where a is of fixed point q format and b is</div><div class="line">an integer */</div><div class="line"></div><div class="line">#define FADDI(<span class="name">a</span>, b, q)  ((<span class="name">a</span>) + ((<span class="name">b</span>)&lt;&lt;(<span class="name">q</span>)))</div><div class="line">#define FSUBI(<span class="name">a</span>, b, q) ((<span class="name">a</span>) - ((<span class="name">b</span>)&lt;&lt;(<span class="name">q</span>)))</div><div class="line">#define FMULI(<span class="name">a</span>, b)    ((<span class="name">a</span>)*(b))</div><div class="line">#define FDIVI(a, b)    ((a)/(b))</div><div class="line"></div><div class="line"></div><div class="line">/* convert a from q1 format to q2 format */</div><div class="line"></div><div class="line">#define FCONV(a, q1, q2)  (((q2) &gt; (q1)) ? (a)&lt;&lt;((q2)-(q1)) : (a)&gt;&gt;((q1) - (q2)))</div><div class="line"></div><div class="line">/* the general operation between a in q1 format and b in q2 format</div><div class="line">returning the result in q3 format */</div><div class="line"></div><div class="line">#define FADDG(a, b, q1, q2, q3)  (FCONV(a, q1, q3) + FCONV(b, q2, q3))</div><div class="line">#define FSUBG(a, b, q1, q2, q3)  (FCONV(a, q1, q3) - FCONV(b, q2, q3))</div><div class="line">#define FMULG(a, b, q1, q2, q3)   FCONV((a)*(<span class="name">b</span>), (<span class="name">q1</span>)+(<span class="name">q2</span>), q3)</div><div class="line">#define FDIVG(<span class="name">a</span>, b, q1, q2, q3)  (<span class="name">FCONV</span>(<span class="name">a</span>, q1, (<span class="name">q2</span>) + (<span class="name">q3</span>))/(<span class="name">b</span>))</div><div class="line"></div><div class="line"></div><div class="line">/* convert to and from floating point */</div><div class="line">#define TOFIX(<span class="name">d</span>, q)  ((<span class="name">int</span>) ( (<span class="name">d</span>)*(double) (1&lt;&lt;(q)) ))</div><div class="line">#define TOFLT(a, q)  (  (double)(a) / (double)(1&lt;&lt;(q)) )</div></pre></td></tr></table></figure></p>
+<h3 id="2-2-在参数矩阵中引入稀疏矩阵的存储方式"><a href="#2-2-在参数矩阵中引入稀疏矩阵的存储方式" class="headerlink" title="2.2 在参数矩阵中引入稀疏矩阵的存储方式"></a>2.2 在参数矩阵中引入稀疏矩阵的存储方式</h3><p>参考博客：<a href="http://blog.csdn.net/stark_summer/article/details/49050079" target="_blank" rel="external">稀疏矩阵存储格式总结+存储效率对比:COO,CSR,DIA,ELL,HYB</a></p>
+<p><strong>Coordinate（COO）</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171122222924306?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<p>这是最简单的一种格式，每一个元素需要用一个三元组来表示，分别是（行号，列号，数值），对应上图右边的一列。这种方式简单，但是记录单信息多（行列），每个三元组自己可以定位，因此空间不是最优。</p>
+<p><strong>Compressed Sparse Row (CSR)</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171122223030430?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<p>CSR是比较标准的一种，也需要三类数据来表达：数值，列号，以及行偏移。CSR不是三元组，而是整体的编码方式。数值和列号与COO一致，表示一个元素以及其列号，行偏移表示某一行的<strong>第一个</strong>元素在values里面的起始偏移位置。如上图中，第一行元素1是0偏移，第二行元素2是2偏移，第三行元素5是4偏移，第4行元素6是7偏移。在行偏移的最后补上矩阵总的元素个数，本例中是9。</p>
+<p>CSC是和CSR相对应的一种方式，即按列压缩的意思。</p>
+<p><strong>ELLPACK (ELL)</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171122223235311?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<p>用两个和原始矩阵相同行数的矩阵来存：第一个矩阵存的是列号，第二个矩阵存的是数值，行号就不存了，用自身所在的行来表示；这两个矩阵每一行都是从头开始放，如果没有元素了就用个标志比如*结束。上图中间矩阵有误，第三行应该是 0 2 3。</p>
+<p>注：这样如果某一行很多元素，那么后面两个矩阵就会很胖，其他行结尾*很多，浪费。可以存成数组，比如上面两个矩阵就是：</p>
+<p>0 1 <em> 1 2 </em> 0 2 3 <em> 1 3 </em></p>
+<p>1 7 <em> 2 8 </em> 5 3 9 <em> 6 4 </em></p>
+<p>但是这样要取一行就比较不方便了</p>
+<p><strong>Diagonal (DIA)</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171122223544148?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<p>对角线存储法，按对角线方式存，列代表对角线，行代表行。省略全零的对角线。(从左下往右上开始：第一个对角线是零忽略，第二个对角线是5，6，第三个对角线是零忽略，第四个对角线是1，2，3，4，第五个对角线是7，8，9，第六第七个对角线忽略)。</p>
+<p>这里行对应行，所以5和6是分别在第三行第四行的，前面补上无效元素<em>。<em>*如果对角线中间有0，存的时候也需要补0</em></em>，所以如果原始矩阵就是一个对角性很好的矩阵那压缩率会非常高，比如下图，但是如果是随机的那效率会非常糟糕。</p>
+<p><strong>Hybrid (HYB) ELL + COO</strong></p>
+<p><div align="center"><br><img src="http://img.blog.csdn.net/20171122223729857?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="60%"></div></p>
+<div align="left">
+
+<p>为了解决ELL中提到的，如果某一行特别多，造成其他行的浪费，那么把这些多出来的元素（比如第三行的9，其他每一行最大都是2个元素）用COO单独存储。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">unified_matrix</span>     <span class="title">UM</span>;</span></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">unified_matrix</span>  _<span class="title">dense_matrix</span>;</span></div><div class="line"><span class="keyword">typedef</span> _dense_matrix DM;</div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">unified_matrix</span>  _<span class="title">compressed_sparse_matrix</span>;</span></div><div class="line"><span class="keyword">typedef</span> _compressed_sparse_matrix CSPM;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">sparse_matrix</span>     <span class="title">SPM</span>;</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span>   FORMAT          FORMAT;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> FORMAT &#123;</div><div class="line">	DENSE,</div><div class="line">	CSR,</div><div class="line">	CSC</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>  _<span class="title">unified_matrix</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line">	FORMAT format;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> rows;</div><div class="line">	<span class="keyword">int</span> cols;</div><div class="line">	<span class="keyword">int</span> bits_val;</div><div class="line">	<span class="keyword">int</span> num_vals;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">short</span> *vals;</div><div class="line">	<span class="keyword">unsigned</span>  <span class="keyword">short</span> *weight_powers;</div><div class="line">	<span class="keyword">short</span> <span class="keyword">int</span> *weight_masks;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> *row_offsets;</div><div class="line">	<span class="keyword">int</span> *col_offsets;</div><div class="line">	<span class="keyword">int</span> *starts;</div><div class="line">	<span class="keyword">int</span> bits_intv;</div><div class="line">	<span class="keyword">int</span> num_intvs;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">short</span> *intvs;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">sparse_matrix</span> &#123;</span></div><div class="line">	FORMAT format;</div><div class="line"></div><div class="line">	<span class="keyword">int</span> rows;</div><div class="line">	<span class="keyword">int</span> cols;</div><div class="line">	<span class="keyword">int</span> *row_offsets;</div><div class="line">	<span class="keyword">int</span> *col_offsets;</div><div class="line">	<span class="keyword">int</span> num_vals;</div><div class="line">	<span class="keyword">float</span> *vals;</div><div class="line">	<span class="keyword">int</span> *INTvals;   <span class="comment">//Mark</span></div><div class="line">	<span class="keyword">int</span> *offsets;</div><div class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> *powers;  <span class="comment">//Mark</span></div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</div></div></div></div></div>
+  </section>
+
+  <section class="post-comments">
+
+
+<section id="comment">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2147613"></script>
+<!-- UY END -->
+</section>
+
+    
+</section>
+
+
+</article>
+
+
+            <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kuekua Wu</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共85.0k字</span>
+</div>
+
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+  <script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$$','$$'], ["\\(","\\)"] ],
+      displayMath: [ ['$','$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+			    extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                tex2jax: {inlineMath: [['[latex]','[/latex]'],['\\(','\\)']],
+				          displayMath: [ ['$','$'], ["\\[","\\]"] ],
+						  processEscapes: true
+						  },
+                "HTML-CSS": { availableFonts: ["TeX"] }						  
+            });
+        });
+    </script>
+	
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+				autoDetectHeadings: true,
+				enableToTopButton: true,
+				displayNow: true,
+				title: "文章目录",
+				css: {
+					fontSize: "16px",
+					largeFontSize: "20px",
+					},
+            });
+        });
+    </script>
+
+
+    
+    
+
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
