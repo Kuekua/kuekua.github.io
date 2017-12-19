@@ -3,6 +3,84 @@
   
     
     <entry>
+      <title><![CDATA[deeplearning.ai之卷积神经网络]]></title>
+      <url>/2017/12/01/deeplearning.ai%E4%B9%8B%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
+      <content type="html"><![CDATA[<h2 id="1-卷积层的优点："><a href="#1-卷积层的优点：" class="headerlink" title="1. 卷积层的优点："></a>1. 卷积层的优点：</h2><p><div align="center"> <img src="http://img.blog.csdn.net/20171209214201751?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+<h2 id="2-经典网络架构介绍"><a href="#2-经典网络架构介绍" class="headerlink" title="2. 经典网络架构介绍"></a>2. 经典网络架构介绍</h2><p><strong>LeNet-5</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171209214613706?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%"> <div align="left"></div></div></p>
+<ul>
+<li>池化层为均值，而目前主流为max</li>
+<li>激活函数为sigmod或者tanh，而目前主流为relu</li>
+</ul>
+<p><strong>AlexNet</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171209215329203?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%"> <div align="left"></div></div></p>
+<ul>
+<li>Local Response Normalization(<strong>LRN</strong>)：<br> 认为网络不需要那么多高激活神经元，因此将某些位置进行归一化处理（即对某点所有通道上的值进行归一化）。</li>
+</ul>
+<p><strong>VGG-19</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171209220608410?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%"> <div align="left"></div></div></p>
+<ul>
+<li>VGG网络的特征是简单，只使用3x3的卷积层和2x2的池化层。</li>
+</ul>
+<p><strong>ResNet</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171209224025502?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%"> <div align="left"></div></div></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171209224259083?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%"> <div align="left"></div></div></p>
+<ul>
+<li>通过添加跳跃连接，改变了模块的输出。当w与b均接近0时，该模块作用消失；否则，认为学习到了一些有用的特征。通过这种特性，可以避免网络加深性能变差的现像！</li>
+<li>若a[l+1]与a[l]维度不一致，则在需a[l]前乘上一个转换矩阵W，保证与a[l+1]维度一致！</li>
+</ul>
+<p><strong>GoogleNet</strong></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171209225839372?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%"> <div align="left"></div></div></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171209230002271?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%"> <div align="left"></div></div></p>
+<ul>
+<li>使用Inception模块，可以让网络自己决定使用卷积层的大小（通过核参数值决定）。</li>
+<li>GoogleNet在网络中间添加输出层预测结果，可以防止过拟合和缓解梯度消失学习困难的问题！</li>
+</ul>
+<h2 id="3-提高识别率的Tips"><a href="#3-提高识别率的Tips" class="headerlink" title="3. 提高识别率的Tips"></a>3. 提高识别率的Tips</h2><p><div align="center"> <img src="http://img.blog.csdn.net/20171210114629451?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="100%"> <div align="left"></div></div></p>
+<ul>
+<li>10-crop：即取待检测图像及其镜像图像中心子区域及四角子区域，共计10张子图进行检测，将平均检测结果作为最终识别结果！</li>
+</ul>
+<h2 id="4-Face-Recognition"><a href="#4-Face-Recognition" class="headerlink" title="4. Face Recognition"></a>4. Face Recognition</h2><p>人脸验证</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171213164132654?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+<p>实质上是利用CNN提取人脸特征，然后进行特征匹配：</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171213164233599?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+<p>人脸验证的损失函数：<br>其中，A是特定人的人脸图，P也是该人的人脸图，视为正样本，N不是该人的人脸图，视为负样本！</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171213164558801?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="70%"> <div align="left"></div></div></p>
+<h2 id="5-Neural-Style-Transfer"><a href="#5-Neural-Style-Transfer" class="headerlink" title="5. Neural Style Transfer"></a>5. Neural Style Transfer</h2><p><div align="center"> <img src="http://img.blog.csdn.net/20171213165406754?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+<p>寻找各层九个最大的激活图像区域：</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171213170649560?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171213170743949?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+<p>损失函数定义：</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171213170941506?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+<p>内容图像损失函数：</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171213180154586?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+<p>风格图像损失函数：</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171213180651755?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+<p>构建gram矩阵，计算各激活层间的相关性：</p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171213180740444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+<p><div align="center"> <img src="http://img.blog.csdn.net/20171213180820006?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjU1NDA5Mg==/font/5a6L5L2T/fontsize/20/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="80%"> <div align="left"></div></div></p>
+]]></content>
+      
+        <categories>
+            
+            <category>  deeplearning.ai </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+            <tag> Machine Learning </tag>
+            
+            <tag> Deep Learning </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[YOLO算法的调整与优化]]></title>
       <url>/2017/11/20/YOLO%E7%AE%97%E6%B3%95%E7%9A%84%E8%B0%83%E6%95%B4%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
       <content type="html"><![CDATA[<h2 id="一-代码篇"><a href="#一-代码篇" class="headerlink" title="一. 代码篇"></a>一. 代码篇</h2><h3 id="1-1-引入const引用形参改善代码效率"><a href="#1-1-引入const引用形参改善代码效率" class="headerlink" title="1.1 引入const引用形参改善代码效率"></a>1.1 引入const引用形参改善代码效率</h3><p>举个栗子：<br>在convolutional_layer.c文件的convolutional_out_height函数中：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/<span class="strong">*</span></div><div class="line"><span class="strong">*</span>*  根据输入图像的高度(h)，两边补0的个数(pad)，卷积核尺寸(size)以及跨度(stride)计算输出的特征图的高度</div><div class="line"><span class="bullet">**  </span>输入：l    卷积层，包含该卷积层的所有参数，实际这里没有必要输入整个l，因为只需要到其中的四个参数而已</div><div class="line"><span class="bullet">**  </span>输出：int类型，输出图像的高度</div><div class="line"><span class="bullet">**  </span>说明：这个函数的实现应该可以进一步改善一下，虽然这个函数只是在最初构建网络时调用一次，之后就不调用了，</div><div class="line"><span class="bullet">**       </span>不怎么影响性能，但输入整个l实在不妥（l比较大，按值传递复制过程比较冗长），要么就只输入用到的四个参数，</div><div class="line"><span class="bullet">**       </span>要么传入l的指针，并且不需要返回值了，直接在函数内部为l.out<span class="emphasis">_h赋值</span></div><div class="line"><span class="emphasis">*/</span></div><div class="line"><span class="emphasis">int convolutional_</span>out<span class="emphasis">_height(convolutional_</span>layer l)</div></pre></td></tr></table></figure></p>
